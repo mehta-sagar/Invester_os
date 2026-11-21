@@ -108,9 +108,16 @@ A16. (Edge) Given an empty repo layout (no ledgers, no manifests), then exit 0, 
 - Backing up `data/raw` (bytes are re-fetchable and never go to GitHub).
 - Rotating or pruning git history.
 
-## Open questions for Sagar (policy: not guessed here)
+## Open questions for Sagar (as raised by the Spec writer; see Resolved below)
 1. Branch: the spec commits to `main` (default `--branch main`). Every routine commit makes `main` move while task branches are merged `--ff-only`, so each task branch would need a rebase. Alternative: a dedicated branch (for example `ledger`, kept in a second worktree) that is only ever fast-forwarded by the routine. Which one?
 2. Schedule: which time (IST) should launchd use, and is `RunAtLoad` catch-up after the Mac wakes acceptable?
 3. Repo growth: manifests are committed in full every day (each run stores a new blob for each changed jsonl file). With polling this is megabytes per day (see core_manifest open question 3). Is a size or row-count limit wanted, with a rollover file per month?
 4. Push rejected (exit 5) needs a human today. Do you want a notification (for example a macOS notification via `osascript`) on exit codes 2, 3, 5 and 6, or is the log enough?
 5. The access state files (`data/ledger/access/*.jsonl`) are in the add-list, so block history is pushed. Say if you prefer them kept local.
+
+## Resolved (21 Nov 2026; S = Sagar, O = Orchestrator default)
+1. (S) Branch `main`. Consequence for the build process: once the routine runs, main moves nightly, so task branches merge with `git merge --no-ff` when a fast-forward is impossible. Never rebase, never force-push. Decision 0001's ff-only rule is amended accordingly.
+2. (S) launchd daily at 23:30 IST, with RunAtLoad catch-up after wake.
+3. (O) No limit yet. Revisit if the repo grows past 500 MB. Monthly rollover is a later option.
+4. (O) A macOS notification (osascript) on exit codes 2, 3, 5 and 6, plus the log, and Mission Control shows the last routine result.
+5. (O) Keep pushing the access state files. Block history is useful evidence, and it holds no secrets.

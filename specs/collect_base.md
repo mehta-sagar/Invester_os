@@ -354,7 +354,7 @@ A55. (R21, R23) Given the source of `base.py` and `transport.py`, then neither i
 - A `check` for access state files (the torn-tail runbook covers manual repair).
 - Cleaning old counter and limiter files.
 
-## Open questions for Sagar (policy: not guessed here)
+## Open questions for Sagar (as raised by the Spec writer; see Resolved below)
 1. Contact string for the User-Agent: which email or URL goes into `InvestOS/<version> (personal research; <contact>)`. It is sent to NSE/BSE and recorded in every pushed manifest row.
 2. Daily request caps per adapter (the config requires one for every `real_browser` and `scoped_exception` adapter; no default is built in). Suggested starting points for you to confirm or change: 300 per adapter for NSE history, 200 for gap-fill.
 3. Challenge-page signatures for NSE and BSE: need real captured blocked pages to choose strings; the code ships with none.
@@ -363,3 +363,13 @@ A55. (R21, R23) Given the source of `base.py` and `transport.py`, then neither i
 6. "Decision row" means a numbered file in `docs/decisions/` with the lines `Adapter:`, `Access-mode:` and `Clears-halt:` (R18, R26). Say if you want these as rows in a ledger instead (that needs a new ledger schema).
 7. Environment proxies are ignored by `UrllibTransport` (R21c). Say if your network needs a proxy.
 8. Whether a halted source should also raise a visible alert (for example a push notification) beyond the ERROR log and `investos access status`.
+
+## Resolved (21 Nov 2026; S = Sagar, O = Orchestrator default, change in config or a later decision)
+1. (S) A dedicated email address created for this, read from config `[collect] contact`; the collector refuses to start a non-test run while it is empty. Sagar will supply the address.
+2. (O) Daily caps start at 300 per adapter for NSE history and 200 for gap-fill, set in config; raising them is a config change.
+3. (O) No challenge signatures ship. The stage-1 Mac probes capture real blocked pages, and the signatures are added from them. Until then every 200 response still goes through the body checks.
+4. (O) Block scope is per host: a block on a host stops every adapter on that host for the rest of the IST day, because NSE blocks by IP, not by our adapter. The halt (3 blocked days in 7) stays per source.
+5. (O) 451 stays in the block set.
+6. (O) A decision row is a numbered file in docs/decisions/, as specced.
+7. (O) Environment proxies are ignored. Sagar's network needs none.
+8. (O) Yes, raise an alert. A halt writes an ERROR log line, shows on Mission Control (the Now panel and sources), and sends a macOS notification via osascript when the run is on the Mac.

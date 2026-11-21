@@ -204,8 +204,14 @@ A33. (R18) Given a mixed healthy store, `investos check manifest` exits 0; given
 - Rewriting, converting or back-filling v1 lines; compaction.
 - Any hash chain over manifest lines.
 
-## Open questions for Sagar (policy: not guessed here)
+## Open questions for Sagar (as raised by the Spec writer; see Resolved below)
 1. Cookie redaction (R17c) is a departure from decision 0002 point 4, "every header sent recorded": the cookie names are kept, the values are not, because manifests are pushed to GitHub. Confirm, or say the repo may hold cookie values (not recommended even for a private repo).
 2. For `real_browser` rows, do you also want the final URL (after redirects) and the host name of the machine that fetched, as manifest fields? Decision 0002a says "Mac only" can only be recorded, not enforced. Adding them is another schema field (v2 as specced has neither).
 3. Row growth in git: every poll is one manifest row, now about 40 percent bigger because of the headers. Polling 22 RSS feeds every minute would be roughly 30,000 rows and some 14 MB of manifest text per day pushed to GitHub. Choose the poll interval (and whether unchanged feed bodies should be recorded as rows at all) before the poller task.
 4. v1 rows have no access mode. The spec returns `None` for them ("unknown") and does not assume they were honest. Say if reports should treat them as honest.
+
+## Resolved (21 Nov 2026; S = Sagar, O = Orchestrator default)
+1. (S) Cookie values are redacted (`<redacted>`) and cookie names are kept. Decision 0002 point 4 is read as "every header recorded, cookie values redacted".
+2. (O) Yes, add `final_url` and `fetch_host` (the machine's hostname) to v2 for every access_mode. They cost little and make "Mac only" checkable after the fact.
+3. (O) The RSS poll interval is 15 minutes, not 1, with a few extra polls overnight. A poll whose body sha matches the last stored body for that feed is outcome `skipped` and writes no row (existing dedup). That gives about 2,000 polls a day, with rows only for changed bodies.
+4. (O) v1 rows report access_mode `None` (unknown), as specced. Reports show them as "pre-v2 (honest by construction in stage 0)", but code never assumes it.

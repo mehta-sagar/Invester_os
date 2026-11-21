@@ -18,3 +18,6 @@ The chat's GitHub access is git-only (no API), so PRs cannot be opened from here
 
 ## Order (amended 21 Nov)
 S0-T5 (check runner) is built before S0-T6, because S0-T6's registry check (src/investos/registry/check.py) registers into the T5 runner. S0-T6 tests are already on task/S0-T6; that branch is rebased onto main after T5 merges.
+
+## Amendment (21 Nov 2026)
+Once the nightly roots routine commits to `main` (Sagar's choice), task branches merge with `--ff-only` when possible and `--no-ff` otherwise. Never rebase, never force-push.
