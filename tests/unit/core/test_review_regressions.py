@@ -37,7 +37,7 @@ def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
     def refuse(c):
         raise AssertionError(f"non-strict JSON constant {c}")
     rec = json.loads(lines[0], parse_constant=refuse)
-    assert rec["other"] == "kept" and rec["event"] == "e"
+    assert rec["fields"]["other"] == "kept" and rec["event"] == "e"
 
 
 @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
@@ -45,7 +45,7 @@ def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
     sink = io.StringIO()
     log.configure_logging(sink, clock=lambda: FIXED)
     log.get_logger("t").info("e", v=bad)
-    assert json.loads(sink.getvalue())["v"] == repr(bad)
+    assert json.loads(sink.getvalue())["fields"]["v"] == repr(bad)
 
 
 def test_D2b_finite_floats_still_strict_json(log):
