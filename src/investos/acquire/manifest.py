@@ -237,11 +237,12 @@ class ManifestStore:
             self._require_same(dest, sha)
             _fsync_dir(d)
             return
+        # exist_ok: concurrent writers may create the same directories; fsync the parent either way
         if not sdir.exists():
-            sdir.mkdir()
+            sdir.mkdir(exist_ok=True)
             _fsync_dir(self._raw_root)
         if not d.exists():
-            d.mkdir()
+            d.mkdir(exist_ok=True)
             _fsync_dir(sdir)
         tmp = d / f".tmp-{uuid.uuid4().hex}"
         try:

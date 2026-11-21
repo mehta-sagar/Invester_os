@@ -19,5 +19,5 @@ nope -> None
 == get_all_by_key 2026-11-20: ['r2', 'r3']
 == verify() -> []
 == after chmod u+w and changing one byte
-Problem(kind='hash_mismatch', source='sample', path='/tmp/s0t3-data-6puiu0gb/raw/sample/8d/8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581', line=4, detail='content hash differs from manifest sha256')
-Problem(kind='writable_file', source='sample', path='/tmp/s0t3-data-6puiu0gb/raw/sample/8d/8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581', line=None, detail='mode 0644')
+Problem(kind='hash_mismatch', source='sample', path='/tmp/s0t3-data-akltx338/raw/sample/8d/8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581', line=4, detail='content hash differs from manifest sha256')
+Problem(kind='writable_file', source='sample', path='/tmp/s0t3-data-akltx338/raw/sample/8d/8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581', line=None, detail='mode 0644')
