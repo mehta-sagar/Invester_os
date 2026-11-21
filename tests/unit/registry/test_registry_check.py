@@ -209,7 +209,7 @@ def _nc_space(line):
 
 def _nc_reorder(line):
     o = json.loads(line)
-    return (json.dumps({k: o[k] for k in ("hash", "payload", "prev_hash", "seq", "ts")},
+    return (json.dumps({k: o[k] for k in ("seq", "ts", "prev_hash", "payload", "hash")},
                        separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
 
 

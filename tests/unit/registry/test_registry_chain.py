@@ -463,7 +463,7 @@ def _nc_space_after_colon(lines):
 
 def _nc_reordered_keys(lines):
     o = json.loads(lines[2])
-    lines[2] = (json.dumps({k: o[k] for k in ("hash", "payload", "prev_hash", "seq", "ts")},
+    lines[2] = (json.dumps({k: o[k] for k in ("seq", "ts", "prev_hash", "payload", "hash")},
                            separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
 
 
@@ -498,7 +498,9 @@ def _nc_json_dumps_default_separators(lines):
 def test_A10b_non_canonical_stored_line_is_a_break(five, lpath, mutate):
     assert five.verify(roots=False).ok
     lines = read_lines(lpath)
+    orig = lines[2]
     mutate(lines)
+    assert lines[2] != orig
     write_lines(lpath, lines)
     res = five.verify(roots=False)
     assert not res.ok and res.first_broken_seq == 3 and res.scope == "chain" and res.reason

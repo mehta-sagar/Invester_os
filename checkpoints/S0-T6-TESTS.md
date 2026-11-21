@@ -1,4 +1,4 @@
-# Checkpoint S0-T6 — Test writer — 2026-11-21T11:01:05Z
+# Checkpoint S0-T6 — Test writer — 2026-11-21T11:05:29Z
 
 ## Done so far
 - helpers+conftest+test_registry_canon.py (A1,A2,A3,A22 canon part) written
@@ -6,12 +6,13 @@
 - test_registry_ledgers.py (A6-A9) and test_registry_check.py (A20,A21) written
 - suite run: 143 new red (85 failed + 58 errors, all ModuleNotFoundError); existing 147 green
 - regression tests added: A10b/A10c canonical-form (chain), A20h (registry check); fixed order-dependence of check A18 usage-error test
+- fixed reordered_keys cases (non-sorted order, assert bytes differ); full suite green
 
 ## Next step
-- await Builder fix for canonical-form rule
+- none
 ## Open questions
 - Interface assumptions are listed in the final report (module paths investos.check.registry / investos.check.cli per specs/check_runner.md; src/ not read).
 ## State
-- commit: 9d67fbe    branch: task/S0-T6
+- commit: a8d0a14 (base; test commit pending)   branch: task/S0-T6
 - files touched: tests/unit/registry/*, checkpoints/S0-T6-TESTS.md
 - tokens used so far: n/a
