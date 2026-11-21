@@ -1,0 +1,22 @@
+# Task report S0-FIX — all stage-0 audit defects (A1–A17)
+
+- Source: reports/S0-AUD/AUDIT.md (PASS WITH CONDITIONS). Sagar asked to fix every flag, not only condition C1.
+- Tests first: 92 new/rewritten tests by the Test writer (rounds 1 and 2), 76 seen red (red.txt, red2.txt); the rest are guards checked against mutants. 8 log tests were wrong (read top-level keys; spec R9 puts values under `fields`), fixed by the Test writer (760898d).
+- Fixes (Builder, 89aba5b; tests untouched by the Builder):
+  - A1 check/builtin.py: `symlink` raw problems now fail `check raw`.
+  - A2 acquire/manifest.py `_read_manifest`: an unterminated tail is re-read under LOCK_SH, so a reader never reports a writer's half-line as corruption; a real torn tail is still reported.
+  - A3/A4 .gitignore + 7 zone .gitkeep: fresh clone starts; ledgers, roots and run sidecars tracked; locks, temp files, check reports ignored.
+  - A5 Linux-only /proc tests skip cleanly on macOS.
+  - A6 acquire/base.py: header names must be RFC 7230 tokens; `_` normalised to `-`; 15 denied names (incl. Authorization, Host, Forwarded, X-Client-IP, Via, Cookie2); CR/LF/NUL values rejected.
+  - A7 tests for roots verification and cross-store/cross-process cache staleness.
+  - A8 docs/runbooks/manifest-torn-tail.md (manual repair; code never auto-repairs, by spec).
+  - A9 checks declare zones; the planted harness copies only those.
+  - A10 misplaced names in raw/ and manifests/ reported (`misplaced_file`, `bad_line`).
+  - A11 core/log.py: NaN/Inf fields never raise, line stays strict JSON.
+  - A12/A13 a tampered stored zip marks the key `unreadable` and the run continues; a storage OSError aborts the run but the sidecar is still written.
+  - A14 registry/chain.py `_write_all` loops on short writes.
+  - A15 TASKS.md, PROGRESS.md, reports/S0-T1/REPORT.md.
+  - A16 one SOURCE_RE in core/names.py, imported by manifest, base and builtin.
+  - A17 one test per real mutation survivor (X4, X5, X8, X9, X13, T12).
+- Tests: 685 pass, 2 skip (Linux, root), Orchestrator reran 3×. Audit demo re-run: ALL CLAIMS PASS (demo_after_fix.txt).
+- Still open (stage-1 conditions, not defects): C2 collect spec change for decision 0002 (access_mode, manifest schema v2 with headers, block policy, cross-process rate limiter, production/real-browser transport); C3 run suite + demo on the Mac as non-root; C4 daily roots commit-and-push routine.
