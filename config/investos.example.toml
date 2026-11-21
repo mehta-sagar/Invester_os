@@ -1,0 +1,19 @@
+[general]
+timezone = "Asia/Kolkata"
+
+[paths]
+raw        = "data/raw"
+manifests  = "data/manifests"
+canonical  = "data/canonical"
+ledger     = "data/ledger"
+reports    = "reports"
+registry   = "registry"
+
+[db]
+migrations_dir = "db/migrations"
+
+[rate_limits]
+default_interval_s = 0.35
+
+[rate_limits.hosts]
+"www.bseindia.com" = 0.35
