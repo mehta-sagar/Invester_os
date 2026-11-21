@@ -1,0 +1,148 @@
+FFFFF.F.F.FF.                                                            [100%]
+=================================== FAILURES ===================================
+___________ test_D2_non_finite_float_raises_and_writes_nothing[nan] ____________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = nan
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_raises_and_writes_nothing(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/core/test_review_regressions.py:32: Failed
+___________ test_D2_non_finite_float_raises_and_writes_nothing[inf] ____________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_raises_and_writes_nothing(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/core/test_review_regressions.py:32: Failed
+___________ test_D2_non_finite_float_raises_and_writes_nothing[-inf] ___________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = -inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_raises_and_writes_nothing(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/core/test_review_regressions.py:32: Failed
+_______ test_D2_non_finite_float_raises_and_writes_nothing[nested_list] ________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = [1.0, nan]
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_raises_and_writes_nothing(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/core/test_review_regressions.py:32: Failed
+_______ test_D2_non_finite_float_raises_and_writes_nothing[nested_dict] ________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = {'k': inf}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_raises_and_writes_nothing(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/core/test_review_regressions.py:32: Failed
+________________________ test_D3_flush_error_propagates ________________________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+
+    @pytest.mark.planted
+    def test_D3_flush_error_propagates(log):
+        log.configure_logging(_BadFlush(), clock=lambda: FIXED)
+>       with pytest.raises(OSError):
+             ^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE OSError
+
+tests/unit/core/test_review_regressions.py:53: Failed
+__________________ test_D4_injected_env_without_path_refuses ___________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-36/test_D4_injected_env_without_p0/repo')
+
+    @pytest.mark.planted
+    def test_D4_injected_env_without_path_refuses(repo):
+        from investos.core import config
+        _git_repo(repo)  # process PATH still has git; injected env must win
+        assert subprocess.run(["git", "--version"], capture_output=True).returncode == 0
+>       with pytest.raises(config.ConfigError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ConfigError
+
+tests/unit/core/test_review_regressions.py:76: Failed
+______________________ test_D5_empty_investos_root_raises ______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-36/test_D5_empty_investos_root_ra0/repo')
+
+    @pytest.mark.planted
+    def test_D5_empty_investos_root_raises(repo):
+        from investos.core import config
+>       with pytest.raises(config.ConfigError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ConfigError
+
+tests/unit/core/test_review_regressions.py:92: Failed
+____________________ test_D5b_empty_investos_config_raises _____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-36/test_D5b_empty_investos_config0/repo')
+
+    @pytest.mark.planted
+    def test_D5b_empty_investos_config_raises(repo):
+        from investos.core import config
+>       with pytest.raises(config.ConfigError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ConfigError
+
+tests/unit/core/test_review_regressions.py:99: Failed
+=========================== short test summary info ============================
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_raises_and_writes_nothing[nan]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_raises_and_writes_nothing[inf]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_raises_and_writes_nothing[-inf]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_raises_and_writes_nothing[nested_list]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_raises_and_writes_nothing[nested_dict]
+FAILED tests/unit/core/test_review_regressions.py::test_D3_flush_error_propagates
+FAILED tests/unit/core/test_review_regressions.py::test_D4_injected_env_without_path_refuses
+FAILED tests/unit/core/test_review_regressions.py::test_D5_empty_investos_root_raises
+FAILED tests/unit/core/test_review_regressions.py::test_D5b_empty_investos_config_raises
+9 failed, 4 passed in 0.20s

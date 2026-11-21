@@ -19,3 +19,8 @@
 - commit: see git log   branch: task/S0-T2
 - files touched: pyproject.toml, tests/unit/core/*, reports/S0-T2/tests_red.txt, checkpoints/S0-T2-TESTS.md
 - tokens used so far: n/a
+
+## Update — review regressions (Test writer)
+- Added tests/unit/core/test_review_regressions.py for D2 (NaN/Inf -> ValueError, nothing written), D3 (flush OSError propagates), D4 (injected env without PATH must refuse), D5 (empty INVESTOS_ROOT/INVESTOS_CONFIG -> ConfigError; repo_root not a dir -> ConfigError mentioning repo_root).
+- Red run: 13 tests, 9 failed, 4 passed (controls/guards already satisfied: D2b finite float, D4 control, D4b empty PATH, D5c repo_root). Output: reports/S0-T2/regressions_red.txt
+- Open: D6 (database-locked test) not added, not requested.
