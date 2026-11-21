@@ -43,7 +43,7 @@ def claim(ok: bool, text: str) -> None:
 
 
 # ------------------------------------------------------------------ fresh data root
-root = Path(tempfile.mkdtemp(prefix="investos-aud-demo-"))
+root = Path(tempfile.mkdtemp(prefix="investos-aud-demo-")).resolve()  # macOS: /var -> /private/var
 for z in ("data/raw", "data/manifests", "data/canonical", "data/ledger", "reports", "registry"):
     (root / z).mkdir(parents=True)
 (root / "config").mkdir()
