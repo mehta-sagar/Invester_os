@@ -9,6 +9,6 @@
 ## Open questions
 - see final report
 ## State
-- commit: see git log   branch: task/S0-T4
+- commit: see git log (2 test-helper bugs fixed after builder report: verdict_fn staticmethod; T7c transport order; full suite green 535)   branch: task/S0-T4
 - files touched: tests/unit/acquire/_collector_helpers.py, test_collector_{core,http,traps,archive_pages,sidecar}.py, reports/S0-T4/tests_red.txt, checkpoints/S0-T4-TESTS.md
 - tokens used so far: n/a

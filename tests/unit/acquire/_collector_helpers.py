@@ -129,7 +129,7 @@ def demo_class(**attrs):
 
     ns = {"source": SOURCE, "source_version": SOURCE_VERSION, "keys": keys, "url": url, "check_body": check_body}
     for k, v in attrs.items():
-        ns[k] = staticmethod(v) if k == "url_fn" else v
+        ns[k] = staticmethod(v) if k in ("url_fn", "verdict_fn") else v
     return type("DemoCollector", (Collector,), ns)
 
 

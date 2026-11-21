@@ -200,8 +200,8 @@ def test_T7c_page_limit_not_applied_to_fetched_empty_or_other_sources(env):
     env.transport.set(url_of(D17), resp(200, b"x"))
     r = env.make(demo_class(page_limit=5, verdict_fn=lambda s, k, x: BodyVerdict(Outcome.FETCHED_EMPTY, "e", 5))).run(rr(D17))
     assert r.outcomes == {D17: Outcome.FETCHED_EMPTY}           # R10 applies to FETCHED verdicts only
-    env2 = env.make(demo_class(page_limit=None, verdict_fn=lambda s, k, x: BodyVerdict(Outcome.FETCHED, record_count=10**6)),
-                    run_id="run-2")
     env.fresh_transport()
     env.transport.set(url_of(D18), resp(200, b"x"))
+    env2 = env.make(demo_class(page_limit=None, verdict_fn=lambda s, k, x: BodyVerdict(Outcome.FETCHED, record_count=10**6)),
+                    run_id="run-2")
     assert env2.run(rr(D18)).outcomes == {D18: Outcome.FETCHED}
