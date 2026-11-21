@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 import secrets
 import sys
 from datetime import datetime, timezone
@@ -49,9 +50,23 @@ def _ts() -> str:
     return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
+def _check_finite(value: Any, _depth: int = 0) -> None:
+    if _depth > 50:
+        return
+    if isinstance(value, float) and not math.isfinite(value):
+        raise ValueError(f"non-finite float {value!r} is not valid JSON")
+    if isinstance(value, dict):
+        for v in value.values():
+            _check_finite(v, _depth + 1)
+    elif isinstance(value, (list, tuple)):
+        for v in value:
+            _check_finite(v, _depth + 1)
+
+
 def _safe(value: Any) -> Any:
+    _check_finite(value)
     try:
-        json.dumps(value, default=repr, ensure_ascii=False)
+        json.dumps(value, default=repr, ensure_ascii=False, allow_nan=False)
         return value
     except (TypeError, ValueError, RecursionError):
         return repr(value)
@@ -72,13 +87,11 @@ class TaskLogger:
             "event": event if isinstance(event, str) else repr(event),
             "fields": {k: _safe(v) for k, v in fields.items()},
         }
-        line = json.dumps(rec, separators=(",", ":"), ensure_ascii=False, default=repr) + "\n"
+        line = json.dumps(rec, separators=(",", ":"), ensure_ascii=False, default=repr,
+                          allow_nan=False) + "\n"
         sink = _state["sink"] or sys.stderr
         sink.write(line)
-        try:
-            sink.flush()
-        except Exception:
-            pass
+        sink.flush()
 
     def debug(self, event: str, /, **fields: Any) -> None:
         self._emit("DEBUG", event, fields)

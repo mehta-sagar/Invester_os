@@ -1,0 +1,18 @@
+repo_root: /tmp/s0t2-sample
+timezone: Asia/Kolkata
+zone raw /tmp/s0t2-sample/data/raw
+zone manifests /tmp/s0t2-sample/data/manifests
+zone canonical /tmp/s0t2-sample/data/canonical
+zone ledger /tmp/s0t2-sample/data/ledger
+zone reports /tmp/s0t2-sample/reports
+zone registry /tmp/s0t2-sample/registry
+migrations_dir: /tmp/s0t2-sample/db/migrations
+db_path: /tmp/s0t2-sample/data/canonical/investos.duckdb
+interval www.bseindia.com: 0.35
+tables: ['adjustments', 'entity_master', 'identifier_history', 'ledger', 'manifest', 'meta', 'prices_raw', 'schema_migrations', 'security_master', 'source_registry']
+schema_migrations:
+  ('0000', '0000_bootstrap.sql', 'be9855c7ace0170c2fd469284d1377a3e615813536bb618f03e8bf7a4ed46883', datetime.datetime(2026, 11, 21, 5, 11, 18, 20001))
+  ('0001', '0001_core.sql', '3994b56b76fe0edc9891bd2e6b7d2a775ca37a0d0cb1e1e26cd6625bfa86dedb', datetime.datetime(2026, 11, 21, 5, 11, 18, 23632))
+meta: [('schema_family', 'investos')]
+migration_problems: []
+re-apply: []

@@ -137,13 +137,12 @@ def _resolve(root: Path, s: str) -> Path:
 
 
 def _git_check_ignored(root: Path, raw: Path, env: Mapping[str, str]) -> None:
-    path_var = env["PATH"] if "PATH" in env else os.environ.get("PATH", "")
-    git = shutil.which("git", path=path_var)
+    git = shutil.which("git", path=env.get("PATH", ""))
     if git is None:
         raise ConfigError(f"refuse to start: raw path {raw} is inside a git repo but git is not runnable")
     try:
         r = subprocess.run([git, "-C", str(root), "check-ignore", "-q", "--", str(raw) + "/"],
-                           capture_output=True, check=False)
+                           capture_output=True, check=False, env=dict(env))
     except OSError as e:
         raise ConfigError(f"refuse to start: cannot run git: {e}") from None
     if r.returncode == 0:
@@ -157,10 +156,20 @@ def _git_check_ignored(root: Path, raw: Path, env: Mapping[str, str]) -> None:
 def load_config(path: Path | None = None, *, env: Mapping[str, str] | None = None,
                 repo_root: Path | None = None) -> Config:
     env = os.environ if env is None else env
-    root = Path(repo_root) if repo_root is not None else (Path(env["INVESTOS_ROOT"]) if env.get("INVESTOS_ROOT") else None)
+    for var in ("INVESTOS_ROOT", "INVESTOS_CONFIG"):
+        if var in env and not env[var].strip():
+            raise ConfigError(f"{var} is set but empty")
+    if repo_root is not None:
+        root: Path | None = Path(repo_root)
+    elif "INVESTOS_ROOT" in env:
+        root = Path(env["INVESTOS_ROOT"])
+    else:
+        root = None
+    if root is not None and not root.is_dir():
+        raise ConfigError(f"repo_root is not a directory: {root}")
     if path is not None:
         cfg_path: Path | None = Path(path)
-    elif env.get("INVESTOS_CONFIG"):
+    elif "INVESTOS_CONFIG" in env:
         cfg_path = Path(env["INVESTOS_CONFIG"])
     elif root is not None:
         cfg_path = root / "config" / "investos.toml"

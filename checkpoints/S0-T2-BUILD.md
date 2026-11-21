@@ -1,13 +1,12 @@
 # Checkpoint S0-T2-BUILD — Builder — 2026-11-21
 
 ## Done so far
-- core/config.py + example toml + 0000_bootstrap.sql -> test_config.py 30 passed
-- core/log.py -> test_log.py 10 passed
-- core/db.py -> test_db.py 22 passed; full `pytest tests` 62 passed (reports/S0-T2/tests_green.txt)
+- core/config.py, core/log.py, core/db.py, example toml, 0000_bootstrap.sql: initial build, 62 tests green
+- Review fixes D2 (non-finite floats raise ValueError), D3 (flush errors propagate), D4 (git uses injected env, strict PATH), D5 (empty INVESTOS_ROOT/CONFIG, repo_root must be dir): full suite 75 passed (reports/S0-T2/tests_green.txt)
+- Sample run on /tmp copy with example toml, 0000+0001 applied, migration_problems == [] (reports/S0-T2/sample_run.txt)
 ## Next step
-- Orchestrator: review, sample run, ff-only merge of task/S0-T2
+- Orchestrator: ff-only merge of task/S0-T2
 ## Open questions
-- No test judged wrong. Migration numbering OK (0000 added, 0001_core.sql untouched, contiguous).
-- Design note: tamper check runs before discovery checks so a deleted applied file is named even when it also creates a gap (A26).
+- D1 (pyproject script entry to nonexistent investos.cli) and D6 (untested lock path) left as-is.
 ## State
-- commit: see git log   branch: task/S0-T2
+- branch: task/S0-T2
