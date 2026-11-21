@@ -18,3 +18,8 @@
 - Red: 97 new tests (39 failed, 57 errors in fixtures, 1 skipped as root-only), 147 existing passed; all red from ModuleNotFoundError investos.check (and investos.cli). reports/S0-T5/tests_red.txt
 ## Next step
 - Hand to Implementer: src/investos/check/{__init__,registry,runner,builtin,cli,__main__}.py + src/investos/cli.py
+
+## Update — review regressions (Test writer)
+- Added test_checkrunner_review_regressions.py (7 tests): RD2 x3 (stray real reports file -> error; modified old report -> error; control: pre-existing/own reports OK), RM14 x3 (symlinked file/dir/raw pointer to outside target: external bytes/mode unchanged, temp copy has no link), RD5 x1 (0000 dir cleanup; skipped as root).
+- Red: 2 failed (both RD2 error cases), 4 pass (RM14 x3 + RD2 control: guard current correct behaviour against mutation M14), 1 skipped (RD5, running as root). Rest of suite green (247 passed).
+- RD5 root fallback not done: dropping privileges to test as another user was refused by the environment's permission policy, so left as skip.
