@@ -1,0 +1,1169 @@
+FFFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEE           [100%]
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_A4_example_toml_loads _________________
+
+    @pytest.fixture
+    def example_toml_text():
+>       assert EXAMPLE_TOML.exists(), f"missing {EXAMPLE_TOML}"
+E       AssertionError: missing /home/claude/invester_os/config/investos.example.toml
+E       assert False
+E        +  where False = exists()
+E        +    where exists = PosixPath('/home/claude/invester_os/config/investos.example.toml').exists
+
+tests/unit/core/conftest.py:34: AssertionError
+________________ ERROR at setup of test_A14_one_line_key_order _________________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+_______ ERROR at setup of test_A15_reserved_field_names_do_not_override ________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+___________ ERROR at setup of test_A16_run_id_shared_and_replaceable ___________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+______________ ERROR at setup of test_A17_clock_converted_to_utc _______________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+_______________ ERROR at setup of test_A17b_naive_clock_rejected _______________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+__________________ ERROR at setup of test_A18_level_filtering __________________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+______________ ERROR at setup of test_A18b_unknown_level_rejected ______________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+____________ ERROR at setup of test_A19_unserialisable_and_newlines ____________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+____________ ERROR at setup of test_A20_non_ascii_written_literally ____________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+____________ ERROR at setup of test_A20b_sink_parent_missing_raises ____________
+
+    @pytest.fixture
+    def log():
+        """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
+        import importlib
+>       from investos.core import log as m
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_log.py:19: ModuleNotFoundError
+=================================== FAILURES ===================================
+_______________________ test_A1_config_resolution_order ________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A1_config_resolution_orde0/repo')
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_A1_config_resolution_orde0')
+
+    def test_A1_config_resolution_order(repo, tmp_path):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_____________________ test_A2_no_config_or_no_root_raises ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_A2_no_config_or_no_root_r0')
+
+    @pytest.mark.planted
+    def test_A2_no_config_or_no_root_raises(tmp_path):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A3_strict_schema[missing_ledger] _____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A3_strict_schema_missing_0/repo')
+name = 'missing_ledger'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", list(_bad_variants()))
+    def test_A3_strict_schema(repo, name):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_______________________ test_A3_strict_schema[extra_key] _______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A3_strict_schema_extra_ke0/repo')
+name = 'extra_key'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", list(_bad_variants()))
+    def test_A3_strict_schema(repo, name):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A3_strict_schema[unknown_section] ____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A3_strict_schema_unknown_0/repo')
+name = 'unknown_section'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", list(_bad_variants()))
+    def test_A3_strict_schema(repo, name):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A3_strict_schema[interval_string] ____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A3_strict_schema_interval0/repo')
+name = 'interval_string'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", list(_bad_variants()))
+    def test_A3_strict_schema(repo, name):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_____________________ test_A3_strict_schema[interval_bool] _____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A3_strict_schema_interval1/repo')
+name = 'interval_bool'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", list(_bad_variants()))
+    def test_A3_strict_schema(repo, name):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A3b_malformed_toml_mentions_path _____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A3b_malformed_toml_mentio0/repo')
+
+    @pytest.mark.planted
+    def test_A3b_malformed_toml_mentions_path(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_____________________________ test_A5_env_override _____________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A5_env_override0/repo')
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_A5_env_override0')
+
+    def test_A5_env_override(repo, tmp_path):
+        other = tmp_path / "other" / "raw"
+        other.mkdir(parents=True)
+        env = {"INVESTOS_PATHS__RAW": str(other),
+               "INVESTOS_RATE_LIMITS__DEFAULT_INTERVAL_S": "0.5"}
+>       cfg = _load(repo, env=env)
+              ^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/core/test_config.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/core/test_config.py:19: in _load
+    config = _cfgmod()
+             ^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A6_env_typo_and_non_numeric[env0] ____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A6_env_typo_and_non_numer0/repo')
+env = {'INVESTOS_PATHS__RAWW': '/x'}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("env", [
+        {"INVESTOS_PATHS__RAWW": "/x"},
+        {"INVESTOS_RATE_LIMITS__DEFAULT_INTERVAL_S": "abc"},
+    ])
+    def test_A6_env_typo_and_non_numeric(repo, env):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A6_env_typo_and_non_numeric[env1] ____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A6_env_typo_and_non_numer1/repo')
+env = {'INVESTOS_RATE_LIMITS__DEFAULT_INTERVAL_S': 'abc'}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("env", [
+        {"INVESTOS_PATHS__RAWW": "/x"},
+        {"INVESTOS_RATE_LIMITS__DEFAULT_INTERVAL_S": "abc"},
+    ])
+    def test_A6_env_typo_and_non_numeric(repo, env):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A6b_non_override_env_vars_ignored ____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A6b_non_override_env_vars0/repo')
+
+    def test_A6b_non_override_env_vars_ignored(repo):
+>       cfg = _load(repo, env={"INVESTOS_CONFIG": str(repo / "config" / "investos.toml"),
+                               "INVESTOS_ROOT": str(repo)})
+
+tests/unit/core/test_config.py:136: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/core/test_config.py:19: in _load
+    config = _cfgmod()
+             ^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+___________________ test_A7_paths_absolute_resolved_symlink ____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A7_paths_absolute_resolve0/repo')
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_A7_paths_absolute_resolve0')
+
+    def test_A7_paths_absolute_resolved_symlink(repo, tmp_path):
+>       cfg = _load(repo)
+              ^^^^^^^^^^^
+
+tests/unit/core/test_config.py:143: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/core/test_config.py:19: in _load
+    config = _cfgmod()
+             ^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+______________________ test_A8_duplicate_and_nested_zones ______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A8_duplicate_and_nested_z0/repo')
+
+    @pytest.mark.planted
+    def test_A8_duplicate_and_nested_zones(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+___________________________ test_A9_missing_zone_dir ___________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A9_missing_zone_dir0/repo')
+
+    @pytest.mark.planted
+    def test_A9_missing_zone_dir(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:173: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________________ test_A9b_zone_is_file _____________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A9b_zone_is_file0/repo')
+
+    @pytest.mark.planted
+    def test_A9b_zone_is_file(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:184: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_______________________ test_A9c_missing_migrations_dir ________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A9c_missing_migrations_di0/repo')
+
+    @pytest.mark.planted
+    def test_A9c_missing_migrations_dir(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:194: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+__________________ test_A10_raw_ignored_or_no_git_or_outside ___________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A10_raw_ignored_or_no_git0/repo')
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_A10_raw_ignored_or_no_git0')
+
+    def test_A10_raw_ignored_or_no_git_or_outside(repo, tmp_path):
+        # no .git -> passes without git
+>       _load(repo)
+
+tests/unit/core/test_config.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/core/test_config.py:19: in _load
+    config = _cfgmod()
+             ^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_______________________ test_A11_raw_not_ignored_refuses _______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A11_raw_not_ignored_refus0/repo')
+
+    @pytest.mark.planted
+    def test_A11_raw_not_ignored_refuses(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:223: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_______________________ test_A11b_git_unrunnable_refuses _______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A11b_git_unrunnable_refus0/repo')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fec7bda2650>
+
+    @pytest.mark.planted
+    def test_A11b_git_unrunnable_refuses(repo, monkeypatch):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_______________________ test_A12_bad_default_interval[0] _______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A12_bad_default_interval_0/repo')
+val = '0'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("val", ["0", "-1", "nan", "inf"])
+    def test_A12_bad_default_interval(repo, val):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:242: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+______________________ test_A12_bad_default_interval[-1] _______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A12_bad_default_interval_1/repo')
+val = '-1'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("val", ["0", "-1", "nan", "inf"])
+    def test_A12_bad_default_interval(repo, val):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:242: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+______________________ test_A12_bad_default_interval[nan] ______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A12_bad_default_interval_2/repo')
+val = 'nan'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("val", ["0", "-1", "nan", "inf"])
+    def test_A12_bad_default_interval(repo, val):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:242: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+______________________ test_A12_bad_default_interval[inf] ______________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A12_bad_default_interval_3/repo')
+val = 'inf'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("val", ["0", "-1", "nan", "inf"])
+    def test_A12_bad_default_interval(repo, val):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:242: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A12b_uppercase_host_key_rejected _____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A12b_uppercase_host_key_r0/repo')
+
+    @pytest.mark.planted
+    def test_A12b_uppercase_host_key_rejected(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:249: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+___________________________ test_A12c_bad_host_value ___________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A12c_bad_host_value0/repo')
+
+    @pytest.mark.planted
+    def test_A12c_bad_host_value(repo):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:256: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________________ test_A12d_interval_for ____________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A12d_interval_for0/repo')
+
+    def test_A12d_interval_for(repo):
+>       cfg = _load(repo, VALID_TOML.replace('"www.bseindia.com" = 0.35', '"www.bseindia.com" = 1.0'))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/core/test_config.py:262: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/core/test_config.py:19: in _load
+    config = _cfgmod()
+             ^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________ test_A13_timezone_must_be_kolkata[UTC] ____________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A13_timezone_must_be_kolk0/repo')
+tz = 'UTC'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("tz", ["UTC", "Not/AZone"])
+    def test_A13_timezone_must_be_kolkata(repo, tz):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+_________________ test_A13_timezone_must_be_kolkata[Not/AZone] _________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A13_timezone_must_be_kolk1/repo')
+tz = 'Not/AZone'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("tz", ["UTC", "Not/AZone"])
+    def test_A13_timezone_must_be_kolkata(repo, tz):
+>       config = _cfgmod()
+                 ^^^^^^^^^
+
+tests/unit/core/test_config.py:276: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _cfgmod():
+>       from investos.core import config
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_config.py:14: ModuleNotFoundError
+____________________________ test_A21_open_db_fresh ____________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A21_open_db_fresh0/repo')
+
+    def test_A21_open_db_fresh(repo):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+______________________________ test_A22_read_only ______________________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A22_read_only0/repo')
+
+    @pytest.mark.planted
+    def test_A22_read_only(repo):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+________________ test_A23_discovery_errors_before_apply[files0] ________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bde9640>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A23_discovery_errors_befo0/migs')
+files = ['0000_a.sql', '0002_c.sql']
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("files", [
+        ["0000_a.sql", "0002_c.sql"],     # gap
+        ["0000_a.sql", "0000_b.sql"],     # duplicate
+        ["0000_a.sql", "bad-name.sql"],   # bad name
+    ])
+    def test_A23_discovery_errors_before_apply(con, mdir, files):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+________________ test_A23_discovery_errors_before_apply[files1] ________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bde9240>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A23_discovery_errors_befo1/migs')
+files = ['0000_a.sql', '0000_b.sql']
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("files", [
+        ["0000_a.sql", "0002_c.sql"],     # gap
+        ["0000_a.sql", "0000_b.sql"],     # duplicate
+        ["0000_a.sql", "bad-name.sql"],   # bad name
+    ])
+    def test_A23_discovery_errors_before_apply(con, mdir, files):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+________________ test_A23_discovery_errors_before_apply[files2] ________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bde9440>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A23_discovery_errors_befo2/migs')
+files = ['0000_a.sql', 'bad-name.sql']
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("files", [
+        ["0000_a.sql", "0002_c.sql"],     # gap
+        ["0000_a.sql", "0000_b.sql"],     # duplicate
+        ["0000_a.sql", "bad-name.sql"],   # bad name
+    ])
+    def test_A23_discovery_errors_before_apply(con, mdir, files):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+_____________________ test_A24_apply_in_order_records_sha ______________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bde9840>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A24_apply_in_order_record0/migs')
+
+    def test_A24_apply_in_order_records_sha(con, mdir):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+_____________________ test_A25_failed_migration_rolls_back _____________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bde9a40>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A25_failed_migration_roll0/migs')
+
+    @pytest.mark.planted
+    def test_A25_failed_migration_rolls_back(con, mdir):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+___________________ test_A26_tamper_refusal[nopending-byte] ____________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bde9c40>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_nopend0/migs')
+edit = <function _edit_byte at 0x7fec7bc07f60>, pending = False
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+______________ test_A26_tamper_refusal[nopending-trailing_space] _______________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bde9e40>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_nopend1/migs')
+edit = <function _edit_trailing_space at 0x7fec7bc14040>, pending = False
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+___________________ test_A26_tamper_refusal[nopending-crlf] ____________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea040>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_nopend2/migs')
+edit = <function _edit_crlf at 0x7fec7bc140e0>, pending = False
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+__________________ test_A26_tamper_refusal[nopending-deleted] __________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea240>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_nopend3/migs')
+edit = <function _delete at 0x7fec7bc14180>, pending = False
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+____________________ test_A26_tamper_refusal[pending-byte] _____________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea440>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_pendin0/migs')
+edit = <function _edit_byte at 0x7fec7bc07f60>, pending = True
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+_______________ test_A26_tamper_refusal[pending-trailing_space] ________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea640>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_pendin1/migs')
+edit = <function _edit_trailing_space at 0x7fec7bc14040>, pending = True
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+____________________ test_A26_tamper_refusal[pending-crlf] _____________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea840>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_pendin2/migs')
+edit = <function _edit_crlf at 0x7fec7bc140e0>, pending = True
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+___________________ test_A26_tamper_refusal[pending-deleted] ___________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdeaa40>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A26_tamper_refusal_pendin3/migs')
+edit = <function _delete at 0x7fec7bc14180>, pending = True
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("edit", [_edit_byte, _edit_trailing_space, _edit_crlf, _delete],
+                             ids=["byte", "trailing_space", "crlf", "deleted"])
+    @pytest.mark.parametrize("pending", [False, True], ids=["nopending", "pending"])
+    def test_A26_tamper_refusal(con, mdir, edit, pending):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:161: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+_____________________________ test_A27_no_backfill _____________________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea840>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A27_no_backfill0/migs')
+
+    @pytest.mark.planted
+    def test_A27_no_backfill(con, mdir):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:178: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+_____________________________ test_A28_idempotent ______________________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea640>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A28_idempotent0/migs')
+
+    def test_A28_idempotent(con, mdir):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:201: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+________________ test_A29_migration_problems_healthy_read_only _________________
+
+repo = PosixPath('/tmp/pytest-of-root/pytest-2/test_A29_migration_problems_he0/repo')
+
+    def test_A29_migration_problems_healthy_read_only(repo):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:213: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+_________________ test_A29b_migration_problems_detects[edited] _________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea440>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A29b_migration_problems_d0/migs')
+case = 'edited'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("case", ["edited", "missing", "badname"])
+    def test_A29b_migration_problems_detects(con, mdir, case):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+________________ test_A29b_migration_problems_detects[missing] _________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea240>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A29b_migration_problems_d1/migs')
+case = 'missing'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("case", ["edited", "missing", "badname"])
+    def test_A29b_migration_problems_detects(con, mdir, case):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+________________ test_A29b_migration_problems_detects[badname] _________________
+
+con = <_duckdb.DuckDBPyConnection object at 0x7fec7bdea040>
+mdir = PosixPath('/tmp/pytest-of-root/pytest-2/test_A29b_migration_problems_d2/migs')
+case = 'badname'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("case", ["edited", "missing", "badname"])
+    def test_A29b_migration_problems_detects(con, mdir, case):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+________________________ test_A30_empty_migrations_dir _________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-2/test_A30_empty_migrations_dir0')
+
+    def test_A30_empty_migrations_dir(tmp_path):
+>       db = _db()
+             ^^^^^
+
+tests/unit/core/test_db.py:252: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _db():
+>       from investos.core import db
+E       ModuleNotFoundError: No module named 'investos.core'
+
+tests/unit/core/test_db.py:16: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/core/test_config.py::test_A1_config_resolution_order - Modu...
+FAILED tests/unit/core/test_config.py::test_A2_no_config_or_no_root_raises - ...
+FAILED tests/unit/core/test_config.py::test_A3_strict_schema[missing_ledger]
+FAILED tests/unit/core/test_config.py::test_A3_strict_schema[extra_key] - Mod...
+FAILED tests/unit/core/test_config.py::test_A3_strict_schema[unknown_section]
+FAILED tests/unit/core/test_config.py::test_A3_strict_schema[interval_string]
+FAILED tests/unit/core/test_config.py::test_A3_strict_schema[interval_bool]
+FAILED tests/unit/core/test_config.py::test_A3b_malformed_toml_mentions_path
+FAILED tests/unit/core/test_config.py::test_A5_env_override - ModuleNotFoundE...
+FAILED tests/unit/core/test_config.py::test_A6_env_typo_and_non_numeric[env0]
+FAILED tests/unit/core/test_config.py::test_A6_env_typo_and_non_numeric[env1]
+FAILED tests/unit/core/test_config.py::test_A6b_non_override_env_vars_ignored
+FAILED tests/unit/core/test_config.py::test_A7_paths_absolute_resolved_symlink
+FAILED tests/unit/core/test_config.py::test_A8_duplicate_and_nested_zones - M...
+FAILED tests/unit/core/test_config.py::test_A9_missing_zone_dir - ModuleNotFo...
+FAILED tests/unit/core/test_config.py::test_A9b_zone_is_file - ModuleNotFound...
+FAILED tests/unit/core/test_config.py::test_A9c_missing_migrations_dir - Modu...
+FAILED tests/unit/core/test_config.py::test_A10_raw_ignored_or_no_git_or_outside
+FAILED tests/unit/core/test_config.py::test_A11_raw_not_ignored_refuses - Mod...
+FAILED tests/unit/core/test_config.py::test_A11b_git_unrunnable_refuses - Mod...
+FAILED tests/unit/core/test_config.py::test_A12_bad_default_interval[0] - Mod...
+FAILED tests/unit/core/test_config.py::test_A12_bad_default_interval[-1] - Mo...
+FAILED tests/unit/core/test_config.py::test_A12_bad_default_interval[nan] - M...
+FAILED tests/unit/core/test_config.py::test_A12_bad_default_interval[inf] - M...
+FAILED tests/unit/core/test_config.py::test_A12b_uppercase_host_key_rejected
+FAILED tests/unit/core/test_config.py::test_A12c_bad_host_value - ModuleNotFo...
+FAILED tests/unit/core/test_config.py::test_A12d_interval_for - ModuleNotFoun...
+FAILED tests/unit/core/test_config.py::test_A13_timezone_must_be_kolkata[UTC]
+FAILED tests/unit/core/test_config.py::test_A13_timezone_must_be_kolkata[Not/AZone]
+FAILED tests/unit/core/test_db.py::test_A21_open_db_fresh - ModuleNotFoundErr...
+FAILED tests/unit/core/test_db.py::test_A22_read_only - ModuleNotFoundError: ...
+FAILED tests/unit/core/test_db.py::test_A23_discovery_errors_before_apply[files0]
+FAILED tests/unit/core/test_db.py::test_A23_discovery_errors_before_apply[files1]
+FAILED tests/unit/core/test_db.py::test_A23_discovery_errors_before_apply[files2]
+FAILED tests/unit/core/test_db.py::test_A24_apply_in_order_records_sha - Modu...
+FAILED tests/unit/core/test_db.py::test_A25_failed_migration_rolls_back - Mod...
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[nopending-byte] - ...
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[nopending-trailing_space]
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[nopending-crlf] - ...
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[nopending-deleted]
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[pending-byte] - Mo...
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[pending-trailing_space]
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[pending-crlf] - Mo...
+FAILED tests/unit/core/test_db.py::test_A26_tamper_refusal[pending-deleted]
+FAILED tests/unit/core/test_db.py::test_A27_no_backfill - ModuleNotFoundError...
+FAILED tests/unit/core/test_db.py::test_A28_idempotent - ModuleNotFoundError:...
+FAILED tests/unit/core/test_db.py::test_A29_migration_problems_healthy_read_only
+FAILED tests/unit/core/test_db.py::test_A29b_migration_problems_detects[edited]
+FAILED tests/unit/core/test_db.py::test_A29b_migration_problems_detects[missing]
+FAILED tests/unit/core/test_db.py::test_A29b_migration_problems_detects[badname]
+FAILED tests/unit/core/test_db.py::test_A30_empty_migrations_dir - ModuleNotF...
+ERROR tests/unit/core/test_config.py::test_A4_example_toml_loads - AssertionE...
+ERROR tests/unit/core/test_log.py::test_A14_one_line_key_order - ModuleNotFou...
+ERROR tests/unit/core/test_log.py::test_A15_reserved_field_names_do_not_override
+ERROR tests/unit/core/test_log.py::test_A16_run_id_shared_and_replaceable - M...
+ERROR tests/unit/core/test_log.py::test_A17_clock_converted_to_utc - ModuleNo...
+ERROR tests/unit/core/test_log.py::test_A17b_naive_clock_rejected - ModuleNot...
+ERROR tests/unit/core/test_log.py::test_A18_level_filtering - ModuleNotFoundE...
+ERROR tests/unit/core/test_log.py::test_A18b_unknown_level_rejected - ModuleN...
+ERROR tests/unit/core/test_log.py::test_A19_unserialisable_and_newlines - Mod...
+ERROR tests/unit/core/test_log.py::test_A20_non_ascii_written_literally - Mod...
+ERROR tests/unit/core/test_log.py::test_A20b_sink_parent_missing_raises - Mod...
+51 failed, 11 errors in 0.78s

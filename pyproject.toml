@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "investos"
+version = "0.0.0"
+requires-python = ">=3.11"
+dependencies = ["duckdb"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+investos = "investos.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = [
+    "planted: deliberately-broken-input test that must be rejected (planted failure)",
+]
