@@ -53,7 +53,7 @@ def test_A3_fresh_export_passes_zone_startup_check(tmp_path):
 
 def test_A3_data_stays_ignored():
     for p in ["data/raw/bse/ab/abcdef", "data/staged/x", "data/canonical/x.parquet", "data/features/x",
-              "data/models/x", "data/quarantine/x", "data/exports/x", "data/ledger/decisions.jsonl"]:
+              "data/models/x", "data/quarantine/x", "data/exports/x"]:
         assert _git("check-ignore", "-q", "--no-index", p, check=False).returncode == 0, f"{p} must be ignored"
 
 
@@ -77,6 +77,13 @@ TRACKED_OK = [
     "registry/trials.roots.jsonl",
     "registry/.gitkeep",
     "registry/features.csv",
+    # orchestrator decision: ledgers and run sidecars stay tracked (git history is tamper evidence / backup)
+    "registry/trials.jsonl",
+    "registry/decisions.jsonl",
+    "data/ledger/decisions.jsonl",
+    "data/manifests/bse.runs/2026-11-17_2026-11-17.json",
+    "data/manifests/bse.runs/2026-11-17_2026-11-17.attempt-run-1.json",
+    "data/manifests/bse.runs/2026-11-17_2026-11-17.corrupt-run-1.json",
 ]
 
 
@@ -90,6 +97,14 @@ def test_A4_runtime_artefact_is_ignored(path):
 def test_A4_durable_files_stay_trackable(path):
     r = _git("check-ignore", "-q", "--no-index", path, check=False)
     assert r.returncode == 1, f"{path} must NOT be git-ignored"
+
+
+def test_A4_decisions_ledger_is_committable():
+    """C4: data/ledger/decisions.jsonl must be tracked so that it has an off-machine copy (currently ignored)."""
+    names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+    # simulate presence: an ignored file would never show; so assert on check-ignore instead
+    assert _git("check-ignore", "-q", "--no-index", "data/ledger/decisions.jsonl", check=False).returncode == 1
+    assert "data/ledger/.gitkeep" in names
 
 
 def test_A4_no_runtime_artefacts_currently_tracked():

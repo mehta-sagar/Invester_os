@@ -1,0 +1,1517 @@
+FFFFFFFFFFF.FFFFFF...........F...F.....FF..FFFFFF..FF.F...FFFFFFFFFFFFFF [ 10%]
+FFFFFFFFFFF.............FF.............................................. [ 20%]
+........................................................................ [ 31%]
+........................................................................ [ 41%]
+.......................................FF.FF.F.FFFF..................... [ 52%]
+...........................s............................................ [ 62%]
+..........s............................................................. [ 73%]
+...FFFFFFFF........FF................................................... [ 83%]
+........................................................................ [ 94%]
+.......................................                                  [100%]
+=================================== FAILURES ===================================
+_____________ test_A8_torn_tail_runbook_exists_and_names_the_steps _____________
+
+    def test_A8_torn_tail_runbook_exists_and_names_the_steps():
+        p = REPO / "docs" / "runbooks" / "manifest-torn-tail.md"
+>       assert p.is_file(), "docs/runbooks/manifest-torn-tail.md missing"
+E       AssertionError: docs/runbooks/manifest-torn-tail.md missing
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = PosixPath('/home/claude/invester_os/docs/runbooks/manifest-torn-tail.md').is_file
+
+tests/regression/test_audit_docs_and_structure.py:16: AssertionError
+______________ test_A16_source_regex_defined_exactly_once_in_core ______________
+
+    def test_A16_source_regex_defined_exactly_once_in_core():
+        defs = _definitions()
+>       assert len(defs) == 1, f"source-name pattern defined in {[str(d.relative_to(REPO)) for d in defs]}"
+E       AssertionError: source-name pattern defined in ['src/investos/acquire/base.py', 'src/investos/acquire/manifest.py', 'src/investos/check/builtin.py']
+E       assert 3 == 1
+E        +  where 3 = len([PosixPath('/home/claude/invester_os/src/investos/acquire/base.py'), PosixPath('/home/claude/invester_os/src/investos/acquire/manifest.py'), PosixPath('/home/claude/invester_os/src/investos/check/builtin.py')])
+
+tests/regression/test_audit_docs_and_structure.py:62: AssertionError
+_________ test_A16_manifest_base_and_builtin_import_it_from_that_place _________
+
+    def test_A16_manifest_base_and_builtin_import_it_from_that_place():
+>       (home,) = _definitions()
+        ^^^^^^^
+E       ValueError: too many values to unpack (expected 1)
+
+tests/regression/test_audit_docs_and_structure.py:67: ValueError
+_____________ test_A3_every_zone_has_committable_gitkeep[data/raw] _____________
+
+zone = 'data/raw'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/raw/.gitkeep would not be in a fresh clone
+E       assert 'data/raw/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+___________ test_A3_every_zone_has_committable_gitkeep[data/staged] ____________
+
+zone = 'data/staged'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/staged/.gitkeep would not be in a fresh clone
+E       assert 'data/staged/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+__________ test_A3_every_zone_has_committable_gitkeep[data/canonical] __________
+
+zone = 'data/canonical'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/canonical/.gitkeep would not be in a fresh clone
+E       assert 'data/canonical/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+__________ test_A3_every_zone_has_committable_gitkeep[data/features] ___________
+
+zone = 'data/features'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/features/.gitkeep would not be in a fresh clone
+E       assert 'data/features/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+___________ test_A3_every_zone_has_committable_gitkeep[data/models] ____________
+
+zone = 'data/models'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/models/.gitkeep would not be in a fresh clone
+E       assert 'data/models/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+_________ test_A3_every_zone_has_committable_gitkeep[data/quarantine] __________
+
+zone = 'data/quarantine'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/quarantine/.gitkeep would not be in a fresh clone
+E       assert 'data/quarantine/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+___________ test_A3_every_zone_has_committable_gitkeep[data/exports] ___________
+
+zone = 'data/exports'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/exports/.gitkeep would not be in a fresh clone
+E       assert 'data/exports/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+________________ test_A3_fresh_export_passes_zone_startup_check ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-153/test_A3_fresh_export_passes_zo0')
+
+    def test_A3_fresh_export_passes_zone_startup_check(tmp_path):
+        from investos.core.config import load_config
+        root = tmp_path / "clone"
+        root.mkdir()
+        _export_committable_tree(root)
+        shutil.copy(root / "config" / "investos.example.toml", root / "config" / "investos.toml")
+>       cfg = load_config(root / "config" / "investos.toml", env={}, repo_root=root)   # must not raise ConfigError
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/regression/test_repo_hygiene.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-153/test_A3_fresh_export_passes_zo0/clone/config/investos.toml')
+env = {}
+repo_root = PosixPath('/tmp/pytest-of-root/pytest-153/test_A3_fresh_export_passes_zo0/clone')
+
+    def load_config(path: Path | None = None, *, env: Mapping[str, str] | None = None,
+                    repo_root: Path | None = None) -> Config:
+        env = os.environ if env is None else env
+        for var in ("INVESTOS_ROOT", "INVESTOS_CONFIG"):
+            if var in env and not env[var].strip():
+                raise ConfigError(f"{var} is set but empty")
+        if repo_root is not None:
+            root: Path | None = Path(repo_root)
+        elif "INVESTOS_ROOT" in env:
+            root = Path(env["INVESTOS_ROOT"])
+        else:
+            root = None
+        if root is not None and not root.is_dir():
+            raise ConfigError(f"repo_root is not a directory: {root}")
+        if path is not None:
+            cfg_path: Path | None = Path(path)
+        elif "INVESTOS_CONFIG" in env:
+            cfg_path = Path(env["INVESTOS_CONFIG"])
+        elif root is not None:
+            cfg_path = root / "config" / "investos.toml"
+        else:
+            cfg_path = None
+        if cfg_path is None or not cfg_path.is_file():
+            raise ConfigError(
+                f"no config file found; tried: explicit path argument ({path}), "
+                f"INVESTOS_CONFIG ({env.get('INVESTOS_CONFIG')}), "
+                f"{os.path.join('<repo_root>', 'config', 'investos.toml')} (repo_root={root}); resolved: {cfg_path}")
+        if root is None:
+            root = _find_root(cfg_path.resolve().parent)
+        if root is None:
+            raise ConfigError(f"cannot determine repo root for {cfg_path}: no repo_root argument, "
+                              "no INVESTOS_ROOT, and no ancestor directory contains pyproject.toml")
+        root = root.resolve()
+    
+        try:
+            with open(cfg_path, "rb") as f:
+                data = tomllib.load(f)
+        except tomllib.TOMLDecodeError as e:
+            raise ConfigError(f"malformed TOML in {cfg_path}: {e}") from None
+        except OSError as e:
+            raise ConfigError(f"cannot read config {cfg_path}: {e}") from None
+    
+        _apply_env(data, env)
+        _validate(data)
+    
+        zones = {k: _resolve(root, data["paths"][k]) for k in ZONE_KEYS}
+        migrations_dir = _resolve(root, data["db"]["migrations_dir"])
+        for k, p in zones.items():
+            if not p.is_dir():
+>               raise ConfigError(f"paths.{k}: zone directory does not exist or is not a directory: {p}")
+E               investos.core.config.ConfigError: paths.raw: zone directory does not exist or is not a directory: /tmp/pytest-of-root/pytest-153/test_A3_fresh_export_passes_zo0/clone/data/raw
+
+src/investos/core/config.py:205: ConfigError
+______ test_A4_runtime_artefact_is_ignored[data/manifests/bse.jsonl.lock] ______
+
+path = 'data/manifests/bse.jsonl.lock'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: data/manifests/bse.jsonl.lock is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'data/manifests/bse.jsonl.lock'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:93: AssertionError
+_ test_A4_runtime_artefact_is_ignored[data/manifests/bse.runs/.tmp-0123456789abcdef] _
+
+path = 'data/manifests/bse.runs/.tmp-0123456789abcdef'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: data/manifests/bse.runs/.tmp-0123456789abcdef is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'data/manifests/bse.runs/.tmp-0123456789abcdef'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:93: AssertionError
+______ test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json] _______
+
+path = 'reports/checks/t-abc123.json'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: reports/checks/t-abc123.json is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'reports/checks/t-abc123.json'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:93: AssertionError
+_______ test_A4_runtime_artefact_is_ignored[reports/checks/.tmp-abc123] ________
+
+path = 'reports/checks/.tmp-abc123'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: reports/checks/.tmp-abc123 is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'reports/checks/.tmp-abc123'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:93: AssertionError
+____ test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json.tmp] _____
+
+path = 'reports/checks/t-abc123.json.tmp'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: reports/checks/t-abc123.json.tmp is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'reports/checks/t-abc123.json.tmp'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:93: AssertionError
+_______ test_A4_runtime_artefact_is_ignored[registry/trials.jsonl.lock] ________
+
+path = 'registry/trials.jsonl.lock'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: registry/trials.jsonl.lock is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'registry/trials.jsonl.lock'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:93: AssertionError
+______ test_A4_durable_files_stay_trackable[data/ledger/decisions.jsonl] _______
+
+path = 'data/ledger/decisions.jsonl'
+
+    @pytest.mark.parametrize("path", TRACKED_OK)
+    def test_A4_durable_files_stay_trackable(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 1, f"{path} must NOT be git-ignored"
+E       AssertionError: data/ledger/decisions.jsonl must NOT be git-ignored
+E       assert 0 == 1
+E        +  where 0 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'data/ledger/decisions.jsonl'], returncode=0, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:99: AssertionError
+___________________ test_A4_decisions_ledger_is_committable ____________________
+
+    def test_A4_decisions_ledger_is_committable():
+        """C4: data/ledger/decisions.jsonl must be tracked so that it has an off-machine copy (currently ignored)."""
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+        # simulate presence: an ignored file would never show; so assert on check-ignore instead
+>       assert _git("check-ignore", "-q", "--no-index", "data/ledger/decisions.jsonl", check=False).returncode == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'data/ledger/decisions.jsonl'], returncode=0, stdout='', stderr='').returncode
+E        +    where CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'data/ledger/decisions.jsonl'], returncode=0, stdout='', stderr='') = _git('check-ignore', '-q', '--no-index', 'data/ledger/decisions.jsonl', check=False)
+
+tests/regression/test_repo_hygiene.py:106: AssertionError
+______ test_A2_get_by_key_during_foreign_append_waits_instead_of_raising _______
+
+mk = <function mk.<locals>._mk at 0x7f77e0ab1800>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-153/test_A2_get_by_key_during_fore0/raw'), PosixPath('/tmp/pytest-of-root/pytest-153/test_A2_get_by_key_during_fore0/manifests'))
+
+    def test_A2_get_by_key_during_foreign_append_waits_instead_of_raising(mk, roots):
+        _, line, _, mp_ = _split_line(mk, roots)
+        ready = threading.Event()
+        t = threading.Thread(target=_hold_lock_with_half_line, args=(roots[1], mp_, line, ready))
+        t.start()
+        assert ready.wait(5)
+        try:
+            reader = mk()                                  # fresh store, nothing cached
+>           got = reader.get_by_key("bse", "k1")           # must not raise ManifestCorruptError
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_acquire_audit_regressions.py:124: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/acquire/manifest.py:380: in get_by_key
+    return self._index(source).latest.get(logical_key)
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <investos.acquire.manifest.ManifestStore object at 0x7f77e0a65c50>
+source = 'bse'
+
+    def _index(self, source: str) -> _Index:
+        """Strictly parsed index of the manifest, re-read whenever the file changed (inode, size,
+        mtime or ctime). A corrupt file raises ManifestCorruptError and is never cached."""
+        _check_source(source)
+        mpath = self._manifest_path(source)
+        with self._idx_lock:
+            try:
+                st = os.stat(mpath)
+            except FileNotFoundError:
+                self._idx.pop(source, None)
+                return _Index(None, [])
+            sig = _sig(st)
+            idx = self._idx.get(source)
+            if idx is not None and idx.sig == sig:
+                return idx
+            self._idx.pop(source, None)
+            try:
+                data = mpath.read_bytes()
+            except FileNotFoundError:
+                return _Index(None, [])
+            out = []
+            for no, raw, terminated in _split_lines(data):
+                try:
+                    if not terminated:
+                        raise ValueError("last line not newline-terminated (truncated?)")
+                    out.append(_entry_from_line(raw))
+                except ValueError as e:
+>                   raise ManifestCorruptError(f"{mpath.name} line {no}: {e}") from None
+E                   investos.acquire.manifest.ManifestCorruptError: bse.jsonl line 2: last line not newline-terminated (truncated?)
+
+src/investos/acquire/manifest.py:364: ManifestCorruptError
+___________ test_A2_verify_during_foreign_append_reports_no_bad_line ___________
+
+mk = <function mk.<locals>._mk at 0x7f77e0ab2a20>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-153/test_A2_verify_during_foreign_0/raw'), PosixPath('/tmp/pytest-of-root/pytest-153/test_A2_verify_during_foreign_0/manifests'))
+
+    def test_A2_verify_during_foreign_append_reports_no_bad_line(mk, roots):
+        _, line, _, mp_ = _split_line(mk, roots)
+        ready = threading.Event()
+        t = threading.Thread(target=_hold_lock_with_half_line, args=(roots[1], mp_, line, ready))
+        t.start()
+        assert ready.wait(5)
+        try:
+            probs = mk().verify("bse")
+        finally:
+            t.join()
+>       assert not [p for p in probs if p.kind == "bad_line"], probs
+E       AssertionError: [Problem(kind='bad_line', source='bse', path='/tmp/pytest-of-root/pytest-153/test_A2_verify_during_foreign_0/manifests/bse.jsonl', line=2, detail='last line not newline-terminated (truncated?)')]
+E       assert not [Problem(kind='bad_line', source='bse', path='/tmp/pytest-of-root/pytest-153/test_A2_verify_during_foreign_0/manifests/bse.jsonl', line=2, detail='last line not newline-terminated (truncated?)')]
+
+tests/unit/acquire/test_acquire_audit_regressions.py:140: AssertionError
+_________________ test_A6_denied_names_rejected[Authorization] _________________
+
+env = <_collector_helpers.Env object at 0x7f77e0f07e00>, name = 'Authorization'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+______________ test_A6_denied_names_rejected[Proxy-Authorization] ______________
+
+env = <_collector_helpers.Env object at 0x7f77e0b05f90>
+name = 'Proxy-Authorization'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+_____________________ test_A6_denied_names_rejected[Host] ______________________
+
+env = <_collector_helpers.Env object at 0x7f77e0b06850>, name = 'Host'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+___________________ test_A6_denied_names_rejected[Forwarded] ___________________
+
+env = <_collector_helpers.Env object at 0x7f77e11a90f0>, name = 'Forwarded'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+__________________ test_A6_denied_names_rejected[X-Client-IP] __________________
+
+env = <_collector_helpers.Env object at 0x7f77e0b28180>, name = 'X-Client-IP'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+________________ test_A6_denied_names_rejected[True-Client-IP] _________________
+
+env = <_collector_helpers.Env object at 0x7f77db98d7f0>, name = 'True-Client-IP'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+_______________ test_A6_denied_names_rejected[X-Forwarded-Host] ________________
+
+env = <_collector_helpers.Env object at 0x7f77e0b30750>
+name = 'X-Forwarded-Host'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+______________________ test_A6_denied_names_rejected[Via] ______________________
+
+env = <_collector_helpers.Env object at 0x7f77e0b33650>, name = 'Via'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+____________________ test_A6_denied_names_rejected[Cookie2] ____________________
+
+env = <_collector_helpers.Env object at 0x7f77e0acba70>, name = 'Cookie2'
+
+    @pytest.mark.parametrize("name", DENIED_HEADERS)
+    def test_A6_denied_names_rejected(env, name):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:203: Failed
+_____ test_A6_denied_names_rejected_in_any_case_and_padding[Authorization] _____
+
+env = <_collector_helpers.Env object at 0x7f77e0d07e90>, name = 'Authorization'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+__ test_A6_denied_names_rejected_in_any_case_and_padding[Proxy-Authorization] __
+
+env = <_collector_helpers.Env object at 0x7f77db86eb10>
+name = 'Proxy-Authorization'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+_________ test_A6_denied_names_rejected_in_any_case_and_padding[Host] __________
+
+env = <_collector_helpers.Env object at 0x7f77db868cb0>, name = 'Host'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+_______ test_A6_denied_names_rejected_in_any_case_and_padding[Forwarded] _______
+
+env = <_collector_helpers.Env object at 0x7f77db869440>, name = 'Forwarded'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+______ test_A6_denied_names_rejected_in_any_case_and_padding[X-Client-IP] ______
+
+env = <_collector_helpers.Env object at 0x7f77db88bbb0>, name = 'X-Client-IP'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+____ test_A6_denied_names_rejected_in_any_case_and_padding[True-Client-IP] _____
+
+env = <_collector_helpers.Env object at 0x7f77db8104b0>, name = 'True-Client-IP'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+_______ test_A6_denied_names_rejected_in_any_case_and_padding[X-Real-IP] _______
+
+env = <_collector_helpers.Env object at 0x7f77db88bd90>, name = 'X-Real-IP'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+____ test_A6_denied_names_rejected_in_any_case_and_padding[X-Forwarded-For] ____
+
+env = <_collector_helpers.Env object at 0x7f77db888c30>
+name = 'X-Forwarded-For'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+___ test_A6_denied_names_rejected_in_any_case_and_padding[X-Forwarded-Host] ____
+
+env = <_collector_helpers.Env object at 0x7f77db88b4d0>
+name = 'X-Forwarded-Host'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+__________ test_A6_denied_names_rejected_in_any_case_and_padding[Via] __________
+
+env = <_collector_helpers.Env object at 0x7f77db9c7f70>, name = 'Via'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+________ test_A6_denied_names_rejected_in_any_case_and_padding[Cookie] _________
+
+env = <_collector_helpers.Env object at 0x7f77e0b3a710>, name = 'Cookie'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+________ test_A6_denied_names_rejected_in_any_case_and_padding[Cookie2] ________
+
+env = <_collector_helpers.Env object at 0x7f77db811130>, name = 'Cookie2'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+________ test_A6_denied_names_rejected_in_any_case_and_padding[Referer] ________
+
+env = <_collector_helpers.Env object at 0x7f77db810690>, name = 'Referer'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+________ test_A6_denied_names_rejected_in_any_case_and_padding[Origin] _________
+
+env = <_collector_helpers.Env object at 0x7f77db811ef0>, name = 'Origin'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+______ test_A6_denied_names_rejected_in_any_case_and_padding[User-Agent] _______
+
+env = <_collector_helpers.Env object at 0x7f77db8125d0>, name = 'User-Agent'
+
+    @pytest.mark.parametrize("name", [n for n in DENIED_HEADERS])
+    def test_A6_denied_names_rejected_in_any_case_and_padding(env, name):
+        for variant in (name.upper(), name.lower(), name.swapcase(), f" {name}", f"{name} ", f"\t{name}", f"{name}\t",
+                        name.replace("-", "_")):
+>           with pytest.raises(ValueError):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:211: Failed
+_ test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\r\nCookie: nsit=1] _
+
+env = <_collector_helpers.Env object at 0x7f77db812b70>, name = 'X-Ok'
+value = 'a\r\nCookie: nsit=1'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+______ test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\nb] ______
+
+env = <_collector_helpers.Env object at 0x7f77db812350>, name = 'X-Ok'
+value = 'a\nb'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+______ test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\rb] ______
+
+env = <_collector_helpers.Env object at 0x7f77db813430>, name = 'X-Ok'
+value = 'a\rb'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+_____ test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\x00b] _____
+
+env = <_collector_helpers.Env object at 0x7f77db91e710>, name = 'X-Ok'
+value = 'a\x00b'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+__ test_A6_control_characters_and_malformed_names_rejected[X-Ok\r\nCookie-1] ___
+
+env = <_collector_helpers.Env object at 0x7f77db88acb0>, name = 'X-Ok\r\nCookie'
+value = '1'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+_______ test_A6_control_characters_and_malformed_names_rejected[X\nOk-1] _______
+
+env = <_collector_helpers.Env object at 0x7f77db88b6b0>, name = 'X\nOk'
+value = '1'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+______ test_A6_control_characters_and_malformed_names_rejected[X\x00Ok-1] ______
+
+env = <_collector_helpers.Env object at 0x7f77db813930>, name = 'X\x00Ok'
+value = '1'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+_______ test_A6_control_characters_and_malformed_names_rejected[X Ok-1] ________
+
+env = <_collector_helpers.Env object at 0x7f77db813390>, name = 'X Ok'
+value = '1'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+_________ test_A6_control_characters_and_malformed_names_rejected[-1] __________
+
+env = <_collector_helpers.Env object at 0x7f77db812b70>, name = '', value = '1'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+_______ test_A6_control_characters_and_malformed_names_rejected[X-Ok:-1] _______
+
+env = <_collector_helpers.Env object at 0x7f77db8119f0>, name = 'X-Ok:'
+value = '1'
+
+    @pytest.mark.parametrize("name,value", [
+        ("X-Ok", "a\r\nCookie: nsit=1"), ("X-Ok", "a\nb"), ("X-Ok", "a\rb"), ("X-Ok", "a\0b"),
+        ("X-Ok\r\nCookie", "1"), ("X\nOk", "1"), ("X\0Ok", "1"), ("X Ok", "1"), ("", "1"), ("X-Ok:", "1"),
+    ])
+    def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/unit/acquire/test_acquire_audit_regressions.py:220: Failed
+___________ test_A12_tampered_stored_zip_marks_key_and_run_continues ___________
+
+env = <_collector_helpers.Env object at 0x7f77db8e2a30>
+
+    def test_A12_tampered_stored_zip_marks_key_and_run_continues(env):
+        from investos.acquire.base import Outcome
+        for k in (D17, D18):
+            env.transport.set(url_of(k), resp(200, _zip_for(k)))
+        env.make(_arch(), run_id="run-1").run(rr(D17, D18))
+        z = _zip_for(D17)
+        p = env.raw / SOURCE / sha(z)[:2] / sha(z)
+        os.chmod(p, 0o644)
+        p.write_bytes(bytes([z[0] ^ 1]) + z[1:])
+        os.chmod(p, 0o444)
+        env.fresh_transport().set(url_of(D19), resp(200, _zip_for(D19)))
+>       r = env.make(_arch(), run_id="run-2").run(rr(D17, D19))          # must not raise RawIntegrityError
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_acquire_audit_regressions.py:259: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/acquire/base.py:291: in run
+    rec, abort = self._do_key(key)
+                 ^^^^^^^^^^^^^^^^^
+src/investos/acquire/base.py:310: in _do_key
+    rec = _Rec(Outcome.SKIPPED, "manifest already holds key", self._known_outputs(key, existing))
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/investos/acquire/base.py:403: in _known_outputs
+    for name, _ in safe_unzip(self._manifest.read_bytes(self.source, entry.sha256), limits=self.unzip_limits):
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <investos.acquire.manifest.ManifestStore object at 0x7f77db81a580>
+source = 'demo_src'
+sha256 = 'b97e0b3cb901c138ec4fae5678f63f3642ae995d468397a72a2f028f6c4c7661'
+
+    def read_bytes(self, source: str, sha256: str) -> bytes:
+        p = self.raw_path(source, sha256)
+        data = p.read_bytes()
+        if hashlib.sha256(data).hexdigest() != sha256:
+>           raise RawIntegrityError(f"raw file {p} does not match its name")
+E           investos.acquire.manifest.RawIntegrityError: raw file /tmp/pytest-of-root/pytest-153/test_A12_tampered_stored_zip_m0/raw/demo_src/b9/b97e0b3cb901c138ec4fae5678f63f3642ae995d468397a72a2f028f6c4c7661 does not match its name
+
+src/investos/acquire/manifest.py:320: RawIntegrityError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-21T17:34:49.400560Z","level":"INFO","run_id":"20261121T173449Z-8b856163","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":130}}
+{"ts":"2026-11-21T17:34:49.403451Z","level":"INFO","run_id":"20261121T173449Z-8b856163","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-18","url":"https://example.test/f/2026-11-18.csv","attempts":1,"reason":"","size":130}}
+{"ts":"2026-11-21T17:34:49.404445Z","level":"INFO","run_id":"20261121T173449Z-8b856163","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":2,"received":2,"sidecar":"/tmp/pytest-of-root/pytest-153/test_A12_tampered_stored_zip_m0/manifests/demo_src.runs/2026-11-17_2026-11-18.json","fetched":2,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+_________ test_A13_storage_failure_mid_run_leaves_sidecar_with_failure _________
+
+env = <_collector_helpers.Env object at 0x7f77db8e2490>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f77e0b2ba80>
+
+    def test_A13_storage_failure_mid_run_leaves_sidecar_with_failure(env, monkeypatch):
+        for k in (D17, D18, D19):
+            env.transport.set(url_of(k), resp(200, CSV))
+        real, n = env.store.store, {"n": 0}
+    
+        def flaky(*a, **k):
+            n["n"] += 1
+            if n["n"] == 2:
+                raise OSError(errno.ENOSPC, "No space left on device")
+            return real(*a, **k)
+        monkeypatch.setattr(env.store, "store", flaky)
+        try:
+            env.make().run(rr(D17, D19))
+        except OSError:
+            pass                                             # re-raising after writing the sidecar is acceptable
+        files = [p for p in env.sidecar_dir.glob("*.json")] if env.sidecar_dir.exists() else []
+>       assert len(files) == 1, "no sidecar written after a storage failure"
+E       AssertionError: no sidecar written after a storage failure
+E       assert 0 == 1
+E        +  where 0 = len([])
+
+tests/unit/acquire/test_acquire_audit_regressions.py:283: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-21T17:34:49.438147Z","level":"INFO","run_id":"20261121T173449Z-8b856163","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":26}}
+_____ test_A1_raw_file_replaced_by_symlink_to_writable_outside_file_fails ______
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A1_raw_file_replaced_by_s0/repo'), timezone='Asia/Kolk...replaced_by_s0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+run = <function run.<locals>._run at 0x7f77dc5304a0>
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-153/test_A1_raw_file_replaced_by_s0')
+
+    def test_A1_raw_file_replaced_by_symlink_to_writable_outside_file_fails(healthy, run, tmp_path):
+        p = raw_path(healthy, "bse", b"alpha-bytes")
+        outside = tmp_path / "outside-copy"
+        outside.write_bytes(b"alpha-bytes")
+        os.chmod(outside, 0o666)
+        os.chmod(p, 0o644)
+        os.unlink(p)
+        os.symlink(outside, p)
+        for argv in (["raw"], ["all"]):
+            code, out = run(argv)
+>           assert code != 0, f"{argv}: symlinked raw file passed:\n{out}"
+E           AssertionError: ['raw']: symlinked raw file passed:
+E             NAME  STATUS  MS  MESSAGE
+E             raw   pass     0  2 sources, raw files read-only and in place
+E             OK
+E             
+E           assert 0 != 0
+
+tests/unit/check/test_check_audit_regressions.py:22: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-153/test_A1_raw_file_replaced_by_s0/repo/reports/checks/t-fde7970a6410.json
+______________ test_A1_extra_sha_named_symlink_in_raw_tree_fails _______________
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A1_extra_sha_named_symlin0/repo'), timezone='Asia/Kolk..._named_symlin0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+run = <function run.<locals>._run at 0x7f77dc563560>
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-153/test_A1_extra_sha_named_symlin0')
+
+    def test_A1_extra_sha_named_symlink_in_raw_tree_fails(healthy, run, tmp_path):
+        outside = tmp_path / "outside.txt"
+        outside.write_bytes(b"evil")
+        sha = hashlib.sha256(b"evil").hexdigest()
+        d = healthy.zones["raw"] / "bse" / sha[:2]
+        d.mkdir(exist_ok=True)
+        os.symlink(outside, d / sha)
+        code, out = run(["raw"])
+>       assert code != 0 and "symlink" in out, out
+E       AssertionError: NAME  STATUS  MS  MESSAGE
+E         raw   pass     0  2 sources, raw files read-only and in place
+E         OK
+E         
+E       assert (0 != 0)
+
+tests/unit/check/test_check_audit_regressions.py:34: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-153/test_A1_extra_sha_named_symlin0/repo/reports/checks/t-54391a1dbf0d.json
+______________ test_A10_stray_names_in_raw_are_reported_misplaced ______________
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A10_stray_names_in_raw_ar0/repo'), timezone='Asia/Kolk...mes_in_raw_ar0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+run = <function run.<locals>._run at 0x7f77dc570180>
+
+    def test_A10_stray_names_in_raw_are_reported_misplaced(healthy, run):
+        raw = healthy.zones["raw"]
+        _mk_writable(raw / "BSE" / "aa" / "junk")          # upper-case source dir
+        _mk_writable(raw / "stray.bin")                    # file directly in the raw zone
+        _mk_writable(raw / "nse-x" / "f")                  # dir that is not a valid source name
+        code, out = run(["raw"])
+>       assert code != 0, out
+E       AssertionError: NAME  STATUS  MS  MESSAGE
+E         raw   pass     0  2 sources, raw files read-only and in place
+E         OK
+E         
+E       assert 0 != 0
+
+tests/unit/check/test_check_audit_regressions.py:55: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-153/test_A10_stray_names_in_raw_ar0/repo/reports/checks/t-c1a2f2096b25.json
+_______________ test_A10_bad_manifest_name_is_reported_bad_line ________________
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A10_bad_manifest_name_is_0/repo'), timezone='Asia/Kolk...fest_name_is_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+run = <function run.<locals>._run at 0x7f77dc5709a0>
+
+    def test_A10_bad_manifest_name_is_reported_bad_line(healthy, run):
+        (healthy.zones["manifests"] / "Bad-Name.jsonl").write_bytes(b"garbage no newline")
+        code, out = run(["manifest"])
+>       assert code != 0 and "bad_line" in out and "Bad-Name.jsonl" in out, out
+E       AssertionError: NAME      STATUS  MS  MESSAGE
+E         manifest  pass     0  2 sources, 3 lines OK
+E         OK
+E         
+E       assert (0 != 0)
+
+tests/unit/check/test_check_audit_regressions.py:64: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-153/test_A10_bad_manifest_name_is_0/repo/reports/checks/t-bced5ad96dd7.json
+_____________ test_X13_writable_dotfile_in_raw_tree_is_not_hidden ______________
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_X13_writable_dotfile_in_r0/repo'), timezone='Asia/Kolk..._dotfile_in_r0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+run = <function run.<locals>._run at 0x7f77dc5713a0>
+
+    def test_X13_writable_dotfile_in_raw_tree_is_not_hidden(healthy, run):
+        _mk_writable(healthy.zones["raw"] / "bse" / ".x")
+        code, out = run(["raw"])
+>       assert code != 0 and ".x" in out, out
+E       AssertionError: NAME  STATUS  MS  MESSAGE
+E         raw   fail     0  2 problem(s): misplaced_file, writable_file
+E         FAILED (1)
+E         
+E       assert (1 != 0 and '.x' in 'NAME  STATUS  MS  MESSAGE\nraw   fail     0  2 problem(s): misplaced_file, writable_file\nFAILED (1)\n')
+
+tests/unit/check/test_check_audit_regressions.py:85: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-153/test_X13_writable_dotfile_in_r0/repo/reports/checks/t-7583a9c81ed1.json
+_________ test_A9_builtin_plant_copies_only_needed_zones[raw-allowed0] _________
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A9_builtin_plant_copies_o0/repo'), timezone='Asia/Kolk...lant_copies_o0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f77dc56c1b0>
+name = 'raw', allowed = {'manifests', 'raw'}
+
+    @pytest.mark.parametrize("name,allowed", [
+        ("raw", {"raw", "manifests"}),
+        ("manifest", {"raw", "manifests"}),
+        ("migrations", {"canonical", "migrations"}),
+    ])
+    def test_A9_builtin_plant_copies_only_needed_zones(healthy, monkeypatch, name, allowed):
+        import investos.check.builtin  # noqa: F401
+        from investos.check.registry import DEFAULT_REGISTRY
+        from investos.check.runner import run_planted
+        for z in ("canonical", "ledger", "reports", "registry"):          # something to copy in every zone
+            (healthy.zones[z] / "marker.txt").write_text("m")
+        srcs = _copy_spy(monkeypatch)
+        rep = run_planted(DEFAULT_REGISTRY, healthy, [name])
+        assert [r.status for r in rep.results] == ["caught"], rep.results
+        extra = _touched(healthy, srcs) - allowed
+>       assert not extra, f"plant for {name!r} copied unneeded zones: {sorted(extra)}"
+E       AssertionError: plant for 'raw' copied unneeded zones: ['canonical', 'ledger', 'migrations', 'registry', 'reports']
+E       assert not {'canonical', 'ledger', 'migrations', 'registry', 'reports'}
+
+tests/unit/check/test_check_audit_regressions.py:149: AssertionError
+______ test_A9_builtin_plant_copies_only_needed_zones[manifest-allowed1] _______
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A9_builtin_plant_copies_o1/repo'), timezone='Asia/Kolk...lant_copies_o1/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f77dc56c520>
+name = 'manifest', allowed = {'manifests', 'raw'}
+
+    @pytest.mark.parametrize("name,allowed", [
+        ("raw", {"raw", "manifests"}),
+        ("manifest", {"raw", "manifests"}),
+        ("migrations", {"canonical", "migrations"}),
+    ])
+    def test_A9_builtin_plant_copies_only_needed_zones(healthy, monkeypatch, name, allowed):
+        import investos.check.builtin  # noqa: F401
+        from investos.check.registry import DEFAULT_REGISTRY
+        from investos.check.runner import run_planted
+        for z in ("canonical", "ledger", "reports", "registry"):          # something to copy in every zone
+            (healthy.zones[z] / "marker.txt").write_text("m")
+        srcs = _copy_spy(monkeypatch)
+        rep = run_planted(DEFAULT_REGISTRY, healthy, [name])
+        assert [r.status for r in rep.results] == ["caught"], rep.results
+        extra = _touched(healthy, srcs) - allowed
+>       assert not extra, f"plant for {name!r} copied unneeded zones: {sorted(extra)}"
+E       AssertionError: plant for 'manifest' copied unneeded zones: ['canonical', 'ledger', 'migrations', 'registry', 'reports']
+E       assert not {'canonical', 'ledger', 'migrations', 'registry', 'reports'}
+
+tests/unit/check/test_check_audit_regressions.py:149: AssertionError
+_____ test_A9_builtin_plant_copies_only_needed_zones[migrations-allowed2] ______
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A9_builtin_plant_copies_o2/repo'), timezone='Asia/Kolk...lant_copies_o2/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f77dc5720d0>
+name = 'migrations', allowed = {'canonical', 'migrations'}
+
+    @pytest.mark.parametrize("name,allowed", [
+        ("raw", {"raw", "manifests"}),
+        ("manifest", {"raw", "manifests"}),
+        ("migrations", {"canonical", "migrations"}),
+    ])
+    def test_A9_builtin_plant_copies_only_needed_zones(healthy, monkeypatch, name, allowed):
+        import investos.check.builtin  # noqa: F401
+        from investos.check.registry import DEFAULT_REGISTRY
+        from investos.check.runner import run_planted
+        for z in ("canonical", "ledger", "reports", "registry"):          # something to copy in every zone
+            (healthy.zones[z] / "marker.txt").write_text("m")
+        srcs = _copy_spy(monkeypatch)
+        rep = run_planted(DEFAULT_REGISTRY, healthy, [name])
+        assert [r.status for r in rep.results] == ["caught"], rep.results
+        extra = _touched(healthy, srcs) - allowed
+>       assert not extra, f"plant for {name!r} copied unneeded zones: {sorted(extra)}"
+E       AssertionError: plant for 'migrations' copied unneeded zones: ['ledger', 'manifests', 'raw', 'registry', 'reports']
+E       assert not {'ledger', 'manifests', 'raw', 'registry', 'reports'}
+
+tests/unit/check/test_check_audit_regressions.py:149: AssertionError
+________________ test_A9_registry_plant_copies_only_its_ledgers ________________
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-153/test_A9_registry_plant_copies_0/repo'), timezone='Asia/Kolk...plant_copies_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f77dc5304b0>
+
+    def test_A9_registry_plant_copies_only_its_ledgers(healthy, monkeypatch):
+        import investos.registry.check  # noqa: F401
+        from investos.check.registry import DEFAULT_REGISTRY
+        from investos.check.runner import run_planted
+        srcs = _copy_spy(monkeypatch)
+        rep = run_planted(DEFAULT_REGISTRY, healthy, ["registry"])
+        assert [r.status for r in rep.results] == ["caught"], rep.results
+        extra = _touched(healthy, srcs) - {"registry", "ledger"}
+>       assert not extra, f"registry plant copied unneeded zones: {sorted(extra)}"
+E       AssertionError: registry plant copied unneeded zones: ['canonical', 'manifests', 'migrations', 'raw', 'reports']
+E       assert not {'canonical', 'manifests', 'migrations', 'raw', 'reports'}
+
+tests/unit/check/test_check_audit_regressions.py:160: AssertionError
+______ test_D2_non_finite_float_never_raises_and_line_is_strict_json[nan] ______
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = nan
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/core/test_review_regressions.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = nan, _depth = 0
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float nan is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+______ test_D2_non_finite_float_never_raises_and_line_is_strict_json[inf] ______
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/core/test_review_regressions.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = inf, _depth = 0
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float inf is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+_____ test_D2_non_finite_float_never_raises_and_line_is_strict_json[-inf] ______
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = -inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/core/test_review_regressions.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = -inf, _depth = 0
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float -inf is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+__ test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_list] __
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = [1.0, nan]
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/core/test_review_regressions.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+src/investos/core/log.py:63: in _check_finite
+    _check_finite(v, _depth + 1)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = nan, _depth = 1
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float nan is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+__ test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_dict] __
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = {'k': inf}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/core/test_review_regressions.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+src/investos/core/log.py:60: in _check_finite
+    _check_finite(v, _depth + 1)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = inf, _depth = 1
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float inf is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+________ test_A11_top_level_non_finite_is_rendered_as_repr_string[nan] _________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = nan
+
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+    def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad)
+
+tests/unit/core/test_review_regressions.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = nan, _depth = 0
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float nan is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+________ test_A11_top_level_non_finite_is_rendered_as_repr_string[inf] _________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = inf
+
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+    def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad)
+
+tests/unit/core/test_review_regressions.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = inf, _depth = 0
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float inf is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+________ test_A11_top_level_non_finite_is_rendered_as_repr_string[-inf] ________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = -inf
+
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+    def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+>       log.get_logger("t").info("e", v=bad)
+
+tests/unit/core/test_review_regressions.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/core/log.py:100: in info
+    self._emit("INFO", event, fields)
+src/investos/core/log.py:88: in _emit
+    "fields": {k: _safe(v) for k, v in fields.items()},
+                  ^^^^^^^^
+src/investos/core/log.py:67: in _safe
+    _check_finite(value)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = -inf, _depth = 0
+
+    def _check_finite(value: Any, _depth: int = 0) -> None:
+        if _depth > 50:
+            return
+        if isinstance(value, float) and not math.isfinite(value):
+>           raise ValueError(f"non-finite float {value!r} is not valid JSON")
+E           ValueError: non-finite float -inf is not valid JSON
+
+src/investos/core/log.py:57: ValueError
+____________________ test_A14_append_loops_on_short_writes _____________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-153/test_A14_append_loops_on_short0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7f77e0b1ae40>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f77dc52d780>
+
+    def test_A14_append_loops_on_short_writes(lpath, clock, monkeypatch):
+        led = new_ledger(lpath, clock)
+        lpath.touch()
+        calls = _short_write_spy(monkeypatch, lpath)
+        led.append({"n": 1, "tag": "a" * 50})
+        clock.advance(seconds=1)
+>       led.append({"n": 2, "tag": "b"})
+
+tests/unit/registry/test_registry_audit_regressions.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/registry/chain.py:217: in append
+    rows = self._strict_rows()
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <investos.registry.chain.Ledger object at 0x7f77dc52d550>
+
+    def _strict_rows(self) -> list[Row]:
+        rows, problem = _walk(self._read())
+        if problem:
+>           raise LedgerCorruptError(f"{self._kind}: broken at seq {problem[0]}: {problem[1]}", problem[0])
+E           investos.registry.chain.LedgerCorruptError: test: broken at seq 1: not valid UTF-8 JSON
+
+src/investos/registry/chain.py:188: LedgerCorruptError
+__________________ test_A14_write_roots_loops_on_short_writes __________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-153/test_A14_write_roots_loops_on_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7f77e0b05090>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f77dc52fcb0>
+
+    def test_A14_write_roots_loops_on_short_writes(lpath, clock, monkeypatch):
+        led = new_ledger(lpath, clock)
+        fill(led, clock, 3)
+        roots = lpath.with_suffix(".roots.jsonl")
+        roots.touch()
+        calls = _short_write_spy(monkeypatch, roots)
+        new_ledger(lpath).write_roots()                # real clock: IST 2026-11-20 is a closed day
+        monkeypatch.undo()
+>       assert calls["n"] >= 2, "short-write spy was never exercised"
+E       AssertionError: short-write spy was never exercised
+E       assert 1 >= 2
+
+tests/unit/registry/test_registry_audit_regressions.py:80: AssertionError
+=========================== short test summary info ============================
+FAILED tests/regression/test_audit_docs_and_structure.py::test_A8_torn_tail_runbook_exists_and_names_the_steps
+FAILED tests/regression/test_audit_docs_and_structure.py::test_A16_source_regex_defined_exactly_once_in_core
+FAILED tests/regression/test_audit_docs_and_structure.py::test_A16_manifest_base_and_builtin_import_it_from_that_place
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/raw]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/staged]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/canonical]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/features]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/models]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/quarantine]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/exports]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_fresh_export_passes_zone_startup_check
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[data/manifests/bse.jsonl.lock]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[data/manifests/bse.runs/.tmp-0123456789abcdef]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[reports/checks/.tmp-abc123]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json.tmp]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[registry/trials.jsonl.lock]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_durable_files_stay_trackable[data/ledger/decisions.jsonl]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_decisions_ledger_is_committable
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A2_get_by_key_during_foreign_append_waits_instead_of_raising
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A2_verify_during_foreign_append_reports_no_bad_line
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[Authorization]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[Proxy-Authorization]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[Host]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[Forwarded]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[X-Client-IP]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[True-Client-IP]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[X-Forwarded-Host]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[Via]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected[Cookie2]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Authorization]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Proxy-Authorization]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Host]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Forwarded]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[X-Client-IP]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[True-Client-IP]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[X-Real-IP]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[X-Forwarded-For]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[X-Forwarded-Host]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Via]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Cookie]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Cookie2]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Referer]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[Origin]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_denied_names_rejected_in_any_case_and_padding[User-Agent]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\r\nCookie: nsit=1]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\nb]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\rb]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X-Ok-a\x00b]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X-Ok\r\nCookie-1]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X\nOk-1]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X\x00Ok-1]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X Ok-1]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[-1]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A6_control_characters_and_malformed_names_rejected[X-Ok:-1]
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A12_tampered_stored_zip_marks_key_and_run_continues
+FAILED tests/unit/acquire/test_acquire_audit_regressions.py::test_A13_storage_failure_mid_run_leaves_sidecar_with_failure
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A1_raw_file_replaced_by_symlink_to_writable_outside_file_fails
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A1_extra_sha_named_symlink_in_raw_tree_fails
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A10_stray_names_in_raw_are_reported_misplaced
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A10_bad_manifest_name_is_reported_bad_line
+FAILED tests/unit/check/test_check_audit_regressions.py::test_X13_writable_dotfile_in_raw_tree_is_not_hidden
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A9_builtin_plant_copies_only_needed_zones[raw-allowed0]
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A9_builtin_plant_copies_only_needed_zones[manifest-allowed1]
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A9_builtin_plant_copies_only_needed_zones[migrations-allowed2]
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A9_registry_plant_copies_only_its_ledgers
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[nan]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[inf]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[-inf]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_list]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_dict]
+FAILED tests/unit/core/test_review_regressions.py::test_A11_top_level_non_finite_is_rendered_as_repr_string[nan]
+FAILED tests/unit/core/test_review_regressions.py::test_A11_top_level_non_finite_is_rendered_as_repr_string[inf]
+FAILED tests/unit/core/test_review_regressions.py::test_A11_top_level_non_finite_is_rendered_as_repr_string[-inf]
+FAILED tests/unit/registry/test_registry_audit_regressions.py::test_A14_append_loops_on_short_writes
+FAILED tests/unit/registry/test_registry_audit_regressions.py::test_A14_write_roots_loops_on_short_writes
+76 failed, 609 passed, 2 skipped in 12.88s

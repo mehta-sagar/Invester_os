@@ -26,12 +26,26 @@ def log():
 @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
                                  [1.0, float("nan")], {"k": float("inf")}],
                          ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
-def test_D2_non_finite_float_raises_and_writes_nothing(log, bad):
+def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+    """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
     sink = io.StringIO()
     log.configure_logging(sink, clock=lambda: FIXED)
-    with pytest.raises(ValueError):
-        log.get_logger("t").info("e", v=bad)
-    assert sink.getvalue() == ""
+    log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+    lines = sink.getvalue().splitlines()
+    assert len(lines) == 1 and sink.getvalue().endswith("\n")
+
+    def refuse(c):
+        raise AssertionError(f"non-strict JSON constant {c}")
+    rec = json.loads(lines[0], parse_constant=refuse)
+    assert rec["other"] == "kept" and rec["event"] == "e"
+
+
+@pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
+    sink = io.StringIO()
+    log.configure_logging(sink, clock=lambda: FIXED)
+    log.get_logger("t").info("e", v=bad)
+    assert json.loads(sink.getvalue())["v"] == repr(bad)
 
 
 def test_D2b_finite_floats_still_strict_json(log):
