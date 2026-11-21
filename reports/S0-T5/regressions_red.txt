@@ -1,0 +1,22 @@
+# S0-T5 review regressions run (impl present): 2 red (RD2), M14 x3 green as mutation guards, RD5 skipped as root
+            (ctx.cfg.zones["canonical"] / "flag.txt").write_text("BAD")
+        flag_check(reg, "c")
+        reg.plant_for("c", setup=lambda ctx: (ctx.cfg.zones["canonical"] / "flag.txt").write_text("OK"))(evil)
+        code, out = run(["--planted"], reg, healthy)
+>       assert code == 1 and rows(out)["c"][0] == "error" and "real data modified" in out
+E       assert (0 == 1)
+
+tests/unit/check/test_checkrunner_review_regressions.py:44: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-173/test_RD2_plant_modifying_exist0/repo/reports/checks/t-16f971102293.json
+=========================== short test summary info ============================
+FAILED tests/unit/check/test_checkrunner_review_regressions.py::test_RD2_plant_writing_into_real_reports_zone_is_error
+FAILED tests/unit/check/test_checkrunner_review_regressions.py::test_RD2_plant_modifying_existing_real_report_is_error
+SKIPPED [1] tests/unit/check/test_checkrunner_review_regressions.py:135: root bypasses directory modes; a 0000 dir cannot break cleanup
+2 failed, 4 passed, 1 skipped in 0.67s
+=========================== short test summary info ============================
+FAILED tests/unit/check/test_checkrunner_review_regressions.py::test_RD2_plant_writing_into_real_reports_zone_is_error
+FAILED tests/unit/check/test_checkrunner_review_regressions.py::test_RD2_plant_modifying_existing_real_report_is_error
+SKIPPED [1] tests/unit/check/test_checkrunner_execution.py:193: root ignores directory modes
+SKIPPED [1] tests/unit/check/test_checkrunner_review_regressions.py:135: root bypasses directory modes; a 0000 dir cannot break cleanup
+2 failed, 247 passed, 2 skipped in 8.76s

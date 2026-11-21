@@ -1,0 +1,28 @@
+== store 2 files via ManifestStore + apply migrations
+stored 26c4ea44d4b3 15
+stored d653283db3fc 15
+migrations: ['0000_bootstrap.sql', '0001_core.sql']
+
+== python -m investos check
+NAME        STATUS  MS  MESSAGE
+manifest    pass     2  1 sources, 2 lines OK
+raw         pass     0  1 sources, raw files read-only and in place
+migrations  pass    38  migrations consistent with database
+OK
+report: /tmp/s0t5_data/reports/checks/20261121T104357Z-8c7462bd.json
+exit=0
+
+== python -m investos check --planted
+NAME        STATUS  MS  MESSAGE
+manifest    caught  11  1 problem(s): hash_mismatch
+raw         caught   5  1 problem(s): writable_file
+migrations  caught  93  1 migration problem(s)
+OK
+report: /tmp/s0t5_data/reports/checks/20261121T104357Z-53d11165.json
+exit=0
+
+== reports
+--- /tmp/s0t5_data/reports/checks/20261121T104357Z-53d11165.json
+{"finished_at":"2026-11-21T10:43:57.844301Z","mode":"planted","ok":true,"results":[{"details":["hash_mismatch /tmp/investos-planted-fjeehm5r/raw/plant_manifest/6f/6f198ce00263f1cf3a71eb7ea4721e457f446aba895b1b777cacdda28b4f75b9 line 1: content hash differs from manifest sha256"],"duration_ms":11,"message":"1 problem(s): hash_mismatch","name":"manifest","phase":"plant","plant":"registered","status":"caught"},{"details":["writable_file /tmp/investos-planted-sbhaer6e/raw/plant_raw/6f/6f198ce00263f1cf3a71eb7ea4721e457f446aba895b1b777cacdda28b4f75b9: mode 0644"],"duration_ms":5,"message":"1 problem(s): writable_file","name":"raw","phase":"plant","plant":"registered","status":"caught"},{"details":["applied migration 0000_bootstrap.sql has changed (sha256 mismatch)"],"duration_ms":93,"message":"1 migration problem(s)","name":"migrations","phase":"plant","plant":"registered","status":"caught"}],"run_id":"20261121T104357Z-53d11165","schema":1,"selected":["manifest","raw","migrations"],"started_at":"2026-11-21T10:43:57.723164Z"}
+--- /tmp/s0t5_data/reports/checks/20261121T104357Z-8c7462bd.json
+{"finished_at":"2026-11-21T10:43:57.561979Z","mode":"check","ok":true,"results":[{"details":[],"duration_ms":2,"message":"1 sources, 2 lines OK","name":"manifest","plant":"registered","status":"pass"},{"details":[],"duration_ms":0,"message":"1 sources, raw files read-only and in place","name":"raw","plant":"registered","status":"pass"},{"details":[],"duration_ms":38,"message":"migrations consistent with database","name":"migrations","plant":"registered","status":"pass"}],"run_id":"20261121T104357Z-8c7462bd","schema":1,"selected":["manifest","raw","migrations"],"started_at":"2026-11-21T10:43:57.520381Z"}
