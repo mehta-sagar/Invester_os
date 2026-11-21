@@ -226,7 +226,7 @@ class Ledger:
             line = (canonical_json({"seq": seq, "ts": ts, "prev_hash": prev, "payload": stored, "hash": h})
                     + "\n").encode("utf-8")
             with open(self._path, "ab", buffering=0) as fh:
-                fh.write(line)
+                _write_all(fh, line)
                 os.fsync(fh.fileno())
             return Row(seq, ts, prev, stored, h)
 
@@ -314,9 +314,19 @@ class Ledger:
             blob = "".join(canonical_json({"date": r.date, "hash": r.hash, "seq": r.seq}) + "\n"
                            for r in new).encode("utf-8")
             with open(self._roots_path, "ab", buffering=0) as fh:
-                fh.write(blob)
+                _write_all(fh, blob)
                 os.fsync(fh.fileno())
             return new
+
+
+def _write_all(fh, data: bytes) -> None:
+    """Write every byte: an unbuffered FileIO.write may be short."""
+    view = memoryview(data)
+    while view:
+        n = fh.write(view)
+        if not n:
+            raise OSError("write returned 0 bytes")
+        view = view[n:]
 
 
 class _Lock:

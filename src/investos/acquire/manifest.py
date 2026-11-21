@@ -19,7 +19,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
 
-_SOURCE_RE = re.compile(r"[a-z0-9][a-z0-9_]{0,63}", re.ASCII)
+from investos.core.names import SOURCE_RE as _SOURCE_RE
+
 _SHA_RE = re.compile(r"[0-9a-f]{64}", re.ASCII)
 _TS_RE = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z", re.ASCII)
 _FIELDS = ("sha256", "size", "url", "fetched_at", "source", "source_version", "logical_key", "run_id")
@@ -142,6 +143,23 @@ def _hash_file(path: Path, nofollow: bool = False) -> str:
         for chunk in iter(lambda: fh.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def _read_manifest(path: Path) -> bytes:
+    """Read a manifest file. If the tail is unterminated a writer may be mid-append: wait for its
+    lock (LOCK_SH) and read again, so only a genuinely torn tail is ever reported."""
+    data = path.read_bytes()
+    if data and not data.endswith(b"\n"):
+        try:
+            fd = os.open(path.with_name(path.name + ".lock"), os.O_RDONLY)
+        except OSError:
+            return data                      # no lock file: no writer has ever run
+        try:
+            fcntl.flock(fd, fcntl.LOCK_SH)
+            data = path.read_bytes()
+        finally:
+            os.close(fd)                     # closing releases the lock
+    return data
 
 
 def _fsync_dir(path: Path) -> None:
@@ -334,6 +352,18 @@ class ManifestStore:
             else:
                 del self._idx[source]
 
+    @staticmethod
+    def _parse(mpath: Path, data: bytes) -> list[ManifestEntry]:
+        out = []
+        for no, raw, terminated in _split_lines(data):
+            try:
+                if not terminated:
+                    raise ValueError("last line not newline-terminated (truncated?)")
+                out.append(_entry_from_line(raw))
+            except ValueError as e:
+                raise ManifestCorruptError(f"{mpath.name} line {no}: {e}") from None
+        return out
+
     def _index(self, source: str) -> _Index:
         """Strictly parsed index of the manifest, re-read whenever the file changed (inode, size,
         mtime or ctime). A corrupt file raises ManifestCorruptError and is never cached."""
@@ -354,18 +384,18 @@ class ManifestStore:
                 data = mpath.read_bytes()
             except FileNotFoundError:
                 return _Index(None, [])
-            out = []
-            for no, raw, terminated in _split_lines(data):
-                try:
-                    if not terminated:
-                        raise ValueError("last line not newline-terminated (truncated?)")
-                    out.append(_entry_from_line(raw))
-                except ValueError as e:
-                    raise ManifestCorruptError(f"{mpath.name} line {no}: {e}") from None
-            idx = _Index(sig, out)
-            if len(data) == st.st_size:      # file did not change between stat and read
-                self._idx[source] = idx
-            return idx
+            if not data or data.endswith(b"\n"):
+                idx = _Index(sig, self._parse(mpath, data))
+                if len(data) == st.st_size:      # file did not change between stat and read
+                    self._idx[source] = idx
+                return idx
+        # Unterminated tail: maybe a writer in another process is mid-append. Wait for its lock outside
+        # _idx_lock (a writer in this process needs _idx_lock while holding the file lock), read again.
+        try:
+            data = _read_manifest(mpath)
+        except FileNotFoundError:
+            return _Index(None, [])
+        return _Index(None, self._parse(mpath, data))      # not cached
 
     def _load(self, source: str) -> list[ManifestEntry]:
         return list(self._index(source).entries)
@@ -389,15 +419,28 @@ class ManifestStore:
         if source is not None:
             return self._verify_source(_check_source(source))
         names: set[str] = set()
-        if self._man_root.is_dir():
-            for p in self._man_root.iterdir():
-                if p.name.endswith(".jsonl") and _SOURCE_RE.fullmatch(p.name[:-6]):
-                    names.add(p.name[:-6])
-        if self._raw_root.is_dir():
-            for p in self._raw_root.iterdir():
-                if p.is_dir() and _SOURCE_RE.fullmatch(p.name):
-                    names.add(p.name)
         out: list[Problem] = []
+        if self._man_root.is_dir():
+            for p in sorted(self._man_root.iterdir()):
+                n = p.name
+                if not n.endswith(".jsonl"):
+                    continue                  # .gitkeep, *.jsonl.lock, <source>.runs/ ...
+                stem = n[:-6]
+                if _SOURCE_RE.fullmatch(stem):
+                    names.add(stem)
+                elif not (stem.endswith(".roots") and _SOURCE_RE.fullmatch(stem[:-6])):
+                    out.append(Problem("bad_line", "", str(p), None, "manifest file name is not <source>.jsonl"))
+        if self._raw_root.is_dir():
+            for p in sorted(self._raw_root.iterdir()):
+                n = p.name
+                if p.is_dir() and not p.is_symlink() and _SOURCE_RE.fullmatch(n):
+                    names.add(n)
+                elif n == ".gitkeep" or n.startswith(".tmp-"):
+                    continue
+                elif p.is_symlink() and _SOURCE_RE.fullmatch(n):
+                    names.add(n)              # _verify_source reports the symlinked source directory
+                else:
+                    out.append(Problem("misplaced_file", "", str(p), None, "not a <source> directory"))
         for n in sorted(names):
             out.extend(self._verify_source(n))
         return out
@@ -416,7 +459,7 @@ class ManifestStore:
         hashes: dict = {}
         mpath = self._manifest_path(source)
         try:
-            data = mpath.read_bytes()
+            data = _read_manifest(mpath)
         except (FileNotFoundError, NotADirectoryError):
             data = b""
         except OSError as e:

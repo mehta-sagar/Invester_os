@@ -179,16 +179,24 @@ def _cleanup(tmp: Path) -> None:
         _log.warning("temp_cleanup_failed", path=str(tmp), error=str(e))
 
 
-def _temp_copy(cfg: Config, tmp_parent: Path | None) -> tuple[Path, Config]:
+def _temp_copy(cfg: Config, tmp_parent: Path | None,
+               needs: frozenset[str] | None = None) -> tuple[Path, Config]:
+    """Copy the zones the check needs (all when `needs` is None); the others become empty directories."""
     tmp = Path(tempfile.mkdtemp(prefix="investos-planted-",
                                 dir=str(tmp_parent) if tmp_parent is not None else None))
     try:
         zones = {}
         for k in ZONE_KEYS:
             zones[k] = tmp / k
-            shutil.copytree(cfg.zones[k], zones[k], symlinks=False)
+            if needs is None or k in needs:
+                shutil.copytree(cfg.zones[k], zones[k], symlinks=False)
+            else:
+                zones[k].mkdir()
         mig = tmp / "migrations"
-        shutil.copytree(cfg.migrations_dir, mig, symlinks=False)
+        if needs is None or "migrations" in needs:
+            shutil.copytree(cfg.migrations_dir, mig, symlinks=False)
+        else:
+            mig.mkdir()
     except BaseException:
         _cleanup(tmp)
         raise
@@ -206,7 +214,7 @@ def _planted_one(registry: CheckRegistry, cfg: Config, name: str, run_id: str,
     setup, plant = registry.plant_of(name)
     fn = registry.get(name)
     try:
-        tmp, tcfg = _temp_copy(cfg, tmp_parent)
+        tmp, tcfg = _temp_copy(cfg, tmp_parent, registry.plant_zones(name))
     except OSError as e:
         return out("error", f"cannot create temp copy: {_exc_text(e)}", "baseline")
     try:

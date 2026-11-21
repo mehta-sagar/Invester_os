@@ -27,9 +27,10 @@ from typing import Callable, ClassVar, Iterable, Literal, Mapping, Protocol
 from urllib.parse import urlparse
 
 from investos import __version__
-from investos.acquire.manifest import ManifestEntry, ManifestStore
+from investos.acquire.manifest import ManifestEntry, ManifestStore, RawIntegrityError
 from investos.core import log
 from investos.core.config import Config
+from investos.core.names import SOURCE_RE as _SOURCE_RE
 
 __all__ = [
     "Collector", "Outcome", "Response", "Transport", "TransportError", "BodyVerdict", "RunRange",
@@ -38,9 +39,12 @@ __all__ = [
 
 MAX_ATTEMPTS = 4                                  # first try + 3 retries
 _BLOCK_STATUSES = frozenset({401, 403, 451})
-_FORBIDDEN_HEADERS = frozenset({"user-agent", "referer", "origin", "cookie", "x-forwarded-for", "x-real-ip"})
-# same rule as specs/core_manifest.md (kept here: the manifest module exposes no public validator, test A6)
-_SOURCE_RE = re.compile(r"[a-z0-9][a-z0-9_]{0,63}", re.ASCII)
+# identity, auth, proxy and routing headers an honest collector never sets (compared lower-case, "_" as "-")
+_FORBIDDEN_HEADERS = frozenset({
+    "user-agent", "referer", "origin", "cookie", "cookie2", "authorization", "proxy-authorization",
+    "host", "forwarded", "via", "x-forwarded-for", "x-forwarded-host", "x-real-ip", "x-client-ip",
+    "true-client-ip"})
+_HEADER_NAME_RE = re.compile(r"[!#$%&'*+.^_`|~0-9A-Za-z-]+", re.ASCII)      # RFC 7230 token
 _RUN_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", re.ASCII)
 _DRIVE_RE = re.compile(r"[A-Za-z]:")
 _MAX_MEMBER_NAME = 400                            # manifest logical_key cap is 512 incl. "<key>/"
@@ -245,9 +249,12 @@ class Collector(ABC):
         if self.page_limit is not None and (isinstance(self.page_limit, bool)
                                             or not isinstance(self.page_limit, int) or self.page_limit < 1):
             raise ValueError("page_limit must be None or an int >= 1")
-        for name in self.extra_headers:
-            if not isinstance(name, str) or name.lower() in _FORBIDDEN_HEADERS:
+        for name, value in self.extra_headers.items():
+            if not isinstance(name, str) or not _HEADER_NAME_RE.fullmatch(name) \
+                    or name.lower().replace("_", "-") in _FORBIDDEN_HEADERS:
                 raise ValueError(f"extra header {name!r} is not allowed (honest headers only)")
+            if not isinstance(value, str) or any(c in value for c in "\r\n\0"):
+                raise ValueError(f"extra header {name!r} has an invalid value")
         self._headers = {"User-Agent": f"investos/{__version__}", **self.extra_headers}
         self._transport = transport
         self._manifest = manifest
@@ -288,7 +295,10 @@ class Collector(ABC):
         recs: dict[str, _Rec] = {}
         aborted_after: str | None = None
         for key in keys:
-            rec, abort = self._do_key(key)
+            try:
+                rec, abort = self._do_key(key)
+            except OSError as e:                                # e.g. ENOSPC while storing
+                rec, abort = _Rec(Outcome.UNREADABLE, f"storage failure: {e}"), True
             recs[key] = rec
             if abort:
                 aborted_after = key
@@ -307,7 +317,12 @@ class Collector(ABC):
     def _do_key(self, key: str) -> tuple[_Rec, bool]:
         existing = self._manifest.get_by_key(self.source, key)
         if existing is not None:
-            rec = _Rec(Outcome.SKIPPED, "manifest already holds key", self._known_outputs(key, existing))
+            try:
+                rec = _Rec(Outcome.SKIPPED, "manifest already holds key", self._known_outputs(key, existing))
+            except (RawIntegrityError, UnsafeArchiveError, OSError) as e:
+                rec = _Rec(Outcome.UNREADABLE, f"stored archive failed integrity check: {e}")
+                self._log.error("unreadable", key=key, url=self.url(key), attempts=0, reason=rec.reason)
+                return rec, False
             self._log.info("skipped", key=key, url=self.url(key), attempts=0, reason=rec.reason)
             return rec, False
 

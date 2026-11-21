@@ -1,15 +1,23 @@
-# data never goes to GitHub: bytes live in data/, facts about bytes live in data/manifests (tracked)
-data/raw/
-data/staged/
-data/canonical/
-data/features/
-data/models/
-data/quarantine/
-data/exports/
-data/ledger/*
-!data/ledger/*.roots.jsonl
-!data/manifests/
-!**/.gitkeep
+# data never goes to GitHub: bytes live in data/, facts about bytes live in data/manifests and the ledgers (tracked)
+data/raw/*
+!data/raw/.gitkeep
+data/staged/*
+!data/staged/.gitkeep
+data/canonical/*
+!data/canonical/.gitkeep
+data/features/*
+!data/features/.gitkeep
+data/models/*
+!data/models/.gitkeep
+data/quarantine/*
+!data/quarantine/.gitkeep
+data/exports/*
+!data/exports/.gitkeep
+# runtime artefacts (never commit)
+*.lock
+.tmp-*
+*.tmp
+reports/checks/*
 .env
 credentials/
 __pycache__/

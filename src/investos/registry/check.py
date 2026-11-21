@@ -57,7 +57,7 @@ def _setup(ctx: CheckContext) -> None:
                      reasons=["planted"], model_versions={"plant": "v1"})
 
 
-@plant_for("registry", setup=_setup)
+@plant_for("registry", setup=_setup, zones={"registry", "ledger"})
 def _plant(ctx: CheckContext) -> None:
     """Flip one character of seq 1's hypothesis in the temp copy, leaving its hash untouched."""
     path = open_trials(ctx.cfg).path

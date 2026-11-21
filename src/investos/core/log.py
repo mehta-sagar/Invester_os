@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import math
 import secrets
 import sys
 from datetime import datetime, timezone
@@ -50,21 +49,8 @@ def _ts() -> str:
     return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
 
-def _check_finite(value: Any, _depth: int = 0) -> None:
-    if _depth > 50:
-        return
-    if isinstance(value, float) and not math.isfinite(value):
-        raise ValueError(f"non-finite float {value!r} is not valid JSON")
-    if isinstance(value, dict):
-        for v in value.values():
-            _check_finite(v, _depth + 1)
-    elif isinstance(value, (list, tuple)):
-        for v in value:
-            _check_finite(v, _depth + 1)
-
-
 def _safe(value: Any) -> Any:
-    _check_finite(value)
+    """Return value if it is strictly JSON-serialisable (no NaN/Inf), else its repr (spec R12: never raise)."""
     try:
         json.dumps(value, default=repr, ensure_ascii=False, allow_nan=False)
         return value

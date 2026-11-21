@@ -37,6 +37,7 @@ class CheckRegistry:
     def __init__(self) -> None:
         self._checks: dict[str, CheckFn] = {}
         self._plants: dict[str, tuple[SetupFn | None, PlantFn]] = {}
+        self._zones: dict[str, frozenset[str] | None] = {}
 
     def check(self, name: str) -> Callable[[CheckFn], CheckFn]:
         if not isinstance(name, str) or not _NAME_RE.fullmatch(name):
@@ -53,7 +54,8 @@ class CheckRegistry:
             return fn
         return deco
 
-    def plant_for(self, name: str, *, setup: SetupFn | None = None) -> Callable[[PlantFn], PlantFn]:
+    def plant_for(self, name: str, *, setup: SetupFn | None = None,
+                  zones: frozenset[str] | set[str] | None = None) -> Callable[[PlantFn], PlantFn]:
         def deco(fn: PlantFn) -> PlantFn:
             if not callable(fn) or (setup is not None and not callable(setup)):
                 raise RegistryError(f"plant for {name!r}: plant and setup must be callable")
@@ -62,6 +64,7 @@ class CheckRegistry:
             if name in self._plants:
                 raise RegistryError(f"check {name!r} already has a plant")
             self._plants[name] = (setup, fn)
+            self._zones[name] = None if zones is None else frozenset(zones)
             return fn
         return deco
 
@@ -73,6 +76,10 @@ class CheckRegistry:
             return self._checks[name]
         except KeyError:
             raise RegistryError(f"unknown check {name!r}") from None
+
+    def plant_zones(self, name: str) -> frozenset[str] | None:
+        """Zones (and 'migrations') the planted run copies for this check; None means all of them."""
+        return self._zones.get(name)
 
     def plant_of(self, name: str) -> tuple[SetupFn | None, PlantFn] | None:
         return self._plants.get(name)
