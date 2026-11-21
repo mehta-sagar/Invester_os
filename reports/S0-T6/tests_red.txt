@@ -1,0 +1,3110 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFEEFEEEEEFFFEEEEEEEEEEEEEEEEEEEEEEEEEEFFEEFEFFF [ 50%]
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEEEEEEEEEEEEE  [100%]
+==================================== ERRORS ====================================
+_________ ERROR at setup of test_A3_row_hash_matches_published_vector __________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A3_row_hash_matches_publi0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36e60830>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A3_row_hash_matches_publi0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36e60830>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____ ERROR at setup of test_A4_three_appends_seq_genesis_links_and_lines ______
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A4_three_appends_seq_gene0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d1c910>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A4_three_appends_seq_gene0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d1c910>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______ ERROR at setup of test_A4c_ts_is_clock_in_utc_with_microseconds ________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A4c_ts_is_clock_in_utc_wi0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36fc3100>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A4c_ts_is_clock_in_utc_wi0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36fc3100>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+______ ERROR at setup of test_A22_devanagari_stored_as_utf8_and_verifies _______
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A22_devanagari_stored_as_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36fc3820>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A22_devanagari_stored_as_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36fc3820>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A5_append_on_edited_chain_refused_and_file_unchanged __
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5_append_on_edited_chain0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d36210>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5_append_on_edited_chain0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d36210>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______________ ERROR at setup of test_A5b_clock_moved_backwards _______________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5b_clock_moved_backwards0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ced6a0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5b_clock_moved_backwards0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ced6a0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____ ERROR at setup of test_A5c_float_in_payload_refused_nothing_written ______
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5c_float_in_payload_refu0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36cee360>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5c_float_in_payload_refu0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36cee360>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+___ ERROR at setup of test_A10_verify_reports_first_broken_seq[payload_row3] ___
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d25c50>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d25c50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____ ERROR at setup of test_A10_verify_reports_first_broken_seq[ts_row3] ______
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_1/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36db2300>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_1/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36db2300>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+____ ERROR at setup of test_A10_verify_reports_first_broken_seq[hash_row3] _____
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_2/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36db1310>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_2/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36db1310>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__ ERROR at setup of test_A10_verify_reports_first_broken_seq[prev_hash_row3] __
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_3/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36e918d0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_3/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36e918d0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[hash_uppercase_row3] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_4/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d035b0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_4/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d035b0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[blank_line_after_row2] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_5/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36e96dd0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_5/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36e96dd0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[invalid_json_line4] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_6/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36edb710>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_6/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36edb710>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__ ERROR at setup of test_A10_verify_reports_first_broken_seq[extra_key_row2] __
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_7/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ea6c90>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_7/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ea6c90>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[no_final_newline] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_8/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9efc0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_8/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9efc0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[carriage_return_line2] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_9/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9f6a0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_9/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9f6a0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[ts_earlier_than_previous_valid_hash] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_10/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9ab70>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_10/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9ab70>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[line_not_an_object] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_11/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9b250>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_11/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d9b250>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A10_verify_reports_first_broken_seq[seq_not_position_valid_hash] _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_12/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36dcc830>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A10_verify_reports_first_12/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36dcc830>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_________________ ERROR at setup of test_A11_delete_middle_row _________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11_delete_middle_row0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d92a50>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11_delete_middle_row0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d92a50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_________________ ERROR at setup of test_A11b_delete_first_row _________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11b_delete_first_row0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d710d0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11b_delete_first_row0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d710d0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+________________ ERROR at setup of test_A11c_swap_rows_2_and_3 _________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11c_swap_rows_2_and_30/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c30d70>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11c_swap_rows_2_and_30/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c30d70>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______ ERROR at setup of test_A11d_insert_copy_of_row2_between_4_and_5 ________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11d_insert_copy_of_row2_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c31240>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11d_insert_copy_of_row2_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c31240>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__________ ERROR at setup of test_A11e_insert_foreign_well_formed_row __________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11e_insert_foreign_well_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36beb110>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11e_insert_foreign_well_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36beb110>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A11f_edit_row3_with_recomputed_own_hash_caught_at_row4 _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11f_edit_row3_with_recom0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36bebf50>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11f_edit_row3_with_recom0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36bebf50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______________ ERROR at setup of test_A11g_truncated_last_line ________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11g_truncated_last_line0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca8b40>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11g_truncated_last_line0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca8b40>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A11h_tail_edit_with_recomputed_hash_not_caught_by_chain_alone _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11h_tail_edit_with_recom0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da7c50>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11h_tail_edit_with_recom0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da7c50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__ ERROR at setup of test_A11i_deleting_final_rows_not_caught_by_chain_alone ___
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11i_deleting_final_rows_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca8f00>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11i_deleting_final_rows_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca8f00>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+________ ERROR at setup of test_A11j_tail_edit_caught_by_committed_root ________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11j_tail_edit_caught_by_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca8a50>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11j_tail_edit_caught_by_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca8a50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__ ERROR at setup of test_A11k_deleting_last_row_caught_by_root_as_truncated ___
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11k_deleting_last_row_ca0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca80a0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A11k_deleting_last_row_ca0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca80a0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+____________________ ERROR at setup of test_A12_absent_file ____________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A12_absent_file0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da7c50>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A12_absent_file0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da7c50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+____________________ ERROR at setup of test_A12b_empty_file ____________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A12b_empty_file0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca94f0>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A12b_empty_file0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36ca94f0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______ ERROR at setup of test_A18_rows_and_head_raise_on_corrupt_chain ________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A18_rows_and_head_raise_o0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da7480>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A18_rows_and_head_raise_o0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da7480>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__________ ERROR at setup of test_A18b_rows_and_head_on_healthy_chain __________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A18b_rows_and_head_on_hea0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da6a30>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A18b_rows_and_head_on_hea0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da6a30>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A23_same_microsecond_ok_one_microsecond_earlier_refused _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A23_same_microsecond_ok_o0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da63f0>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A23_same_microsecond_ok_o0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36da63f0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+____________ ERROR at setup of test_A13_one_root_for_closed_ist_day ____________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13_one_root_for_closed_i0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c80ff0>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13_one_root_for_closed_i0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c80ff0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__________ ERROR at setup of test_A13b_ist_boundary_235959_vs_000000 ___________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13b_ist_boundary_235959_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c80cd0>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13b_ist_boundary_235959_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c80cd0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____ ERROR at setup of test_A13c_open_day_closes_exactly_at_ist_midnight ______
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13c_open_day_closes_exac0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82030>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13c_open_day_closes_exac0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82030>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__________ ERROR at setup of test_A13d_utc_date_differs_from_ist_date __________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13d_utc_date_differs_fro0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82580>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13d_utc_date_differs_fro0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82580>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__________ ERROR at setup of test_A13e_days_without_rows_get_no_root ___________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13e_days_without_rows_ge0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83340>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A13e_days_without_rows_ge0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83340>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__________ ERROR at setup of test_A14_second_run_noop_file_unchanged ___________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14_second_run_noop_file_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c81b80>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14_second_run_noop_file_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c81b80>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A14b_later_day_appends_only_new_root_earlier_lines_identical _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14b_later_day_appends_on0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82fd0>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14b_later_day_appends_on0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82fd0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A14c_chain_tamper_under_existing_root_blocks_write_roots _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14c_chain_tamper_under_e0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83ac0>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14c_chain_tamper_under_e0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83ac0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A14d_forged_tail_with_valid_chain_blocks_write_roots __
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14d_forged_tail_with_val0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83700>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14d_forged_tail_with_val0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83700>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____________ ERROR at setup of test_A14e_only_todays_rows_no_root _____________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14e_only_todays_rows_no_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83750>
+
+    @pytest.fixture
+    def ledger(lpath, clock):
+        """Generic (kind='test', accept-anything validator) empty ledger on a fake clock."""
+>       return new_ledger(lpath, clock)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14e_only_todays_rows_no_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83750>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+___ ERROR at setup of test_A14f_roots_path_is_ledger_path_with_roots_suffix ____
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14f_roots_path_is_ledger0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83de0>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A14f_roots_path_is_ledger0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83de0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______________ ERROR at setup of test_A15_root_with_wrong_hash ________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15_root_with_wrong_hash0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82da0>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15_root_with_wrong_hash0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c82da0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+____________ ERROR at setup of test_A15b_root_seq_beyond_row_count _____________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15b_root_seq_beyond_row_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83a70>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15b_root_seq_beyond_row_0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c83a70>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+______ ERROR at setup of test_A15c_root_date_not_matching_ist_date_of_row ______
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15c_root_date_not_matchi0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0db30>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15c_root_date_not_matchi0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0db30>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______ ERROR at setup of test_A15d_root_pointing_at_row_not_last_of_day _______
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15d_root_pointing_at_row0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0d5e0>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15d_root_pointing_at_row0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0d5e0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____ ERROR at setup of test_A15e_duplicated_root_line_date_not_increasing _____
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15e_duplicated_root_line0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c80ff0>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15e_duplicated_root_line0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c80ff0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_______________ ERROR at setup of test_A15f_unsorted_root_dates ________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15f_unsorted_root_dates0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c81ae0>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15f_unsorted_root_dates0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c81ae0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+______________ ERROR at setup of test_A15g_invalid_json_root_line ______________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15g_invalid_json_root_li0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36cab2a0>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15g_invalid_json_root_li0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36cab2a0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+____ ERROR at setup of test_A15h_valid_roots_ok_and_roots_false_skips_them _____
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15h_valid_roots_ok_and_r0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0de50>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15h_valid_roots_ok_and_r0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0de50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_ ERROR at setup of test_A15i_absent_roots_file_is_ok_and_missing_roots_not_a_failure _
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15i_absent_roots_file_is0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0d950>
+
+    @pytest.fixture
+    def five(lpath, clock):
+        """Generic ledger with 5 rows at 2026-11-20T10:00:00Z + 0..4 s (all on IST day 2026-11-20)."""
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/conftest.py:28: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A15i_absent_roots_file_is0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0d950>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____ ERROR at setup of test_A16_chain_break_row2_beats_root_mismatch_seq4 _____
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A16_chain_break_row2_beat0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0dea0>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A16_chain_break_row2_beat0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0dea0>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+________ ERROR at setup of test_A16b_smallest_root_finding_is_reported _________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A16b_smallest_root_findin0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0d860>
+
+    @pytest.fixture
+    def rooted(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_roots.py:160: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A16b_smallest_root_findin0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36c0d860>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+=================================== FAILURES ===================================
+________________ test_A1_canonical_json_stable_across_key_order ________________
+
+    def test_A1_canonical_json_stable_across_key_order():
+>       from investos.registry.canon import canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:17: ModuleNotFoundError
+_________________ test_A1b_no_whitespace_and_non_ascii_literal _________________
+
+    def test_A1b_no_whitespace_and_non_ascii_literal():
+>       from investos.registry.canon import canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:25: ModuleNotFoundError
+________________ test_A1c_depth_of_nesting_is_order_independent ________________
+
+    def test_A1c_depth_of_nesting_is_order_independent():
+>       from investos.registry.canon import canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:32: ModuleNotFoundError
+___________________ test_A2_forbidden_values_rejected[float] ___________________
+
+bad = 0.1
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+_________________ test_A2_forbidden_values_rejected[float_1.0] _________________
+
+bad = 1.0
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+____________________ test_A2_forbidden_values_rejected[nan] ____________________
+
+bad = nan
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+____________________ test_A2_forbidden_values_rejected[inf] ____________________
+
+bad = inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+__________________ test_A2_forbidden_values_rejected[neg_inf] __________________
+
+bad = -inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+___________________ test_A2_forbidden_values_rejected[tuple] ___________________
+
+bad = (1, 2)
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+____________________ test_A2_forbidden_values_rejected[set] ____________________
+
+bad = {1, 2}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+__________________ test_A2_forbidden_values_rejected[decimal] __________________
+
+bad = Decimal('1')
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+___________________ test_A2_forbidden_values_rejected[bytes] ___________________
+
+bad = b'x'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+_________________ test_A2_forbidden_values_rejected[datetime] __________________
+
+bad = datetime.datetime(2026, 1, 1, 0, 0)
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+________________ test_A2_forbidden_values_rejected[non_str_key] ________________
+
+bad = {1: 'a'}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+_________________ test_A2_forbidden_values_rejected[int_2_53] __________________
+
+bad = 9007199254740992
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+_______________ test_A2_forbidden_values_rejected[int_neg_2_53] ________________
+
+bad = -9007199254740992
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+______________ test_A2_forbidden_values_rejected[lone_surrogate] _______________
+
+bad = '\ud800'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+________________ test_A2_forbidden_values_rejected[nesting_65] _________________
+
+bad = [[[[[[[...]]]]]]]
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+_______________ test_A2_forbidden_values_rejected[nested_float] ________________
+
+bad = {'a': [{'b': 0.5}]}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+_______________ test_A2_forbidden_values_rejected[nested_tuple] ________________
+
+bad = {'a': (1,)}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [
+        pytest.param(0.1, id="float"),
+        pytest.param(1.0, id="float_1.0"),
+        pytest.param(float("nan"), id="nan"),
+        pytest.param(float("inf"), id="inf"),
+        pytest.param(-float("inf"), id="neg_inf"),
+        pytest.param((1, 2), id="tuple"),
+        pytest.param({1, 2}, id="set"),
+        pytest.param(Decimal("1"), id="decimal"),
+        pytest.param(b"x", id="bytes"),
+        pytest.param(datetime(2026, 1, 1), id="datetime"),
+        pytest.param({1: "a"}, id="non_str_key"),
+        pytest.param(2**53, id="int_2_53"),
+        pytest.param(-(2**53), id="int_neg_2_53"),
+        pytest.param("\ud800", id="lone_surrogate"),
+        pytest.param(_deep(65), id="nesting_65"),
+        pytest.param({"a": [{"b": 0.5}]}, id="nested_float"),
+        pytest.param({"a": (1,)}, id="nested_tuple"),
+    ])
+    def test_A2_forbidden_values_rejected(bad):
+>       from investos.registry.canon import CanonicalJsonError, canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:65: ModuleNotFoundError
+_________________ test_A2b_canonical_json_error_is_value_error _________________
+
+    def test_A2b_canonical_json_error_is_value_error():
+>       from investos.registry.canon import CanonicalJsonError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:71: ModuleNotFoundError
+__________________ test_A2c_allowed_values_and_distinct_types __________________
+
+    def test_A2c_allowed_values_and_distinct_types():
+>       from investos.registry.canon import canonical_json
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:76: ModuleNotFoundError
+______________________ test_A3_sha256_hex_matches_hashlib ______________________
+
+    def test_A3_sha256_hex_matches_hashlib():
+>       from investos.registry.canon import sha256_hex
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:87: ModuleNotFoundError
+__________________ test_A3b_published_vector_hash_input_text ___________________
+
+    def test_A3b_published_vector_hash_input_text():
+>       from investos.registry.canon import canonical_json, sha256_hex
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:93: ModuleNotFoundError
+___________________ test_A3c_any_changed_input_changes_hash ____________________
+
+    def test_A3c_any_changed_input_changes_hash():
+>       from investos.registry.canon import canonical_json, sha256_hex
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:101: ModuleNotFoundError
+________________ test_A22_devanagari_canonical_is_literal_utf8 _________________
+
+    def test_A22_devanagari_canonical_is_literal_utf8():
+>       from investos.registry.canon import canonical_json, sha256_hex
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_canon.py:116: ModuleNotFoundError
+________ test_A4b_file_created_on_first_append_and_key_order_irrelevant ________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A4b_file_created_on_first0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d1cf50>
+
+    def test_A4b_file_created_on_first_append_and_key_order_irrelevant(lpath, clock):
+>       led = new_ledger(lpath, clock)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_chain.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A4b_file_created_on_first0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d1cf50>, kind = 'test'
+validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+_____________ test_A5d_naive_clock_is_value_error_nothing_written ______________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5d_naive_clock_is_value_0/test.jsonl')
+
+    @pytest.mark.planted
+    def test_A5d_naive_clock_is_value_error_nothing_written(lpath):
+        from datetime import datetime
+>       led = new_ledger(lpath, clock=lambda: datetime(2026, 11, 20, 10, 0, 0))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_chain.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5d_naive_clock_is_value_0/test.jsonl')
+clock = <function test_A5d_naive_clock_is_value_error_nothing_written.<locals>.<lambda> at 0x7fbe36d3b740>
+kind = 'test', validate = <function accept_all at 0x7fbe36e38040>
+
+    def new_ledger(path: Path, clock=None, kind: str = "test", validate=accept_all):
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/_registry_helpers.py:83: ModuleNotFoundError
+__________________ test_A5e_validator_failure_writes_nothing ___________________
+
+lpath = PosixPath('/tmp/pytest-of-root/pytest-141/test_A5e_validator_failure_wri0/test.jsonl')
+clock = <_registry_helpers.FakeClock object at 0x7fbe36d25b50>
+
+    def test_A5e_validator_failure_writes_nothing(lpath, clock):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_chain.py:114: ModuleNotFoundError
+_________________________ test_A5f_exception_hierarchy _________________________
+
+    def test_A5f_exception_hierarchy():
+>       from investos.registry.chain import LedgerCorruptError, LedgerError, PayloadError, RootMismatchError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_chain.py:125: ModuleNotFoundError
+____________ test_A17_public_surface_is_exactly_the_append_only_api ____________
+
+    @pytest.mark.planted
+    def test_A17_public_surface_is_exactly_the_append_only_api():
+>       from investos.registry.chain import Ledger
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_chain.py:337: ModuleNotFoundError
+___________ test_A17b_source_has_no_destructive_calls_or_write_modes ___________
+
+    @pytest.mark.planted
+    def test_A17b_source_has_no_destructive_calls_or_write_modes():
+>       import investos.registry as pkg
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_chain.py:344: ModuleNotFoundError
+___________________ test_A19_four_processes_25_appends_each ____________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A19_four_processes_25_app0')
+
+    def test_A19_four_processes_25_appends_each(tmp_path):
+        path = tmp_path / "conc.jsonl"
+        env = {**os.environ, "PYTHONPATH": str(REPO / "src")}
+        procs = [subprocess.Popen([sys.executable, "-c", _WORKER, str(path), str(k), "25"], env=env,
+                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE) for k in range(4)]
+        for p in procs:
+            out, err = p.communicate(timeout=300)
+>           assert p.returncode == 0, err.decode()
+E           AssertionError: Traceback (most recent call last):
+E               File "<string>", line 4, in <module>
+E                 from investos.registry.chain import Ledger
+E             ModuleNotFoundError: No module named 'investos.registry'
+E             
+E           assert 1 == 0
+E            +  where 1 = <Popen: returncode: 1 args: ['/usr/local/bin/python', '-c', '\nimport sys\nf...>.returncode
+
+tests/unit/registry/test_registry_chain.py:428: AssertionError
+_______________ test_A20_check_is_registered_in_default_registry _______________
+
+    def test_A20_check_is_registered_in_default_registry():
+>       reg, _ = _check_env()
+                 ^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_env():
+>       import investos.registry.check  # noqa: F401  (registers "registry" in DEFAULT_REGISTRY)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:17: ModuleNotFoundError
+________________________ test_A20b_healthy_ledgers_pass ________________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20b_healthy_ledgers_pass0/repo'), timezone='Asia/Kolk..._ledgers_pass0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A20b_healthy_ledgers_pass(cfg):
+>       reg, Ctx = _check_env()
+                   ^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_env():
+>       import investos.registry.check  # noqa: F401  (registers "registry" in DEFAULT_REGISTRY)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:17: ModuleNotFoundError
+________________________ test_A20c_absent_ledgers_pass _________________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20c_absent_ledgers_pass0/repo'), timezone='Asia/Kolka..._ledgers_pass0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A20c_absent_ledgers_pass(cfg):
+>       reg, Ctx = _check_env()
+                   ^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_env():
+>       import investos.registry.check  # noqa: F401  (registers "registry" in DEFAULT_REGISTRY)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:17: ModuleNotFoundError
+__________________ test_A20d_edited_hypothesis_fails_at_seq_2 __________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20d_edited_hypothesis_fa0/repo'), timezone='Asia/Kolk...hypothesis_fa0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A20d_edited_hypothesis_fails_at_seq_2(cfg):
+>       reg, Ctx = _check_env()
+                   ^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_env():
+>       import investos.registry.check  # noqa: F401  (registers "registry" in DEFAULT_REGISTRY)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:17: ModuleNotFoundError
+____________ test_A20e_decisions_tamper_reported_with_its_own_kind _____________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20e_decisions_tamper_rep0/repo'), timezone='Asia/Kolk...ns_tamper_rep0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A20e_decisions_tamper_reported_with_its_own_kind(cfg):
+>       reg, Ctx = _check_env()
+                   ^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_env():
+>       import investos.registry.check  # noqa: F401  (registers "registry" in DEFAULT_REGISTRY)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:17: ModuleNotFoundError
+_______________ test_A20f_cli_registry_exit_1_and_report_written _______________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20f_cli_registry_exit_1_0/repo'), timezone='Asia/Kolk...istry_exit_1_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A20f_cli_registry_exit_1_and_report_written(cfg):
+>       t, d = _seed(cfg)
+               ^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20f_cli_registry_exit_1_0/repo'), timezone='Asia/Kolk...istry_exit_1_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+n_trials = 3, n_decisions = 3
+
+    def _seed(cfg, n_trials=3, n_decisions=3):
+>       from investos.registry.ledgers import log_decision, open_decisions, open_trials, register_trial
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:23: ModuleNotFoundError
+___________________ test_A20g_cli_registry_exit_0_on_healthy ___________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20g_cli_registry_exit_0_0/repo'), timezone='Asia/Kolk...istry_exit_0_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A20g_cli_registry_exit_0_on_healthy(cfg):
+>       _seed(cfg)
+
+tests/unit/registry/test_registry_check.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A20g_cli_registry_exit_0_0/repo'), timezone='Asia/Kolk...istry_exit_0_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+n_trials = 3, n_decisions = 3
+
+    def _seed(cfg, n_trials=3, n_decisions=3):
+>       from investos.registry.ledgers import log_decision, open_decisions, open_trials, register_trial
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:23: ModuleNotFoundError
+_____________________ test_A21_planted_registry_is_caught ______________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A21_planted_registry_is_c0/repo'), timezone='Asia/Kolk...registry_is_c0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A21_planted_registry_is_caught(cfg):
+>       code, out = _run(cfg, ["--planted", "registry"])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A21_planted_registry_is_c0/repo'), timezone='Asia/Kolk...registry_is_c0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+argv = ['--planted', 'registry']
+
+    def _run(cfg, argv):
+>       from investos.check.cli import main
+E       ModuleNotFoundError: No module named 'investos.check'
+
+tests/unit/registry/test_registry_check.py:51: ModuleNotFoundError
+__________________ test_A21b_check_never_changes_ledger_files __________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A21b_check_never_changes_0/repo'), timezone='Asia/Kolk...ever_changes_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A21b_check_never_changes_ledger_files(cfg):
+>       t, d = _seed(cfg)
+               ^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A21b_check_never_changes_0/repo'), timezone='Asia/Kolk...ever_changes_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+n_trials = 3, n_decisions = 3
+
+    def _seed(cfg, n_trials=3, n_decisions=3):
+>       from investos.registry.ledgers import log_decision, open_decisions, open_trials, register_trial
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:23: ModuleNotFoundError
+________________________ test_A21c_plant_noop_is_missed ________________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A21c_plant_noop_is_missed0/repo'), timezone='Asia/Kolk...oop_is_missed0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A21c_plant_noop_is_missed(cfg):
+>       from investos.check.registry import CheckRegistry
+E       ModuleNotFoundError: No module named 'investos.check'
+
+tests/unit/registry/test_registry_check.py:165: ModuleNotFoundError
+_____________________ test_A21d_setup_and_plant_behaviour ______________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A21d_setup_and_plant_beha0/repo'), timezone='Asia/Kolk...nd_plant_beha0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A21d_setup_and_plant_behaviour(cfg):
+        """setup builds 3+3 valid rows; plant flips one character of seq-1 hypothesis in trials.jsonl, hash untouched."""
+>       reg, Ctx = _check_env()
+                   ^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_check.py:181: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _check_env():
+>       import investos.registry.check  # noqa: F401  (registers "registry" in DEFAULT_REGISTRY)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_check.py:17: ModuleNotFoundError
+___________________ test_A6_openers_use_zone_paths_and_kinds ___________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A6_openers_use_zone_paths0/repo'), timezone='Asia/Kolk...se_zone_paths0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A6_openers_use_zone_paths_and_kinds(cfg):
+>       t, d = _trials(cfg), _decisions(cfg)
+               ^^^^^^^^^^^^
+
+tests/unit/registry/test_registry_ledgers.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A6_openers_use_zone_paths0/repo'), timezone='Asia/Kolk...se_zone_paths0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+clock = None
+
+    def _trials(cfg, clock=None):
+>       from investos.registry.ledgers import open_trials
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:12: ModuleNotFoundError
+_________________________ test_A6b_register_trial_row __________________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A6b_register_trial_row0/repo'), timezone='Asia/Kolkata...ter_trial_row0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A6b_register_trial_row(cfg):
+>       from investos.registry.ledgers import register_trial
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:41: ModuleNotFoundError
+___________________ test_A6c_devanagari_hypothesis_roundtrip ___________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A6c_devanagari_hypothesis0/repo'), timezone='Asia/Kolk...ri_hypothesis0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A6c_devanagari_hypothesis_roundtrip(cfg):
+>       from investos.registry.ledgers import register_trial
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:54: ModuleNotFoundError
+_______ test_A7_invalid_trial_payload_refused_nothing_written[extra_key] _______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_0/repo'), timezone='Asia/Kolk...rial_payload_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd3a0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+______ test_A7_invalid_trial_payload_refused_nothing_written[missing_key] ______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_1/repo'), timezone='Asia/Kolk...rial_payload_1/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd440>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+_______ test_A7_invalid_trial_payload_refused_nothing_written[rbr_int_1] _______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_2/repo'), timezone='Asia/Kolk...rial_payload_2/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd4e0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+____ test_A7_invalid_trial_payload_refused_nothing_written[rbr_string_true] ____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_3/repo'), timezone='Asia/Kolk...rial_payload_3/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd580>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+_______ test_A7_invalid_trial_payload_refused_nothing_written[rbr_false] _______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_4/repo'), timezone='Asia/Kolk...rial_payload_4/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd620>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+___ test_A7_invalid_trial_payload_refused_nothing_written[empty_hypothesis] ____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_5/repo'), timezone='Asia/Kolk...rial_payload_5/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd6c0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+____ test_A7_invalid_trial_payload_refused_nothing_written[empty_trial_id] _____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_6/repo'), timezone='Asia/Kolk...rial_payload_6/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd760>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+_____ test_A7_invalid_trial_payload_refused_nothing_written[empty_family] ______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_7/repo'), timezone='Asia/Kolk...rial_payload_7/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd800>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+___ test_A7_invalid_trial_payload_refused_nothing_written[empty_feature_id] ____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_8/repo'), timezone='Asia/Kolk...rial_payload_8/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd8a0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+___ test_A7_invalid_trial_payload_refused_nothing_written[trial_id_not_str] ____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_9/repo'), timezone='Asia/Kolk...rial_payload_9/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd940>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+___ test_A7_invalid_trial_payload_refused_nothing_written[params_not_object] ___
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_10/repo'), timezone='Asia/Kol...ial_payload_10/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfd9e0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+_____ test_A7_invalid_trial_payload_refused_nothing_written[empty_payload] _____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7_invalid_trial_payload_11/repo'), timezone='Asia/Kol...ial_payload_11/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfda80>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**_bad_trial(), "extra": 1}, id="extra_key"),
+        pytest.param(lambda: _bad_trial(family=_MISSING), id="missing_key"),
+        pytest.param(lambda: _bad_trial(registered_before_run=1), id="rbr_int_1"),
+        pytest.param(lambda: _bad_trial(registered_before_run="true"), id="rbr_string_true"),
+        pytest.param(lambda: _bad_trial(registered_before_run=False), id="rbr_false"),
+        pytest.param(lambda: _bad_trial(hypothesis=""), id="empty_hypothesis"),
+        pytest.param(lambda: _bad_trial(trial_id=""), id="empty_trial_id"),
+        pytest.param(lambda: _bad_trial(family=""), id="empty_family"),
+        pytest.param(lambda: _bad_trial(feature_id=""), id="empty_feature_id"),
+        pytest.param(lambda: _bad_trial(trial_id=5), id="trial_id_not_str"),
+        pytest.param(lambda: _bad_trial(params=[1, 2]), id="params_not_object"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A7_invalid_trial_payload_refused_nothing_written(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:90: ModuleNotFoundError
+_______________________ test_A7b_float_in_params_refused _______________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7b_float_in_params_refus0/repo'), timezone='Asia/Kolk..._params_refus0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A7b_float_in_params_refused(cfg):
+>       from investos.registry.canon import CanonicalJsonError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:102: ModuleNotFoundError
+_____________________ test_A7c_duplicate_trial_id_refused ______________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7c_duplicate_trial_id_re0/repo'), timezone='Asia/Kolk...e_trial_id_re0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A7c_duplicate_trial_id_refused(cfg):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:113: ModuleNotFoundError
+_____________________ test_A7d_empty_params_object_allowed _____________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A7d_empty_params_object_a0/repo'), timezone='Asia/Kolk...rams_object_a0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    @pytest.mark.planted
+    def test_A7d_empty_params_object_allowed(cfg):
+>       from investos.registry.ledgers import register_trial
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:127: ModuleNotFoundError
+__________________ test_A8_valid_decision_and_same_key_twice ___________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A8_valid_decision_and_sam0/repo'), timezone='Asia/Kolk...ision_and_sam0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A8_valid_decision_and_same_key_twice(cfg):
+>       from investos.registry.ledgers import log_decision
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:135: ModuleNotFoundError
+______________________ test_A8b_all_actions_accepted[buy] ______________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A8b_all_actions_accepted_0/repo'), timezone='Asia/Kolk...ons_accepted_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+action = 'buy'
+
+    @pytest.mark.parametrize("action", ["buy", "sell", "hold", "no_trade"])
+    def test_A8b_all_actions_accepted(cfg, action):
+>       from investos.registry.ledgers import log_decision
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:149: ModuleNotFoundError
+_____________________ test_A8b_all_actions_accepted[sell] ______________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A8b_all_actions_accepted_1/repo'), timezone='Asia/Kolk...ons_accepted_1/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+action = 'sell'
+
+    @pytest.mark.parametrize("action", ["buy", "sell", "hold", "no_trade"])
+    def test_A8b_all_actions_accepted(cfg, action):
+>       from investos.registry.ledgers import log_decision
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:149: ModuleNotFoundError
+_____________________ test_A8b_all_actions_accepted[hold] ______________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A8b_all_actions_accepted_2/repo'), timezone='Asia/Kolk...ons_accepted_2/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+action = 'hold'
+
+    @pytest.mark.parametrize("action", ["buy", "sell", "hold", "no_trade"])
+    def test_A8b_all_actions_accepted(cfg, action):
+>       from investos.registry.ledgers import log_decision
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:149: ModuleNotFoundError
+___________________ test_A8b_all_actions_accepted[no_trade] ____________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A8b_all_actions_accepted_3/repo'), timezone='Asia/Kolk...ons_accepted_3/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+action = 'no_trade'
+
+    @pytest.mark.parametrize("action", ["buy", "sell", "hold", "no_trade"])
+    def test_A8b_all_actions_accepted(cfg, action):
+>       from investos.registry.ledgers import log_decision
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:149: ModuleNotFoundError
+________ test_A9_invalid_decision_refused_nothing_written[action_short] ________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus0/repo'), timezone='Asia/Kolk...ecision_refus0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': 'INE002A01018', 'action': 'short', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+______ test_A9_invalid_decision_refused_nothing_written[action_uppercase] ______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus1/repo'), timezone='Asia/Kolk...ecision_refus1/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': 'INE002A01018', 'action': 'BUY', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+___ test_A9_invalid_decision_refused_nothing_written[date_invalid_calendar] ____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus2/repo'), timezone='Asia/Kolk...ecision_refus2/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-02-30', 'security_id': 'INE002A01018', 'action': 'buy', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+_____ test_A9_invalid_decision_refused_nothing_written[date_wrong_format] ______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus3/repo'), timezone='Asia/Kolk...ecision_refus3/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '21-11-2026', 'security_id': 'INE002A01018', 'action': 'buy', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+____ test_A9_invalid_decision_refused_nothing_written[date_not_zero_padded] ____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus4/repo'), timezone='Asia/Kolk...ecision_refus4/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-1-5', 'security_id': 'INE002A01018', 'action': 'buy', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+_____ test_A9_invalid_decision_refused_nothing_written[reasons_empty_list] _____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus5/repo'), timezone='Asia/Kolk...ecision_refus5/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': 'INE002A01018', 'action': 'buy', 'reasons': [], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+____ test_A9_invalid_decision_refused_nothing_written[reasons_empty_string] ____
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus6/repo'), timezone='Asia/Kolk...ecision_refus6/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': 'INE002A01018', 'action': 'buy', 'reasons': [''], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+_____ test_A9_invalid_decision_refused_nothing_written[security_id_empty] ______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus7/repo'), timezone='Asia/Kolk...ecision_refus7/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': '', 'action': 'buy', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+_ test_A9_invalid_decision_refused_nothing_written[model_versions_non_str_value] _
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus8/repo'), timezone='Asia/Kolk...ecision_refus8/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': 'INE002A01018', 'action': 'buy', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+_ test_A9_invalid_decision_refused_nothing_written[buy_with_empty_model_versions] _
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus9/repo'), timezone='Asia/Kolk...ecision_refus9/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': 'INE002A01018', 'action': 'buy', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+_ test_A9_invalid_decision_refused_nothing_written[sell_with_empty_model_versions] _
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9_invalid_decision_refus10/repo'), timezone='Asia/Kol...cision_refus10/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+kwargs = {'date': '2026-11-20', 'security_id': 'INE002A01018', 'action': 'sell', 'reasons': ['r'], ...}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("kwargs", [
+        pytest.param(_dec(action="short"), id="action_short"),
+        pytest.param(_dec(action="BUY"), id="action_uppercase"),
+        pytest.param(_dec(date="2026-02-30"), id="date_invalid_calendar"),
+        pytest.param(_dec(date="21-11-2026"), id="date_wrong_format"),
+        pytest.param(_dec(date="2026-1-5"), id="date_not_zero_padded"),
+        pytest.param(_dec(reasons=[]), id="reasons_empty_list"),
+        pytest.param(_dec(reasons=[""]), id="reasons_empty_string"),
+        pytest.param(_dec(security_id=""), id="security_id_empty"),
+        pytest.param(_dec(model_versions={"m": 1}), id="model_versions_non_str_value"),
+        pytest.param(_dec(model_versions={}), id="buy_with_empty_model_versions"),
+        pytest.param(_dec(action="sell", model_versions={}), id="sell_with_empty_model_versions"),
+    ])
+    def test_A9_invalid_decision_refused_nothing_written(cfg, kwargs):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:176: ModuleNotFoundError
+___________ test_A9b_invalid_decision_payload_via_append[extra_key] ____________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9b_invalid_decision_payl0/repo'), timezone='Asia/Kolk...decision_payl0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfe020>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**GOOD_DECISION, "extra": 1}, id="extra_key"),
+        pytest.param(lambda: {k: v for k, v in GOOD_DECISION.items() if k != "reasons"}, id="missing_reasons"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": "signal"}, id="reasons_not_list"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": ["ok", 3]}, id="reasons_non_str_item"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A9b_invalid_decision_payload_via_append(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:195: ModuleNotFoundError
+________ test_A9b_invalid_decision_payload_via_append[missing_reasons] _________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9b_invalid_decision_payl1/repo'), timezone='Asia/Kolk...decision_payl1/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfe0c0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**GOOD_DECISION, "extra": 1}, id="extra_key"),
+        pytest.param(lambda: {k: v for k, v in GOOD_DECISION.items() if k != "reasons"}, id="missing_reasons"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": "signal"}, id="reasons_not_list"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": ["ok", 3]}, id="reasons_non_str_item"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A9b_invalid_decision_payload_via_append(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:195: ModuleNotFoundError
+________ test_A9b_invalid_decision_payload_via_append[reasons_not_list] ________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9b_invalid_decision_payl2/repo'), timezone='Asia/Kolk...decision_payl2/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfe160>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**GOOD_DECISION, "extra": 1}, id="extra_key"),
+        pytest.param(lambda: {k: v for k, v in GOOD_DECISION.items() if k != "reasons"}, id="missing_reasons"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": "signal"}, id="reasons_not_list"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": ["ok", 3]}, id="reasons_non_str_item"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A9b_invalid_decision_payload_via_append(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:195: ModuleNotFoundError
+______ test_A9b_invalid_decision_payload_via_append[reasons_non_str_item] ______
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9b_invalid_decision_payl3/repo'), timezone='Asia/Kolk...decision_payl3/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfe200>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**GOOD_DECISION, "extra": 1}, id="extra_key"),
+        pytest.param(lambda: {k: v for k, v in GOOD_DECISION.items() if k != "reasons"}, id="missing_reasons"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": "signal"}, id="reasons_not_list"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": ["ok", 3]}, id="reasons_non_str_item"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A9b_invalid_decision_payload_via_append(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:195: ModuleNotFoundError
+_________ test_A9b_invalid_decision_payload_via_append[empty_payload] __________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9b_invalid_decision_payl4/repo'), timezone='Asia/Kolk...decision_payl4/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+payload_fn = <function <lambda> at 0x7fbe36cfe2a0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("payload_fn", [
+        pytest.param(lambda: {**GOOD_DECISION, "extra": 1}, id="extra_key"),
+        pytest.param(lambda: {k: v for k, v in GOOD_DECISION.items() if k != "reasons"}, id="missing_reasons"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": "signal"}, id="reasons_not_list"),
+        pytest.param(lambda: {**GOOD_DECISION, "reasons": ["ok", 3]}, id="reasons_non_str_item"),
+        pytest.param(lambda: {}, id="empty_payload"),
+    ])
+    def test_A9b_invalid_decision_payload_via_append(cfg, payload_fn):
+>       from investos.registry.chain import PayloadError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:195: ModuleNotFoundError
+_____________ test_A9c_no_trade_with_empty_model_versions_accepted _____________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9c_no_trade_with_empty_m0/repo'), timezone='Asia/Kolk..._with_empty_m0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A9c_no_trade_with_empty_model_versions_accepted(cfg):
+>       from investos.registry.ledgers import log_decision
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:203: ModuleNotFoundError
+____________________ test_A9d_float_in_decision_is_refused _____________________
+
+cfg = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A9d_float_in_decision_is_0/repo'), timezone='Asia/Kolk..._decision_is_0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+
+    def test_A9d_float_in_decision_is_refused(cfg):
+>       from investos.registry.canon import CanonicalJsonError
+E       ModuleNotFoundError: No module named 'investos.registry'
+
+tests/unit/registry/test_registry_ledgers.py:210: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/registry/test_registry_canon.py::test_A1_canonical_json_stable_across_key_order
+FAILED tests/unit/registry/test_registry_canon.py::test_A1b_no_whitespace_and_non_ascii_literal
+FAILED tests/unit/registry/test_registry_canon.py::test_A1c_depth_of_nesting_is_order_independent
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[float]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[float_1.0]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[nan]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[inf]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[neg_inf]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[tuple]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[set]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[decimal]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[bytes]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[datetime]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[non_str_key]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[int_2_53]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[int_neg_2_53]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[lone_surrogate]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[nesting_65]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[nested_float]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[nested_tuple]
+FAILED tests/unit/registry/test_registry_canon.py::test_A2b_canonical_json_error_is_value_error
+FAILED tests/unit/registry/test_registry_canon.py::test_A2c_allowed_values_and_distinct_types
+FAILED tests/unit/registry/test_registry_canon.py::test_A3_sha256_hex_matches_hashlib
+FAILED tests/unit/registry/test_registry_canon.py::test_A3b_published_vector_hash_input_text
+FAILED tests/unit/registry/test_registry_canon.py::test_A3c_any_changed_input_changes_hash
+FAILED tests/unit/registry/test_registry_canon.py::test_A22_devanagari_canonical_is_literal_utf8
+FAILED tests/unit/registry/test_registry_chain.py::test_A4b_file_created_on_first_append_and_key_order_irrelevant
+FAILED tests/unit/registry/test_registry_chain.py::test_A5d_naive_clock_is_value_error_nothing_written
+FAILED tests/unit/registry/test_registry_chain.py::test_A5e_validator_failure_writes_nothing
+FAILED tests/unit/registry/test_registry_chain.py::test_A5f_exception_hierarchy
+FAILED tests/unit/registry/test_registry_chain.py::test_A17_public_surface_is_exactly_the_append_only_api
+FAILED tests/unit/registry/test_registry_chain.py::test_A17b_source_has_no_destructive_calls_or_write_modes
+FAILED tests/unit/registry/test_registry_chain.py::test_A19_four_processes_25_appends_each
+FAILED tests/unit/registry/test_registry_check.py::test_A20_check_is_registered_in_default_registry
+FAILED tests/unit/registry/test_registry_check.py::test_A20b_healthy_ledgers_pass
+FAILED tests/unit/registry/test_registry_check.py::test_A20c_absent_ledgers_pass
+FAILED tests/unit/registry/test_registry_check.py::test_A20d_edited_hypothesis_fails_at_seq_2
+FAILED tests/unit/registry/test_registry_check.py::test_A20e_decisions_tamper_reported_with_its_own_kind
+FAILED tests/unit/registry/test_registry_check.py::test_A20f_cli_registry_exit_1_and_report_written
+FAILED tests/unit/registry/test_registry_check.py::test_A20g_cli_registry_exit_0_on_healthy
+FAILED tests/unit/registry/test_registry_check.py::test_A21_planted_registry_is_caught
+FAILED tests/unit/registry/test_registry_check.py::test_A21b_check_never_changes_ledger_files
+FAILED tests/unit/registry/test_registry_check.py::test_A21c_plant_noop_is_missed
+FAILED tests/unit/registry/test_registry_check.py::test_A21d_setup_and_plant_behaviour
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A6_openers_use_zone_paths_and_kinds
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A6b_register_trial_row
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A6c_devanagari_hypothesis_roundtrip
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[extra_key]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[missing_key]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[rbr_int_1]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[rbr_string_true]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[rbr_false]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[empty_hypothesis]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[empty_trial_id]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[empty_family]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[empty_feature_id]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[trial_id_not_str]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[params_not_object]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7_invalid_trial_payload_refused_nothing_written[empty_payload]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7b_float_in_params_refused
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7c_duplicate_trial_id_refused
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A7d_empty_params_object_allowed
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A8_valid_decision_and_same_key_twice
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A8b_all_actions_accepted[buy]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A8b_all_actions_accepted[sell]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A8b_all_actions_accepted[hold]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A8b_all_actions_accepted[no_trade]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[action_short]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[action_uppercase]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[date_invalid_calendar]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[date_wrong_format]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[date_not_zero_padded]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[reasons_empty_list]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[reasons_empty_string]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[security_id_empty]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[model_versions_non_str_value]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[buy_with_empty_model_versions]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9_invalid_decision_refused_nothing_written[sell_with_empty_model_versions]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9b_invalid_decision_payload_via_append[extra_key]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9b_invalid_decision_payload_via_append[missing_reasons]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9b_invalid_decision_payload_via_append[reasons_not_list]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9b_invalid_decision_payload_via_append[reasons_non_str_item]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9b_invalid_decision_payload_via_append[empty_payload]
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9c_no_trade_with_empty_model_versions_accepted
+FAILED tests/unit/registry/test_registry_ledgers.py::test_A9d_float_in_decision_is_refused
+ERROR tests/unit/registry/test_registry_chain.py::test_A3_row_hash_matches_published_vector
+ERROR tests/unit/registry/test_registry_chain.py::test_A4_three_appends_seq_genesis_links_and_lines
+ERROR tests/unit/registry/test_registry_chain.py::test_A4c_ts_is_clock_in_utc_with_microseconds
+ERROR tests/unit/registry/test_registry_chain.py::test_A22_devanagari_stored_as_utf8_and_verifies
+ERROR tests/unit/registry/test_registry_chain.py::test_A5_append_on_edited_chain_refused_and_file_unchanged
+ERROR tests/unit/registry/test_registry_chain.py::test_A5b_clock_moved_backwards
+ERROR tests/unit/registry/test_registry_chain.py::test_A5c_float_in_payload_refused_nothing_written
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[payload_row3]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[ts_row3]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[hash_row3]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[prev_hash_row3]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[hash_uppercase_row3]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[blank_line_after_row2]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[invalid_json_line4]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[extra_key_row2]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[no_final_newline]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[carriage_return_line2]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[ts_earlier_than_previous_valid_hash]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[line_not_an_object]
+ERROR tests/unit/registry/test_registry_chain.py::test_A10_verify_reports_first_broken_seq[seq_not_position_valid_hash]
+ERROR tests/unit/registry/test_registry_chain.py::test_A11_delete_middle_row
+ERROR tests/unit/registry/test_registry_chain.py::test_A11b_delete_first_row
+ERROR tests/unit/registry/test_registry_chain.py::test_A11c_swap_rows_2_and_3
+ERROR tests/unit/registry/test_registry_chain.py::test_A11d_insert_copy_of_row2_between_4_and_5
+ERROR tests/unit/registry/test_registry_chain.py::test_A11e_insert_foreign_well_formed_row
+ERROR tests/unit/registry/test_registry_chain.py::test_A11f_edit_row3_with_recomputed_own_hash_caught_at_row4
+ERROR tests/unit/registry/test_registry_chain.py::test_A11g_truncated_last_line
+ERROR tests/unit/registry/test_registry_chain.py::test_A11h_tail_edit_with_recomputed_hash_not_caught_by_chain_alone
+ERROR tests/unit/registry/test_registry_chain.py::test_A11i_deleting_final_rows_not_caught_by_chain_alone
+ERROR tests/unit/registry/test_registry_chain.py::test_A11j_tail_edit_caught_by_committed_root
+ERROR tests/unit/registry/test_registry_chain.py::test_A11k_deleting_last_row_caught_by_root_as_truncated
+ERROR tests/unit/registry/test_registry_chain.py::test_A12_absent_file - Modu...
+ERROR tests/unit/registry/test_registry_chain.py::test_A12b_empty_file - Modu...
+ERROR tests/unit/registry/test_registry_chain.py::test_A18_rows_and_head_raise_on_corrupt_chain
+ERROR tests/unit/registry/test_registry_chain.py::test_A18b_rows_and_head_on_healthy_chain
+ERROR tests/unit/registry/test_registry_chain.py::test_A23_same_microsecond_ok_one_microsecond_earlier_refused
+ERROR tests/unit/registry/test_registry_roots.py::test_A13_one_root_for_closed_ist_day
+ERROR tests/unit/registry/test_registry_roots.py::test_A13b_ist_boundary_235959_vs_000000
+ERROR tests/unit/registry/test_registry_roots.py::test_A13c_open_day_closes_exactly_at_ist_midnight
+ERROR tests/unit/registry/test_registry_roots.py::test_A13d_utc_date_differs_from_ist_date
+ERROR tests/unit/registry/test_registry_roots.py::test_A13e_days_without_rows_get_no_root
+ERROR tests/unit/registry/test_registry_roots.py::test_A14_second_run_noop_file_unchanged
+ERROR tests/unit/registry/test_registry_roots.py::test_A14b_later_day_appends_only_new_root_earlier_lines_identical
+ERROR tests/unit/registry/test_registry_roots.py::test_A14c_chain_tamper_under_existing_root_blocks_write_roots
+ERROR tests/unit/registry/test_registry_roots.py::test_A14d_forged_tail_with_valid_chain_blocks_write_roots
+ERROR tests/unit/registry/test_registry_roots.py::test_A14e_only_todays_rows_no_root
+ERROR tests/unit/registry/test_registry_roots.py::test_A14f_roots_path_is_ledger_path_with_roots_suffix
+ERROR tests/unit/registry/test_registry_roots.py::test_A15_root_with_wrong_hash
+ERROR tests/unit/registry/test_registry_roots.py::test_A15b_root_seq_beyond_row_count
+ERROR tests/unit/registry/test_registry_roots.py::test_A15c_root_date_not_matching_ist_date_of_row
+ERROR tests/unit/registry/test_registry_roots.py::test_A15d_root_pointing_at_row_not_last_of_day
+ERROR tests/unit/registry/test_registry_roots.py::test_A15e_duplicated_root_line_date_not_increasing
+ERROR tests/unit/registry/test_registry_roots.py::test_A15f_unsorted_root_dates
+ERROR tests/unit/registry/test_registry_roots.py::test_A15g_invalid_json_root_line
+ERROR tests/unit/registry/test_registry_roots.py::test_A15h_valid_roots_ok_and_roots_false_skips_them
+ERROR tests/unit/registry/test_registry_roots.py::test_A15i_absent_roots_file_is_ok_and_missing_roots_not_a_failure
+ERROR tests/unit/registry/test_registry_roots.py::test_A16_chain_break_row2_beats_root_mismatch_seq4
+ERROR tests/unit/registry/test_registry_roots.py::test_A16b_smallest_root_finding_is_reported
+85 failed, 58 errors in 1.12s
