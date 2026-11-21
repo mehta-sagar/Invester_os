@@ -1,0 +1,102 @@
+[
+ [
+  "X1",
+  "SURVIVED",
+  "228 passed in 4.60s"
+ ],
+ [
+  "X2",
+  "SURVIVED",
+  "228 passed in 4.62s"
+ ],
+ [
+  "X3",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_collector_http.py::test_A14a_spacing_on_one_host"
+ ],
+ [
+  "X4",
+  "SURVIVED",
+  "228 passed in 4.16s"
+ ],
+ [
+  "X5",
+  "SURVIVED",
+  "153 passed in 1.26s"
+ ],
+ [
+  "X6",
+  "KILLED",
+  "FAILED tests/unit/registry/test_registry_roots.py::test_A15c_root_date_not_matching_ist_date_of_row"
+ ],
+ [
+  "X7",
+  "KILLED",
+  "FAILED tests/unit/registry/test_registry_canon.py::test_A2_forbidden_values_rejected[int_2_53]"
+ ],
+ [
+  "X8",
+  "SURVIVED",
+  "153 passed in 1.45s"
+ ],
+ [
+  "X9",
+  "SURVIVED",
+  "75 passed in 1.19s"
+ ],
+ [
+  "X10",
+  "KILLED",
+  "FAILED tests/unit/core/test_db.py::test_A23_discovery_errors_before_apply[files0]"
+ ],
+ [
+  "X11",
+  "KILLED",
+  "FAILED tests/unit/core/test_db.py::test_A23_discovery_errors_before_apply[files1]"
+ ],
+ [
+  "X12",
+  "SURVIVED",
+  "255 passed, 2 skipped in 5.24s"
+ ],
+ [
+  "X13",
+  "SURVIVED",
+  "330 passed, 2 skipped in 8.15s"
+ ],
+ [
+  "X14",
+  "KILLED",
+  "FAILED tests/unit/registry/test_registry_chain.py::test_A19_four_processes_25_appends_each"
+ ],
+ [
+  "X15",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_collector_http.py::test_A9_transport_error_then_429_then_ok"
+ ],
+ [
+  "X16",
+  "KILLED",
+  "FAILED tests/unit/check/test_checkrunner_review_regressions.py::test_RM14_symlinked_file_to_outside_target_not_followed_or_modified"
+ ],
+ [
+  "X17",
+  "SURVIVED",
+  "228 passed in 4.37s"
+ ],
+ [
+  "X18",
+  "KILLED",
+  "FAILED tests/unit/check/test_checkrunner_builtin.py::test_A15_raw_writable_file_fails_manifest_still_passes"
+ ],
+ [
+  "X19",
+  "KILLED",
+  "FAILED tests/unit/registry/test_registry_chain.py::test_A5b_clock_moved_backwards"
+ ],
+ [
+  "X20",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_collector_core.py::test_A23_duplicate_and_empty_keys"
+ ]
+]
