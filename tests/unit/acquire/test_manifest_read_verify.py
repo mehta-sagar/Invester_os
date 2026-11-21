@@ -174,7 +174,7 @@ def test_A16_verify_missing_writable_misplaced(mk, roots, tmp_path):
     pr = st3.verify("bse")
     assert "misplaced_file" in kinds([p for p in pr if p.path.endswith(f"zz/{HELLO_SHA}")])
     assert "misplaced_file" in kinds([p for p in pr if p.path.endswith("foo.txt")])
-    assert kinds(for_path(pr, base / "2c" / HELLO_SHA)) == set()
+    assert kinds([p for p in pr if p.path.endswith(f"2c/{HELLO_SHA}")]) == set()
     # each (kind, path, line) reported once
     keys = [(p.kind, p.path, p.line) for p in pr]
     assert len(keys) == len(set(keys))

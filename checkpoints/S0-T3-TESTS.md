@@ -16,3 +16,6 @@
 - A6 compares functions/classes defined in the module and ManifestStore's non-underscore attrs to an exact allow-list.
 ## State
 - branch: task/S0-T3
+
+## Update — A16 fix (Test writer)
+- test_A16: last assertion compared by basename and picked up the misplaced zz/ copy; now matches on the "2c/<sha>" path suffix. for_path stays basename-based (other uses have unique basenames).
