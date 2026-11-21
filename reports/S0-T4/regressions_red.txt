@@ -1,0 +1,427 @@
+FFFFF.FFF..............                                                  [100%]
+=================================== FAILURES ===================================
+_______ test_D1_skip_only_rerun_loads_manifest_a_bounded_number_of_times _______
+
+env = <_collector_helpers.Env object at 0x7f0a7faac2f0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f0a7fbf6c40>
+
+    def test_D1_skip_only_rerun_loads_manifest_a_bounded_number_of_times(env, monkeypatch):
+        n = 200
+        keys = [f"k{i:04d}" for i in range(n)]
+        for k in keys:                                               # pre-fetch via the writer, not via a run
+            env.store.store(SOURCE, f"date,x\n{k},1\n".encode(), url=url_of(k), source_version=SOURCE_VERSION,
+                            logical_key=k, run_id="seed", fetched_at=datetime(2026, 11, 21, tzinfo=timezone.utc))
+        manifest_file = env.man / f"{SOURCE}.jsonl"
+        assert manifest_file.exists()
+        reads = []
+        real_read_bytes, real_read_text = Path.read_bytes, Path.read_text
+    
+        def spy_bytes(self, *a, **k):
+            if self == manifest_file:
+                reads.append(1)
+            return real_read_bytes(self, *a, **k)
+    
+        def spy_text(self, *a, **k):
+            if self == manifest_file:
+                reads.append(1)
+            return real_read_text(self, *a, **k)
+        monkeypatch.setattr(Path, "read_bytes", spy_bytes)
+        monkeypatch.setattr(Path, "read_text", spy_text)
+        opened = []
+        real_open = open
+    
+        def spy_open(f, *a, **k):
+            if str(f) == str(manifest_file):
+                opened.append(1)
+            return real_open(f, *a, **k)
+        monkeypatch.setattr("builtins.open", spy_open)
+    
+        c = env.make(demo_class(fixed_keys=keys))
+        r = c.run(rr(D17))
+        monkeypatch.undo()
+        assert set(r.outcomes.values()) == {__import__("investos.acquire.base", fromlist=["Outcome"]).Outcome.SKIPPED}
+        assert len(r.outcomes) == n and r.http_calls == 0 and env.transport.n() == 0
+>       assert len(reads) + len(opened) <= 3, f"manifest file read {len(reads) + len(opened)} times for {n} skipped keys"
+E       AssertionError: manifest file read 200 times for 200 skipped keys
+E       assert (200 + 0) <= 3
+E        +  where 200 = len([1, 1, 1, 1, 1, 1, ...])
+E        +  and   0 = len([])
+
+tests/unit/acquire/test_collector_regressions.py:85: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-21T15:32:43.905033Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0000","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.907548Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0001","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.909999Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0002","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.912365Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0003","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.914829Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0004","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.917214Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0005","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.919699Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0006","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.922052Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0007","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.924480Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0008","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.927255Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0009","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.929725Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0010","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.932065Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0011","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.934472Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0012","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.936854Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0013","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.939456Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0014","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.941871Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0015","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.944314Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0016","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.946651Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0017","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.948894Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0018","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.951377Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0019","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.953906Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0020","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.956210Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0021","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.958730Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0022","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.961022Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0023","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.963316Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0024","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.965720Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0025","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.968029Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0026","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.970380Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0027","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.972748Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0028","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.975139Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0029","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.977411Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0030","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.979759Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0031","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.982123Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0032","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.984460Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0033","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.987195Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0034","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.989601Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0035","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.991952Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0036","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.994360Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0037","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.996702Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0038","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:43.999066Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0039","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.001419Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0040","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.003957Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0041","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.006306Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0042","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.008609Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0043","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.011018Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0044","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.013292Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0045","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.015757Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0046","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.018217Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0047","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.020605Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0048","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.023005Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0049","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.025310Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0050","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.027672Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0051","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.029867Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0052","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.032157Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0053","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.034604Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0054","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.036849Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0055","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.039160Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0056","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.041448Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0057","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.043807Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0058","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.046171Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0059","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.048453Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0060","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.050832Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0061","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.053073Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0062","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.055465Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0063","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.057793Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0064","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.060121Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0065","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.062409Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0066","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.064759Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0067","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.067355Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0068","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.069768Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0069","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.072110Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0070","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.074517Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0071","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.076795Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0072","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.079133Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0073","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.081505Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0074","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.083924Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0075","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.086237Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0076","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.088456Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0077","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.090702Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0078","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.092899Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0079","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.095266Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0080","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.097594Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0081","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.099827Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0082","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.102230Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0083","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.104720Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0084","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.107121Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0085","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.109375Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0086","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.111731Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0087","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.114095Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0088","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.116362Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0089","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.118673Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0090","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.120954Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0091","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.123345Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0092","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.125704Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0093","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.128260Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0094","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.130745Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0095","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.133259Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0096","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.135723Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0097","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.138005Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0098","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.140256Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0099","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.142560Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0100","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.144991Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0101","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.147666Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0102","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.149994Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0103","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.152237Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0104","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.154584Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0105","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.156889Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0106","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.159242Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0107","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.161568Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0108","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.164020Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0109","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.166337Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0110","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.168700Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0111","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.171044Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0112","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.173382Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0113","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.175764Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0114","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.178082Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0115","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.180344Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0116","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.182693Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0117","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.184960Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0118","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.187205Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0119","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.189449Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0120","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.191688Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0121","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.194002Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0122","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.196315Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0123","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.198944Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0124","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.201372Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0125","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.204063Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0126","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.206422Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0127","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.208696Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0128","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.210975Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0129","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.213233Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0130","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.215555Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0131","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.217790Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0132","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.220081Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0133","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.222381Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0134","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.224688Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0135","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.226963Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0136","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.229296Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0137","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.231671Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0138","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.234003Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0139","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.236387Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0140","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.238693Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0141","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.240896Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0142","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.243145Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0143","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.245443Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0144","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.247765Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0145","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.250479Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0146","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.252814Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0147","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.255157Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0148","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.257986Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0149","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.260342Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0150","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.262750Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0151","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.265101Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0152","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.267398Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0153","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.269701Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0154","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.271949Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0155","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.274295Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0156","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.276589Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0157","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.278928Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0158","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.281162Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0159","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.283565Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0160","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.286042Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0161","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.288751Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0162","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.291379Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0163","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.293779Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0164","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.296084Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0165","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.298339Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0166","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.300610Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0167","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.304205Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0168","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.307284Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0169","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.310090Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0170","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.312946Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0171","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.315960Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0172","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.319071Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0173","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.322293Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0174","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.325436Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0175","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.328607Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0176","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.331813Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0177","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.335057Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0178","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.338310Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0179","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.340812Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0180","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.344115Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0181","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.347489Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0182","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.350723Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0183","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.353978Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0184","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.357440Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0185","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.360711Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0186","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.363782Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0187","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.366789Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0188","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.369651Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0189","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.372441Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0190","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.375480Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0191","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.378369Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0192","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.381561Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0193","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.384901Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0194","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.388185Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0195","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.391171Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0196","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.394233Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0197","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.397500Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0198","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.400857Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"k0199","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.403660Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":200,"received":200,"sidecar":"/tmp/pytest-of-root/pytest-79/test_D1_skip_only_rerun_loads_0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":0,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":200,"incomplete":0,"not_attempted":0}}
+____________ test_D2a_safe_unzip_accepts_dot_slash_directory_entry _____________
+
+    def test_D2a_safe_unzip_accepts_dot_slash_directory_entry():
+        from investos.acquire.base import safe_unzip
+>       assert safe_unzip(_zip_with_dot_slash_dir()) == [("a.csv", b"A,1\n")]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_regressions.py:99: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/investos/acquire/base.py:157: in safe_unzip
+    name = _normalise_member(zi.filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+raw = './'
+
+    def _normalise_member(raw: str) -> str:
+        """Validate and normalise one zip member name; raises UnsafeArchiveError."""
+        if "\x00" in raw:
+            raise UnsafeArchiveError("member name contains NUL")
+        name = raw.replace("\\", "/")
+        if name.startswith("/"):
+            raise UnsafeArchiveError(f"absolute member name {raw!r}")
+        if _DRIVE_RE.match(name):
+            raise UnsafeArchiveError(f"drive letter in member name {raw!r}")
+        parts = []
+        for p in name.split("/"):
+            if p == "..":
+                raise UnsafeArchiveError(f"path traversal in member name {raw!r}")
+            if p in ("", "."):
+                continue
+            parts.append(p)
+        if not parts:
+>           raise UnsafeArchiveError(f"empty member name {raw!r}")
+E           investos.acquire.base.UnsafeArchiveError: empty member name './'
+
+src/investos/acquire/base.py:134: UnsafeArchiveError
+__________ test_D2b_run_stores_archive_with_dot_slash_directory_entry __________
+
+env = <_collector_helpers.Env object at 0x7f0a7f91bed0>
+
+    def test_D2b_run_stores_archive_with_dot_slash_directory_entry(env):
+        from investos.acquire.base import Outcome
+        z = _zip_with_dot_slash_dir()
+        env.transport.set(url_of(D17), resp(200, z))
+        r = env.make(_arch()).run(rr(D17))
+>       assert r.outcomes == {D17: Outcome.FETCHED}
+E       AssertionError: assert {'2026-11-17'...'unreadable'>} == {'2026-11-17'...D: 'fetched'>}
+E         
+E         Differing items:
+E         {'2026-11-17': <Outcome.UNREADABLE: 'unreadable'>} != {'2026-11-17': <Outcome.FETCHED: 'fetched'>}
+E         Use -v to get more diff
+
+tests/unit/acquire/test_collector_regressions.py:107: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-21T15:32:44.446801Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"unreadable","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"unsafe archive: empty member name './'","size":194}}
+{"ts":"2026-11-21T15:32:44.448966Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"run_end","fields":{"status":"incomplete","expected":1,"received":0,"sidecar":"/tmp/pytest-of-root/pytest-79/test_D2b_run_stores_archive_wi0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":0,"fetched_empty":0,"missing_holiday":0,"unreadable":1,"skipped":0,"incomplete":0,"not_attempted":0}}
+__ test_D2c_zip_with_zero_file_members_is_not_recorded_as_fetched[no_entries] __
+
+env = <_collector_helpers.Env object at 0x7f0a7f9e0a50>, members = []
+
+    @pytest.mark.parametrize("members", [[], [("d/", b"")], [("./", b"")]], ids=["no_entries", "dir_only", "dot_slash_only"])
+    def test_D2c_zip_with_zero_file_members_is_not_recorded_as_fetched(env, members):
+        # Spec R12 is silent on empty archives. Safer choice taken: unreadable, nothing stored (see checkpoint).
+        from investos.acquire.base import Outcome
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w") as z:
+            for name, data in members:
+                z.writestr(zipfile.ZipInfo(name) if name.endswith("/") else name, data)
+        env.transport.set(url_of(D17), resp(200, buf.getvalue()))
+        r = env.make(_arch()).run(rr(D17))
+>       assert r.outcomes == {D17: Outcome.UNREADABLE}
+E       AssertionError: assert {'2026-11-17'...D: 'fetched'>} == {'2026-11-17'...'unreadable'>}
+E         
+E         Differing items:
+E         {'2026-11-17': <Outcome.FETCHED: 'fetched'>} != {'2026-11-17': <Outcome.UNREADABLE: 'unreadable'>}
+E         Use -v to get more diff
+
+tests/unit/acquire/test_collector_regressions.py:122: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-21T15:32:44.461299Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":22}}
+{"ts":"2026-11-21T15:32:44.462269Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-79/test_D2c_zip_with_zero_file_me0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+___ test_D2c_zip_with_zero_file_members_is_not_recorded_as_fetched[dir_only] ___
+
+env = <_collector_helpers.Env object at 0x7f0a7f991480>, members = [('d/', b'')]
+
+    @pytest.mark.parametrize("members", [[], [("d/", b"")], [("./", b"")]], ids=["no_entries", "dir_only", "dot_slash_only"])
+    def test_D2c_zip_with_zero_file_members_is_not_recorded_as_fetched(env, members):
+        # Spec R12 is silent on empty archives. Safer choice taken: unreadable, nothing stored (see checkpoint).
+        from investos.acquire.base import Outcome
+        buf = io.BytesIO()
+        with zipfile.ZipFile(buf, "w") as z:
+            for name, data in members:
+                z.writestr(zipfile.ZipInfo(name) if name.endswith("/") else name, data)
+        env.transport.set(url_of(D17), resp(200, buf.getvalue()))
+        r = env.make(_arch()).run(rr(D17))
+>       assert r.outcomes == {D17: Outcome.UNREADABLE}
+E       AssertionError: assert {'2026-11-17'...D: 'fetched'>} == {'2026-11-17'...'unreadable'>}
+E         
+E         Differing items:
+E         {'2026-11-17': <Outcome.FETCHED: 'fetched'>} != {'2026-11-17': <Outcome.UNREADABLE: 'unreadable'>}
+E         Use -v to get more diff
+
+tests/unit/acquire/test_collector_regressions.py:122: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-21T15:32:44.473667Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":102}}
+{"ts":"2026-11-21T15:32:44.476918Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-79/test_D2c_zip_with_zero_file_me1/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+____________________ test_D3_skipped_event_carries_real_url ____________________
+
+env = <_collector_helpers.Env object at 0x7f0a7fa0b410>
+logs = <function logs.<locals>.records at 0x7f0a7f9d4860>
+
+    def test_D3_skipped_event_carries_real_url(env, logs):
+        env.script_ok(D17)
+        env.make().run(rr(D17))
+        env.fresh_transport()
+        env.make(run_id="run-2").run(rr(D17))
+        sk = events(logs(), "skipped")
+        assert len(sk) == 1
+>       assert sk[0]["fields"]["key"] == D17 and sk[0]["fields"]["url"] == url_of(D17)
+E       AssertionError: assert ('2026-11-17' == '2026-11-17'
+E         
+E           2026-11-17 and '' == 'https://exam...026-11-17.csv'
+E         
+E         - https://example.test/f/2026-11-17.csv)
+
+tests/unit/acquire/test_collector_regressions.py:135: AssertionError
+____________ test_D5_archive_run_and_skip_rerun_never_call_entries _____________
+
+env = <_collector_helpers.Env object at 0x7f0a7f963570>
+
+    def test_D5_archive_run_and_skip_rerun_never_call_entries(env):
+        from investos.acquire.base import Outcome
+        z = make_zip([("a.csv", b"A,1\n"), ("sub/b.csv", b"B,1\n")])
+        env.transport.set(url_of(D17), resp(200, z))
+        spy = _Spy(env.store)
+        r1 = env.make(_arch(), manifest=spy).run(rr(D17))
+        env.fresh_transport()
+        r2 = env.make(_arch(), manifest=spy, run_id="run-2").run(rr(D17))
+        assert r1.outcomes == {D17: Outcome.FETCHED} and r2.outcomes == {D17: Outcome.SKIPPED}
+        assert env.transport.calls == []
+>       assert "entries" not in spy.calls, f"collector called entries(): {spy.calls}"
+E       AssertionError: collector called entries(): ['get_by_key', 'store', 'store', 'store', 'get_by_key', 'entries']
+E       assert 'entries' not in ['get_by_key', 'store', 'store', 'store', 'get_by_key', 'entries']
+E        +  where ['get_by_key', 'store', 'store', 'store', 'get_by_key', 'entries'] = <test_collector_regressions._Spy object at 0x7f0a7f868590>.calls
+
+tests/unit/acquire/test_collector_regressions.py:150: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-21T15:32:44.512673Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":214}}
+{"ts":"2026-11-21T15:32:44.514143Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-79/test_D5_archive_run_and_skip_r0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+{"ts":"2026-11-21T15:32:44.514714Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"skipped","fields":{"key":"2026-11-17","url":"","attempts":0,"reason":"manifest already holds key"}}
+{"ts":"2026-11-21T15:32:44.515887Z","level":"INFO","run_id":"20261121T153243Z-240160aa","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-79/test_D5_archive_run_and_skip_r0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":0,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":1,"incomplete":0,"not_attempted":0}}
+__________________ test_D6_base_does_not_import_private_names __________________
+
+    def test_D6_base_does_not_import_private_names():
+        tree = ast.parse(BASE_PY.read_text())
+        bad = [f"{n.module}.{a.name}" for n in ast.walk(tree) if isinstance(n, ast.ImportFrom)
+               and (n.module or "").startswith("investos") for a in n.names if a.name.startswith("_") and not a.name.startswith("__")]
+>       assert bad == []
+E       AssertionError: assert ['investos.ac...check_source'] == []
+E         
+E         Left contains one more item: 'investos.acquire.manifest._check_source'
+E         Use -v to get more diff
+
+tests/unit/acquire/test_collector_regressions.py:161: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D1_skip_only_rerun_loads_manifest_a_bounded_number_of_times
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D2a_safe_unzip_accepts_dot_slash_directory_entry
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D2b_run_stores_archive_with_dot_slash_directory_entry
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D2c_zip_with_zero_file_members_is_not_recorded_as_fetched[no_entries]
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D2c_zip_with_zero_file_members_is_not_recorded_as_fetched[dir_only]
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D3_skipped_event_carries_real_url
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D5_archive_run_and_skip_rerun_never_call_entries
+FAILED tests/unit/acquire/test_collector_regressions.py::test_D6_base_does_not_import_private_names
+8 failed, 15 passed in 0.97s
