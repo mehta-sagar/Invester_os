@@ -1,0 +1,388 @@
+FFFFFFF.F.F.....FFFF                                                     [100%]
+=================================== FAILURES ===================================
+_____________ test_D1a_symlink_at_dest_with_correct_bytes_rejected _____________
+
+mk = <function mk.<locals>._mk at 0x7f7592cb1260>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D1a_symlink_at_dest_with_0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D1a_symlink_at_dest_with_0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-102/test_D1a_symlink_at_dest_with_0')
+
+    @pytest.mark.planted
+    def test_D1a_symlink_at_dest_with_correct_bytes_rejected(mk, roots, tmp_path):
+        raw, man = roots
+        st = mk()
+        put(st, "bse", b"other")                     # so manifest exists
+        before = manifest_path(man, "bse").read_bytes()
+        target = tmp_path / "elsewhere"
+        target.write_bytes(b"hello")                 # correct bytes, but outside the store
+        dest = raw_file(raw, "bse", b"hello")
+        dest.parent.mkdir(parents=True)
+        dest.symlink_to(target)
+        from investos.acquire.manifest import RawIntegrityError
+>       with pytest.raises(RawIntegrityError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RawIntegrityError
+
+tests/unit/acquire/test_review_regressions.py:42: Failed
+______ test_D1b_verify_reports_symlinked_raw_file_and_tampering_behind_it ______
+
+mk = <function mk.<locals>._mk at 0x7f7592c6b740>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D1b_verify_reports_symlin0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D1b_verify_reports_symlin0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-102/test_D1b_verify_reports_symlin0')
+
+    @pytest.mark.planted
+    def test_D1b_verify_reports_symlinked_raw_file_and_tampering_behind_it(mk, roots, tmp_path):
+        raw, man = roots
+        st = mk()
+        put(st, "bse", b"hello")
+        f = raw_file(raw, "bse", b"hello")
+        evil = tmp_path / "evil"
+        evil.write_bytes(b"tampered!")
+        os.chmod(f, 0o644)
+        f.unlink()
+        f.symlink_to(evil)
+        probs = st.verify("bse")                     # must not raise
+        mine = [p for p in probs if Path(p.path).name == HELLO_SHA]
+>       assert "symlink" in kinds(mine)
+E       AssertionError: assert 'symlink' in set()
+E        +  where set() = kinds([])
+
+tests/unit/acquire/test_review_regressions.py:61: AssertionError
+________________ test_D1c_verify_reports_symlinked_xx_directory ________________
+
+mk = <function mk.<locals>._mk at 0x7f7592c6bba0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D1c_verify_reports_symlin0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D1c_verify_reports_symlin0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-102/test_D1c_verify_reports_symlin0')
+
+    @pytest.mark.planted
+    def test_D1c_verify_reports_symlinked_xx_directory(mk, roots, tmp_path):
+        raw, man = roots
+        st = mk()
+        put(st, "bse", b"hello")
+        xx = raw / "bse" / HELLO_SHA[:2]
+        moved = tmp_path / "moved_xx"
+        xx.rename(moved)
+        xx.symlink_to(moved, target_is_directory=True)
+        tamper(moved / HELLO_SHA, b"tampered!")
+        probs = st.verify("bse")
+>       assert "symlink" in kinds(probs)
+E       AssertionError: assert 'symlink' in {'size_mismatch'}
+E        +  where {'size_mismatch'} = kinds([Problem(kind='size_mismatch', source='bse', path='/tmp/pytest-of-root/pytest-102/test_D1c_verify_reports_symlin0/raw/...2c/2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824', line=1, detail='file size 9 != manifest size 5')])
+
+tests/unit/acquire/test_review_regressions.py:76: AssertionError
+_______________ test_D1d_verify_hashes_manifest_referenced_files _______________
+
+mk = <function mk.<locals>._mk at 0x7f7592c6b560>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D1d_verify_hashes_manifes0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D1d_verify_hashes_manifes0/manifests'))
+
+    @pytest.mark.planted
+    def test_D1d_verify_hashes_manifest_referenced_files(mk, roots):
+        # healthy raw tree walk finds the problem too, but removing the file from the walk's view
+        # (symlinked dir) must not hide a size/hash problem in a manifest-referenced file
+        raw, man = roots
+        st = mk()
+        put(st, "bse", b"hello")
+        f = raw_file(raw, "bse", b"hello")
+        tamper(f, b"hellO")                           # same size, different hash
+        probs = st.verify("bse")
+>       assert any(p.kind == "hash_mismatch" and p.line == 1 for p in probs), \
+            "hash_mismatch should be attributed to the manifest line that references the file"
+E       AssertionError: hash_mismatch should be attributed to the manifest line that references the file
+E       assert False
+E        +  where False = any(<generator object test_D1d_verify_hashes_manifest_referenced_files.<locals>.<genexpr> at 0x7f7592c81cb0>)
+
+tests/unit/acquire/test_review_regressions.py:90: AssertionError
+______________________ test_D2a_dangling_symlink_at_dest _______________________
+
+mk = <function mk.<locals>._mk at 0x7f7592b36840>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D2a_dangling_symlink_at_d0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D2a_dangling_symlink_at_d0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-102/test_D2a_dangling_symlink_at_d0')
+
+    @pytest.mark.planted
+    def test_D2a_dangling_symlink_at_dest(mk, roots, tmp_path):
+        raw, man = roots
+        st = mk()
+        dest = raw_file(raw, "bse", b"hello")
+        dest.parent.mkdir(parents=True)
+        dest.symlink_to(tmp_path / "does-not-exist")
+        from investos.acquire.manifest import RawIntegrityError
+        with pytest.raises(RawIntegrityError):
+>           put(st, "bse", b"hello")
+
+tests/unit/acquire/test_review_regressions.py:105: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_acq_helpers.py:26: in put
+    return st.store(source, data, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/investos/acquire/manifest.py:199: in store
+    self._write_raw(source, sha, data)
+src/investos/acquire/manifest.py:231: in _write_raw
+    self._require_same(dest, sha)
+src/investos/acquire/manifest.py:262: in _require_same
+    if _hash_file(dest) != sha:
+       ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-102/test_D2a_dangling_symlink_at_d0/raw/bse/2c/2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
+
+    def _hash_file(path: Path) -> str:
+        h = hashlib.sha256()
+>       with open(path, "rb") as fh:
+             ^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-102/test_D2a_dangling_symlink_at_d0/raw/bse/2c/2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824'
+
+src/investos/acquire/manifest.py:139: FileNotFoundError
+__________________________ test_D2b_directory_at_dest __________________________
+
+mk = <function mk.<locals>._mk at 0x7f7592b36f20>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D2b_directory_at_dest0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D2b_directory_at_dest0/manifests'))
+
+    @pytest.mark.planted
+    def test_D2b_directory_at_dest(mk, roots):
+        raw, man = roots
+        st = mk()
+        dest = raw_file(raw, "bse", b"hello")
+        dest.mkdir(parents=True)
+        from investos.acquire.manifest import RawIntegrityError
+        with pytest.raises(RawIntegrityError):
+>           put(st, "bse", b"hello")
+
+tests/unit/acquire/test_review_regressions.py:118: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_acq_helpers.py:26: in put
+    return st.store(source, data, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/investos/acquire/manifest.py:199: in store
+    self._write_raw(source, sha, data)
+src/investos/acquire/manifest.py:231: in _write_raw
+    self._require_same(dest, sha)
+src/investos/acquire/manifest.py:262: in _require_same
+    if _hash_file(dest) != sha:
+       ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-102/test_D2b_directory_at_dest0/raw/bse/2c/2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824')
+
+    def _hash_file(path: Path) -> str:
+        h = hashlib.sha256()
+>       with open(path, "rb") as fh:
+             ^^^^^^^^^^^^^^^^
+E       IsADirectoryError: [Errno 21] Is a directory: '/tmp/pytest-of-root/pytest-102/test_D2b_directory_at_dest0/raw/bse/2c/2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824'
+
+src/investos/acquire/manifest.py:139: IsADirectoryError
+____________________ test_D3a_new_entries_fsync_parent_dirs ____________________
+
+mk = <function mk.<locals>._mk at 0x7f7592b37420>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D3a_new_entries_fsync_par0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D3a_new_entries_fsync_par0/manifests'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f7592bb8510>
+
+    @pytest.mark.planted
+    def test_D3a_new_entries_fsync_parent_dirs(mk, roots, monkeypatch):
+        raw, man = roots
+        st = mk()
+        spy = FsyncSpy(monkeypatch)
+        put(st, "bse", b"hello")
+        monkeypatch.undo()
+        synced = {_real(Path(p)) for p in spy.fsynced() if p.startswith("/")}
+>       assert _real(raw / "bse") in synced, "raw/<source>/ not fsynced after creating the xx dir"
+E       AssertionError: raw/<source>/ not fsynced after creating the xx dir
+E       assert '/tmp/pytest-of-root/pytest-102/test_D3a_new_entries_fsync_par0/raw/bse' in {'/tmp/pytest-of-root/pytest-102/test_D3a_new_entries_fsync_par0/manifests/bse.jsonl', '/tmp/pytest-of-root/pytest-102...2c', '/tmp/pytest-of-root/pytest-102/test_D3a_new_entries_fsync_par0/raw/bse/2c/.tmp-e08dd4e59d834ae683093694daaaab36'}
+E        +  where '/tmp/pytest-of-root/pytest-102/test_D3a_new_entries_fsync_par0/raw/bse' = _real((PosixPath('/tmp/pytest-of-root/pytest-102/test_D3a_new_entries_fsync_par0/raw') / 'bse'))
+
+tests/unit/acquire/test_review_regressions.py:160: AssertionError
+_________________ test_D3c_dedup_path_fsyncs_dir_and_manifest __________________
+
+mk = <function mk.<locals>._mk at 0x7f7592b37c40>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_D3c_dedup_path_fsyncs_dir0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_D3c_dedup_path_fsyncs_dir0/manifests'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f7592c8a450>
+
+    @pytest.mark.planted
+    def test_D3c_dedup_path_fsyncs_dir_and_manifest(mk, roots, monkeypatch):
+        raw, man = roots
+        st = mk()
+        put(st, "bse", b"hello")
+        spy = FsyncSpy(monkeypatch)
+        put(st, "bse", b"hello", run_id="r2")
+        monkeypatch.undo()
+        synced = {_real(Path(p)) for p in spy.fsynced() if p.startswith("/")}
+        assert not [e for e in spy.events if e[0] == "link"], "dedup must not link"
+>       assert _real(raw / "bse" / HELLO_SHA[:2]) in synced, "dedup path did not fsync the xx dir"
+E       AssertionError: dedup path did not fsync the xx dir
+E       assert '/tmp/pytest-of-root/pytest-102/test_D3c_dedup_path_fsyncs_dir0/raw/bse/2c' in {'/tmp/pytest-of-root/pytest-102/test_D3c_dedup_path_fsyncs_dir0/manifests/bse.jsonl'}
+E        +  where '/tmp/pytest-of-root/pytest-102/test_D3c_dedup_path_fsyncs_dir0/raw/bse/2c' = _real(((PosixPath('/tmp/pytest-of-root/pytest-102/test_D3c_dedup_path_fsyncs_dir0/raw') / 'bse') / '2c'))
+
+tests/unit/acquire/test_review_regressions.py:191: AssertionError
+______ test_T2_dedup_on_writable_existing_file_raises_and_does_not_chmod _______
+
+mk = <function mk.<locals>._mk at 0x7f7592bc84a0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_T2_dedup_on_writable_exis0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_T2_dedup_on_writable_exis0/manifests'))
+
+    @pytest.mark.planted
+    def test_T2_dedup_on_writable_existing_file_raises_and_does_not_chmod(mk, roots):
+        raw, man = roots
+        st = mk()
+        put(st, "bse", b"hello")
+        f = raw_file(raw, "bse", b"hello")
+        os.chmod(f, 0o644)
+        before = manifest_path(man, "bse").read_bytes()
+        mtime = f.stat().st_mtime_ns
+        from investos.acquire.manifest import RawIntegrityError
+>       with pytest.raises(RawIntegrityError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RawIntegrityError
+
+tests/unit/acquire/test_review_regressions.py:228: Failed
+__________________ test_T7_non_bytes_data_is_typeerror[hello] __________________
+
+mk = <function mk.<locals>._mk at 0x7f7592bc93a0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type0/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type0/manifests'))
+data = 'hello'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", ["hello", None, 5, ["h"]])
+    def test_T7_non_bytes_data_is_typeerror(mk, roots, data):
+        raw, man = roots
+        st = mk()
+        before = snap(roots[0].parent)
+        with pytest.raises(TypeError):
+>           put(st, "bse", data)
+
+tests/unit/acquire/test_review_regressions.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_acq_helpers.py:26: in put
+    return st.store(source, data, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <investos.acquire.manifest.ManifestStore object at 0x7f7592ad5d90>
+source = 'bse', data = 'hello', url = 'https://example.test/f'
+source_version = 'v1', logical_key = '2026-11-20', run_id = 'run-1'
+fetched_at = datetime.datetime(2026, 11, 21, 15, 0, tzinfo=datetime.timezone(datetime.timedelta(seconds=19800)))
+
+    def store(self, source: str, data: bytes, *, url: str, source_version: str,
+              logical_key: str, run_id: str, fetched_at: datetime) -> ManifestEntry:
+        _check_source(source)
+        if not isinstance(data, (bytes, bytearray)):
+>           raise ValueError("data must be bytes")
+E           ValueError: data must be bytes
+
+src/investos/acquire/manifest.py:178: ValueError
+__________________ test_T7_non_bytes_data_is_typeerror[None] ___________________
+
+mk = <function mk.<locals>._mk at 0x7f7592bc9b20>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type1/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type1/manifests'))
+data = None
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", ["hello", None, 5, ["h"]])
+    def test_T7_non_bytes_data_is_typeerror(mk, roots, data):
+        raw, man = roots
+        st = mk()
+        before = snap(roots[0].parent)
+        with pytest.raises(TypeError):
+>           put(st, "bse", data)
+
+tests/unit/acquire/test_review_regressions.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_acq_helpers.py:26: in put
+    return st.store(source, data, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <investos.acquire.manifest.ManifestStore object at 0x7f7592ca2d00>
+source = 'bse', data = None, url = 'https://example.test/f'
+source_version = 'v1', logical_key = '2026-11-20', run_id = 'run-1'
+fetched_at = datetime.datetime(2026, 11, 21, 15, 0, tzinfo=datetime.timezone(datetime.timedelta(seconds=19800)))
+
+    def store(self, source: str, data: bytes, *, url: str, source_version: str,
+              logical_key: str, run_id: str, fetched_at: datetime) -> ManifestEntry:
+        _check_source(source)
+        if not isinstance(data, (bytes, bytearray)):
+>           raise ValueError("data must be bytes")
+E           ValueError: data must be bytes
+
+src/investos/acquire/manifest.py:178: ValueError
+____________________ test_T7_non_bytes_data_is_typeerror[5] ____________________
+
+mk = <function mk.<locals>._mk at 0x7f7592b367a0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type2/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type2/manifests'))
+data = 5
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", ["hello", None, 5, ["h"]])
+    def test_T7_non_bytes_data_is_typeerror(mk, roots, data):
+        raw, man = roots
+        st = mk()
+        before = snap(roots[0].parent)
+        with pytest.raises(TypeError):
+>           put(st, "bse", data)
+
+tests/unit/acquire/test_review_regressions.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_acq_helpers.py:26: in put
+    return st.store(source, data, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <investos.acquire.manifest.ManifestStore object at 0x7f7592ca2e60>
+source = 'bse', data = 5, url = 'https://example.test/f', source_version = 'v1'
+logical_key = '2026-11-20', run_id = 'run-1'
+fetched_at = datetime.datetime(2026, 11, 21, 15, 0, tzinfo=datetime.timezone(datetime.timedelta(seconds=19800)))
+
+    def store(self, source: str, data: bytes, *, url: str, source_version: str,
+              logical_key: str, run_id: str, fetched_at: datetime) -> ManifestEntry:
+        _check_source(source)
+        if not isinstance(data, (bytes, bytearray)):
+>           raise ValueError("data must be bytes")
+E           ValueError: data must be bytes
+
+src/investos/acquire/manifest.py:178: ValueError
+__________________ test_T7_non_bytes_data_is_typeerror[data3] __________________
+
+mk = <function mk.<locals>._mk at 0x7f7592c6b560>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type3/raw'), PosixPath('/tmp/pytest-of-root/pytest-102/test_T7_non_bytes_data_is_type3/manifests'))
+data = ['h']
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", ["hello", None, 5, ["h"]])
+    def test_T7_non_bytes_data_is_typeerror(mk, roots, data):
+        raw, man = roots
+        st = mk()
+        before = snap(roots[0].parent)
+        with pytest.raises(TypeError):
+>           put(st, "bse", data)
+
+tests/unit/acquire/test_review_regressions.py:298: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_acq_helpers.py:26: in put
+    return st.store(source, data, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <investos.acquire.manifest.ManifestStore object at 0x7f7592c6b6b0>
+source = 'bse', data = ['h'], url = 'https://example.test/f'
+source_version = 'v1', logical_key = '2026-11-20', run_id = 'run-1'
+fetched_at = datetime.datetime(2026, 11, 21, 15, 0, tzinfo=datetime.timezone(datetime.timedelta(seconds=19800)))
+
+    def store(self, source: str, data: bytes, *, url: str, source_version: str,
+              logical_key: str, run_id: str, fetched_at: datetime) -> ManifestEntry:
+        _check_source(source)
+        if not isinstance(data, (bytes, bytearray)):
+>           raise ValueError("data must be bytes")
+E           ValueError: data must be bytes
+
+src/investos/acquire/manifest.py:178: ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_review_regressions.py::test_D1a_symlink_at_dest_with_correct_bytes_rejected
+FAILED tests/unit/acquire/test_review_regressions.py::test_D1b_verify_reports_symlinked_raw_file_and_tampering_behind_it
+FAILED tests/unit/acquire/test_review_regressions.py::test_D1c_verify_reports_symlinked_xx_directory
+FAILED tests/unit/acquire/test_review_regressions.py::test_D1d_verify_hashes_manifest_referenced_files
+FAILED tests/unit/acquire/test_review_regressions.py::test_D2a_dangling_symlink_at_dest
+FAILED tests/unit/acquire/test_review_regressions.py::test_D2b_directory_at_dest
+FAILED tests/unit/acquire/test_review_regressions.py::test_D3a_new_entries_fsync_parent_dirs
+FAILED tests/unit/acquire/test_review_regressions.py::test_D3c_dedup_path_fsyncs_dir_and_manifest
+FAILED tests/unit/acquire/test_review_regressions.py::test_T2_dedup_on_writable_existing_file_raises_and_does_not_chmod
+FAILED tests/unit/acquire/test_review_regressions.py::test_T7_non_bytes_data_is_typeerror[hello]
+FAILED tests/unit/acquire/test_review_regressions.py::test_T7_non_bytes_data_is_typeerror[None]
+FAILED tests/unit/acquire/test_review_regressions.py::test_T7_non_bytes_data_is_typeerror[5]
+FAILED tests/unit/acquire/test_review_regressions.py::test_T7_non_bytes_data_is_typeerror[data3]
+13 failed, 7 passed in 0.33s

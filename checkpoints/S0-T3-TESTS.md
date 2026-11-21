@@ -19,3 +19,9 @@
 
 ## Update — A16 fix (Test writer)
 - test_A16: last assertion compared by basename and picked up the misplaced zz/ copy; now matches on the "2c/<sha>" path suffix. for_path stays basename-based (other uses have unique basenames).
+
+## Update — review regressions (Test writer)
+- Added tests/unit/acquire/test_review_regressions.py (20 tests): D1a-d symlinks, D2a-b non-regular dest, D3a-c dir/manifest fsync (spy via /proc/self/fd), T1 verify no-mutation, T2 dedup on writable file raises RawIntegrityError without chmod, T3 race with different bytes, T5 newline-less valid JSON last line, T6 size True/5.0/-1, T7 non-bytes data -> TypeError (impl currently raises ValueError).
+- Red: 13 failed, 7 passed (controls already satisfied: D3b, T1, T3, T5, T6 x3). Output: reports/S0-T3/regressions_red.txt
+- D1d expects hash_mismatch attributed to the manifest line (p.line == 1), per R10 "for each manifest line".
+- Needs "symlink" Problem kind (spec lists six kinds; spec update needed).
