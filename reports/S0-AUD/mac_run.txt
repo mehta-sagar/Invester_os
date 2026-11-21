@@ -1,0 +1,5 @@
+Condition C3 — Sagar's Mac (Apple M2 Pro, macOS, Python 3.14, venv, non-root), 21 Nov 2026, main @ c5bafc7
+First run (before S0-MAC fixes): 2 failed, 683 passed, 2 skipped; demo crashed on /var -> /private/var path mismatch (demo-script bug).
+After fixes (f6bebd3 demo, c5bafc7 tests):
+  688 passed in 8.43s
+  RESULT: ALL CLAIMS PASS
