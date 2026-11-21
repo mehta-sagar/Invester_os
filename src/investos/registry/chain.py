@@ -143,6 +143,8 @@ def _walk(data: bytes) -> tuple[list[Row], tuple[int, str] | None]:
             return rows, (p, "hash mismatch")
         if rows and ts < rows[-1].ts:
             return rows, (p, "ts earlier than previous row")
+        if body != canonical_json(obj).encode("utf-8"):
+            return rows, (p, "line is not in canonical JSON form")
         if not line.endswith(b"\n"):
             return rows, (p, "file does not end with newline")
         rows.append(Row(seq, ts, prev, payload, h))

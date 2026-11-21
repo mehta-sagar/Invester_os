@@ -48,3 +48,15 @@ registry    caught   10  trials: broken at seq 1
 OK
 report: /tmp/s0t6_demo/reports/checks/20261121T105742Z-6da35e44.json
 exit=0
+
+-- whitespace-only edit (R7 amended): space inserted after a colon in row 1, content and hash unchanged
+$ python -m investos check registry
+NAME      STATUS  MS  MESSAGE
+registry  fail     4  trials: broken at seq 1
+FAILED (1)
+report: /tmp/s0t6_demo/reports/checks/20261121T110418Z-5a31c6c6.json
+exit=1
+-- reverted:
+report: /tmp/s0t6_demo/reports/checks/20261121T110418Z-32517431.json
+registry  pass     3  trials: 3 rows OK; decisions: 3 rows OK
+OK
