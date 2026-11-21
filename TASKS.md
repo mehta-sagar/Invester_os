@@ -28,9 +28,9 @@ Then: Independent auditor (strongest model, fresh context) → Sagar approves la
 
 | ID | Task | Agent | Output | Status | Blocked by |
 |---|---|---|---|---|---|
-| S1-SPEC1 | Spec change for decisions 0002/0002a: collect amendment, manifest schema v2, roots routine | Spec writer | specs/collect_base.md, specs/core_manifest.md, specs/ops_roots_routine.md, briefs/S1-T1..T3.md | spec (branch task/S1-SPEC1; open questions for Sagar at the end of each spec) | S0-FIX |
+| S1-SPEC1 | Spec change for decisions 0002/0002a: collect amendment, manifest schema v2, roots routine | Spec writer | specs/collect_base.md, specs/core_manifest.md, specs/ops_roots_routine.md, briefs/S1-T1..T3.md | merged (main e72fa38; questions resolved in each spec) | S0-FIX |
 | S1-T1 | Collector amendment: access_mode, UrllibTransport, BrowserTransport interface, block policy, cross-process limiter, daily caps, per-host blocks, notifier | Test writer → Builder | src/investos/acquire/{base,access,transport}.py, core/config.py | open | S1-SPEC1, S1-T2 |
 | S1-T2 | Manifest schema v2: access_mode, request_headers, final_url, fetch_host, schema; version-aware reader | Test writer → Builder | src/investos/acquire/manifest.py | open | S1-SPEC1 |
 | S1-T3 | Daily roots routine: write roots, commit, push (`investos routine roots`) | Test writer → Builder | src/investos/routine/roots.py | open | S1-SPEC1, S1-T1 |
 
-Order: S1-T2 first (v2 reader before any v2 writer), then S1-T1 (also builds core/notify.py), then S1-T3. Conditions still open from the audit: C3 (suite and demo on the Mac as non-root), C5 (before raw passes a few GB).
+Order: S1-T2 first (v2 reader before any v2 writer), then S1-T1 (also builds core/notify.py), then S1-T3. C3 done (reports/S0-AUD/mac_run.txt: 688 passed, ALL CLAIMS PASS). Still open: C5 (before raw passes a few GB).
