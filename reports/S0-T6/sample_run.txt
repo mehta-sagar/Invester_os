@@ -1,0 +1,50 @@
+== exit-gate demo 4: trial registry and decision log (copy at /tmp/s0t6_demo, temp data tree)
+trials appended: 3, decisions appended: 3
+roots written (trials): [('2026-11-19', 2), ('2026-11-20', 3)]
+roots written (decisions): [('2026-11-19', 1), ('2026-11-20', 3)]
+
+-- trials.jsonl (before)
+-- trials.roots.jsonl
+{"date":"2026-11-19","hash":"5f2a2bce50e3455e736ed925e82f35e3ef4e7119cb7c7220535ccff5548958b5","seq":2}
+{"date":"2026-11-20","hash":"ea901ac8833f2d4c618a826d92c696d3eb2b258d564088121fc9ddfa7aac40e9","seq":3}
+
+$ python -m investos check registry
+NAME      STATUS  MS  MESSAGE
+registry  pass     5  trials: 3 rows OK; decisions: 3 rows OK
+OK
+report: /tmp/s0t6_demo/reports/checks/20261121T105742Z-977a2aa8.json
+exit=0
+
+-- editing past row: seq 2 payload byte change (hypothesis 'earnings yield' -> 'earnings Yield'), hash untouched
+$ python -m investos check registry
+NAME      STATUS  MS  MESSAGE
+registry  fail     3  trials: broken at seq 2
+FAILED (1)
+report: /tmp/s0t6_demo/reports/checks/20261121T105742Z-06a49080.json
+exit=1
+detail: ['trials: broken at seq 2: hash mismatch']
+
+-- tail edit with recomputed own hash (only the committed roots can catch this)
+$ python -m investos check registry
+NAME      STATUS  MS  MESSAGE
+registry  fail     3  trials: broken at seq 3
+FAILED (1)
+report: /tmp/s0t6_demo/reports/checks/20261121T105742Z-b5d04558.json
+exit=1
+detail: ['trials: broken at seq 3: root mismatch: root for 2026-11-20 does not match row 3']
+
+-- restore row 3 (original line saved in git-less copy: re-edit back) and run planted
+$ python -m investos check registry
+NAME      STATUS  MS  MESSAGE
+registry  pass     3  trials: 3 rows OK; decisions: 3 rows OK
+OK
+report: /tmp/s0t6_demo/reports/checks/20261121T105742Z-65104a56.json
+$ python -m investos check --planted
+NAME        STATUS   MS  MESSAGE
+manifest    caught   13  1 problem(s): hash_mismatch
+raw         caught    6  1 problem(s): writable_file
+migrations  caught  116  1 migration problem(s)
+registry    caught   10  trials: broken at seq 1
+OK
+report: /tmp/s0t6_demo/reports/checks/20261121T105742Z-6da35e44.json
+exit=0
