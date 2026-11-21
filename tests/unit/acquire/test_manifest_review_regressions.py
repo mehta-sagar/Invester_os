@@ -3,6 +3,7 @@ fsync, T1-T6 test gaps. Added after the first green run; the new ones are expect
 from __future__ import annotations
 
 import json
+import fcntl
 import os
 import stat
 from pathlib import Path
@@ -122,8 +123,22 @@ def test_D2b_directory_at_dest(mk, roots):
 
 # ---------------------------------------------------------------- D3 / T4 fsync spying
 
-HAVE_PROC_FD = os.path.isdir("/proc/self/fd")
-needs_proc = pytest.mark.skipif(not HAVE_PROC_FD, reason="FsyncSpy maps fds to paths via /proc/self/fd (Linux only)")
+HAVE_FD_PATH = hasattr(fcntl, "F_GETPATH") or os.path.isdir("/proc/self/fd")
+needs_fd_path = pytest.mark.skipif(
+    not HAVE_FD_PATH, reason="FsyncSpy needs fcntl.F_GETPATH (macOS) or /proc/self/fd (Linux) to map fds to paths")
+
+
+def fd_path(fd: int) -> str:
+    """fd -> path: fcntl.F_GETPATH (macOS), else /proc/self/fd (Linux), else 'fd:N'."""
+    if hasattr(fcntl, "F_GETPATH"):
+        try:
+            return os.fsdecode(fcntl.fcntl(fd, fcntl.F_GETPATH, b"\0" * 1024).split(b"\0", 1)[0])
+        except OSError:
+            pass
+    try:
+        return os.readlink(f"/proc/self/fd/{fd}")
+    except OSError:
+        return f"fd:{fd}"
 
 
 class FsyncSpy:
@@ -134,11 +149,7 @@ class FsyncSpy:
         monkeypatch.setattr(os, "link", self._link)
 
     def _fsync(self, fd):
-        try:
-            p = os.readlink(f"/proc/self/fd/{fd}")
-        except OSError:
-            p = f"fd:{fd}"
-        self.events.append(("fsync", p))
+        self.events.append(("fsync", fd_path(fd)))
         return self.real_fsync(fd)
 
     def _link(self, src, dst, *a, **k):
@@ -154,7 +165,7 @@ def _real(p: Path) -> str:
 
 
 @pytest.mark.planted
-@needs_proc
+@needs_fd_path
 def test_D3a_new_entries_fsync_parent_dirs(mk, roots, monkeypatch):
     raw, man = roots
     st = mk()
@@ -169,7 +180,7 @@ def test_D3a_new_entries_fsync_parent_dirs(mk, roots, monkeypatch):
 
 
 @pytest.mark.planted
-@needs_proc
+@needs_fd_path
 def test_D3b_dir_fsync_follows_link_and_manifest_fsync_last(mk, roots, monkeypatch):
     raw, man = roots
     st = mk()
@@ -185,6 +196,7 @@ def test_D3b_dir_fsync_follows_link_and_manifest_fsync_last(mk, roots, monkeypat
 
 
 @pytest.mark.planted
+@needs_fd_path
 def test_D3c_dedup_path_fsyncs_dir_and_manifest(mk, roots, monkeypatch):
     raw, man = roots
     st = mk()
@@ -305,11 +317,7 @@ def test_T7_non_bytes_data_is_typeerror(mk, roots, data):
     assert snap(roots[0].parent) == before
 
 
-def test_A5_fsync_spy_falls_back_without_proc(monkeypatch):
-    """Guard: without /proc the spy records 'fd:N' (non-absolute) and never raises; the D3 tests skip then."""
-    real = os.readlink
-    monkeypatch.setattr(os, "readlink", lambda p, *a, **k: (_ for _ in ()).throw(OSError("no /proc"))
-                        if str(p).startswith("/proc/") else real(p, *a, **k))
+def _spy_on_pipe_fsync(monkeypatch):
     spy = FsyncSpy(monkeypatch)
     r, w = os.pipe()
     try:
@@ -317,8 +325,31 @@ def test_A5_fsync_spy_falls_back_without_proc(monkeypatch):
             spy._fsync(w)
         except OSError:
             pass                                    # a pipe cannot be fsynced; only the recorded event matters
-        assert spy.fsynced() == [f"fd:{w}"]
     finally:
         monkeypatch.undo()
         os.close(r)
         os.close(w)
+    return spy, w
+
+
+def test_A5_fsync_spy_falls_back_when_both_mechanisms_missing(monkeypatch):
+    """Guard: without F_GETPATH and /proc the spy records 'fd:N' and never raises; the D3 tests skip then."""
+    monkeypatch.delattr(fcntl, "F_GETPATH", raising=False)
+    real = os.readlink
+    monkeypatch.setattr(os, "readlink", lambda p, *a, **k: (_ for _ in ()).throw(OSError("no /proc"))
+                        if str(p).startswith("/proc/") else real(p, *a, **k))
+    spy, w = _spy_on_pipe_fsync(monkeypatch)
+    assert spy.fsynced() == [f"fd:{w}"]
+
+
+def test_A5_fsync_spy_uses_f_getpath_when_available(monkeypatch):
+    """Simulates macOS: F_GETPATH present, /proc absent."""
+    monkeypatch.setattr(fcntl, "F_GETPATH", 50, raising=False)
+    real_fcntl = fcntl.fcntl
+    monkeypatch.setattr(fcntl, "fcntl", lambda fd, cmd, arg=0: b"/mac/path/file\0\0\0" if cmd == 50
+                        else real_fcntl(fd, cmd, arg))
+    real = os.readlink
+    monkeypatch.setattr(os, "readlink", lambda p, *a, **k: (_ for _ in ()).throw(OSError("no /proc"))
+                        if str(p).startswith("/proc/") else real(p, *a, **k))
+    spy, _ = _spy_on_pipe_fsync(monkeypatch)
+    assert spy.fsynced() == ["/mac/path/file"]

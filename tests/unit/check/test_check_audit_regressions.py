@@ -48,12 +48,12 @@ def _mk_writable(p, data=b"x"):
 
 def test_A10_stray_names_in_raw_are_reported_misplaced(healthy, run):
     raw = healthy.zones["raw"]
-    _mk_writable(raw / "BSE" / "aa" / "junk")          # upper-case source dir
+    _mk_writable(raw / "XYZUPPER" / "aa" / "junk")     # upper-case source dir (no case-fold clash with any fixture source)
     _mk_writable(raw / "stray.bin")                    # file directly in the raw zone
     _mk_writable(raw / "nse-x" / "f")                  # dir that is not a valid source name
     code, out = run(["raw"])
     assert code != 0, out
-    for name in ("BSE", "stray.bin", "nse-x"):
+    for name in ("XYZUPPER", "stray.bin", "nse-x"):
         assert name in out, f"{name} not reported:\n{out}"
     assert "misplaced_file" in out
 
