@@ -1,9 +1,10 @@
 # Checkpoint S0-T3-BUILD — Builder — 2026-11-21
 
 ## Done so far
-- src/investos/acquire/{__init__,manifest}.py implemented; A16 test fixed by Test writer (15f2e3c).
-- Full suite: 127 passed -> reports/S0-T3/tests_green.txt
-- Sample run (/tmp/s0t3-sample) -> reports/S0-T3/sample_run.txt
+- manifest.py implemented; review follow-ups D1, D2, D3, T2, T7, D5 fixed (spec R14, Problem kind `symlink`).
+- Full suite: 147 passed -> reports/S0-T3/tests_green.txt; sample run re-done -> reports/S0-T3/sample_run.txt
+- verify: manifest-referenced files are hashed (hash_mismatch/size_mismatch carry the manifest line; walk skips re-hashing them); symlinks reported, never followed in the walk.
+- D4 (torn tail after failed append blocks the source) left as spec'd; note for S0-T5.
 
 ## Next step
-- Orchestrator review and ff-only merge to main.
+- Orchestrator re-review and ff-only merge to main.

@@ -134,9 +134,10 @@ def _split_lines(data: bytes) -> list[tuple[int, bytes, bool]]:
     return out
 
 
-def _hash_file(path: Path) -> str:
+def _hash_file(path: Path, nofollow: bool = False) -> str:
     h = hashlib.sha256()
-    with open(path, "rb") as fh:
+    fd = os.open(path, os.O_RDONLY | (os.O_NOFOLLOW if nofollow else 0))
+    with os.fdopen(fd, "rb") as fh:
         for chunk in iter(lambda: fh.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
@@ -174,9 +175,8 @@ class ManifestStore:
     def store(self, source: str, data: bytes, *, url: str, source_version: str,
               logical_key: str, run_id: str, fetched_at: datetime) -> ManifestEntry:
         _check_source(source)
-        if not isinstance(data, (bytes, bytearray)):
-            raise ValueError("data must be bytes")
-        data = bytes(data)
+        if not isinstance(data, bytes):
+            raise TypeError("data must be bytes")
         for name, val in (("url", url), ("source_version", source_version),
                           ("logical_key", logical_key), ("run_id", run_id)):
             if not isinstance(val, str) or not val:
@@ -199,9 +199,12 @@ class ManifestStore:
         self._write_raw(source, sha, data)
 
         mpath = self._manifest_path(source)
-        lock_fd = os.open(self._man_root / f"{source}.jsonl.lock", os.O_RDWR | os.O_CREAT, 0o644)
+        lock_path = self._man_root / f"{source}.jsonl.lock"
+        new_dir_entries = not os.path.lexists(lock_path)
+        lock_fd = os.open(lock_path, os.O_RDWR | os.O_CREAT, 0o644)
         try:
             fcntl.flock(lock_fd, fcntl.LOCK_EX)
+            new_dir_entries = new_dir_entries or not os.path.lexists(mpath)
             fd = os.open(mpath, os.O_RDWR | os.O_CREAT | os.O_APPEND, 0o644)
             try:
                 size = os.fstat(fd).st_size
@@ -217,6 +220,8 @@ class ManifestStore:
                 os.fsync(fd)
             finally:
                 os.close(fd)
+            if new_dir_entries:
+                _fsync_dir(self._man_root)
         finally:
             try:
                 fcntl.flock(lock_fd, fcntl.LOCK_UN)
@@ -225,12 +230,19 @@ class ManifestStore:
         return entry
 
     def _write_raw(self, source: str, sha: str, data: bytes) -> None:
-        d = self._raw_root / source / sha[:2]
+        sdir = self._raw_root / source
+        d = sdir / sha[:2]
         dest = d / sha
         if os.path.lexists(dest):
             self._require_same(dest, sha)
+            _fsync_dir(d)
             return
-        d.mkdir(parents=True, exist_ok=True)
+        if not sdir.exists():
+            sdir.mkdir()
+            _fsync_dir(self._raw_root)
+        if not d.exists():
+            d.mkdir()
+            _fsync_dir(sdir)
         tmp = d / f".tmp-{uuid.uuid4().hex}"
         try:
             fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -247,9 +259,6 @@ class ManifestStore:
                 os.link(tmp, dest)
             except FileExistsError:
                 self._require_same(dest, sha)
-                return
-            finally:
-                pass
             _fsync_dir(d)
         finally:
             try:
@@ -259,7 +268,19 @@ class ManifestStore:
 
     @staticmethod
     def _require_same(dest: Path, sha: str) -> None:
-        if _hash_file(dest) != sha:
+        try:
+            st = os.lstat(dest)
+        except OSError as e:
+            raise RawIntegrityError(f"cannot inspect existing raw path {dest}: {e}") from None
+        if not stat.S_ISREG(st.st_mode):
+            raise RawIntegrityError(f"existing raw path {dest} is not a regular file")
+        if st.st_mode & 0o222:
+            raise RawIntegrityError(f"existing raw file {dest} is writable (mode {stat.S_IMODE(st.st_mode):04o})")
+        try:
+            same = _hash_file(dest, nofollow=True) == sha
+        except OSError as e:
+            raise RawIntegrityError(f"cannot read existing raw file {dest}: {e}") from None
+        if not same:
             raise RawIntegrityError(f"existing raw file {dest} does not match its name")
 
     # ---- read --------------------------------------------------------
@@ -330,6 +351,8 @@ class ManifestStore:
                 seen.add(key)
                 problems.append(Problem(kind, source, str(path), line, detail))
 
+        referenced: set[str] = set()
+        hashes: dict = {}
         mpath = self._manifest_path(source)
         try:
             data = mpath.read_bytes()
@@ -348,17 +371,34 @@ class ManifestStore:
                 continue
             rp = self._raw_root / source / e.sha256[:2] / e.sha256
             try:
-                st = os.lstat(rp)
+                st = os.stat(rp)
             except OSError:
                 add("missing_file", rp, no, "raw file absent")
                 continue
-            if stat.S_ISREG(st.st_mode) and st.st_size != e.size:
+            referenced.add(str(rp))
+            if not stat.S_ISREG(st.st_mode):
+                add("hash_mismatch", rp, no, "not a regular file")
+                continue
+            if rp not in hashes:
+                try:
+                    hashes[rp] = _hash_file(rp)
+                except OSError as ex:
+                    hashes[rp] = f"unreadable: {ex}"
+            if hashes[rp] != e.sha256:
+                add("hash_mismatch", rp, no, "content hash differs from manifest sha256")
+            if st.st_size != e.size:
                 add("size_mismatch", rp, no, f"file size {st.st_size} != manifest size {e.size}")
 
         base = self._raw_root / source
-        if base.is_dir():
+        if base.is_symlink():
+            add("symlink", base, None, "source directory is a symlink; not followed")
+        elif base.is_dir():
             for dirpath, dirnames, filenames in os.walk(base):
                 dirnames.sort()
+                for dn in dirnames:
+                    dp = Path(dirpath) / dn
+                    if dp.is_symlink():
+                        add("symlink", dp, None, "symlinked directory; not followed")
                 for fn in sorted(filenames):
                     if fn.startswith(".tmp-"):
                         continue
@@ -367,15 +407,18 @@ class ManifestStore:
                         st = os.lstat(p)
                     except OSError:
                         continue
+                    if stat.S_ISLNK(st.st_mode):
+                        add("symlink", p, None, "symlinked file; not followed")
+                        continue
                     if not stat.S_ISREG(st.st_mode):
                         continue
                     is_hex = bool(_SHA_RE.fullmatch(fn))
                     in_place = is_hex and Path(dirpath) == base / fn[:2]
                     if not in_place:
                         add("misplaced_file", p, None, "not at <source>/<sha[:2]>/<sha>")
-                    if is_hex:
+                    if is_hex and str(p) not in referenced:
                         try:
-                            if _hash_file(p) != fn:
+                            if _hash_file(p, nofollow=True) != fn:
                                 add("hash_mismatch", p, None, "content hash differs from file name")
                         except OSError as ex:
                             add("hash_mismatch", p, None, f"unreadable: {ex}")
