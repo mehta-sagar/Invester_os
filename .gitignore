@@ -6,7 +6,8 @@ data/features/
 data/models/
 data/quarantine/
 data/exports/
-data/ledger/
+data/ledger/*
+!data/ledger/*.roots.jsonl
 !data/manifests/
 !**/.gitkeep
 .env
