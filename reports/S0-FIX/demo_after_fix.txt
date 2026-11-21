@@ -1,0 +1,84 @@
+data root: /tmp/investos-aud-demo-l4bjick_
+config loaded; raw zone /tmp/investos-aud-demo-l4bjick_/data/raw (git-ignored check passed)
+
+== Demo 1: a collector fetches one file
+  outcome=fetched http_calls=1 status=complete
+  manifest line: {"fetched_at":"2026-11-21T09:30:00.000000Z","logical_key":"2026-11-20","run_id":"run-demo-1","sha256":"55cee48b77871d89e48d31669564b55700de4973be77473ee8c0d9969f91fc78","size":69,"source":"demo_bhav","source_version":"demo-bhav-v1","url":"https://archives.example.test/bhav/2026-11-20.csv"}
+  raw path: data/raw/demo_bhav/55/55cee48b77871d89e48d31669564b55700de4973be77473ee8c0d9969f91fc78  mode=0o444
+  request headers: {'User-Agent': 'investos/0.0.0'}
+  PASS  outcome fetched after exactly 1 HTTP call
+  PASS  exactly one manifest row written
+  PASS  manifest row has the eight spec fields
+  PASS  row values: sha256, size, logical_key, run_id, fetched_at (UTC, 6 digits, Z)
+  PASS  raw file at <raw>/<source>/<sha[:2]>/<sha> holds exact bytes
+  PASS  raw file mode is 0444 (read-only)
+  PASS  file name equals sha256 of its content
+  PASS  no other file (no tmp leftovers) in the raw tree
+  PASS  run sidecar complete, outputs = [key, sha]
+  PASS  honest headers only
+  PASS  raw file is git-ignored
+
+== Demo 2: a deliberately broken body is rejected
+  outcome=unreadable status=incomplete gaps=[{'key': '2026-11-21', 'outcome': 'unreadable', 'reason': "body check: not a bhavcopy (b'<html><body>Error: data not av')"}]
+  PASS  HTTP 200 with an error page -> outcome `unreadable` (the spec's name for the gate's `rejected`)
+  PASS  no manifest row added
+  PASS  nothing added to the raw tree
+  PASS  key not in manifest -> retried next run
+  PASS  sidecar: status incomplete, key listed in gaps with reason
+
+== Demo 3: a re-run fetches nothing (fresh ManifestStore and collector instance)
+  outcome=skipped http_calls=0 transport_calls=0 sleeps=[] status=complete
+  PASS  outcome skipped
+  PASS  0 HTTP calls, 0 sleeps
+  PASS  manifest unchanged
+  PASS  sidecar still complete with the same outputs
+  PASS  a separate process sees the manifest hit too
+
+== Demo 4: editing a past registry row breaks the hash chain
+  trials rows=6, roots written=[('2026-11-17', 1), ('2026-11-18', 4), ('2026-11-19', 6)]
+  before edit: exit 0
+    NAME      STATUS  MS  MESSAGE
+    registry  pass     4  trials: 6 rows OK; decisions: 0 rows OK
+    OK
+  PASS  healthy ledger: `investos check registry` exits 0
+  `investos check` (all) before the DB exists:
+    NAME        STATUS  MS  MESSAGE
+    manifest    pass     2  1 sources, 1 lines OK
+    raw         pass     0  1 sources, raw files read-only and in place
+    migrations  fail     0  database missing
+    registry    pass     0  trials: 6 rows OK; decisions: 0 rows OK
+    FAILED (1)
+  PASS  no DB yet -> `migrations` check fails (database missing)
+  `investos check` (all) after open_db: exit 0
+    NAME        STATUS  MS  MESSAGE
+    manifest    pass     3  1 sources, 1 lines OK
+    raw         pass     0  1 sources, raw files read-only and in place
+    migrations  pass    35  migrations consistent with database
+    registry    pass     1  trials: 6 rows OK; decisions: 0 rows OK
+    OK
+  PASS  healthy store + migrated DB: `investos check` (all) exits 0
+  `investos check --planted`: exit 0
+    NAME        STATUS  MS  MESSAGE
+    manifest    caught  11  1 problem(s): hash_mismatch [plant_manifest/6f/6f198ce00263f1cf3a71eb7ea4721e457f446aba895b1b777cacdda28b4f75b9]
+    raw         caught   5  1 problem(s): writable_file [plant_raw/6f/6f198ce00263f1cf3a71eb7ea4721e457f446aba895b1b777cacdda28b4f75b9]
+    migrations  caught  83  1 migration problem(s)
+    registry    caught   8  trials: broken at seq 1
+    OK
+  PASS  planted harness: all 4 plants caught
+  after editing seq 2 payload: exit 1
+    NAME      STATUS  MS  MESSAGE
+    registry  fail     2  trials: broken at seq 2
+    FAILED (1)
+  PASS  edit of seq 2 -> exit 1, `trials: broken at seq 2`
+  after forging seq 2 and re-hashing the chain: exit 1
+    NAME      STATUS  MS  MESSAGE
+    registry  fail     2  trials: broken at seq 4
+    FAILED (1)
+  PASS  re-hashed forgery caught by the daily roots (exit 1; reported at seq 4 = the root covering seq 2)
+  same forgery with the roots file removed: exit 0  (documented limit: absent roots = ok)
+  PASS  LIMIT (expected by spec): forgery + deleted roots file passes -> roots must be anchored in git
+  PASS  check reports written under reports/checks/
+
+log lines written: 6
+
+RESULT: ALL CLAIMS PASS

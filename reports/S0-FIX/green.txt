@@ -1,0 +1,191 @@
+........................................................................ [ 10%]
+........................................................................ [ 20%]
+........................................................................ [ 31%]
+........................................................................ [ 41%]
+........................................................................ [ 52%]
+...........................s............................................ [ 62%]
+..........s............................................................. [ 73%]
+...FFFFFFFF............................................................. [ 83%]
+........................................................................ [ 94%]
+.......................................                                  [100%]
+=================================== FAILURES ===================================
+______ test_D2_non_finite_float_never_raises_and_line_is_strict_json[nan] ______
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = nan
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        lines = sink.getvalue().splitlines()
+        assert len(lines) == 1 and sink.getvalue().endswith("\n")
+    
+        def refuse(c):
+            raise AssertionError(f"non-strict JSON constant {c}")
+        rec = json.loads(lines[0], parse_constant=refuse)
+>       assert rec["other"] == "kept" and rec["event"] == "e"
+               ^^^^^^^^^^^^
+E       KeyError: 'other'
+
+tests/unit/core/test_review_regressions.py:40: KeyError
+______ test_D2_non_finite_float_never_raises_and_line_is_strict_json[inf] ______
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        lines = sink.getvalue().splitlines()
+        assert len(lines) == 1 and sink.getvalue().endswith("\n")
+    
+        def refuse(c):
+            raise AssertionError(f"non-strict JSON constant {c}")
+        rec = json.loads(lines[0], parse_constant=refuse)
+>       assert rec["other"] == "kept" and rec["event"] == "e"
+               ^^^^^^^^^^^^
+E       KeyError: 'other'
+
+tests/unit/core/test_review_regressions.py:40: KeyError
+_____ test_D2_non_finite_float_never_raises_and_line_is_strict_json[-inf] ______
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = -inf
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        lines = sink.getvalue().splitlines()
+        assert len(lines) == 1 and sink.getvalue().endswith("\n")
+    
+        def refuse(c):
+            raise AssertionError(f"non-strict JSON constant {c}")
+        rec = json.loads(lines[0], parse_constant=refuse)
+>       assert rec["other"] == "kept" and rec["event"] == "e"
+               ^^^^^^^^^^^^
+E       KeyError: 'other'
+
+tests/unit/core/test_review_regressions.py:40: KeyError
+__ test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_list] __
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = [1.0, nan]
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        lines = sink.getvalue().splitlines()
+        assert len(lines) == 1 and sink.getvalue().endswith("\n")
+    
+        def refuse(c):
+            raise AssertionError(f"non-strict JSON constant {c}")
+        rec = json.loads(lines[0], parse_constant=refuse)
+>       assert rec["other"] == "kept" and rec["event"] == "e"
+               ^^^^^^^^^^^^
+E       KeyError: 'other'
+
+tests/unit/core/test_review_regressions.py:40: KeyError
+__ test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_dict] __
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = {'k': inf}
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf"),
+                                     [1.0, float("nan")], {"k": float("inf")}],
+                             ids=["nan", "inf", "-inf", "nested_list", "nested_dict"])
+    def test_D2_non_finite_float_never_raises_and_line_is_strict_json(log, bad):
+        """S0-FIX A11: spec R12 (logging never raises) wins over the old ValueError; output stays strict JSON."""
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad, other="kept")           # must not raise
+        lines = sink.getvalue().splitlines()
+        assert len(lines) == 1 and sink.getvalue().endswith("\n")
+    
+        def refuse(c):
+            raise AssertionError(f"non-strict JSON constant {c}")
+        rec = json.loads(lines[0], parse_constant=refuse)
+>       assert rec["other"] == "kept" and rec["event"] == "e"
+               ^^^^^^^^^^^^
+E       KeyError: 'other'
+
+tests/unit/core/test_review_regressions.py:40: KeyError
+________ test_A11_top_level_non_finite_is_rendered_as_repr_string[nan] _________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = nan
+
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+    def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad)
+>       assert json.loads(sink.getvalue())["v"] == repr(bad)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'v'
+
+tests/unit/core/test_review_regressions.py:48: KeyError
+________ test_A11_top_level_non_finite_is_rendered_as_repr_string[inf] _________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = inf
+
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+    def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad)
+>       assert json.loads(sink.getvalue())["v"] == repr(bad)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'v'
+
+tests/unit/core/test_review_regressions.py:48: KeyError
+________ test_A11_top_level_non_finite_is_rendered_as_repr_string[-inf] ________
+
+log = <module 'investos.core.log' from '/home/claude/invester_os/src/investos/core/log.py'>
+bad = -inf
+
+    @pytest.mark.parametrize("bad", [float("nan"), float("inf"), float("-inf")])
+    def test_A11_top_level_non_finite_is_rendered_as_repr_string(log, bad):
+        sink = io.StringIO()
+        log.configure_logging(sink, clock=lambda: FIXED)
+        log.get_logger("t").info("e", v=bad)
+>       assert json.loads(sink.getvalue())["v"] == repr(bad)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'v'
+
+tests/unit/core/test_review_regressions.py:48: KeyError
+=========================== short test summary info ============================
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[nan]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[inf]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[-inf]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_list]
+FAILED tests/unit/core/test_review_regressions.py::test_D2_non_finite_float_never_raises_and_line_is_strict_json[nested_dict]
+FAILED tests/unit/core/test_review_regressions.py::test_A11_top_level_non_finite_is_rendered_as_repr_string[nan]
+FAILED tests/unit/core/test_review_regressions.py::test_A11_top_level_non_finite_is_rendered_as_repr_string[inf]
+FAILED tests/unit/core/test_review_regressions.py::test_A11_top_level_non_finite_is_rendered_as_repr_string[-inf]
+8 failed, 677 passed, 2 skipped in 12.67s
