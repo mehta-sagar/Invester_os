@@ -29,7 +29,7 @@ class RoutineResult:
     message: str
 
 def run_routine(cfg: Config, *, git: Git, clock=None, branch: str = "main", remote: str = "origin",
-                dry_run: bool = False) -> RoutineResult
+                dry_run: bool = False, notifier: Notifier | None = None) -> RoutineResult   # Notifier: investos.core.notify (built in S1-T1)
 ```
 
 ## Outputs (schema)
@@ -41,7 +41,7 @@ def run_routine(cfg: Config, *, git: Git, clock=None, branch: str = "main", remo
 Explicit files, enumerated by the routine, never directories, never globs handed to git, never `-A` or `.`:
 1. `registry/trials.jsonl`, `registry/trials.roots.jsonl` (via `cfg.zones["registry"]`)
 2. `data/ledger/decisions.jsonl`, `data/ledger/decisions.roots.jsonl` (via `cfg.zones["ledger"]`)
-3. `data/ledger/access/<source>.jsonl` for each file whose stem matches `SOURCE_RE` (block/halt state of specs/collect_base.md R25)
+3. `data/ledger/access/<source>.jsonl` for each file whose stem matches `SOURCE_RE` (halt state) and `data/ledger/access/hosts/<host>.jsonl` for each file whose stem matches `^[a-z0-9][a-z0-9.-]{0,252}$` (block state), both of specs/collect_base.md R25 (kept in the add-list: block history is evidence and holds no secrets)
 4. `data/manifests/<source>.jsonl` for each file whose stem matches `SOURCE_RE`
 5. `data/manifests/<source>.runs/<start>_<end>.json` run sidecars, and their `.attempt-*` / `.corrupt-*` variants, for each such directory
 A path counts only if it exists, is a regular file (not a symlink), lies inside the repo, and is not git-ignored. Anything else found under those folders (a file whose name fails the patterns, a `.tmp-*`, a lock) is ignored by the routine and never staged. Nothing under `data/raw`, `data/staged`, `data/canonical`, `data/features`, `data/models`, `data/quarantine`, `data/exports`, `data/ledger/.state`, `reports/` or any `credentials/` path can ever be in the list.
@@ -72,6 +72,12 @@ R11. Never destructive: the module has no code that deletes, truncates, renames 
 
 R12. Logging and exit: events on task `routine.roots`: `start`, `verified`, `roots_written` (kind, dates), `staged` (count), `committed` (hash), `pushed`, `push_failed` (WARNING, first stderr line, no URLs with credentials), `refused` (ERROR), `verify_failed` (ERROR), `done` (exit code). The process exit status equals the `ExitCode`. A stack trace never replaces an exit code: an unexpected exception is logged and maps to `USAGE` if it happens before any root was written, and to `COMMIT_FAILED` if it happens after (the roots are safe on disk either way).
 
+R13. Alerts. On exit codes `VERIFY_FAILED` (2), `REFUSED` (3), `PUSH_REJECTED` (5) and `PUSH_FAILED` (6) the routine calls `notifier.notify("Invest OS: roots routine", "exit <code> <NAME>: <message>")` exactly once, where `<message>` is the first line of `RoutineResult.message` with remote URLs and absolute paths removed. It does not notify on 0, 1, 4 or 7, and never in `--dry-run`. The default notifier is `NullNotifier` (so no test runs a command); the CLI passes an `OsascriptNotifier` on macOS (`investos.core.notify`, specs/collect_base.md R33, same escaping, 5 s timeout, never raises). A failing notifier is logged (WARNING `notify_failed`) and never changes the exit code.
+
+R14. Last result file. At the end of every non-dry run the routine writes the stdout JSON plus `"ts"` (UTC, 6 digits, `Z`) to `<ledger zone>/.state/roots-routine.last.json` (temp file plus `os.replace`; ignored by git, under `.state/`), so Mission Control can show the last routine result. A failure to write it is a WARNING, not an exit code.
+
+R15. Schedule example. `ops/launchd/com.investos.roots.plist.example` is a valid property list (`plistlib` loads it) with `Label` `com.investos.roots`, `ProgramArguments` running `investos routine roots` (path placeholders in `<...>`-free example values, documented in a comment key), `StartCalendarInterval` `{Hour: 23, Minute: 30}` and `RunAtLoad` true (catch-up after the Mac wakes), and a comment that launchd uses the Mac's local time zone, so the hour means 23:30 IST only while the Mac is set to Asia/Kolkata. Roots exist only for closed days, so a 23:30 run roots the days before today; the latest anchor is thus up to one day behind. Installing the job is a human step.
+
 ## Edge cases
 - First ever run, no trials file, no decisions file: nothing to root, add-list contains only manifests/sidecars/access files that exist; may commit them.
 - The same day run at 00:05 IST and again at 18:00 IST: the second run roots nothing new (today is open) and commits only new manifest lines and sidecars.
@@ -100,8 +106,13 @@ A13. (R12) Given each scenario, then the process exit status equals the document
 A14. (R9, planted) Given the routine killed (SIGKILL in a test hook) right after `write_roots` and before staging, then a following run stages and commits the roots; the chain and roots verify clean; no root date is duplicated.
 A15. (R3) Given the routine was not run for 5 days with rows on each, then one run writes all 5 missing roots in date order, one commit.
 A16. (Edge) Given an empty repo layout (no ledgers, no manifests), then exit 0, no commit, no error.
+A17. (R13, planted) Given scenarios ending in each exit code 0 to 7 and a `FakeNotifier`, then it received exactly one call for each of 2, 3, 5, 6 (title `Invest OS: roots routine`, text starting `exit <code> <NAME>`, containing no `file://` or absolute repo path) and none for 0, 1, 4, 7; with `--dry-run` none at all. A notifier raising `OSError` leaves the exit code unchanged and logs `notify_failed`.
+A18. (R13) Given the routine API called without a notifier, then a `NullNotifier` is used and no subprocess is started (patched `subprocess.run` is never called for osascript); the CLI wiring selects `OsascriptNotifier` only when `sys.platform == "darwin"` (tested with a patched platform).
+A19. (R14) Given a non-dry run, then `<ledger zone>/.state/roots-routine.last.json` exists with the stdout fields and a valid `ts`, is not staged or committed (A3 holds), and a dry run does not create or change it. Given an unwritable state dir, then the run still ends with the normal exit code.
+A20. (R15, planted) Given `plistlib.load` on the example file, then it parses, `StartCalendarInterval == {"Hour": 23, "Minute": 30}`, `RunAtLoad is True`, the first `ProgramArguments` entries are the CLI and `routine roots`, and the file contains the time zone comment. Given the access-state files (host and source files), then both kinds are in the add-list and committed by a run (A3's list extended).
 
 ## Not in this module
+- Task-branch merging: with the routine moving `main` nightly, tasks merge with `git merge --no-ff` when a fast-forward is impossible (decision 0001 amendment); the routine never rebases or merges.
 - The scheduler itself: the routine is a command; `ops/launchd/com.investos.roots.plist.example` is only an example (a daily `StartCalendarInterval` shortly after 00:00 IST, with `RunAtLoad` so a Mac that was asleep catches up). Installing it is a human step.
 - Any remote anchoring other than git (signing, timestamping services).
 - Pull, rebase, merge or conflict resolution; opening pull requests.
@@ -114,6 +125,8 @@ A16. (Edge) Given an empty repo layout (no ledgers, no manifests), then exit 0, 
 3. Repo growth: manifests are committed in full every day (each run stores a new blob for each changed jsonl file). With polling this is megabytes per day (see core_manifest open question 3). Is a size or row-count limit wanted, with a rollover file per month?
 4. Push rejected (exit 5) needs a human today. Do you want a notification (for example a macOS notification via `osascript`) on exit codes 2, 3, 5 and 6, or is the log enough?
 5. The access state files (`data/ledger/access/*.jsonl`) are in the add-list, so block history is pushed. Say if you prefer them kept local.
+
+Folded into the rules above: 1 -> default `--branch main` (R5), no rebase or force (R8, R11), merge note under Not in this module; 2 -> R15, A20; 3 -> none (no size limit in code); 4 -> R13, R14, A17-A19; 5 -> add-list item 3, A20.
 
 ## Resolved (21 Nov 2026; S = Sagar, O = Orchestrator default)
 1. (S) Branch `main`. Consequence for the build process: once the routine runs, main moves nightly, so task branches merge with `git merge --no-ff` when a fast-forward is impossible. Never rebase, never force-push. Decision 0001's ff-only rule is amended accordingly.

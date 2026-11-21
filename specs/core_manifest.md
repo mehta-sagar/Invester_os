@@ -126,10 +126,10 @@ Implements decision 0002 point 4 and 0002a ("`access_mode` recorded on every man
 | Old text | Status |
 |---|---|
 | "Fields (all required, no others)" with eight fields | superseded: the field set depends on the line's version (R15) |
-| `ManifestEntry` "same eight fields" | superseded: three more fields (R16) |
+| `ManifestEntry` "same eight fields" | superseded: five more fields (R16) |
 | R8 "has an extra field" | superseded: "has a field outside its version's set" (R15). Missing fields, wrong types, blank lines, invalid JSON stay errors |
 | `store(...)` signature | extended: two new required keyword arguments (R16) |
-| A2 "parses to the eight fields" | applies to reading a v1 fixture; a line written now has eleven fields (A26) |
+| A2 "parses to the eight fields" | applies to reading a v1 fixture; a line written now has thirteen fields (A26) |
 | A12 case "an extra field `foo`" | stays (an extra field on a v1 or a v2 line is still corrupt); new cases in A25 |
 R1 to R7, R9 to R14 stand; R10 is extended by R18.
 
@@ -139,31 +139,35 @@ class ManifestStore:
     def store(self, source: str, data: bytes, *, url: str, source_version: str,
               logical_key: str, run_id: str, fetched_at: datetime,
               access_mode: str,                                  # NEW, required: "honest" | "real_browser" | "scoped_exception"
-              request_headers: Mapping[str, str] | None          # NEW, required (no default): the exact headers sent; None only for real_browser when the browser could not report them
+              request_headers: Mapping[str, str] | None,         # NEW, required (no default): the exact headers sent; None only for real_browser when the browser could not report them
+              final_url: str,                                    # NEW, required
+              fetch_host: str                                    # NEW, required
               ) -> ManifestEntry
 ```
-No default values on the two new arguments, so no row can be written without a decision about them.
+No default values on the four new arguments, so no row can be written without a decision about them.
 
 ## Outputs (schema changes)
 
 ### Manifest line, version 2 (the only version written)
-Same canonical rule as before (`json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)` plus `"\n"`). Eleven fields, all required, no others: the eight of v1 plus
+Same canonical rule as before (`json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)` plus `"\n"`). Thirteen fields, all required, no others: the eight of v1 plus
 
 | field | type | value |
 |---|---|---|
 | `schema` | int | exactly `2` (not bool, not str) |
 | `access_mode` | str | `honest`, `real_browser` or `scoped_exception` |
 | `request_headers` | object or null | header name (str) to value (str), as sent, with Cookie values redacted (R17); `null` only if `access_mode == "real_browser"` |
+| `final_url` | str | the URL of the final response: for HTTP the requested URL (redirects are never followed), for `real_browser` the browser's final URL; non-empty, at most 2048 characters, no control characters |
+| `fetch_host` | str | host name of the machine that made the request (`socket.gethostname()` at the caller); non-empty, at most 255 characters, printable, no control characters; makes "Mac only" checkable after the fact |
 
 A **v1 line** is a line with no `schema` key and exactly the eight original fields. Anything else (including `"schema": 1`) is not v1.
 
-`ManifestEntry` gains `schema: int` (1 or 2), `access_mode: str | None` and `request_headers: Mapping[str, str] | None` (a read-only copy; for v1 entries `schema == 1`, `access_mode is None`, `request_headers is None`). Entries need not be hashable. `to_json_line()` serialises an entry in its own version: a v1 entry reproduces its original text byte for byte, a v2 entry writes the eleven fields.
+`ManifestEntry` gains `schema: int` (1 or 2), `access_mode: str | None`, `request_headers: Mapping[str, str] | None` (a read-only copy), `final_url: str | None` and `fetch_host: str | None` (for v1 entries `schema == 1` and the other four are `None`: access mode "unknown", never assumed honest by code). Entries need not be hashable. `to_json_line()` serialises an entry in its own version: a v1 entry reproduces its original text byte for byte, a v2 entry writes the thirteen fields.
 
 ## Rules (numbered, each gets at least one test and one planted failure)
 
-R15. Version-aware strict reading. A line is parsed as follows: if the JSON object has no `schema` key it must be exactly the v1 field set with the v1 types; if `schema` is present it must be the integer `2` (not `True`, not `"2"`, not `2.0`) and the object must be exactly the v2 field set with the v2 types. Any other value of `schema` (1, 3, null, ...) raises `ManifestCorruptError("unsupported schema ...")`. Missing fields, extra fields (relative to the line's own version), wrong types, a `request_headers` that is not an object or null, header names or values that are not `str`, an `access_mode` outside the three values, `request_headers == null` with a mode other than `real_browser`, and every other R8 condition remain `ManifestCorruptError` naming the file and 1-based line number. v1 and v2 lines may appear in any order in one file. `get_by_key` (latest line wins), `get_all_by_key`, `get_by_sha` and `entries` return entries of both versions in file order.
+R15. Version-aware strict reading. A line is parsed as follows: if the JSON object has no `schema` key it must be exactly the v1 field set with the v1 types; if `schema` is present it must be the integer `2` (not `True`, not `"2"`, not `2.0`) and the object must be exactly the v2 field set (13 fields) with the v2 types, including `final_url` and `fetch_host` as non-empty strings under R21. Any other value of `schema` (1, 3, null, ...) raises `ManifestCorruptError("unsupported schema ...")`. Missing fields, extra fields (relative to the line's own version), wrong types, a `request_headers` that is not an object or null, header names or values that are not `str`, an `access_mode` outside the three values, `request_headers == null` with a mode other than `real_browser`, and every other R8 condition remain `ManifestCorruptError` naming the file and 1-based line number. v1 and v2 lines may appear in any order in one file. `get_by_key` (latest line wins), `get_all_by_key`, `get_by_sha` and `entries` return entries of both versions in file order.
 
-R16. Writer writes v2 only. `store` always creates a `schema == 2` line and returns an entry with `schema == 2`. Argument validation happens before any filesystem access (R13 order stays: `source` first): `access_mode` outside the three values raises `ValueError`; `request_headers` that is not `None` or a `Mapping[str, str]` raises `TypeError`; `request_headers is None` with a mode other than `real_browser` raises `ValueError`; a `request_headers` that fails R17 raises `ValueError`. On any of these nothing is written (no raw file, no line). Nothing in the module writes a v1 line except `to_json_line()` on an entry that was read as v1.
+R16. Writer writes v2 only. `store` always creates a `schema == 2` line and returns an entry with `schema == 2`. Argument validation happens before any filesystem access (R13 order stays: `source` first): `access_mode` outside the three values, a `final_url` or `fetch_host` that breaks R21, raises `ValueError`; `request_headers` that is not `None` or a `Mapping[str, str]` raises `TypeError`; `request_headers is None` with a mode other than `real_browser` raises `ValueError`; a `request_headers` that fails R17 raises `ValueError`. On any of these nothing is written (no raw file, no line). Nothing in the module writes a v1 line except `to_json_line()` on an entry that was read as v1.
 
 R17. Header record rules. Applied by `store` to `request_headers` before serialising (and re-checked by `verify`, R18):
 (a) at most 64 headers; each name is an RFC 7230 token of at most 128 characters; each value is a `str` of at most 4096 characters with no CR, LF or NUL; the serialised object is at most 16 KiB; names are unique ignoring case;
@@ -172,11 +176,13 @@ R17. Header record rules. Applied by `store` to `request_headers` before seriali
 (d) names `authorization`, `proxy-authorization`, `cookie2` and `set-cookie` (compared lowercased) are refused with `ValueError` (the collector never sends them, and a response header must not be recorded as a request header);
 (e) the returned entry carries the redacted headers; `store` never mutates the caller's mapping.
 
-R18. Verify. `verify` (R10) handles v1 and v2 lines. In addition to the R10 conditions, each v2 line is reported once as `bad_line` (detail names the reason) when R15 fails, when its `request_headers` break R17(a), (d), or when a `cookie` header value is not of the form `name=<redacted>` pairs (or exactly `<redacted>`), so a leaked cookie in a hand-edited or buggy line is caught by `investos check manifest`. No new `Problem.kind` is added, and `verify` still never raises and never modifies anything. A healthy mixed v1/v2 store returns `[]`.
+R18. Verify. `verify` (R10) handles v1 and v2 lines. In addition to the R10 conditions, each v2 line is reported once as `bad_line` (detail names the reason) when R15 or R21 fails, when its `request_headers` break R17(a), (d), or when a `cookie` header value is not of the form `name=<redacted>` pairs (or exactly `<redacted>`), so a leaked cookie in a hand-edited or buggy line is caught by `investos check manifest`. No new `Problem.kind` is added, and `verify` still never raises and never modifies anything. A healthy mixed v1/v2 store returns `[]`.
 
 R19. Compatibility and deployment order. A Stage 0 reader (before this amendment) treats every v2 line as corrupt (extra fields), reporting `bad_line` or raising `ManifestCorruptError`; that is intended and is why this task merges first: S1-T1 and every other writer is blocked until S1-T2 is merged on `main` and present in every checkout and scheduled job that reads or writes manifests (the Mac, the daily routine, CI). Existing v1 lines are never rewritten, converted or back-filled; v1 stays valid forever. `docs/runbooks/manifest-torn-tail.md` gets a short paragraph saying that a `bad_line` on a complete (newline-terminated) line of an older checkout can mean "a v2 line seen by old code": update the code, do not truncate.
 
 R20. Interplay with earlier rules, stated so tests pin it. R5 (one write, flush, fsync, one line per call) and R6/R7 (flock, torn-tail guard) apply to v2 lines unchanged. The S0-FIX A2 behaviour holds: a reader that finds an unterminated tail takes `LOCK_SH` on `<source>.jsonl.lock` and re-reads before judging, so it never reports a writer's half-written v2 line; a tail that is still unterminated under the lock is a real torn tail (`bad_line`, `store` refuses, R7), exactly as for v1. The index cache signature `(inode, size, mtime_ns, ctime_ns)` is unchanged. The manual repair procedure of A8 (the runbook) is unchanged for v2 files.
+
+R21. `final_url` and `fetch_host`. `store` validates both before any filesystem access: `final_url` is a `str` of 1 to 2048 characters, no character below U+0020 or equal to U+007F, and starts with `https://` or `http://`; `fetch_host` is a `str` of 1 to 255 characters, no character below U+0020 or equal to U+007F, no leading or trailing space. Violations raise `ValueError` (non-str: `TypeError`) and write nothing. They are stored verbatim (no redaction: URLs with credentials or query secrets are the caller's responsibility, and the collector passes the plain data URL). `verify` re-checks them (R18).
 
 ## Edge cases
 - An old file with 10,000 v1 lines and one appended v2 line: all readable; `get_by_key` of an old key returns the v1 entry (`access_mode is None`).
@@ -188,19 +194,20 @@ R20. Interplay with earlier rules, stated so tests pin it. R5 (one write, flush,
 
 ## Acceptance tests (in words)
 A24. (R15) Given a manifest file of three v1 lines (the S0-T3 fixtures), then every lookup returns entries with `schema == 1`, `access_mode is None`, `request_headers is None`; `verify()` is `[]`; `to_json_line()` of each entry equals the original line text exactly.
-A25. (R15, planted) Given manifests each holding one bad line among good ones: `"schema": 1`, `"schema": 3`, `"schema": "2"`, `"schema": true`, `"schema": null`, a v2 line missing `access_mode`, a v2 line missing `request_headers`, a v2 line with an extra field `foo`, a v1-shaped line (no `schema`) that has `access_mode`, `access_mode: "stealth"`, `request_headers` as a list, a header value that is an int, `request_headers: null` with `access_mode: "honest"`, then each lookup raises `ManifestCorruptError` naming the line number, and `verify` reports `bad_line` for exactly that line and still checks the others.
-A26. (R16) Given `store(..., access_mode="honest", request_headers={"User-Agent": "u", "Accept-Encoding": "identity"})`, then the manifest line equals `json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"` with exactly eleven keys, `schema == 2`, the returned entry equals the entry read back, and its `to_json_line()` equals the stored text. Given a file with v1, then v2, then v1-text lines (hand-built), `get_by_key` returns the last matching line whatever its version and `entries` returns file order.
-A27. (R16, planted) Given `store` called without `access_mode` or without `request_headers`, then `TypeError`. Given `access_mode="stealth"`, `request_headers=["a"]`, `request_headers=None` with `honest`, `request_headers=None` with `scoped_exception`, then `ValueError`/`TypeError` as specified and afterwards no raw file, no manifest file change, no `.tmp-*`. Given `request_headers=None` with `real_browser`, then the line has `"request_headers":null`.
+A25. (R15, planted) Given manifests each holding one bad line among good ones: `"schema": 1`, `"schema": 3`, `"schema": "2"`, `"schema": true`, `"schema": null`, a v2 line missing `access_mode`, a v2 line missing `request_headers`, a v2 line missing `final_url`, a v2 line missing `fetch_host`, a v2 line with `final_url` or `fetch_host` as an int or empty string, a v2 line with an extra field `foo`, a v1-shaped line (no `schema`) that has `access_mode`, `access_mode: "stealth"`, `request_headers` as a list, a header value that is an int, `request_headers: null` with `access_mode: "honest"`, then each lookup raises `ManifestCorruptError` naming the line number, and `verify` reports `bad_line` for exactly that line and still checks the others.
+A26. (R16) Given `store(..., access_mode="honest", request_headers={"User-Agent": "u", "Accept-Encoding": "identity"}, final_url=url, fetch_host="mac-1")`, then the manifest line equals `json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n"` with exactly thirteen keys, `schema == 2`, the returned entry equals the entry read back, and its `to_json_line()` equals the stored text. Given a file with v1, then v2, then v1-text lines (hand-built), `get_by_key` returns the last matching line whatever its version and `entries` returns file order.
+A27. (R16, planted) Given `store` called without any one of `access_mode`, `request_headers`, `final_url`, `fetch_host`, then `TypeError`. Given `access_mode="stealth"`, `request_headers=["a"]`, `request_headers=None` with `honest`, `request_headers=None` with `scoped_exception`, then `ValueError`/`TypeError` as specified and afterwards no raw file, no manifest file change, no `.tmp-*`. Given `request_headers=None` with `real_browser`, then the line has `"request_headers":null`.
 A28. (R17, planted) Given header sets with: a name containing a space or a colon, an empty name, a name of 129 characters, a value with CR, LF or NUL, a non-str value, 65 headers, a 17 KiB total, `User-Agent` and `user-agent` together, and each of `Authorization`, `Proxy-Authorization`, `Cookie2`, `Set-Cookie`, then `store` raises `ValueError` and writes nothing.
 A29. (R17, planted) Given `{"Cookie": "nsit=SECRET1; nseappid=SECRET2", "Referer": "https://www.nseindia.com/x"}`, then neither the manifest file bytes nor the returned entry contain `SECRET1` or `SECRET2`, the entry's `Cookie` is `nsit=<redacted>; nseappid=<redacted>`, `Referer` is verbatim, and the caller's dict is unchanged. Given `{"cookie": "garbage"}` the stored value is `<redacted>` and the key keeps its case.
 A30. (R18, planted) Given hand-written v2 lines with a raw cookie value, with `a=<redacted>;b=<redacted>`, with 65 headers, with an `Authorization` header, then `verify` reports `bad_line` for each; a healthy store of v1 plus v2 lines returns `[]`; `verify` modifies no file.
 A31. (R20, S0-FIX A2 regression) Given 2 processes, one appending 200 v2 lines with a 2 KiB `request_headers` each while the other loops `get_by_key` and `entries`, then the reader never raises `ManifestCorruptError`, and the final `verify()` is `[]`.
 A32. (R20, R19, planted) Given a v2 file whose last line is cut in the middle (no final newline), then `store` raises `ManifestCorruptError` and leaves the bytes unchanged, `verify` reports `bad_line` for the last line, and following the runbook steps in a test (truncate the fragment under the lock) makes `verify` clean. The runbook file contains a paragraph that mentions `schema` and "v2". A source scan finds no code path that writes a line without `schema` except `to_json_line` on an entry whose `schema == 1`.
 A33. (R18) Given a mixed healthy store, `investos check manifest` exits 0; given the same store plus a hand-added v2 line with a raw cookie value, it exits 1 and names the line.
+A34. (R21, planted) Given `final_url` of `""`, `"ftp://x"`, `"https://x/\n"`, 2049 characters, an int, and `fetch_host` of `""`, `" mac"`, `"a\tb"`, 256 characters, an int, then `store` raises `ValueError`/`TypeError` and writes nothing. Given a valid pair with non-ASCII host text, the round trip is exact and the v2 line has `final_url` and `fetch_host` as given. A hand-written v2 line violating R21 is `bad_line` in `verify`. For a `real_browser` row whose final URL differs from the logical URL only by a fragment, `final_url` keeps the fragment.
 
 ## Not in this module
 - What the collector puts into `request_headers` and `access_mode` (collect_base amendment, S1-T1).
-- Recording `final_url`, the redirect chain or the fetching host name (open question 2).
+- The redirect chain (only `final_url` is recorded; redirects are never followed or stored by the collector).
 - Rewriting, converting or back-filling v1 lines; compaction.
 - Any hash chain over manifest lines.
 
@@ -209,6 +216,8 @@ A33. (R18) Given a mixed healthy store, `investos check manifest` exits 0; given
 2. For `real_browser` rows, do you also want the final URL (after redirects) and the host name of the machine that fetched, as manifest fields? Decision 0002a says "Mac only" can only be recorded, not enforced. Adding them is another schema field (v2 as specced has neither).
 3. Row growth in git: every poll is one manifest row, now about 40 percent bigger because of the headers. Polling 22 RSS feeds every minute would be roughly 30,000 rows and some 14 MB of manifest text per day pushed to GitHub. Choose the poll interval (and whether unchanged feed bodies should be recorded as rows at all) before the poller task.
 4. v1 rows have no access mode. The spec returns `None` for them ("unknown") and does not assume they were honest. Say if reports should treat them as honest.
+
+Folded into the rules above: 1 -> R17c, A29 (confirmed); 2 -> R15, R16, R21, A25, A26, A27, A34 (13 fields); 3 -> not a manifest rule: the RSS poll interval (15 minutes, body-sha dedup writes no row) belongs to the later poller spec, noted there; 4 -> R15 (v1 reports `None`).
 
 ## Resolved (21 Nov 2026; S = Sagar, O = Orchestrator default)
 1. (S) Cookie values are redacted (`<redacted>`) and cookie names are kept. Decision 0002 point 4 is read as "every header recorded, cookie values redacted".
