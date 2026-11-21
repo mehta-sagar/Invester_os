@@ -246,3 +246,25 @@ def test_A20h_non_canonical_trials_line_fails_registry_check(cfg, mutate):
     assert not res.ok and "trials: broken at seq 2" in _text(res)
     code, out = _run(cfg, ["registry"])
     assert code == 1
+
+
+# ---- S0-FIX A7(a): the registry check must verify the daily roots (guards audit mutant X12) ----
+
+def test_A7a_registry_check_fails_on_rehashed_forgery_caught_only_by_roots(cfg):
+    from investos.registry.chain import _row_hash
+    from investos.registry.ledgers import open_trials
+    _check_env()
+    _seed(cfg)
+    t = open_trials(cfg)
+    t.write_roots()
+    assert t.roots(), "fixture must have roots"
+    # forge: rewrite the LAST row's payload and re-hash it so the chain alone is self-consistent
+    lines = t.path.read_bytes().splitlines()
+    row = json.loads(lines[-1])
+    row["payload"]["hypothesis"] = "forged hypothesis text"
+    row["hash"] = _row_hash(row["seq"], row["ts"], row["prev_hash"], row["payload"])
+    lines[-1] = json.dumps(row, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
+    t.path.write_bytes(b"\n".join(lines) + b"\n")
+    assert open_trials(cfg).verify(roots=False).ok, "forgery must be chain-consistent for this test to mean anything"
+    code, out = _run(cfg, ["registry"])
+    assert code != 0, "registry check passed a re-hashed forgery although roots exist:\n" + out

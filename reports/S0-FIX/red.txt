@@ -1,0 +1,306 @@
+FF.....................FFFFFFFF.FFFFFF...............................    [100%]
+=================================== FAILURES ===================================
+_____ test_A1_raw_file_replaced_by_symlink_to_writable_outside_file_fails ______
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A1_raw_file_replaced_by_s0/repo'), timezone='Asia/Kolk...replaced_by_s0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+run = <function run.<locals>._run at 0x7f3032d24ae0>
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A1_raw_file_replaced_by_s0')
+
+    def test_A1_raw_file_replaced_by_symlink_to_writable_outside_file_fails(healthy, run, tmp_path):
+        p = raw_path(healthy, "bse", b"alpha-bytes")
+        outside = tmp_path / "outside-copy"
+        outside.write_bytes(b"alpha-bytes")
+        os.chmod(outside, 0o666)
+        os.chmod(p, 0o644)
+        os.unlink(p)
+        os.symlink(outside, p)
+        for argv in (["raw"], ["all"]):
+            code, out = run(argv)
+>           assert code != 0, f"{argv}: symlinked raw file passed:\n{out}"
+E           AssertionError: ['raw']: symlinked raw file passed:
+E             NAME  STATUS  MS  MESSAGE
+E             raw   pass     2  2 sources, raw files read-only and in place
+E             OK
+E             
+E           assert 0 != 0
+
+tests/unit/check/test_check_audit_regressions.py:20: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-141/test_A1_raw_file_replaced_by_s0/repo/reports/checks/t-3b35a378709b.json
+______________ test_A1_extra_sha_named_symlink_in_raw_tree_fails _______________
+
+healthy = Config(repo_root=PosixPath('/tmp/pytest-of-root/pytest-141/test_A1_extra_sha_named_symlin0/repo'), timezone='Asia/Kolk..._named_symlin0/repo/db/migrations'), rate_limits=RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}))
+run = <function run.<locals>._run at 0x7f3032d6fd80>
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A1_extra_sha_named_symlin0')
+
+    def test_A1_extra_sha_named_symlink_in_raw_tree_fails(healthy, run, tmp_path):
+        outside = tmp_path / "outside.txt"
+        outside.write_bytes(b"evil")
+        sha = hashlib.sha256(b"evil").hexdigest()
+        d = healthy.zones["raw"] / "bse" / sha[:2]
+        d.mkdir(exist_ok=True)
+        os.symlink(outside, d / sha)
+        code, out = run(["raw"])
+>       assert code != 0 and "symlink" in out, out
+E       AssertionError: NAME  STATUS  MS  MESSAGE
+E         raw   pass     0  2 sources, raw files read-only and in place
+E         OK
+E         
+E       assert (0 != 0)
+
+tests/unit/check/test_check_audit_regressions.py:32: AssertionError
+----------------------------- Captured stderr call -----------------------------
+report: /tmp/pytest-of-root/pytest-141/test_A1_extra_sha_named_symlin0/repo/reports/checks/t-be2331372c74.json
+_____________ test_A3_every_zone_has_committable_gitkeep[data/raw] _____________
+
+zone = 'data/raw'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/raw/.gitkeep would not be in a fresh clone
+E       assert 'data/raw/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+___________ test_A3_every_zone_has_committable_gitkeep[data/staged] ____________
+
+zone = 'data/staged'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/staged/.gitkeep would not be in a fresh clone
+E       assert 'data/staged/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+__________ test_A3_every_zone_has_committable_gitkeep[data/canonical] __________
+
+zone = 'data/canonical'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/canonical/.gitkeep would not be in a fresh clone
+E       assert 'data/canonical/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+__________ test_A3_every_zone_has_committable_gitkeep[data/features] ___________
+
+zone = 'data/features'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/features/.gitkeep would not be in a fresh clone
+E       assert 'data/features/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+___________ test_A3_every_zone_has_committable_gitkeep[data/models] ____________
+
+zone = 'data/models'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/models/.gitkeep would not be in a fresh clone
+E       assert 'data/models/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+_________ test_A3_every_zone_has_committable_gitkeep[data/quarantine] __________
+
+zone = 'data/quarantine'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/quarantine/.gitkeep would not be in a fresh clone
+E       assert 'data/quarantine/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+___________ test_A3_every_zone_has_committable_gitkeep[data/exports] ___________
+
+zone = 'data/exports'
+
+    @pytest.mark.parametrize("zone", ZONE_DIRS)
+    def test_A3_every_zone_has_committable_gitkeep(zone):
+        names = set(_git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout.split("\0"))
+>       assert f"{zone}/.gitkeep" in names, f"{zone}/.gitkeep would not be in a fresh clone"
+E       AssertionError: data/exports/.gitkeep would not be in a fresh clone
+E       assert 'data/exports/.gitkeep' in {'', '.gitignore', 'PROGRESS.md', 'README.md', 'TASKS.md', 'briefs/S0-T1.md', ...}
+
+tests/regression/test_repo_hygiene.py:36: AssertionError
+________________ test_A3_fresh_export_passes_zone_startup_check ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A3_fresh_export_passes_zo0')
+
+    def test_A3_fresh_export_passes_zone_startup_check(tmp_path):
+        from investos.core.config import load_config
+        root = tmp_path / "clone"
+        root.mkdir()
+        _export_committable_tree(root)
+        shutil.copy(root / "config" / "investos.example.toml", root / "config" / "investos.toml")
+>       cfg = load_config(root / "config" / "investos.toml", env={}, repo_root=root)   # must not raise ConfigError
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/regression/test_repo_hygiene.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path = PosixPath('/tmp/pytest-of-root/pytest-141/test_A3_fresh_export_passes_zo0/clone/config/investos.toml')
+env = {}
+repo_root = PosixPath('/tmp/pytest-of-root/pytest-141/test_A3_fresh_export_passes_zo0/clone')
+
+    def load_config(path: Path | None = None, *, env: Mapping[str, str] | None = None,
+                    repo_root: Path | None = None) -> Config:
+        env = os.environ if env is None else env
+        for var in ("INVESTOS_ROOT", "INVESTOS_CONFIG"):
+            if var in env and not env[var].strip():
+                raise ConfigError(f"{var} is set but empty")
+        if repo_root is not None:
+            root: Path | None = Path(repo_root)
+        elif "INVESTOS_ROOT" in env:
+            root = Path(env["INVESTOS_ROOT"])
+        else:
+            root = None
+        if root is not None and not root.is_dir():
+            raise ConfigError(f"repo_root is not a directory: {root}")
+        if path is not None:
+            cfg_path: Path | None = Path(path)
+        elif "INVESTOS_CONFIG" in env:
+            cfg_path = Path(env["INVESTOS_CONFIG"])
+        elif root is not None:
+            cfg_path = root / "config" / "investos.toml"
+        else:
+            cfg_path = None
+        if cfg_path is None or not cfg_path.is_file():
+            raise ConfigError(
+                f"no config file found; tried: explicit path argument ({path}), "
+                f"INVESTOS_CONFIG ({env.get('INVESTOS_CONFIG')}), "
+                f"{os.path.join('<repo_root>', 'config', 'investos.toml')} (repo_root={root}); resolved: {cfg_path}")
+        if root is None:
+            root = _find_root(cfg_path.resolve().parent)
+        if root is None:
+            raise ConfigError(f"cannot determine repo root for {cfg_path}: no repo_root argument, "
+                              "no INVESTOS_ROOT, and no ancestor directory contains pyproject.toml")
+        root = root.resolve()
+    
+        try:
+            with open(cfg_path, "rb") as f:
+                data = tomllib.load(f)
+        except tomllib.TOMLDecodeError as e:
+            raise ConfigError(f"malformed TOML in {cfg_path}: {e}") from None
+        except OSError as e:
+            raise ConfigError(f"cannot read config {cfg_path}: {e}") from None
+    
+        _apply_env(data, env)
+        _validate(data)
+    
+        zones = {k: _resolve(root, data["paths"][k]) for k in ZONE_KEYS}
+        migrations_dir = _resolve(root, data["db"]["migrations_dir"])
+        for k, p in zones.items():
+            if not p.is_dir():
+>               raise ConfigError(f"paths.{k}: zone directory does not exist or is not a directory: {p}")
+E               investos.core.config.ConfigError: paths.raw: zone directory does not exist or is not a directory: /tmp/pytest-of-root/pytest-141/test_A3_fresh_export_passes_zo0/clone/data/raw
+
+src/investos/core/config.py:205: ConfigError
+______ test_A4_runtime_artefact_is_ignored[data/manifests/bse.jsonl.lock] ______
+
+path = 'data/manifests/bse.jsonl.lock'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: data/manifests/bse.jsonl.lock is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'data/manifests/bse.jsonl.lock'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:86: AssertionError
+_ test_A4_runtime_artefact_is_ignored[data/manifests/bse.runs/.tmp-0123456789abcdef] _
+
+path = 'data/manifests/bse.runs/.tmp-0123456789abcdef'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: data/manifests/bse.runs/.tmp-0123456789abcdef is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'data/manifests/bse.runs/.tmp-0123456789abcdef'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:86: AssertionError
+______ test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json] _______
+
+path = 'reports/checks/t-abc123.json'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: reports/checks/t-abc123.json is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'reports/checks/t-abc123.json'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:86: AssertionError
+_______ test_A4_runtime_artefact_is_ignored[reports/checks/.tmp-abc123] ________
+
+path = 'reports/checks/.tmp-abc123'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: reports/checks/.tmp-abc123 is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'reports/checks/.tmp-abc123'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:86: AssertionError
+____ test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json.tmp] _____
+
+path = 'reports/checks/t-abc123.json.tmp'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: reports/checks/t-abc123.json.tmp is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'reports/checks/t-abc123.json.tmp'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:86: AssertionError
+_______ test_A4_runtime_artefact_is_ignored[registry/trials.jsonl.lock] ________
+
+path = 'registry/trials.jsonl.lock'
+
+    @pytest.mark.parametrize("path", IGNORED)
+    def test_A4_runtime_artefact_is_ignored(path):
+        r = _git("check-ignore", "-q", "--no-index", path, check=False)
+>       assert r.returncode == 0, f"{path} is not git-ignored"
+E       AssertionError: registry/trials.jsonl.lock is not git-ignored
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['git', 'check-ignore', '-q', '--no-index', 'registry/trials.jsonl.lock'], returncode=1, stdout='', stderr='').returncode
+
+tests/regression/test_repo_hygiene.py:86: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A1_raw_file_replaced_by_symlink_to_writable_outside_file_fails
+FAILED tests/unit/check/test_check_audit_regressions.py::test_A1_extra_sha_named_symlink_in_raw_tree_fails
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/raw]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/staged]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/canonical]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/features]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/models]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/quarantine]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_every_zone_has_committable_gitkeep[data/exports]
+FAILED tests/regression/test_repo_hygiene.py::test_A3_fresh_export_passes_zone_startup_check
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[data/manifests/bse.jsonl.lock]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[data/manifests/bse.runs/.tmp-0123456789abcdef]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[reports/checks/.tmp-abc123]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[reports/checks/t-abc123.json.tmp]
+FAILED tests/regression/test_repo_hygiene.py::test_A4_runtime_artefact_is_ignored[registry/trials.jsonl.lock]
+16 failed, 53 passed in 0.73s

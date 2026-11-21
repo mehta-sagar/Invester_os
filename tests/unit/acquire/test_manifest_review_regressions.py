@@ -122,6 +122,10 @@ def test_D2b_directory_at_dest(mk, roots):
 
 # ---------------------------------------------------------------- D3 / T4 fsync spying
 
+HAVE_PROC_FD = os.path.isdir("/proc/self/fd")
+needs_proc = pytest.mark.skipif(not HAVE_PROC_FD, reason="FsyncSpy maps fds to paths via /proc/self/fd (Linux only)")
+
+
 class FsyncSpy:
     def __init__(self, monkeypatch):
         self.real_fsync, self.real_link = os.fsync, os.link
@@ -150,6 +154,7 @@ def _real(p: Path) -> str:
 
 
 @pytest.mark.planted
+@needs_proc
 def test_D3a_new_entries_fsync_parent_dirs(mk, roots, monkeypatch):
     raw, man = roots
     st = mk()
@@ -164,6 +169,7 @@ def test_D3a_new_entries_fsync_parent_dirs(mk, roots, monkeypatch):
 
 
 @pytest.mark.planted
+@needs_proc
 def test_D3b_dir_fsync_follows_link_and_manifest_fsync_last(mk, roots, monkeypatch):
     raw, man = roots
     st = mk()
@@ -297,3 +303,22 @@ def test_T7_non_bytes_data_is_typeerror(mk, roots, data):
     with pytest.raises(TypeError):
         put(st, "bse", data)
     assert snap(roots[0].parent) == before
+
+
+def test_A5_fsync_spy_falls_back_without_proc(monkeypatch):
+    """Guard: without /proc the spy records 'fd:N' (non-absolute) and never raises; the D3 tests skip then."""
+    real = os.readlink
+    monkeypatch.setattr(os, "readlink", lambda p, *a, **k: (_ for _ in ()).throw(OSError("no /proc"))
+                        if str(p).startswith("/proc/") else real(p, *a, **k))
+    spy = FsyncSpy(monkeypatch)
+    r, w = os.pipe()
+    try:
+        try:
+            spy._fsync(w)
+        except OSError:
+            pass                                    # a pipe cannot be fsynced; only the recorded event matters
+        assert spy.fsynced() == [f"fd:{w}"]
+    finally:
+        monkeypatch.undo()
+        os.close(r)
+        os.close(w)
