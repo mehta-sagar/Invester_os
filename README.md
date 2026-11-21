@@ -11,7 +11,7 @@ Design: see the architecture document (link kept in docs/ARCHITECTURE.md).
 | Taxonomy and registries (sources, features, line items) | taxonomy/, registry/ | yes |
 | Manifests: one line per raw file (url, sha256, fetched_at) | data/manifests/ | yes |
 | Decisions, gate evidence, phase reports, verdicts | docs/ | yes |
-| Raw bytes as downloaded | data/raw/<source>/<dataset>/<yyyy>/<yyyy-mm-dd>[__disc].<ext> | no |
+| Raw bytes as downloaded | data/raw/<source>/<sha[:2]>/<sha256> (content-addressed; date etc. in the manifest; see docs/decisions/0001) | no |
 | Parsed Parquet, per source and era | data/staged/ | no |
 | Canonical DuckDB + Parquet (the truth store) | data/canonical/ | no |
 | Features, models, backtests | data/features/, data/models/ | no |
