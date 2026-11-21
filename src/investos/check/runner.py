@@ -126,14 +126,18 @@ def run_checks(registry: CheckRegistry, ctx: CheckContext, names: Sequence[str] 
 
 # ---- planted harness ---------------------------------------------------
 
-def _digest(cfg: Config) -> dict[str, tuple]:
-    """(mode, size, sha256) for every file/dir of the real zones (except reports) and migrations."""
-    roots = [cfg.zones[k] for k in ZONE_KEYS if k != "reports"] + [cfg.migrations_dir]
+def _digest(cfg: Config, run_id: str) -> dict[str, tuple]:
+    """(mode, size, sha256) for every file/dir of all real zones and migrations, except this
+    run's own report file (reports/checks/<run_id>.json)."""
+    roots = [cfg.zones[k] for k in ZONE_KEYS] + [cfg.migrations_dir]
+    own_report = os.path.join(str(cfg.zones["reports"]), "checks", f"{run_id}.json")
     out: dict[str, tuple] = {}
     for root in roots:
         for dirpath, dirnames, filenames in os.walk(root):
             for n in [*dirnames, *filenames]:
                 p = os.path.join(dirpath, n)
+                if p == own_report:
+                    continue
                 try:
                     st = os.lstat(p)
                     h = None
@@ -157,11 +161,12 @@ def _make_writable(root: Path) -> None:
             p = os.path.join(dirpath, n)
             try:
                 if not os.path.islink(p):
-                    os.chmod(p, os.stat(p).st_mode | stat.S_IWUSR | (stat.S_IXUSR if os.path.isdir(p) else 0))
+                    os.chmod(p, os.stat(p).st_mode | stat.S_IWUSR
+                             | ((stat.S_IRUSR | stat.S_IXUSR) if os.path.isdir(p) else 0))
             except OSError:
                 pass
     try:
-        os.chmod(root, os.stat(root).st_mode | stat.S_IWUSR | stat.S_IXUSR)
+        os.chmod(root, os.stat(root).st_mode | stat.S_IRWXU)
     except OSError:
         pass
 
@@ -240,7 +245,7 @@ def run_planted(registry: CheckRegistry, cfg: Config, names: Sequence[str] | Non
     selected = tuple(registry.names() if names is None else names)
     run_id = get_run_id()
     started = clock()
-    before = _digest(cfg)
+    before = _digest(cfg, run_id)
     results: list[Outcome] = []
     for name in selected:
         registry.get(name)
@@ -248,7 +253,7 @@ def run_planted(registry: CheckRegistry, cfg: Config, names: Sequence[str] | Non
             results.append(Outcome(name, "refused", "no plant registered", (), 0, "missing", "none"))
             continue
         results.append(_planted_one(registry, cfg, name, run_id, timer, tmp_parent))
-    after = _digest(cfg)
+    after = _digest(cfg, run_id)
     if before != after:
         changed = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
         det = _cap_details(changed)

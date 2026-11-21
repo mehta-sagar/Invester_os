@@ -1,12 +1,12 @@
 # Checkpoint S0-T5-BUILD — Builder — 2026-11-21
 
 ## Done so far
-- src/investos/check/{__init__,registry,runner,builtin,cli,__main__}.py, src/investos/{cli,__main__}.py
-- suite: 243 passed, 1 skipped (root-only chmod test), 3 consecutive runs green
-- sample run: reports/S0-T5/sample_run.txt; tests: reports/S0-T5/tests_green.txt
+- Initial build (6fea83a, 8d3cca9)
+- Review fixes: D2 (digest now covers the reports zone except this run's own report file), D5 (cleanup adds u+rwx on dirs); D1 settled by spec amendment (empty registry: exit 2, no report; code already did this)
+- Suite green 3x (reports/S0-T5/tests_green.txt)
 ## Next step
-- Orchestrator review and ff-merge
+- Orchestrator ff-merge
 ## Open questions
-- none (see report notes)
+- none
 ## State
 - branch: task/S0-T5, pushed
