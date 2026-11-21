@@ -208,7 +208,7 @@ def test_A10_raw_ignored_or_no_git_or_outside(repo, tmp_path):
     _load(repo)
     # git repo with raw ignored -> passes
     _git_init(repo, "data/raw/\n")
-    cfg = _load(repo)
+    cfg = _load(repo, env={"PATH": os.environ["PATH"]})  # git lookup uses only injected env PATH (D4)
     assert cfg.zones["raw"] == (repo / "data" / "raw").resolve()
     # raw outside the repo with .git present and nothing ignored -> passes
     (repo / ".gitignore").write_text("")
