@@ -1,0 +1,82 @@
+[
+ [
+  "T1",
+  "KILLED",
+  "FAILED tests/unit/core/test_config.py::test_A1_config_resolution_order - Asse..."
+ ],
+ [
+  "T2",
+  "KILLED",
+  "FAILED tests/unit/core/test_log.py::test_A17_clock_converted_to_utc - Asserti..."
+ ],
+ [
+  "T3",
+  "KILLED",
+  "FAILED tests/unit/core/test_db.py::test_A22_read_only - _duckdb.InvalidInputE..."
+ ],
+ [
+  "T4",
+  "SURVIVED",
+  "228 passed in 4.42s"
+ ],
+ [
+  "T5",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_collector_http.py::test_A11_block_is_final_and_aborts[403]"
+ ],
+ [
+  "T6",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A16_page_limit[100-incomplete]"
+ ],
+ [
+  "T7",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_collector_sidecar.py::test_A20_gap_run_never_overwrites_complete_sidecar"
+ ],
+ [
+  "T8",
+  "KILLED",
+  "FAILED tests/unit/registry/test_registry_chain.py::test_A3_row_hash_matches_published_vector"
+ ],
+ [
+  "T9",
+  "KILLED",
+  "FAILED tests/unit/registry/test_registry_roots.py::test_A13_one_root_for_closed_ist_day"
+ ],
+ [
+  "T10",
+  "KILLED",
+  "FAILED tests/unit/check/test_checkrunner_builtin.py::test_A17_noop_plant_for_builtin_is_missed[manifest]"
+ ],
+ [
+  "T11",
+  "KILLED",
+  "FAILED tests/unit/check/test_checkrunner_harness.py::test_A11_defective_plant_writing_real_path_is_error_real_data_modified"
+ ],
+ [
+  "T12",
+  "SURVIVED",
+  "102 passed, 2 skipped in 3.97s"
+ ],
+ [
+  "T13",
+  "KILLED",
+  "FAILED tests/unit/check/test_checkrunner_builtin.py::test_A16_migrations_database_missing"
+ ],
+ [
+  "T14",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A11_truncated_last_line"
+ ],
+ [
+  "T15",
+  "KILLED",
+  "FAILED tests/unit/acquire/test_collector_core.py::test_A4a_non_2xx_with_acceptable_body_is_unreadable[404]"
+ ],
+ [
+  "T16",
+  "KILLED",
+  "FAILED tests/unit/check/test_checkrunner_builtin.py::test_A17_noop_plant_for_builtin_is_missed[manifest]"
+ ]
+]

@@ -1,5 +1,5 @@
 # Checkpoint S0-AUD (Independent audit of Stage 0)
-Status: IN PROGRESS 2026-11-21 (run 2). Branch audit/S0 (local only).
+Status: DONE 2026-11-21 (run 2): reports/S0-AUD/AUDIT.md written, verdict PASS WITH CONDITIONS. Branch audit/S0 (local only).
 Done (run 1): read docs/specs/briefs/reports/reviews; read all src. Suite 3x root: 558 pass 2 skip; non-root: 560 pass (suite_runs.txt). Demos (demo_output.txt) all PASS.
 Done (run 2): re-ran suite (558/2) and demo script in /tmp/aud copy: all PASS. Re-read all src.
 Early findings run 2: git check-ignore shows TRACKED: data/manifests/*.jsonl.lock, *.runs/ sidecars + .tmp-*, registry/trials.jsonl(.lock), reports/checks/*.json + .tmp, config/investos.toml. log._safe raises on NaN (suspect). chain.append single fh.write w/o loop.
@@ -17,5 +17,5 @@ Next: probes in /tmp/aud_probes (symlink, 2-proc race, archive skip cost, D7, in
 - macOS: FsyncSpy uses /proc/self/fd -> D3a/D3b assertions FAIL (not skip) on Mac.
 - log: NaN field raises ValueError (spec R12 says never raise; pinned by regression test D2).
 - secrets: none found (git grep, all-history file names).
-- Mutations X1-X20: 12 killed, 8 survived (X1,X2 cache sig, X4 run_id regex, X5 roots newline, X8 decision date canonical, X9 reverse nesting, X12 registry check roots=False, X13 dotfile skip, X17 unobservable).
-Next: traceability table, AUDIT.md.
+- Mutations X1-X20: 11 killed, 9 survived (X1,X2 cache sig, X4 run_id regex, X5 roots newline, X8 decision date canonical, X9 reverse nesting, X12 registry check roots=False, X13 dotfile skip, X17 unobservable).
+Traceability (41 rules) + T1-T16 mutations (14 killed) in AUDIT.md; results_trace.json. Defects A1-A17, 0 blockers. Done.
