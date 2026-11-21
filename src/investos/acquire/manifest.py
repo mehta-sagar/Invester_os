@@ -12,6 +12,7 @@ import json
 import os
 import re
 import stat
+import threading
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -151,12 +152,37 @@ def _fsync_dir(path: Path) -> None:
         os.close(fd)
 
 
+class _Index:
+    """Parsed view of one manifest file, valid while the file's stat signature is unchanged."""
+    __slots__ = ("sig", "entries", "latest", "by_key", "by_sha")
+
+    def __init__(self, sig, entries):
+        self.sig = sig
+        self.entries = entries
+        self.latest: dict[str, ManifestEntry] = {}
+        self.by_key: dict[str, list[ManifestEntry]] = {}
+        self.by_sha: dict[str, list[ManifestEntry]] = {}
+        for e in entries:
+            self.add(e)
+
+    def add(self, e: ManifestEntry) -> None:
+        self.latest[e.logical_key] = e
+        self.by_key.setdefault(e.logical_key, []).append(e)
+        self.by_sha.setdefault(e.sha256, []).append(e)
+
+
+def _sig(st: os.stat_result) -> tuple:
+    return (st.st_ino, st.st_size, st.st_mtime_ns, st.st_ctime_ns)
+
+
 class ManifestStore:
     def __init__(self, raw_root: Path, manifests_root: Path, *,
                  clock: Callable[[], datetime] | None = None):
         self._raw_root = Path(raw_root)
         self._man_root = Path(manifests_root)
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        self._idx: dict[str, _Index] = {}      # per-source cache, validated against the file on every lookup
+        self._idx_lock = threading.Lock()
 
     @classmethod
     def from_config(cls, cfg) -> "ManifestStore":
@@ -207,7 +233,8 @@ class ManifestStore:
             new_dir_entries = new_dir_entries or not os.path.lexists(mpath)
             fd = os.open(mpath, os.O_RDWR | os.O_CREAT | os.O_APPEND, 0o644)
             try:
-                size = os.fstat(fd).st_size
+                pre = os.fstat(fd)
+                size = pre.st_size
                 if size > 0:
                     last = os.pread(fd, 1, size - 1)
                     if last != b"\n":
@@ -218,6 +245,7 @@ class ManifestStore:
                     n = os.write(fd, view)
                     view = view[n:]
                 os.fsync(fd)
+                self._note_append(source, _sig(pre), _sig(os.fstat(fd)), entry)
             finally:
                 os.close(fd)
             if new_dir_entries:
@@ -292,37 +320,69 @@ class ManifestStore:
             raise RawIntegrityError(f"raw file {p} does not match its name")
         return data
 
-    def _load(self, source: str) -> list[ManifestEntry]:
+    def _note_append(self, source: str, pre_sig: tuple, post_sig: tuple, entry: ManifestEntry) -> None:
+        """Called under the file lock right after an append: extend the cached index only if it
+        described exactly the file as it was before our write; otherwise drop it (reloaded on demand)."""
+        with self._idx_lock:
+            idx = self._idx.get(source)
+            if idx is None:
+                return
+            if idx.sig == pre_sig:
+                idx.entries.append(entry)
+                idx.add(entry)
+                idx.sig = post_sig
+            else:
+                del self._idx[source]
+
+    def _index(self, source: str) -> _Index:
+        """Strictly parsed index of the manifest, re-read whenever the file changed (inode, size,
+        mtime or ctime). A corrupt file raises ManifestCorruptError and is never cached."""
         _check_source(source)
         mpath = self._manifest_path(source)
-        try:
-            data = mpath.read_bytes()
-        except FileNotFoundError:
-            return []
-        out = []
-        for no, raw, terminated in _split_lines(data):
+        with self._idx_lock:
             try:
-                if not terminated:
-                    raise ValueError("last line not newline-terminated (truncated?)")
-                out.append(_entry_from_line(raw))
-            except ValueError as e:
-                raise ManifestCorruptError(f"{mpath.name} line {no}: {e}") from None
-        return out
+                st = os.stat(mpath)
+            except FileNotFoundError:
+                self._idx.pop(source, None)
+                return _Index(None, [])
+            sig = _sig(st)
+            idx = self._idx.get(source)
+            if idx is not None and idx.sig == sig:
+                return idx
+            self._idx.pop(source, None)
+            try:
+                data = mpath.read_bytes()
+            except FileNotFoundError:
+                return _Index(None, [])
+            out = []
+            for no, raw, terminated in _split_lines(data):
+                try:
+                    if not terminated:
+                        raise ValueError("last line not newline-terminated (truncated?)")
+                    out.append(_entry_from_line(raw))
+                except ValueError as e:
+                    raise ManifestCorruptError(f"{mpath.name} line {no}: {e}") from None
+            idx = _Index(sig, out)
+            if len(data) == st.st_size:      # file did not change between stat and read
+                self._idx[source] = idx
+            return idx
+
+    def _load(self, source: str) -> list[ManifestEntry]:
+        return list(self._index(source).entries)
 
     def entries(self, source: str) -> list[ManifestEntry]:
         return self._load(source)
 
     def get_all_by_key(self, source: str, logical_key: str) -> list[ManifestEntry]:
-        return [e for e in self._load(source) if e.logical_key == logical_key]
+        return list(self._index(source).by_key.get(logical_key, ()))
 
     def get_by_key(self, source: str, logical_key: str) -> ManifestEntry | None:
-        m = self.get_all_by_key(source, logical_key)
-        return m[-1] if m else None
+        return self._index(source).latest.get(logical_key)
 
     def get_by_sha(self, source: str, sha256: str) -> list[ManifestEntry]:
         _check_source(source)
         _check_sha(sha256)
-        return [e for e in self._load(source) if e.sha256 == sha256]
+        return list(self._index(source).by_sha.get(sha256, ()))
 
     # ---- verify ------------------------------------------------------
     def verify(self, source: str | None = None) -> list[Problem]:

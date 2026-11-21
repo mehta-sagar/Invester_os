@@ -1,0 +1,39 @@
+=== run 1: status=incomplete http_calls=3 transport_calls=3
+  2026-11-17: fetched
+  2026-11-18: unreadable
+  2026-11-19: missing_holiday
+  sidecar: 2026-11-17_2026-11-19.json replaced_previous = False
+--- manifest line(s):
+{"fetched_at":"2026-11-21T15:40:09.034704Z","logical_key":"2026-11-17","run_id":"demo-run-1","sha256":"0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994","size":26,"source":"demo_src","source_version":"demo-v1","url":"https://example.test/f/2026-11-17.csv"}
+--- raw file: data/raw/demo_src/02/0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994 mode= 0o444
+--- sidecar:
+{"expected":3,"finished_at":"2026-11-21T15:40:09.041352Z","gaps":[{"key":"2026-11-18","outcome":"unreadable","reason":"check failed: unrecognised body"}],"outcomes":{"fetched":1,"fetched_empty":0,"incomplete":0,"missing_holiday":1,"not_attempted":0,"skipped":0,"unreadable":1},"outputs":[{"key":"2026-11-17","sha256":"0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994"}],"range":{"end":"2026-11-19","start":"2026-11-17"},"received":2,"run_id":"demo-run-1","schema":1,"source":"demo_src","source_version":"demo-v1","started_at":"2026-11-21T15:40:09.034625Z","status":"incomplete"}
+=== run 2: status=incomplete http_calls=2 transport_calls=2
+  2026-11-17: skipped
+  2026-11-18: unreadable
+  2026-11-19: missing_holiday
+  sidecar: 2026-11-17_2026-11-19.json replaced_previous = True
+--- sidecar:
+{"expected":3,"finished_at":"2026-11-21T15:40:09.042981Z","gaps":[{"key":"2026-11-18","outcome":"unreadable","reason":"check failed: unrecognised body"}],"outcomes":{"fetched":0,"fetched_empty":0,"incomplete":0,"missing_holiday":1,"not_attempted":0,"skipped":1,"unreadable":1},"outputs":[{"key":"2026-11-17","sha256":"0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994"}],"range":{"end":"2026-11-19","start":"2026-11-17"},"received":2,"run_id":"demo-run-2","schema":1,"source":"demo_src","source_version":"demo-v1","started_at":"2026-11-21T15:40:09.042819Z","status":"incomplete"}
+
+
+=== (temp DB initialised with open_db, as production does) investos check
+NAME        STATUS  MS  MESSAGE
+manifest    pass     2  1 sources, 1 lines OK
+raw         pass     0  1 sources, raw files read-only and in place
+migrations  pass    35  migrations consistent with database
+registry    pass     0  trials: 0 rows OK; decisions: 0 rows OK
+OK
+report: /tmp/s0t4f/reports/checks/20261121T154010Z-b753e938.json
+exit=0
+=== investos check --planted
+NAME        STATUS  MS  MESSAGE
+manifest    caught  12  1 problem(s): hash_mismatch
+raw         caught  10  1 problem(s): writable_file
+migrations  caught  92  1 migration problem(s)
+registry    caught  10  trials: broken at seq 1
+OK
+report: /tmp/s0t4f/reports/checks/20261121T154011Z-fd78a2d4.json
+exit=0
+
+TIMING: 2000-key skip-only re-run: 0.07 s, status=complete, http_calls=0, skipped=2000 (before fix: 38 s per review D1)

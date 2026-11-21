@@ -27,7 +27,7 @@ from typing import Callable, ClassVar, Iterable, Literal, Mapping, Protocol
 from urllib.parse import urlparse
 
 from investos import __version__
-from investos.acquire.manifest import ManifestEntry, ManifestStore, _check_source
+from investos.acquire.manifest import ManifestEntry, ManifestStore
 from investos.core import log
 from investos.core.config import Config
 
@@ -39,6 +39,8 @@ __all__ = [
 MAX_ATTEMPTS = 4                                  # first try + 3 retries
 _BLOCK_STATUSES = frozenset({401, 403, 451})
 _FORBIDDEN_HEADERS = frozenset({"user-agent", "referer", "origin", "cookie", "x-forwarded-for", "x-real-ip"})
+# same rule as specs/core_manifest.md (kept here: the manifest module exposes no public validator, test A6)
+_SOURCE_RE = re.compile(r"[a-z0-9][a-z0-9_]{0,63}", re.ASCII)
 _RUN_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", re.ASCII)
 _DRIVE_RE = re.compile(r"[A-Za-z]:")
 _MAX_MEMBER_NAME = 400                            # manifest logical_key cap is 512 incl. "<key>/"
@@ -154,6 +156,9 @@ def safe_unzip(data: bytes, *, limits: UnzipLimits = UnzipLimits()) -> list[tupl
         seen: set[str] = set()
         todo: list[tuple[str, zipfile.ZipInfo]] = []
         for zi in infos:
+            is_dir = zi.is_dir() or zi.filename.endswith(("/", "\\"))
+            if is_dir and zi.filename.replace("\\", "/").strip("/") in ("", "."):
+                continue                                    # "./" style root directory entry
             name = _normalise_member(zi.filename)
             if stat.S_ISLNK(zi.external_attr >> 16):
                 raise UnsafeArchiveError(f"symlink member {zi.filename!r}")
@@ -162,11 +167,13 @@ def safe_unzip(data: bytes, *, limits: UnzipLimits = UnzipLimits()) -> list[tupl
             if name in seen:
                 raise UnsafeArchiveError(f"duplicate member {name!r}")
             seen.add(name)
-            if zi.is_dir() or zi.filename.endswith(("/", "\\")):
+            if is_dir:
                 continue
             if zi.file_size > limits.max_member_bytes:
                 raise UnsafeArchiveError(f"member {name!r} declares {zi.file_size} bytes, over limit")
             todo.append((name, zi))
+        if not todo:
+            raise UnsafeArchiveError("archive has no file members")
         # headers are not trusted: count while inflating and stop as soon as a limit is crossed
         budget = min(limits.max_total_bytes, limits.max_ratio * len(data))
         total = 0
@@ -231,7 +238,8 @@ class Collector(ABC):
                  monotonic: Callable[[], float] | None = None,
                  sleeper: Callable[[float], None] | None = None) -> None:
         source = getattr(type(self), "source", None)
-        _check_source(source)                                   # ValueError on a bad name
+        if not isinstance(source, str) or not _SOURCE_RE.fullmatch(source):
+            raise ValueError(f"invalid source name {source!r}")
         if not isinstance(getattr(type(self), "source_version", None), str) or not self.source_version:
             raise ValueError("source_version must be a non-empty str class attribute")
         if self.page_limit is not None and (isinstance(self.page_limit, bool)
@@ -300,7 +308,7 @@ class Collector(ABC):
         existing = self._manifest.get_by_key(self.source, key)
         if existing is not None:
             rec = _Rec(Outcome.SKIPPED, "manifest already holds key", self._known_outputs(key, existing))
-            self._log.info("skipped", key=key, url="", attempts=0, reason=rec.reason)
+            self._log.info("skipped", key=key, url=self.url(key), attempts=0, reason=rec.reason)
             return rec, False
 
         url = self.url(key)
@@ -390,12 +398,12 @@ class Collector(ABC):
     def _known_outputs(self, key: str, entry: ManifestEntry) -> list[tuple[str, str]]:
         rows = [(key, entry.sha256)]
         if self.archive:
-            prefix = key + "/"
-            latest: dict[str, str] = {}
-            for e in self._manifest.entries(self.source):
-                if e.logical_key.startswith(prefix):
-                    latest[e.logical_key] = e.sha256
-            rows += list(latest.items())
+            # members are named inside the stored zip itself; each is looked up by exact key, so only the
+            # public get_by_key/read_bytes are used and a stray "<key>/..." top-level key is never pulled in
+            for name, _ in safe_unzip(self._manifest.read_bytes(self.source, entry.sha256), limits=self.unzip_limits):
+                m = self._manifest.get_by_key(self.source, f"{key}/{name}")
+                if m is not None:
+                    rows.append((m.logical_key, m.sha256))
         return sorted(rows)
 
     def _finish(self, key: str, url: str, rec: _Rec, attempts: int, resp: Response | None,
