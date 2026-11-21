@@ -1,0 +1,38 @@
+=== run 1: status=incomplete http_calls=3 transport_calls=3
+  2026-11-17: fetched
+  2026-11-18: unreadable
+  2026-11-19: missing_holiday
+  sidecar: 2026-11-17_2026-11-19.json replaced_previous = False
+--- manifest line(s):
+{"fetched_at":"2026-11-21T11:24:39.971512Z","logical_key":"2026-11-17","run_id":"demo-run-1","sha256":"0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994","size":26,"source":"demo_src","source_version":"demo-v1","url":"https://example.test/f/2026-11-17.csv"}
+--- raw file: data/raw/demo_src/02/0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994 mode=0o444
+--- sidecar:
+{"expected":3,"finished_at":"2026-11-21T11:24:40.053769Z","gaps":[{"key":"2026-11-18","outcome":"unreadable","reason":"check failed: not a data file"}],"outcomes":{"fetched":1,"fetched_empty":0,"incomplete":0,"missing_holiday":1,"not_attempted":0,"skipped":0,"unreadable":1},"outputs":[{"key":"2026-11-17","sha256":"0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994"}],"range":{"end":"2026-11-19","start":"2026-11-17"},"received":2,"run_id":"demo-run-1","schema":1,"source":"demo_src","source_version":"demo-v1","started_at":"2026-11-21T11:24:39.971321Z","status":"incomplete"}
+=== run 2: status=incomplete http_calls=2 transport_calls=2
+  2026-11-17: skipped
+  2026-11-18: unreadable
+  2026-11-19: missing_holiday
+  sidecar: 2026-11-17_2026-11-19.json replaced_previous = True
+--- sidecar:
+{"expected":3,"finished_at":"2026-11-21T11:24:40.055829Z","gaps":[{"key":"2026-11-18","outcome":"unreadable","reason":"check failed: not a data file"}],"outcomes":{"fetched":0,"fetched_empty":0,"incomplete":0,"missing_holiday":1,"not_attempted":0,"skipped":1,"unreadable":1},"outputs":[{"key":"2026-11-17","sha256":"0220945142cf52f52a642feeb3e788e239526067cf97dd94978e1fec06096994"}],"range":{"end":"2026-11-19","start":"2026-11-17"},"received":2,"run_id":"demo-run-2","schema":1,"source":"demo_src","source_version":"demo-v1","started_at":"2026-11-21T11:24:40.055467Z","status":"incomplete"}
+
+=== (temp DB initialised with open_db, as production does) investos check
+NAME        STATUS  MS  MESSAGE
+manifest    pass     3  1 sources, 1 lines OK
+raw         pass     0  1 sources, raw files read-only and in place
+migrations  pass    52  migrations consistent with database
+registry    pass     0  trials: 0 rows OK; decisions: 0 rows OK
+OK
+report: /tmp/s0t4/reports/checks/20261121T112447Z-261af826.json
+exit=0
+=== investos check --planted
+NAME        STATUS  MS  MESSAGE
+manifest    caught  16  1 problem(s): hash_mismatch
+raw         caught  10  1 problem(s): writable_file
+migrations  caught  98  1 migration problem(s)
+registry    caught  18  trials: broken at seq 1
+OK
+report: /tmp/s0t4/reports/checks/20261121T112447Z-0fe8b4b3.json
+exit=0
+
+NOTE: run 2 made 2 transport calls, both for the non-stored keys (unreadable, missing_holiday), which are re-requested by design (spec R9, test A6). The fetched key was skipped with zero calls. A fully fetched range re-runs with zero calls (test GATE3).
