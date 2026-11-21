@@ -1,0 +1,2054 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 13%]
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF........... [ 26%]
+........................................................................ [ 40%]
+.....................................s.................................. [ 53%]
+....................s................................................... [ 67%]
+........................................................................ [ 80%]
+........................................................................ [ 93%]
+.................................                                        [100%]
+=================================== FAILURES ===================================
+_____________________ test_A16_page_limit[100-incomplete] ______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1e64590>, count = 100
+expect = 'incomplete'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("count,expect", [(100, "incomplete"), (99, "fetched"), (101, "incomplete"), (None, "fetched")])
+    def test_A16_page_limit(env, count, expect):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:22: ModuleNotFoundError
+_______________________ test_A16_page_limit[99-fetched] ________________________
+
+env = <_collector_helpers.Env object at 0x7ff3e188de50>, count = 99
+expect = 'fetched'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("count,expect", [(100, "incomplete"), (99, "fetched"), (101, "incomplete"), (None, "fetched")])
+    def test_A16_page_limit(env, count, expect):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:22: ModuleNotFoundError
+_____________________ test_A16_page_limit[101-incomplete] ______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e188e850>, count = 101
+expect = 'incomplete'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("count,expect", [(100, "incomplete"), (99, "fetched"), (101, "incomplete"), (None, "fetched")])
+    def test_A16_page_limit(env, count, expect):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:22: ModuleNotFoundError
+______________________ test_A16_page_limit[None-fetched] _______________________
+
+env = <_collector_helpers.Env object at 0x7ff3dc561cd0>, count = None
+expect = 'fetched'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("count,expect", [(100, "incomplete"), (99, "fetched"), (101, "incomplete"), (None, "fetched")])
+    def test_A16_page_limit(env, count, expect):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:22: ModuleNotFoundError
+____________ test_A17a_zip_slip_member_names_rejected[../evil.txt] _____________
+
+name = '../evil.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+____________ test_A17a_zip_slip_member_names_rejected[/etc/passwd] _____________
+
+name = '/etc/passwd'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+_____________ test_A17a_zip_slip_member_names_rejected[\\evil.txt] _____________
+
+name = '\\evil.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+_____________ test_A17a_zip_slip_member_names_rejected[C:\\x.txt] ______________
+
+name = 'C:\\x.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+______________ test_A17a_zip_slip_member_names_rejected[c:/x.txt] ______________
+
+name = 'c:/x.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+_____________ test_A17a_zip_slip_member_names_rejected[a/../../b] ______________
+
+name = 'a/../../b'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+____________ test_A17a_zip_slip_member_names_rejected[a\\..\\..\\b] ____________
+
+name = 'a\\..\\..\\b'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+_______________ test_A17a_zip_slip_member_names_rejected[a/../b] _______________
+
+name = 'a/../b'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17a_zip_slip_member_names_rejected(name):
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:44: ModuleNotFoundError
+__________ test_A17b_symlink_encrypted_duplicate_and_non_zip_rejected __________
+
+    @pytest.mark.planted
+    def test_A17b_symlink_encrypted_duplicate_and_non_zip_rejected():
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:51: ModuleNotFoundError
+__________________ test_A18a_zip_bomb_default_ratio_rejected ___________________
+
+    @pytest.mark.planted
+    def test_A18a_zip_bomb_default_ratio_rejected():
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:62: ModuleNotFoundError
+________________ test_A18b_total_bytes_counted_while_streaming _________________
+
+    @pytest.mark.planted
+    def test_A18b_total_bytes_counted_while_streaming():
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:71: ModuleNotFoundError
+____________________ test_A18c_member_size_and_count_limits ____________________
+
+    @pytest.mark.planted
+    def test_A18c_member_size_and_count_limits():
+>       from investos.acquire.base import UnsafeArchiveError, safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:81: ModuleNotFoundError
+_________ test_A19a_safe_unzip_returns_sorted_pairs_and_writes_nothing _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-227/test_A19a_safe_unzip_returns_s0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff3dc562520>
+
+    def test_A19a_safe_unzip_returns_sorted_pairs_and_writes_nothing(tmp_path, monkeypatch):
+>       from investos.acquire.base import safe_unzip
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:92: ModuleNotFoundError
+_______________________ test_A19a2_unzip_limits_defaults _______________________
+
+    def test_A19a2_unzip_limits_defaults():
+>       from investos.acquire.base import UnzipLimits
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:102: ModuleNotFoundError
+_____ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[../evil.txt] _____
+
+env = <_collector_helpers.Env object at 0x7ff3dc562190>, name = '../evil.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+_____ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[/etc/passwd] _____
+
+env = <_collector_helpers.Env object at 0x7ff3dc5b45f0>, name = '/etc/passwd'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+_____ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[\\evil.txt] ______
+
+env = <_collector_helpers.Env object at 0x7ff3dc5197b0>, name = '\\evil.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+______ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[C:\\x.txt] ______
+
+env = <_collector_helpers.Env object at 0x7ff3e1f7ebe0>, name = 'C:\\x.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+______ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[c:/x.txt] _______
+
+env = <_collector_helpers.Env object at 0x7ff3dc56e150>, name = 'c:/x.txt'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+______ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[a/../../b] ______
+
+env = <_collector_helpers.Env object at 0x7ff3dc56e950>, name = 'a/../../b'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+____ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[a\\..\\..\\b] _____
+
+env = <_collector_helpers.Env object at 0x7ff3dc56a300>, name = 'a\\..\\..\\b'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+_______ test_A17c_run_rejects_unsafe_archive_and_stores_nothing[a/../b] ________
+
+env = <_collector_helpers.Env object at 0x7ff3dc56b4d0>, name = 'a/../b'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", BAD_NAMES)
+    def test_A17c_run_rejects_unsafe_archive_and_stores_nothing(env, name):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:118: ModuleNotFoundError
+________ test_A17d_run_rejects_other_unsafe_archives[make_symlink_zip] _________
+
+env = <_collector_helpers.Env object at 0x7ff3dc51c130>
+data = <function make_symlink_zip at 0x7ff3e1c2d940>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", [make_symlink_zip, make_encrypted_flag_zip, lambda: b"not a zip at all",
+                                      lambda: make_zip({"z.bin": b"\0" * 20_000_000})])
+    def test_A17d_run_rejects_other_unsafe_archives(env, data):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:130: ModuleNotFoundError
+_____ test_A17d_run_rejects_other_unsafe_archives[make_encrypted_flag_zip] _____
+
+env = <_collector_helpers.Env object at 0x7ff3dc585d30>
+data = <function make_encrypted_flag_zip at 0x7ff3e1c2d9e0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", [make_symlink_zip, make_encrypted_flag_zip, lambda: b"not a zip at all",
+                                      lambda: make_zip({"z.bin": b"\0" * 20_000_000})])
+    def test_A17d_run_rejects_other_unsafe_archives(env, data):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:130: ModuleNotFoundError
+____________ test_A17d_run_rejects_other_unsafe_archives[<lambda>0] ____________
+
+env = <_collector_helpers.Env object at 0x7ff3e1825d90>
+data = <function <lambda> at 0x7ff3e1c2e020>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", [make_symlink_zip, make_encrypted_flag_zip, lambda: b"not a zip at all",
+                                      lambda: make_zip({"z.bin": b"\0" * 20_000_000})])
+    def test_A17d_run_rejects_other_unsafe_archives(env, data):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:130: ModuleNotFoundError
+____________ test_A17d_run_rejects_other_unsafe_archives[<lambda>1] ____________
+
+env = <_collector_helpers.Env object at 0x7ff3e1d87590>
+data = <function <lambda> at 0x7ff3e1c2e0c0>
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("data", [make_symlink_zip, make_encrypted_flag_zip, lambda: b"not a zip at all",
+                                      lambda: make_zip({"z.bin": b"\0" * 20_000_000})])
+    def test_A17d_run_rejects_other_unsafe_archives(env, data):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:130: ModuleNotFoundError
+_________________ test_A17e_unsafe_archive_does_not_abort_run __________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1d87110>
+
+    @pytest.mark.planted
+    def test_A17e_unsafe_archive_does_not_abort_run(env):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:140: ModuleNotFoundError
+_____________________ test_A19b_run_stores_zip_and_members _____________________
+
+env = <_collector_helpers.Env object at 0x7ff3dc539650>
+
+    def test_A19b_run_stores_zip_and_members(env):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_archive_pages.py:148: ModuleNotFoundError
+_________________________ test_GATE1_fetches_one_file __________________________
+
+env = <_collector_helpers.Env object at 0x7ff3dc539de0>
+logs = <function logs.<locals>.records at 0x7ff3e186e2a0>
+
+    def test_GATE1_fetches_one_file(env, logs):  # A1; R6, R11
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:21: ModuleNotFoundError
+_______________________ test_GATE2_broken_body_rejected ________________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186f390>
+
+    @pytest.mark.planted
+    def test_GATE2_broken_body_rejected(env):  # A2; R6 (BSE-style 200 error page)
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:49: ModuleNotFoundError
+_______________________ test_GATE3_rerun_fetches_nothing _______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186ff70>
+
+    def test_GATE3_rerun_fetches_nothing(env):  # A5; R9
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:62: ModuleNotFoundError
+________ test_A3_bad_check_body_is_unreadable_and_run_continues[raises] ________
+
+env = <_collector_helpers.Env object at 0x7ff3e186cf50>, mode = 'raises'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("mode", ["raises", "none", "incomplete_verdict", "skipped_verdict", "non_verdict"])
+    def test_A3_bad_check_body_is_unreadable_and_run_continues(env, mode):  # R6
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:83: ModuleNotFoundError
+_________ test_A3_bad_check_body_is_unreadable_and_run_continues[none] _________
+
+env = <_collector_helpers.Env object at 0x7ff3e186c2d0>, mode = 'none'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("mode", ["raises", "none", "incomplete_verdict", "skipped_verdict", "non_verdict"])
+    def test_A3_bad_check_body_is_unreadable_and_run_continues(env, mode):  # R6
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:83: ModuleNotFoundError
+__ test_A3_bad_check_body_is_unreadable_and_run_continues[incomplete_verdict] __
+
+env = <_collector_helpers.Env object at 0x7ff3dc57a7b0>
+mode = 'incomplete_verdict'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("mode", ["raises", "none", "incomplete_verdict", "skipped_verdict", "non_verdict"])
+    def test_A3_bad_check_body_is_unreadable_and_run_continues(env, mode):  # R6
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:83: ModuleNotFoundError
+___ test_A3_bad_check_body_is_unreadable_and_run_continues[skipped_verdict] ____
+
+env = <_collector_helpers.Env object at 0x7ff3e186f7f0>
+mode = 'skipped_verdict'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("mode", ["raises", "none", "incomplete_verdict", "skipped_verdict", "non_verdict"])
+    def test_A3_bad_check_body_is_unreadable_and_run_continues(env, mode):  # R6
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:83: ModuleNotFoundError
+_____ test_A3_bad_check_body_is_unreadable_and_run_continues[non_verdict] ______
+
+env = <_collector_helpers.Env object at 0x7ff3dc578910>, mode = 'non_verdict'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("mode", ["raises", "none", "incomplete_verdict", "skipped_verdict", "non_verdict"])
+    def test_A3_bad_check_body_is_unreadable_and_run_continues(env, mode):  # R6
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:83: ModuleNotFoundError
+___________ test_A4a_non_2xx_with_acceptable_body_is_unreadable[404] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3e1868190>, status = 404
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [404, 301, 400, 410])
+    def test_A4a_non_2xx_with_acceptable_body_is_unreadable(env, status):  # R6 downgrade
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:105: ModuleNotFoundError
+___________ test_A4a_non_2xx_with_acceptable_body_is_unreadable[301] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3e1868870>, status = 301
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [404, 301, 400, 410])
+    def test_A4a_non_2xx_with_acceptable_body_is_unreadable(env, status):  # R6 downgrade
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:105: ModuleNotFoundError
+___________ test_A4a_non_2xx_with_acceptable_body_is_unreadable[400] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3e1868e10>, status = 400
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [404, 301, 400, 410])
+    def test_A4a_non_2xx_with_acceptable_body_is_unreadable(env, status):  # R6 downgrade
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:105: ModuleNotFoundError
+___________ test_A4a_non_2xx_with_acceptable_body_is_unreadable[410] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3e18693b0>, status = 410
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [404, 301, 400, 410])
+    def test_A4a_non_2xx_with_acceptable_body_is_unreadable(env, status):  # R6 downgrade
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:105: ModuleNotFoundError
+_____________ test_A4b_404_no_file_is_missing_holiday_via_subclass _____________
+
+env = <_collector_helpers.Env object at 0x7ff3e1869950>
+
+    def test_A4b_404_no_file_is_missing_holiday_via_subclass(env):  # R6, R7
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:115: ModuleNotFoundError
+__________________ test_A6_missing_holiday_is_requested_again __________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1868ff0>
+
+    def test_A6_missing_holiday_is_requested_again(env):  # R9
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:126: ModuleNotFoundError
+__________ test_A6b_unstored_outcomes_are_requested_again[unreadable] __________
+
+env = <_collector_helpers.Env object at 0x7ff3dc57a7b0>, unstored = 'unreadable'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("unstored", ["unreadable", "incomplete"])
+    def test_A6b_unstored_outcomes_are_requested_again(env, unstored):  # R9
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:141: ModuleNotFoundError
+__________ test_A6b_unstored_outcomes_are_requested_again[incomplete] __________
+
+env = <_collector_helpers.Env object at 0x7ff3e186c690>, unstored = 'incomplete'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("unstored", ["unreadable", "incomplete"])
+    def test_A6b_unstored_outcomes_are_requested_again(env, unstored):  # R9
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:141: ModuleNotFoundError
+_____________________ test_A7_four_outcomes_kept_separate ______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186fd90>
+logs = <function logs.<locals>.records at 0x7ff3e186d620>
+
+    def test_A7_four_outcomes_kept_separate(env, logs):  # R7, R16
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:155: ModuleNotFoundError
+______________________ test_A23_duplicate_and_empty_keys _______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186e2b0>
+
+    @pytest.mark.planted
+    def test_A23_duplicate_and_empty_keys(env):  # R13
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:180: ModuleNotFoundError
+______________________ test_A24_bad_range_and_keys_error _______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1869bd0>
+
+    @pytest.mark.planted
+    def test_A24_bad_range_and_keys_error(env):  # R15
+>       from investos.acquire.base import RunRange
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:200: ModuleNotFoundError
+___________ test_A24b_non_transport_exception_propagates_no_sidecar ____________
+
+env = <_collector_helpers.Env object at 0x7ff3e186a170>
+
+    @pytest.mark.planted
+    def test_A24b_non_transport_exception_propagates_no_sidecar(env):  # edge: interrupted run
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_core.py:219: ModuleNotFoundError
+______________________ test_A24c_instantiation_validation ______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1869130>
+
+    @pytest.mark.planted
+    def test_A24c_instantiation_validation(env):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(source="Bad-Source"))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_core.py:235: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'source': 'Bad-Source'}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+___________________ test_A25_base_imports_no_content_parsers ___________________
+
+    def test_A25_base_imports_no_content_parsers():  # R1
+        p = REPO / "src" / "investos" / "acquire" / "base.py"
+>       assert p.exists(), "src/investos/acquire/base.py missing"
+E       AssertionError: src/investos/acquire/base.py missing
+E       assert False
+E        +  where False = exists()
+E        +    where exists = PosixPath('/home/claude/invester_os/src/investos/acquire/base.py').exists
+
+tests/unit/acquire/test_collector_core.py:245: AssertionError
+_______ test_A27_collector_uses_only_manifest_api_and_opens_no_raw_paths _______
+
+env = <_collector_helpers.Env object at 0x7ff3e18689b0>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7ff3dc561f30>
+
+    @pytest.mark.planted
+    def test_A27_collector_uses_only_manifest_api_and_opens_no_raw_paths(env, monkeypatch):  # R11
+        dbl = _ManifestDouble()
+>       env.script_ok(D17, D18)
+
+tests/unit/acquire/test_collector_core.py:285: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____________________________ test_A26_log_events ______________________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186ac10>
+logs = <function logs.<locals>.records at 0x7ff3e186ae80>
+
+    def test_A26_log_events(env, logs):  # R16
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_core.py:316: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____________________ test_A8_fourth_retry_never_attempted _____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186c910>
+logs = <function logs.<locals>.records at 0x7ff3e186fe20>
+
+    @pytest.mark.planted
+    def test_A8_fourth_retry_never_attempted(env, logs):  # R4
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:12: ModuleNotFoundError
+___________________ test_A9_transport_error_then_429_then_ok ___________________
+
+env = <_collector_helpers.Env object at 0x7ff3dc57afd0>
+
+    def test_A9_transport_error_then_429_then_ok(env):  # R4
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:25: ModuleNotFoundError
+__________ test_A9b_transport_error_forever_is_unreadable_not_holiday __________
+
+env = <_collector_helpers.Env object at 0x7ff3e186b6b0>
+
+    @pytest.mark.planted
+    def test_A9b_transport_error_forever_is_unreadable_not_holiday(env):  # R4, R8
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:35: ModuleNotFoundError
+_____________________ test_A10a_other_4xx_not_retried[400] _____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186b4d0>, status = 400
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [400, 404, 410, 418])
+    def test_A10a_other_4xx_not_retried(env, status):  # R4, R5
+>       env.transport.set(url_of(D17), resp(status, b"nope"))
+                                       ^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 400, body = b'nope', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____________________ test_A10a_other_4xx_not_retried[404] _____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1868190>, status = 404
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [400, 404, 410, 418])
+    def test_A10a_other_4xx_not_retried(env, status):  # R4, R5
+>       env.transport.set(url_of(D17), resp(status, b"nope"))
+                                       ^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 404, body = b'nope', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____________________ test_A10a_other_4xx_not_retried[410] _____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1869950>, status = 410
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [400, 404, 410, 418])
+    def test_A10a_other_4xx_not_retried(env, status):  # R4, R5
+>       env.transport.set(url_of(D17), resp(status, b"nope"))
+                                       ^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 410, body = b'nope', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____________________ test_A10a_other_4xx_not_retried[418] _____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186b7f0>, status = 418
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [400, 404, 410, 418])
+    def test_A10a_other_4xx_not_retried(env, status):  # R4, R5
+>       env.transport.set(url_of(D17), resp(status, b"nope"))
+                                       ^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 418, body = b'nope', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____________________ test_A10b_502_then_200_retries_once ______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186d1d0>
+
+    def test_A10b_502_then_200_retries_once(env):  # R4
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:54: ModuleNotFoundError
+___________________ test_A11_block_is_final_and_aborts[401] ____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186bb10>, status = 401
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [401, 403, 451])
+    def test_A11_block_is_final_and_aborts(env, status):  # R5, R8
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:63: ModuleNotFoundError
+___________________ test_A11_block_is_final_and_aborts[403] ____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186aa30>, status = 403
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [401, 403, 451])
+    def test_A11_block_is_final_and_aborts(env, status):  # R5, R8
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:63: ModuleNotFoundError
+___________________ test_A11_block_is_final_and_aborts[451] ____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e18685f0>, status = 451
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [401, 403, 451])
+    def test_A11_block_is_final_and_aborts(env, status):  # R5, R8
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:63: ModuleNotFoundError
+_________________ test_A11b_block_mid_run_headers_never_change _________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186b1b0>
+logs = <function logs.<locals>.records at 0x7ff3e18540e0>
+
+    @pytest.mark.planted
+    def test_A11b_block_mid_run_headers_never_change(env, logs):  # R2, R5
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_http.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+____________________ test_A12a_retry_exhaustion_aborts_run _____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e18544b0>
+
+    @pytest.mark.planted
+    def test_A12a_retry_exhaustion_aborts_run(env):  # R8
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:93: ModuleNotFoundError
+________________ test_A12b_check_body_unreadable_does_not_abort ________________
+
+env = <_collector_helpers.Env object at 0x7ff3e18549b0>
+
+    @pytest.mark.planted
+    def test_A12b_check_body_unreadable_does_not_abort(env):  # R8
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_http.py:107: ModuleNotFoundError
+__________________ test_A12c_non_2xx_downgrade_does_not_abort __________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1854f50>
+
+    @pytest.mark.planted
+    def test_A12c_non_2xx_downgrade_does_not_abort(env):  # R8
+>       env.transport.set(url_of(D17), resp(404, CSV))
+                                       ^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 404, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+______________ test_A13a_user_agent_is_the_configured_honest_one _______________
+
+env = <_collector_helpers.Env object at 0x7ff3e18554f0>
+
+    @pytest.mark.planted
+    def test_A13a_user_agent_is_the_configured_honest_one(env):
+        import investos
+>       env.script_ok(D17, D18)
+
+tests/unit/acquire/test_collector_http.py:129: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+__________ test_A13b_declared_extra_headers_are_sent_and_nothing_else __________
+
+env = <_collector_helpers.Env object at 0x7ff3e186bd90>
+
+    def test_A13b_declared_extra_headers_are_sent_and_nothing_else(env):
+        import investos
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_http.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+________ test_A13c_spoofing_headers_rejected_at_instantiation[Referer] _________
+
+env = <_collector_helpers.Env object at 0x7ff3e1869c70>, name = 'Referer'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'Referer': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+________ test_A13c_spoofing_headers_rejected_at_instantiation[referer] _________
+
+env = <_collector_helpers.Env object at 0x7ff3e186d1d0>, name = 'referer'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'referer': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+_________ test_A13c_spoofing_headers_rejected_at_instantiation[COOKIE] _________
+
+env = <_collector_helpers.Env object at 0x7ff3e1855810>, name = 'COOKIE'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'COOKIE': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+_______ test_A13c_spoofing_headers_rejected_at_instantiation[User-Agent] _______
+
+env = <_collector_helpers.Env object at 0x7ff3e18542d0>, name = 'User-Agent'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'User-Agent': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+_______ test_A13c_spoofing_headers_rejected_at_instantiation[user-agent] _______
+
+env = <_collector_helpers.Env object at 0x7ff3e1855bd0>, name = 'user-agent'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'user-agent': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+_________ test_A13c_spoofing_headers_rejected_at_instantiation[Origin] _________
+
+env = <_collector_helpers.Env object at 0x7ff3e186b1b0>, name = 'Origin'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'Origin': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+____ test_A13c_spoofing_headers_rejected_at_instantiation[X-Forwarded-For] _____
+
+env = <_collector_helpers.Env object at 0x7ff3e1854f50>
+name = 'X-Forwarded-For'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'X-Forwarded-For': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+_______ test_A13c_spoofing_headers_rejected_at_instantiation[x-real-ip] ________
+
+env = <_collector_helpers.Env object at 0x7ff3e1855450>, name = 'x-real-ip'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
+                                      "X-Forwarded-For", "x-real-ip"])
+    def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
+        with pytest.raises(ValueError):
+>           env.make(demo_class(extra_headers={name: "https://x"}))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:154: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+attrs = {'extra_headers': {'x-real-ip': 'https://x'}}
+
+    def demo_class(**attrs):
+        """DemoCollector subclass. attrs become class attributes. Special attrs:
+        fixed_keys (list) overrides keys(); url_fn(key)->str; verdict_fn(self,key,resp)->verdict."""
+>       from investos.acquire.base import Collector
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:110: ModuleNotFoundError
+__________________ test_A13d_headers_unchanged_across_retries __________________
+
+env = <_collector_helpers.Env object at 0x7ff3e18553b0>
+
+    @pytest.mark.planted
+    def test_A13d_headers_unchanged_across_retries(env):
+>       env.transport.set(url_of(D17), resp(503, b"x"), resp(429, b"x"), resp(200, CSV))
+                                       ^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 503, body = b'x', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+________________________ test_A14a_spacing_on_one_host _________________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1856670>
+
+    def test_A14a_spacing_on_one_host(env):
+>       env.script_ok(D17, D18, D19)
+
+tests/unit/acquire/test_collector_http.py:171: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_______________________ test_A14b_hosts_are_independent ________________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1856c10>
+
+    def test_A14b_hosts_are_independent(env):
+        hosts = {D17: "h1.test", D18: "h2.test", D19: "h1.test"}
+        for k, h in hosts.items():
+>           env.transport.set(url_of(k, h), resp(200, CSV))
+                                            ^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:181: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_______________________ test_A14c_host_override_and_case _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-227/test_A14c_host_override_and_ca0')
+
+    def test_A14c_host_override_and_case(tmp_path):
+        from _collector_helpers import Env
+        e = Env(tmp_path, hosts={"example.test": 1.0})
+        for k in (D17, D18):
+>           e.transport.set(f"https://EXAMPLE.test/f/{k}.csv", resp(200, CSV))
+                                                               ^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:192: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+____________ test_A15_retry_spacing_is_max_of_interval_and_backoff _____________
+
+env = <_collector_helpers.Env object at 0x7ff3e1856f30>
+
+    @pytest.mark.planted
+    def test_A15_retry_spacing_is_max_of_interval_and_backoff(env):
+>       env.transport.set(url_of(D17), resp(503, b"x"), resp(503, b"x"), resp(200, CSV))
+                                       ^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:199: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 503, body = b'x', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+__________________ test_A15b_retry_obeys_larger_rate_interval __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-227/test_A15b_retry_obeys_larger_r0')
+
+    @pytest.mark.planted
+    def test_A15b_retry_obeys_larger_rate_interval(tmp_path):
+        from _collector_helpers import Env
+        e = Env(tmp_path, hosts={"example.test": 3.0})
+>       e.transport.set(url_of(D17), resp(503, b"x"), resp(200, CSV))
+                                     ^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_http.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 503, body = b'x', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+____________ test_sidecar_schema_canonical_bytes_and_no_temp_files _____________
+
+env = <_collector_helpers.Env object at 0x7ff3e1854f50>
+
+    def test_sidecar_schema_canonical_bytes_and_no_temp_files(env):  # R13
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_sidecar.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____________________ test_gaps_and_outputs_sorted_by_key ______________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1857610>
+
+    def test_gaps_and_outputs_sorted_by_key(env):
+        ks = ["2026-11-19", "2026-11-17", "2026-11-18"]
+        for k in ks:
+>           env.transport.set(url_of(k), resp(200, b"junk" if k != D18 else CSV))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_sidecar.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'junk', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+______________ test_A20_gap_run_never_overwrites_complete_sidecar ______________
+
+env = <_collector_helpers.Env object at 0x7ff3e1857c50>
+
+    @pytest.mark.planted
+    def test_A20_gap_run_never_overwrites_complete_sidecar(env):  # R14
+>       r1 = _first_complete(env)
+             ^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_sidecar.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/test_collector_sidecar.py:58: in _first_complete
+    env.script_ok(D17, D18)
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+___________________ test_A20b_incomplete_run_also_protected ____________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1857610>
+
+    @pytest.mark.planted
+    def test_A20b_incomplete_run_also_protected(env):
+>       r1 = _first_complete(env)
+             ^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_sidecar.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/test_collector_sidecar.py:58: in _first_complete
+    env.script_ok(D17, D18)
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_________________ test_A21a_incomplete_then_complete_replaces __________________
+
+env = <_collector_helpers.Env object at 0x7ff3e1855d10>
+
+    def test_A21a_incomplete_then_complete_replaces(env):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_sidecar.py:94: ModuleNotFoundError
+__________________ test_A21b_incomplete_then_aborted_replaces __________________
+
+env = <_collector_helpers.Env object at 0x7ff3e186f250>
+
+    def test_A21b_incomplete_then_aborted_replaces(env):
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_sidecar.py:109: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+__________________ test_A21c_complete_then_complete_replaces ___________________
+
+env = <_collector_helpers.Env object at 0x7ff3dd124050>
+
+    def test_A21c_complete_then_complete_replaces(env):
+>       _first_complete(env)
+
+tests/unit/acquire/test_collector_sidecar.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/test_collector_sidecar.py:58: in _first_complete
+    env.script_ok(D17, D18)
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_______ test_A22_corrupt_existing_sidecar_is_renamed_not_lost[{not json] _______
+
+env = <_collector_helpers.Env object at 0x7ff3dd124690>, junk = b'{not json'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("junk", [b"{not json", b"", b"\xff\xfe\x00garbage"])
+    def test_A22_corrupt_existing_sidecar_is_renamed_not_lost(env, junk):
+        env.sidecar_dir.mkdir(parents=True)
+        target = env.sidecar_dir / f"{D17}_{D17}.json"
+        target.write_bytes(junk)
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_sidecar.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+___________ test_A22_corrupt_existing_sidecar_is_renamed_not_lost[] ____________
+
+env = <_collector_helpers.Env object at 0x7ff3dd124c30>, junk = b''
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("junk", [b"{not json", b"", b"\xff\xfe\x00garbage"])
+    def test_A22_corrupt_existing_sidecar_is_renamed_not_lost(env, junk):
+        env.sidecar_dir.mkdir(parents=True)
+        target = env.sidecar_dir / f"{D17}_{D17}.json"
+        target.write_bytes(junk)
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_sidecar.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+__ test_A22_corrupt_existing_sidecar_is_renamed_not_lost[\xff\xfe\x00garbage] __
+
+env = <_collector_helpers.Env object at 0x7ff3dd125270>
+junk = b'\xff\xfe\x00garbage'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("junk", [b"{not json", b"", b"\xff\xfe\x00garbage"])
+    def test_A22_corrupt_existing_sidecar_is_renamed_not_lost(env, junk):
+        env.sidecar_dir.mkdir(parents=True)
+        target = env.sidecar_dir / f"{D17}_{D17}.json"
+        target.write_bytes(junk)
+>       env.script_ok(D17)
+
+tests/unit/acquire/test_collector_sidecar.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_collector_helpers.py:166: in script_ok
+    self.transport.set(url_of(k), resp(200, body))
+                                  ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_________ test_sidecar_written_for_aborted_run_with_not_attempted_gaps _________
+
+env = <_collector_helpers.Env object at 0x7ff3e18544b0>
+
+    @pytest.mark.planted
+    def test_sidecar_written_for_aborted_run_with_not_attempted_gaps(env):
+>       env.transport.set(url_of(D17), resp(403, b"no"))
+                                       ^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_sidecar.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 403, body = b'no', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_ test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[<html>Error: data not available</html>-headers0] _
+
+env = <_collector_helpers.Env object at 0x7ff3e1857b10>
+body = b'<html>Error: data not available</html>'
+headers = {'content-type': 'text/html'}
+
+    @pytest.mark.parametrize("body,headers", [
+        (b"<html>Error: data not available</html>", {"content-type": "text/html"}),
+        (b"<!DOCTYPE html><html><body>page moved</body></html>" + b" " * 1760, {"content-type": "text/html"}),  # ~1814 B shell
+        (b"<html>" + b"x" * 13_700 + b"</html>", {"content-type": "text/html"}),                                 # ~13.7 kB stub
+        (b"", {}),
+        (b"No Data Found", {"content-type": "text/plain"}),
+    ])
+    def test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored(env, body, headers):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:31: ModuleNotFoundError
+_ test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[<!DOCTYPE html><html><body>page moved</body></html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                -headers1] _
+
+env = <_collector_helpers.Env object at 0x7ff3dd1256d0>
+body = b'<!DOCTYPE html><html><body>page moved</body></html>                                                                 ...                                                                                                                      '
+headers = {'content-type': 'text/html'}
+
+    @pytest.mark.parametrize("body,headers", [
+        (b"<html>Error: data not available</html>", {"content-type": "text/html"}),
+        (b"<!DOCTYPE html><html><body>page moved</body></html>" + b" " * 1760, {"content-type": "text/html"}),  # ~1814 B shell
+        (b"<html>" + b"x" * 13_700 + b"</html>", {"content-type": "text/html"}),                                 # ~13.7 kB stub
+        (b"", {}),
+        (b"No Data Found", {"content-type": "text/plain"}),
+    ])
+    def test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored(env, body, headers):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:31: ModuleNotFoundError
+_ test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[<html>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</html>-headers2] _
+
+env = <_collector_helpers.Env object at 0x7ff3dd125590>
+body = b'<html>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx...xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</html>'
+headers = {'content-type': 'text/html'}
+
+    @pytest.mark.parametrize("body,headers", [
+        (b"<html>Error: data not available</html>", {"content-type": "text/html"}),
+        (b"<!DOCTYPE html><html><body>page moved</body></html>" + b" " * 1760, {"content-type": "text/html"}),  # ~1814 B shell
+        (b"<html>" + b"x" * 13_700 + b"</html>", {"content-type": "text/html"}),                                 # ~13.7 kB stub
+        (b"", {}),
+        (b"No Data Found", {"content-type": "text/plain"}),
+    ])
+    def test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored(env, body, headers):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:31: ModuleNotFoundError
+__ test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[-headers3] __
+
+env = <_collector_helpers.Env object at 0x7ff3dd1259f0>, body = b''
+headers = {}
+
+    @pytest.mark.parametrize("body,headers", [
+        (b"<html>Error: data not available</html>", {"content-type": "text/html"}),
+        (b"<!DOCTYPE html><html><body>page moved</body></html>" + b" " * 1760, {"content-type": "text/html"}),  # ~1814 B shell
+        (b"<html>" + b"x" * 13_700 + b"</html>", {"content-type": "text/html"}),                                 # ~13.7 kB stub
+        (b"", {}),
+        (b"No Data Found", {"content-type": "text/plain"}),
+    ])
+    def test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored(env, body, headers):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:31: ModuleNotFoundError
+_ test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[No Data Found-headers4] _
+
+env = <_collector_helpers.Env object at 0x7ff3dd1260d0>, body = b'No Data Found'
+headers = {'content-type': 'text/plain'}
+
+    @pytest.mark.parametrize("body,headers", [
+        (b"<html>Error: data not available</html>", {"content-type": "text/html"}),
+        (b"<!DOCTYPE html><html><body>page moved</body></html>" + b" " * 1760, {"content-type": "text/html"}),  # ~1814 B shell
+        (b"<html>" + b"x" * 13_700 + b"</html>", {"content-type": "text/html"}),                                 # ~13.7 kB stub
+        (b"", {}),
+        (b"No Data Found", {"content-type": "text/plain"}),
+    ])
+    def test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored(env, body, headers):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:31: ModuleNotFoundError
+_____ test_T1b_check_body_receives_the_real_response_and_runs_even_on_200 ______
+
+env = <_collector_helpers.Env object at 0x7ff3dd126530>
+
+    def test_T1b_check_body_receives_the_real_response_and_runs_even_on_200(env):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:40: ModuleNotFoundError
+_ test_T1c_rate_limit_error_payload_at_200_is_unreadable_not_retried_not_holiday _
+
+env = <_collector_helpers.Env object at 0x7ff3dd126ad0>
+
+    def test_T1c_rate_limit_error_payload_at_200_is_unreadable_not_retried_not_holiday(env):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:54: ModuleNotFoundError
+_____ test_T1d_http200_with_wrong_content_never_downgrades_a_good_verdict ______
+
+env = <_collector_helpers.Env object at 0x7ff3dd127110>
+
+    def test_T1d_http200_with_wrong_content_never_downgrades_a_good_verdict(env):
+        """Only the subclass decides: a body the subclass accepts is stored byte-for-byte."""
+>       env.transport.set(url_of(D17), resp(200, CSV, {"content-type": "application/octet-stream"}))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_traps.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'date,close\n2026-11-17,100\n'
+headers = {'content-type': 'application/octet-stream'}, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_ test_T2a_sentinel_without_subclass_knowledge_is_unreadable[No Record Found!] _
+
+env = <_collector_helpers.Env object at 0x7ff3e1857750>
+body = b'No Record Found!'
+
+    @pytest.mark.parametrize("body", SENTINELS)
+    def test_T2a_sentinel_without_subclass_knowledge_is_unreadable(env, body):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:77: ModuleNotFoundError
+__ test_T2a_sentinel_without_subclass_knowledge_is_unreadable[No Data Found] ___
+
+env = <_collector_helpers.Env object at 0x7ff3dd127070>, body = b'No Data Found'
+
+    @pytest.mark.parametrize("body", SENTINELS)
+    def test_T2a_sentinel_without_subclass_knowledge_is_unreadable(env, body):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:77: ModuleNotFoundError
+________ test_T2a_sentinel_without_subclass_knowledge_is_unreadable[[]] ________
+
+env = <_collector_helpers.Env object at 0x7ff3dd126b70>, body = b'[]'
+
+    @pytest.mark.parametrize("body", SENTINELS)
+    def test_T2a_sentinel_without_subclass_knowledge_is_unreadable(env, body):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:77: ModuleNotFoundError
+___ test_T2a_sentinel_without_subclass_knowledge_is_unreadable[{"data":[]}] ____
+
+env = <_collector_helpers.Env object at 0x7ff3dd125950>, body = b'{"data":[]}'
+
+    @pytest.mark.parametrize("body", SENTINELS)
+    def test_T2a_sentinel_without_subclass_knowledge_is_unreadable(env, body):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:77: ModuleNotFoundError
+_ test_T2a_sentinel_without_subclass_knowledge_is_unreadable[No results returned] _
+
+env = <_collector_helpers.Env object at 0x7ff3dd124cd0>
+body = b'No results returned'
+
+    @pytest.mark.parametrize("body", SENTINELS)
+    def test_T2a_sentinel_without_subclass_knowledge_is_unreadable(env, body):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:77: ModuleNotFoundError
+_ test_T2b_sentinel_is_fetched_empty_only_when_subclass_says_so[No Record Found!] _
+
+env = <_collector_helpers.Env object at 0x7ff3dd124ff0>
+body = b'No Record Found!'
+
+    @pytest.mark.parametrize("body", [b"No Record Found!", b"No Data Found"])
+    def test_T2b_sentinel_is_fetched_empty_only_when_subclass_says_so(env, body):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:86: ModuleNotFoundError
+_ test_T2b_sentinel_is_fetched_empty_only_when_subclass_says_so[No Data Found] _
+
+env = <_collector_helpers.Env object at 0x7ff3dd1279d0>, body = b'No Data Found'
+
+    @pytest.mark.parametrize("body", [b"No Record Found!", b"No Data Found"])
+    def test_T2b_sentinel_is_fetched_empty_only_when_subclass_says_so(env, body):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:86: ModuleNotFoundError
+_______________ test_T2c_base_never_infers_empty_from_body_size ________________
+
+env = <_collector_helpers.Env object at 0x7ff3dd127f70>
+
+    def test_T2c_base_never_infers_empty_from_body_size(env):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:101: ModuleNotFoundError
+______________ test_T3a_404_is_holiday_only_via_subclass_verdict _______________
+
+env = <_collector_helpers.Env object at 0x7ff3dd140550>
+
+    def test_T3a_404_is_holiday_only_via_subclass_verdict(env):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:110: ModuleNotFoundError
+_______________ test_T3b_base_never_invents_missing_holiday[404] _______________
+
+env = <_collector_helpers.Env object at 0x7ff3dd140af0>, status = 404
+
+    @pytest.mark.parametrize("status", [404, 204, 410, 200])
+    def test_T3b_base_never_invents_missing_holiday(env, status):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:124: ModuleNotFoundError
+_______________ test_T3b_base_never_invents_missing_holiday[204] _______________
+
+env = <_collector_helpers.Env object at 0x7ff3dd141090>, status = 204
+
+    @pytest.mark.parametrize("status", [404, 204, 410, 200])
+    def test_T3b_base_never_invents_missing_holiday(env, status):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:124: ModuleNotFoundError
+_______________ test_T3b_base_never_invents_missing_holiday[410] _______________
+
+env = <_collector_helpers.Env object at 0x7ff3dd141630>, status = 410
+
+    @pytest.mark.parametrize("status", [404, 204, 410, 200])
+    def test_T3b_base_never_invents_missing_holiday(env, status):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:124: ModuleNotFoundError
+_______________ test_T3b_base_never_invents_missing_holiday[200] _______________
+
+env = <_collector_helpers.Env object at 0x7ff3dd124730>, status = 200
+
+    @pytest.mark.parametrize("status", [404, 204, 410, 200])
+    def test_T3b_base_never_invents_missing_holiday(env, status):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:124: ModuleNotFoundError
+__________ test_T3c_block_or_throttle_never_recorded_as_holiday[403] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3e186ac10>, status = 403
+
+    @pytest.mark.parametrize("status", [403, 429, 503, 401, 451])
+    def test_T3c_block_or_throttle_never_recorded_as_holiday(env, status):
+        """Even when the body is exactly the subclass's holiday sentinel."""
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:133: ModuleNotFoundError
+__________ test_T3c_block_or_throttle_never_recorded_as_holiday[429] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3e192b070>, status = 429
+
+    @pytest.mark.parametrize("status", [403, 429, 503, 401, 451])
+    def test_T3c_block_or_throttle_never_recorded_as_holiday(env, status):
+        """Even when the body is exactly the subclass's holiday sentinel."""
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:133: ModuleNotFoundError
+__________ test_T3c_block_or_throttle_never_recorded_as_holiday[503] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3dd127b10>, status = 503
+
+    @pytest.mark.parametrize("status", [403, 429, 503, 401, 451])
+    def test_T3c_block_or_throttle_never_recorded_as_holiday(env, status):
+        """Even when the body is exactly the subclass's holiday sentinel."""
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:133: ModuleNotFoundError
+__________ test_T3c_block_or_throttle_never_recorded_as_holiday[401] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3dd127250>, status = 401
+
+    @pytest.mark.parametrize("status", [403, 429, 503, 401, 451])
+    def test_T3c_block_or_throttle_never_recorded_as_holiday(env, status):
+        """Even when the body is exactly the subclass's holiday sentinel."""
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:133: ModuleNotFoundError
+__________ test_T3c_block_or_throttle_never_recorded_as_holiday[451] ___________
+
+env = <_collector_helpers.Env object at 0x7ff3dd127570>, status = 451
+
+    @pytest.mark.parametrize("status", [403, 429, 503, 401, 451])
+    def test_T3c_block_or_throttle_never_recorded_as_holiday(env, status):
+        """Even when the body is exactly the subclass's holiday sentinel."""
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:133: ModuleNotFoundError
+______________________ test_T3d_timeouts_are_not_holidays ______________________
+
+env = <_collector_helpers.Env object at 0x7ff3dd126e90>
+
+    def test_T3d_timeouts_are_not_holidays(env):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:144: ModuleNotFoundError
+____________ test_T3e_calendar_days_all_requested_weekends_included ____________
+
+env = <_collector_helpers.Env object at 0x7ff3dd127390>
+
+    def test_T3e_calendar_days_all_requested_weekends_included(env):
+        """Weekend special sessions exist: base asks the subclass for every key, no weekday filtering."""
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:154: ModuleNotFoundError
+___ test_T7_json_capped_at_exact_page_limit_is_incomplete[70-70-incomplete] ____
+
+env = <_collector_helpers.Env object at 0x7ff3e186f6b0>, limit = 70, n = 70
+expect = 'incomplete'
+
+    @pytest.mark.parametrize("limit,n,expect", [(70, 70, "incomplete"), (70, 69, "fetched"), (100, 100, "incomplete"),
+                                                (100, 101, "incomplete"), (70, 0, "fetched")])
+    def test_T7_json_capped_at_exact_page_limit_is_incomplete(env, limit, n, expect):
+>       env.transport.set(url_of(D17), resp(200, _json_rows(n)))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_traps.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200
+body = b'{"rows": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, ..., 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69]}'
+headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____ test_T7_json_capped_at_exact_page_limit_is_incomplete[70-69-fetched] _____
+
+env = <_collector_helpers.Env object at 0x7ff3e18572f0>, limit = 70, n = 69
+expect = 'fetched'
+
+    @pytest.mark.parametrize("limit,n,expect", [(70, 70, "incomplete"), (70, 69, "fetched"), (100, 100, "incomplete"),
+                                                (100, 101, "incomplete"), (70, 0, "fetched")])
+    def test_T7_json_capped_at_exact_page_limit_is_incomplete(env, limit, n, expect):
+>       env.transport.set(url_of(D17), resp(200, _json_rows(n)))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_traps.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200
+body = b'{"rows": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, ..., 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68]}'
+headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+__ test_T7_json_capped_at_exact_page_limit_is_incomplete[100-100-incomplete] ___
+
+env = <_collector_helpers.Env object at 0x7ff3e1857cf0>, limit = 100, n = 100
+expect = 'incomplete'
+
+    @pytest.mark.parametrize("limit,n,expect", [(70, 70, "incomplete"), (70, 69, "fetched"), (100, 100, "incomplete"),
+                                                (100, 101, "incomplete"), (70, 0, "fetched")])
+    def test_T7_json_capped_at_exact_page_limit_is_incomplete(env, limit, n, expect):
+>       env.transport.set(url_of(D17), resp(200, _json_rows(n)))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_traps.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200
+body = b'{"rows": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, ..., 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]}'
+headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+__ test_T7_json_capped_at_exact_page_limit_is_incomplete[100-101-incomplete] ___
+
+env = <_collector_helpers.Env object at 0x7ff3dd127430>, limit = 100, n = 101
+expect = 'incomplete'
+
+    @pytest.mark.parametrize("limit,n,expect", [(70, 70, "incomplete"), (70, 69, "fetched"), (100, 100, "incomplete"),
+                                                (100, 101, "incomplete"), (70, 0, "fetched")])
+    def test_T7_json_capped_at_exact_page_limit_is_incomplete(env, limit, n, expect):
+>       env.transport.set(url_of(D17), resp(200, _json_rows(n)))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_traps.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200
+body = b'{"rows": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, ... 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]}'
+headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_____ test_T7_json_capped_at_exact_page_limit_is_incomplete[70-0-fetched] ______
+
+env = <_collector_helpers.Env object at 0x7ff3dd127570>, limit = 70, n = 0
+expect = 'fetched'
+
+    @pytest.mark.parametrize("limit,n,expect", [(70, 70, "incomplete"), (70, 69, "fetched"), (100, 100, "incomplete"),
+                                                (100, 101, "incomplete"), (70, 0, "fetched")])
+    def test_T7_json_capped_at_exact_page_limit_is_incomplete(env, limit, n, expect):
+>       env.transport.set(url_of(D17), resp(200, _json_rows(n)))
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collector_traps.py:176: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+status = 200, body = b'{"rows": []}', headers = None, url = ''
+
+    def resp(status: int = 200, body: bytes = CSV, headers=None, url: str = ""):
+>       from investos.acquire.base import Response
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/_collector_helpers.py:42: ModuleNotFoundError
+_________ test_T7b_incomplete_page_is_retried_on_next_run_not_skipped __________
+
+env = <_collector_helpers.Env object at 0x7ff3dd125270>
+
+    def test_T7b_incomplete_page_is_retried_on_next_run_not_skipped(env):
+>       from investos.acquire.base import Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:189: ModuleNotFoundError
+______ test_T7c_page_limit_not_applied_to_fetched_empty_or_other_sources _______
+
+env = <_collector_helpers.Env object at 0x7ff3e18696d0>
+
+    def test_T7c_page_limit_not_applied_to_fetched_empty_or_other_sources(env):
+>       from investos.acquire.base import BodyVerdict, Outcome
+E       ModuleNotFoundError: No module named 'investos.acquire.base'
+
+tests/unit/acquire/test_collector_traps.py:199: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A16_page_limit[100-incomplete]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A16_page_limit[99-fetched]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A16_page_limit[101-incomplete]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A16_page_limit[None-fetched]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[../evil.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[/etc/passwd]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[\\evil.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[C:\\x.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[c:/x.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[a/../../b]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[a\\..\\..\\b]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17a_zip_slip_member_names_rejected[a/../b]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17b_symlink_encrypted_duplicate_and_non_zip_rejected
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A18a_zip_bomb_default_ratio_rejected
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A18b_total_bytes_counted_while_streaming
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A18c_member_size_and_count_limits
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A19a_safe_unzip_returns_sorted_pairs_and_writes_nothing
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A19a2_unzip_limits_defaults
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[../evil.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[/etc/passwd]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[\\evil.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[C:\\x.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[c:/x.txt]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[a/../../b]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[a\\..\\..\\b]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17c_run_rejects_unsafe_archive_and_stores_nothing[a/../b]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17d_run_rejects_other_unsafe_archives[make_symlink_zip]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17d_run_rejects_other_unsafe_archives[make_encrypted_flag_zip]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17d_run_rejects_other_unsafe_archives[<lambda>0]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17d_run_rejects_other_unsafe_archives[<lambda>1]
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A17e_unsafe_archive_does_not_abort_run
+FAILED tests/unit/acquire/test_collector_archive_pages.py::test_A19b_run_stores_zip_and_members
+FAILED tests/unit/acquire/test_collector_core.py::test_GATE1_fetches_one_file
+FAILED tests/unit/acquire/test_collector_core.py::test_GATE2_broken_body_rejected
+FAILED tests/unit/acquire/test_collector_core.py::test_GATE3_rerun_fetches_nothing
+FAILED tests/unit/acquire/test_collector_core.py::test_A3_bad_check_body_is_unreadable_and_run_continues[raises]
+FAILED tests/unit/acquire/test_collector_core.py::test_A3_bad_check_body_is_unreadable_and_run_continues[none]
+FAILED tests/unit/acquire/test_collector_core.py::test_A3_bad_check_body_is_unreadable_and_run_continues[incomplete_verdict]
+FAILED tests/unit/acquire/test_collector_core.py::test_A3_bad_check_body_is_unreadable_and_run_continues[skipped_verdict]
+FAILED tests/unit/acquire/test_collector_core.py::test_A3_bad_check_body_is_unreadable_and_run_continues[non_verdict]
+FAILED tests/unit/acquire/test_collector_core.py::test_A4a_non_2xx_with_acceptable_body_is_unreadable[404]
+FAILED tests/unit/acquire/test_collector_core.py::test_A4a_non_2xx_with_acceptable_body_is_unreadable[301]
+FAILED tests/unit/acquire/test_collector_core.py::test_A4a_non_2xx_with_acceptable_body_is_unreadable[400]
+FAILED tests/unit/acquire/test_collector_core.py::test_A4a_non_2xx_with_acceptable_body_is_unreadable[410]
+FAILED tests/unit/acquire/test_collector_core.py::test_A4b_404_no_file_is_missing_holiday_via_subclass
+FAILED tests/unit/acquire/test_collector_core.py::test_A6_missing_holiday_is_requested_again
+FAILED tests/unit/acquire/test_collector_core.py::test_A6b_unstored_outcomes_are_requested_again[unreadable]
+FAILED tests/unit/acquire/test_collector_core.py::test_A6b_unstored_outcomes_are_requested_again[incomplete]
+FAILED tests/unit/acquire/test_collector_core.py::test_A7_four_outcomes_kept_separate
+FAILED tests/unit/acquire/test_collector_core.py::test_A23_duplicate_and_empty_keys
+FAILED tests/unit/acquire/test_collector_core.py::test_A24_bad_range_and_keys_error
+FAILED tests/unit/acquire/test_collector_core.py::test_A24b_non_transport_exception_propagates_no_sidecar
+FAILED tests/unit/acquire/test_collector_core.py::test_A24c_instantiation_validation
+FAILED tests/unit/acquire/test_collector_core.py::test_A25_base_imports_no_content_parsers
+FAILED tests/unit/acquire/test_collector_core.py::test_A27_collector_uses_only_manifest_api_and_opens_no_raw_paths
+FAILED tests/unit/acquire/test_collector_core.py::test_A26_log_events - Modul...
+FAILED tests/unit/acquire/test_collector_http.py::test_A8_fourth_retry_never_attempted
+FAILED tests/unit/acquire/test_collector_http.py::test_A9_transport_error_then_429_then_ok
+FAILED tests/unit/acquire/test_collector_http.py::test_A9b_transport_error_forever_is_unreadable_not_holiday
+FAILED tests/unit/acquire/test_collector_http.py::test_A10a_other_4xx_not_retried[400]
+FAILED tests/unit/acquire/test_collector_http.py::test_A10a_other_4xx_not_retried[404]
+FAILED tests/unit/acquire/test_collector_http.py::test_A10a_other_4xx_not_retried[410]
+FAILED tests/unit/acquire/test_collector_http.py::test_A10a_other_4xx_not_retried[418]
+FAILED tests/unit/acquire/test_collector_http.py::test_A10b_502_then_200_retries_once
+FAILED tests/unit/acquire/test_collector_http.py::test_A11_block_is_final_and_aborts[401]
+FAILED tests/unit/acquire/test_collector_http.py::test_A11_block_is_final_and_aborts[403]
+FAILED tests/unit/acquire/test_collector_http.py::test_A11_block_is_final_and_aborts[451]
+FAILED tests/unit/acquire/test_collector_http.py::test_A11b_block_mid_run_headers_never_change
+FAILED tests/unit/acquire/test_collector_http.py::test_A12a_retry_exhaustion_aborts_run
+FAILED tests/unit/acquire/test_collector_http.py::test_A12b_check_body_unreadable_does_not_abort
+FAILED tests/unit/acquire/test_collector_http.py::test_A12c_non_2xx_downgrade_does_not_abort
+FAILED tests/unit/acquire/test_collector_http.py::test_A13a_user_agent_is_the_configured_honest_one
+FAILED tests/unit/acquire/test_collector_http.py::test_A13b_declared_extra_headers_are_sent_and_nothing_else
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[Referer]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[referer]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[COOKIE]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[User-Agent]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[user-agent]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[Origin]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[X-Forwarded-For]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13c_spoofing_headers_rejected_at_instantiation[x-real-ip]
+FAILED tests/unit/acquire/test_collector_http.py::test_A13d_headers_unchanged_across_retries
+FAILED tests/unit/acquire/test_collector_http.py::test_A14a_spacing_on_one_host
+FAILED tests/unit/acquire/test_collector_http.py::test_A14b_hosts_are_independent
+FAILED tests/unit/acquire/test_collector_http.py::test_A14c_host_override_and_case
+FAILED tests/unit/acquire/test_collector_http.py::test_A15_retry_spacing_is_max_of_interval_and_backoff
+FAILED tests/unit/acquire/test_collector_http.py::test_A15b_retry_obeys_larger_rate_interval
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_sidecar_schema_canonical_bytes_and_no_temp_files
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_gaps_and_outputs_sorted_by_key
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A20_gap_run_never_overwrites_complete_sidecar
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A20b_incomplete_run_also_protected
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A21a_incomplete_then_complete_replaces
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A21b_incomplete_then_aborted_replaces
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A21c_complete_then_complete_replaces
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A22_corrupt_existing_sidecar_is_renamed_not_lost[{not json]
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A22_corrupt_existing_sidecar_is_renamed_not_lost[]
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_A22_corrupt_existing_sidecar_is_renamed_not_lost[\xff\xfe\x00garbage]
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_sidecar_written_for_aborted_run_with_not_attempted_gaps
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[<html>Error: data not available</html>-headers0]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[<!DOCTYPE html><html><body>page moved</body></html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                -headers1]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[<html>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</html>-headers2]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[-headers3]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1_http200_stub_or_error_body_is_unreadable_and_not_stored[No Data Found-headers4]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1b_check_body_receives_the_real_response_and_runs_even_on_200
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1c_rate_limit_error_payload_at_200_is_unreadable_not_retried_not_holiday
+FAILED tests/unit/acquire/test_collector_traps.py::test_T1d_http200_with_wrong_content_never_downgrades_a_good_verdict
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2a_sentinel_without_subclass_knowledge_is_unreadable[No Record Found!]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2a_sentinel_without_subclass_knowledge_is_unreadable[No Data Found]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2a_sentinel_without_subclass_knowledge_is_unreadable[[]]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2a_sentinel_without_subclass_knowledge_is_unreadable[{"data":[]}]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2a_sentinel_without_subclass_knowledge_is_unreadable[No results returned]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2b_sentinel_is_fetched_empty_only_when_subclass_says_so[No Record Found!]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2b_sentinel_is_fetched_empty_only_when_subclass_says_so[No Data Found]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T2c_base_never_infers_empty_from_body_size
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3a_404_is_holiday_only_via_subclass_verdict
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3b_base_never_invents_missing_holiday[404]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3b_base_never_invents_missing_holiday[204]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3b_base_never_invents_missing_holiday[410]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3b_base_never_invents_missing_holiday[200]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3c_block_or_throttle_never_recorded_as_holiday[403]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3c_block_or_throttle_never_recorded_as_holiday[429]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3c_block_or_throttle_never_recorded_as_holiday[503]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3c_block_or_throttle_never_recorded_as_holiday[401]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3c_block_or_throttle_never_recorded_as_holiday[451]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3d_timeouts_are_not_holidays
+FAILED tests/unit/acquire/test_collector_traps.py::test_T3e_calendar_days_all_requested_weekends_included
+FAILED tests/unit/acquire/test_collector_traps.py::test_T7_json_capped_at_exact_page_limit_is_incomplete[70-70-incomplete]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T7_json_capped_at_exact_page_limit_is_incomplete[70-69-fetched]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T7_json_capped_at_exact_page_limit_is_incomplete[100-100-incomplete]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T7_json_capped_at_exact_page_limit_is_incomplete[100-101-incomplete]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T7_json_capped_at_exact_page_limit_is_incomplete[70-0-fetched]
+FAILED tests/unit/acquire/test_collector_traps.py::test_T7b_incomplete_page_is_retried_on_next_run_not_skipped
+FAILED tests/unit/acquire/test_collector_traps.py::test_T7c_page_limit_not_applied_to_fetched_empty_or_other_sources
+133 failed, 402 passed, 2 skipped in 30.34s
