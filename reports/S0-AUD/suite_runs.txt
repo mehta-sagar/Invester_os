@@ -1,0 +1,19 @@
+# Auditor suite runs, 2026-11-21T15:51:35Z, HEAD 12c834e, Python 3.13.18, duckdb 2.0.1
+## run 1 (root)
+=========================== short test summary info ============================
+SKIPPED [1] tests/unit/check/test_checkrunner_execution.py:193: root ignores directory modes
+SKIPPED [1] tests/unit/check/test_checkrunner_review_regressions.py:135: root bypasses directory modes; a 0000 dir cannot break cleanup
+558 passed, 2 skipped in 9.96s
+## run 2 (root)
+=========================== short test summary info ============================
+SKIPPED [1] tests/unit/check/test_checkrunner_execution.py:193: root ignores directory modes
+SKIPPED [1] tests/unit/check/test_checkrunner_review_regressions.py:135: root bypasses directory modes; a 0000 dir cannot break cleanup
+558 passed, 2 skipped in 10.61s
+## run 3 (root)
+=========================== short test summary info ============================
+SKIPPED [1] tests/unit/check/test_checkrunner_execution.py:193: root ignores directory modes
+SKIPPED [1] tests/unit/check/test_checkrunner_review_regressions.py:135: root bypasses directory modes; a 0000 dir cannot break cleanup
+558 passed, 2 skipped in 11.05s
+## run 4 (non-root user 'auditor', copy at /tmp/aud_nonroot)
+........................................................                 [100%]
+560 passed in 9.83s
