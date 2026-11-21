@@ -1,0 +1,13 @@
+# Level 1: every stored thing belongs to exactly one domain.
+domains:
+  identity:     {tables: [security_master, entity_master, identifier_history, lineage_edge]}
+  market:       {tables: [prices_raw, delivery, adjustments, universe_daily, calendar, index_membership, surveillance, price_band]}
+  fundamentals: {tables: [fundamental_document, fundamental_statement, fundamental_fact, analytical_view, line_item_map]}
+  events:       {tables: [announcement, corporate_action, deal, result_calendar, rating_action]}
+  ownership:    {tables: [shareholding, pledge, insider_trade, fund_holding, fpi_flow]}
+  text:         {tables: [document, text_fact, promise, promise_outcome, news_item, social_count]}
+  derivatives:  {tables: [fo_bhavcopy, participant_oi, india_vix, fo_ban]}
+  series:       {tables: [series_meta, series_value]}   # macro, global, sector KPI
+  alt:          {tables: [tender, court_case, insolvency, charge, trade_flow, link_customer_supplier, link_group]}
+  research:     {tables: [feature_registry, feature_value, gate_result, verdict, trial, model_run, backtest_run]}
+  operations:   {tables: [source_registry, ledger, manifest, signal_log, order_proposed, post_mortem, agent_run]}

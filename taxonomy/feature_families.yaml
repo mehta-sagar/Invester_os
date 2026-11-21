@@ -1,0 +1,22 @@
+families:
+  A: {name: price_structure, model: timing}
+  B: {name: candlesticks, model: timing}
+  C: {name: indicators, model: timing}
+  D: {name: breadth, model: [timing, regime]}
+  E: {name: factors, model: ranking}
+  F: {name: fundamentals, model: ranking}
+  G: {name: valuation, model: ranking}
+  H: {name: forensic_governance, model: [ranking, avoid_list]}
+  I: {name: events, model: ranking}
+  J: {name: ownership, model: ranking}
+  K: {name: text_sentiment, model: ranking}
+  L: {name: derivatives, model: ranking}
+  M: {name: india_macro, model: [ranking, regime]}
+  N: {name: global_spillover, model: [regime]}
+  O: {name: sector_kpi, model: ranking}
+  P: {name: alt_data_networks, model: ranking}
+  Q: {name: calendar_microstructure, model: timing}
+feature_id: "<family>.<group>.<name>.<params>"   # e.g. C.rsi.level.14d
+required_fields: [feature_id, family, formula, parameters, data_needed, known_at_rule, edge_used, owner_module]
+edges: [size, breadth_of_reading, clean_data, speed_on_filings, forensic_depth, management_track_record, honesty]
+verdicts: [KEEP, COMBINE_ONLY, DROP]

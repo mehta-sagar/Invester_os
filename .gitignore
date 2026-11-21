@@ -1,0 +1,17 @@
+# data never goes to GitHub: bytes live in data/, facts about bytes live in data/manifests (tracked)
+data/raw/
+data/staged/
+data/canonical/
+data/features/
+data/models/
+data/quarantine/
+data/exports/
+data/ledger/
+!data/manifests/
+!**/.gitkeep
+.env
+credentials/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store

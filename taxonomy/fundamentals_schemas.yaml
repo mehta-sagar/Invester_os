@@ -1,0 +1,23 @@
+# From icid/docs/FUNDAMENTALS_TAXONOMY.md section 4. Facts are stored under the
+# taxonomy-native element name. Normalisation is a view, never done at ingest.
+storage_schemas:
+  S1: {name: CORP_INDAS,    basis: "Schedule III Div II"}
+  S2: {name: CORP_IGAAP,    basis: "Schedule III Div I / Sch VI"}
+  S3: {name: NBFC_INDAS,    basis: "Schedule III Div III"}
+  S4: {name: BANK,          basis: "Banking Regulation Act 1949, Third Schedule"}
+  S5: {name: INSUR_LIFE,    basis: IRDAI}
+  S6: {name: INSUR_GENERAL, basis: IRDAI}
+schema_is_read_from: [exchange index row, instance schemaRef / filename prefix]   # never from an industry label
+rules:
+  - scale_applied is always 1 for XBRL; rounding level is metadata only
+  - period comes from DateOfStart/EndOfReportingPeriod facts, not the XBRL context
+  - fact key is (statement_id, element, dimensions)
+  - a series crossing I-GAAP to Ind AS is flagged, never spliced
+analytical_fields:   # NULL where a sector has no honest mapping
+  comparable_across_all: [pbt, pat, book_value_per_share, total_assets, total_equity]
+  non_financials_only:   [operating_revenue, ebitda, total_debt, gross_block]
+  bank_nbfc:             [interest_income, net_interest_income, fee_income, deposits]
+  insurer:               [premium_income]
+secondary_sources:   # cross-check only, mapped through registry/line_item_map.csv
+  tickertape:   {unit: crore, known_at: lagged}
+  moneycontrol: {unit: crore, known_at: lagged}

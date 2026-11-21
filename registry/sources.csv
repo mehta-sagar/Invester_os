@@ -1,0 +1,70 @@
+source_id,family,publisher,dataset,access_method,known_at_rule,status
+nse_bhavcopy,A-E,NSE,equity bhavcopy (3 eras),bulk_file,trade date after close,held
+bse_bhavcopy,A-E,BSE,equity bhavcopy (3 eras),bulk_file,trade date after close,held
+nse_delivery,C,NSE,security-wise delivery / bhavcopy with delivery,bulk_file,trade date,to_verify
+nse_corp_actions,I,NSE,corporate actions API from 1995,api,announcement and ex-date,held
+bse_corp_actions,I,BSE,corporate actions API,api,announcement and ex-date,to_verify
+nse_masters,identity,NSE,EQUITY_L symbolchange namechange,bulk_file,file date,held
+bse_scrip_master,identity,BSE,ListofScripData,api,snapshot date only,held
+index_membership,E-Q,NSE/BSE,index constituents and reconstitution circulars,scraper,circular date,to_verify
+surveillance_lists,H,NSE/BSE,ASM GSM ESM lists,bulk_file,publication date,to_verify
+price_bands,Q,NSE,price band and circuit files,bulk_file,trade date,to_verify
+holidays,Q,NSE/BSE,trading holiday lists,scraper,publication date,to_verify
+fo_ban_eligibility,L,NSE,F&O ban list and eligibility,bulk_file,trade date,to_verify
+xbrl_results,F-H,NSE/BSE,Reg 33 XBRL financial results,api,exchange dissemination time,to_verify
+tickertape,F-G,Tickertape,per-company statements (crore),scraper,quarter+60d / year+90d,held_on_drive
+moneycontrol,F-G,MoneyControl,per-company statements (crore),scraper,quarter+60d / year+90d,held_on_drive
+taxonomies,F,MCA/ICAI/exchanges,Ind AS C&I and Reg 33 taxonomies,bulk_file,taxonomy date,held
+annual_reports,H-K,NSE/BSE,annual report PDFs,api,filing date,to_verify
+shareholding,J,NSE/BSE,quarterly shareholding pattern,api,filing date,to_verify
+rating_releases,I,CRISIL/ICRA/CARE/IndRa,rating actions and rationales,scraper,release date,to_verify
+nse_announcements,I-K,NSE,announcements API with exchdisstime,api,dissemination time,proven
+bse_announcements,I-K,BSE,announcements with PDF bodies,api,dissemination time,to_verify
+bulk_block_deals,I-J,NSE/BSE,bulk and block deals,bulk_file,trade date evening,to_verify
+insider_trades,J,NSE/BSE,PIT insider disclosures,api,disclosure date,to_verify
+pledge_sast,J,NSE/BSE,SAST and pledge disclosures,api,disclosure date,to_verify
+result_calendar,I,NSE/BSE,board meeting and result dates,api,intimation date,to_verify
+amfi_portfolios,J,AMFI/AMCs,monthly fund portfolios,scraper,publication date,to_verify
+nsdl_fpi,J-N,NSDL,FPI flows and sector allocation,scraper,publication date,to_verify
+sebi_orders,H,SEBI,orders and enforcement,scraper,order date,to_verify
+ipo_lockins,J,NSE/BSE/SEBI,prospectus and anchor lock-in,scraper,listing date,to_verify
+tijori_corpus,K,Drive,annual reports concalls presentations,document_reader,document date inside file,held_on_drive
+concall_filings,K,NSE/BSE,transcripts filed as announcements,api,filing time,to_verify
+news_rss,K,ET/Mint/BS/MC/Reuters,headlines,scraper,publish time,to_verify
+gdelt,K,GDELT,news event archive,bulk_file,event time,to_verify
+google_trends,K,Google,search interest,browser_agent,week of data,to_verify
+x_watchlist,K,X,mention volume on small-cap watchlist,browser_agent_login,post time,to_verify
+social_other,K,Reddit/YouTube/Telegram,mention spikes,scraper,post time,to_verify
+fo_bhavcopy,L,NSE,F&O bhavcopy and participant OI,bulk_file,trade date,to_verify
+india_vix,L,NSE,India VIX history,bulk_file,trade date,to_verify
+rbi,M,RBI,rates liquidity credit deposits,bulk_file,release date,to_verify
+mospi,M,MOSPI,CPI IIP GDP,bulk_file,release date,to_verify
+gst,M,MoF,monthly GST collections,scraper,release date,to_verify
+govt_capex,M,CGA,government capex,scraper,release date,to_verify
+imd,M,IMD,monsoon rainfall departure,scraper,bulletin date,to_verify
+ccil,M,CCIL,G-sec yields,scraper,trade date,to_verify
+fred,N,FRED,US yields dollar VIX,api,observation date+1,to_verify
+global_indices,N,Yahoo/Stooq,world indices crude metals USDINR,bulk_file,close time IST,to_verify
+gift_nifty,N,NSE IX,GIFT Nifty 08:45 snapshot,browser_agent,snapshot time,to_verify
+vahan_siam_fada,O,MoRTH/SIAM/FADA,registrations and dispatches,browser_agent,release date,to_verify
+grid_india,O,Grid-India,power demand and generation,scraper,report date,to_verify
+dgca,O,DGCA,airline traffic,scraper,release date,to_verify
+ppac,O,PPAC,fuel consumption,scraper,release date,to_verify
+usfda,O,USFDA,warning letters import alerts 483,scraper,posting date,to_verify
+steel_coal_rail,O,Ministries,output and freight,scraper,release date,to_verify
+commodity_prices,O,various,cement and commodity prices,scraper,capture date,to_verify
+tenders,P,GeM/CPPP,tender awards,browser_agent,award date,to_verify
+courts_insolvency,P,eCourts/NCLT/IBBI,cases and insolvency,browser_agent,order date,to_verify
+mca_charges,P,MCA,charge register,browser_agent,charge date,blocked
+mca_amalgamated,identity,MCA,amalgamated company list,unknown,none,held_unverified
+trade_data,P,DGFT/Commerce,imports and exports,scraper,release date,to_verify
+supply_links,P,corpus,customer and supplier mentions,document_reader,report date,to_verify
+cross_check_sites,F,Screener/Trendlyne,cross-check only,browser_agent,none,to_verify
+nse_pr_bhavcopy,A-E,NSE,PR bhavcopy bundle,bulk_file,trade date,to_verify
+nse_short_selling,J,NSE,short selling reports,bulk_file,trade date,to_verify
+nse_category_turnover,J,NSE,category-wise turnover cash and F&O,bulk_file,trade date,to_verify
+nse_volatility_var,E-L,NSE,daily volatility and VaR margin files,bulk_file,trade date,to_verify
+nse_pe_ratio,G,NSE,PE ratio file for all equities,bulk_file,trade date,to_verify
+niftyindices_tri_pe,G-N,NSE Indices,total return index and index PE PB dividend yield,scraper,trade date,to_verify
+amfi_nav,J,AMFI,mutual fund NAV history,bulk_file,publication date,to_verify
+alfred_vintages,N,ALFRED,US macro series as first published (vintages),api,vintage date,to_verify
