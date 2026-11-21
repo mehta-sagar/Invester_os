@@ -453,3 +453,66 @@ def test_A23_same_microsecond_ok_one_microsecond_earlier_refused(ledger, lpath, 
         ledger.append({"n": 3})
     assert lpath.read_bytes() == before
     assert ledger.verify(roots=False).ok
+
+
+# ---------- A10b: canonical-form rule (R7, amended 21 Nov): stored bytes must equal canonical JSON + "\n" ----------
+
+def _nc_space_after_colon(lines):
+    lines[2] = lines[2].replace(b'"n":', b'"n": ', 1)
+
+
+def _nc_reordered_keys(lines):
+    o = json.loads(lines[2])
+    lines[2] = (json.dumps({k: o[k] for k in ("hash", "payload", "prev_hash", "seq", "ts")},
+                           separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def _nc_escaped_e_acute(lines):
+    o = json.loads(lines[2])
+    assert "\u00e9" not in lines[2].decode()
+    # payload changes from "x" to "é" with a valid recomputed hash, but stored with the \u escape
+    o["payload"]["tag"] = "é"
+    rehash(o)
+    line = (canon(o) + "\n").encode("utf-8")
+    assert "é".encode("utf-8") in line
+    lines[2] = line.replace("é".encode("utf-8"), b"\\u00e9")
+
+
+def _nc_trailing_space(lines):
+    lines[2] = lines[2][:-1] + b" \n"
+
+
+def _nc_json_dumps_default_separators(lines):
+    o = json.loads(lines[2])
+    lines[2] = (json.dumps(o, sort_keys=True) + "\n").encode("utf-8")
+
+
+@pytest.mark.planted
+@pytest.mark.parametrize("mutate", [
+    pytest.param(_nc_space_after_colon, id="space_after_colon"),
+    pytest.param(_nc_reordered_keys, id="reordered_keys"),
+    pytest.param(_nc_escaped_e_acute, id="escaped_e_acute_vs_literal"),
+    pytest.param(_nc_trailing_space, id="trailing_space_before_newline"),
+    pytest.param(_nc_json_dumps_default_separators, id="default_json_separators"),
+])
+def test_A10b_non_canonical_stored_line_is_a_break(five, lpath, mutate):
+    assert five.verify(roots=False).ok
+    lines = read_lines(lpath)
+    mutate(lines)
+    write_lines(lpath, lines)
+    res = five.verify(roots=False)
+    assert not res.ok and res.first_broken_seq == 3 and res.scope == "chain" and res.reason
+
+
+@pytest.mark.planted
+def test_A10c_non_canonical_line_blocks_append_and_rows(five, lpath):
+    from investos.registry.chain import LedgerCorruptError
+    lines = read_lines(lpath)
+    _nc_space_after_colon(lines)
+    write_lines(lpath, lines)
+    before = lpath.read_bytes()
+    with pytest.raises(LedgerCorruptError) as e1:
+        five.append({"n": 6, "tag": "row"})
+    assert e1.value.seq == 3 and lpath.read_bytes() == before
+    with pytest.raises(LedgerCorruptError):
+        five.rows()

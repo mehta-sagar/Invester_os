@@ -162,6 +162,11 @@ def test_A18_builtins_registered_in_default_registry():
 def test_A18_default_registry_main_without_registry_module_target_is_usage_error(monkeypatch, cfg, run_id):
     import io
     from investos.check.cli import main
+    # Order-independent: earlier tests may have imported investos.registry.check (which registers "registry"
+    # into DEFAULT_REGISTRY); hiding the module cannot unregister it, so drop it from the registry for this test.
+    from investos.check.registry import DEFAULT_REGISTRY
+    monkeypatch.setattr(DEFAULT_REGISTRY, "_checks", {k: v for k, v in DEFAULT_REGISTRY._checks.items() if k != "registry"})
+    monkeypatch.setattr(DEFAULT_REGISTRY, "_plants", {k: v for k, v in DEFAULT_REGISTRY._plants.items() if k != "registry"})
     monkeypatch.setitem(sys.modules, "investos.registry.check", None)   # import raises ModuleNotFoundError
     buf = io.StringIO()
     assert main(["registry"], cfg=cfg, stdout=buf) == 2

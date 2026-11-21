@@ -199,3 +199,50 @@ def test_A21d_setup_and_plant_behaviour(cfg):
         {k: v for k, v in after["payload"].items() if k != "hypothesis"}
     res = reg.get("registry")(ctx)
     assert not res.ok and "trials: broken at seq 1" in _text(res)
+
+
+# ---------- A20h: canonical-form rule (R7 amended) through the registry check ----------
+
+def _nc_space(line):
+    return line.replace(b'"seq":', b'"seq": ', 1)
+
+
+def _nc_reorder(line):
+    o = json.loads(line)
+    return (json.dumps({k: o[k] for k in ("hash", "payload", "prev_hash", "seq", "ts")},
+                       separators=(",", ":"), ensure_ascii=False) + "\n").encode("utf-8")
+
+
+def _nc_escape(line):
+    # Devanagari/accents hypothesis stored with \u escapes while hashes stay valid (payload unchanged in meaning)
+    return line.replace("é".encode("utf-8"), b"\\u00e9")
+
+
+def _nc_trailing(line):
+    return line[:-1] + b" \n"
+
+
+@pytest.mark.planted
+@pytest.mark.parametrize("mutate", [
+    pytest.param(_nc_space, id="space_after_colon"),
+    pytest.param(_nc_reorder, id="reordered_keys"),
+    pytest.param(_nc_escape, id="escaped_e_acute"),
+    pytest.param(_nc_trailing, id="trailing_space"),
+])
+def test_A20h_non_canonical_trials_line_fails_registry_check(cfg, mutate):
+    from investos.registry.ledgers import open_trials, register_trial
+    reg, Ctx = _check_env()
+    t = open_trials(cfg, clock=FakeClock())
+    register_trial(t, trial_id="t-0", family="f", feature_id="x", params={}, hypothesis="plain")
+    register_trial(t, trial_id="t-1", family="f", feature_id="x", params={}, hypothesis="café")
+    register_trial(t, trial_id="t-2", family="f", feature_id="x", params={}, hypothesis="plain")
+    lines = read_lines(t.path)
+    assert "é".encode("utf-8") in lines[1]
+    lines[1] = mutate(lines[1])
+    assert lines[1] != read_lines(t.path)[1]
+    t.path.write_bytes(b"".join(lines))
+    assert t.verify(roots=False).first_broken_seq == 2
+    res = reg.get("registry")(Ctx(cfg=cfg, run_id="t-nc"))
+    assert not res.ok and "trials: broken at seq 2" in _text(res)
+    code, out = _run(cfg, ["registry"])
+    assert code == 1
