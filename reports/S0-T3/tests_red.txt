@@ -1,0 +1,1163 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.................... [ 56%]
+.......................................................                  [100%]
+=================================== FAILURES ===================================
+_________________ test_A9_multiprocess_appends_no_loss_no_tear _________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cea700>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A9_multiprocess_appends_n0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A9_multiprocess_appends_n0/manifests'))
+
+    def test_A9_multiprocess_appends_no_loss_no_tear(mk, roots):
+        raw, man = roots
+>       mk()                                             # fails here if module missing
+        ^^^^
+
+tests/unit/acquire/test_manifest_concurrency.py:19: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_______________________ test_A9b_threads_share_one_store _______________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cd3880>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A9b_threads_share_one_sto0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A9b_threads_share_one_sto0/manifests'))
+
+    def test_A9b_threads_share_one_store(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_concurrency.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________ test_A10_lock_blocks_same_source_not_other __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cd2840>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A10_lock_blocks_same_sour0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A10_lock_blocks_same_sour0/manifests'))
+
+    @pytest.mark.planted
+    def test_A10_lock_blocks_same_source_not_other(mk, roots):
+        raw, man = roots
+>       mk()
+
+tests/unit/acquire/test_manifest_concurrency.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_________________________ test_A11_truncated_last_line _________________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cd2b60>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A11_truncated_last_line0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A11_truncated_last_line0/manifests'))
+
+    @pytest.mark.planted
+    def test_A11_truncated_last_line(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_______________ test_A12_strict_reading_names_line[invalid_json] _______________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cd2e80>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_0/manifests'))
+variant = 'invalid_json'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________ test_A12_strict_reading_names_line[json_array] ________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cea980>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_1/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_1/manifests'))
+variant = 'json_array'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+______________ test_A12_strict_reading_names_line[missing_run_id] ______________
+
+mk = <function mk.<locals>._mk at 0x7f4f97ce9580>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_2/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_2/manifests'))
+variant = 'missing_run_id'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_______________ test_A12_strict_reading_names_line[extra_field] ________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97ce8e00>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_3/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_3/manifests'))
+variant = 'extra_field'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+______________ test_A12_strict_reading_names_line[size_as_string] ______________
+
+mk = <function mk.<locals>._mk at 0x7f4f97ceac00>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_4/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_4/manifests'))
+variant = 'size_as_string'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+______________ test_A12_strict_reading_names_line[sha_uppercase] _______________
+
+mk = <function mk.<locals>._mk at 0x7f4f97ceb100>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_5/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_5/manifests'))
+variant = 'sha_uppercase'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_____________ test_A12_strict_reading_names_line[fetched_at_no_Z] ______________
+
+mk = <function mk.<locals>._mk at 0x7f4f97ceb740>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_6/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_6/manifests'))
+variant = 'fetched_at_no_Z'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________ test_A12_strict_reading_names_line[blank_line] ________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cebd80>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_7/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A12_strict_reading_names_7/manifests'))
+variant = 'blank_line'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("variant", VARIANTS)
+    def test_A12_strict_reading_names_line(mk, roots, variant):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+______________ test_A13_no_manifest_is_empty_and_creates_nothing _______________
+
+mk = <function mk.<locals>._mk at 0x7f4f937582c0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A13_no_manifest_is_empty_0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A13_no_manifest_is_empty_0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A13_no_manifest_is_empty_0')
+
+    def test_A13_no_manifest_is_empty_and_creates_nothing(mk, roots, tmp_path):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:90: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________________ test_A14_lookup_latest_and_all ________________________
+
+mk = <function mk.<locals>._mk at 0x7f4f937587c0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A14_lookup_latest_and_all0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A14_lookup_latest_and_all0/manifests'))
+
+    def test_A14_lookup_latest_and_all(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:102: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________ test_A15_verify_detects_tampered_and_truncated ________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93758cc0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A15_verify_detects_tamper0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A15_verify_detects_tamper0/manifests'))
+
+    @pytest.mark.planted
+    def test_A15_verify_detects_tampered_and_truncated(mk, roots):
+        raw, man = roots
+>       st, paths = _healthy3(mk, raw)
+                    ^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/test_manifest_read_verify.py:116: in _healthy3
+    st = mk()
+         ^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________ test_A16_verify_missing_writable_misplaced __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97ceb740>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A16_verify_missing_writab0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A16_verify_missing_writab0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A16_verify_missing_writab0')
+
+    @pytest.mark.planted
+    def test_A16_verify_missing_writable_misplaced(mk, roots, tmp_path):
+        # missing file: one problem per referencing manifest line
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:147: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_________________ test_A17_verify_healthy_readonly_and_scoped __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97ceac00>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A17_verify_healthy_readon0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A17_verify_healthy_readon0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A17_verify_healthy_readon0')
+
+    def test_A17_verify_healthy_readonly_and_scoped(mk, roots, tmp_path):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:185: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________________ test_A18_read_bytes_reverifies ________________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cd3ec0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A18_read_bytes_reverifies0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A18_read_bytes_reverifies0/manifests'))
+
+    @pytest.mark.planted
+    def test_A18_read_bytes_reverifies(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+___________________ test_A19_invalid_source_rejected_first[] ___________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cd27a0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject0')
+source = ''
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("source", BAD_SOURCES)
+    def test_A19_invalid_source_rejected_first(mk, roots, tmp_path, source):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________ test_A19_invalid_source_rejected_first[..] __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93758b80>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject1/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject1/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject1')
+source = '..'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("source", BAD_SOURCES)
+    def test_A19_invalid_source_rejected_first(mk, roots, tmp_path, source):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_________________ test_A19_invalid_source_rejected_first[a/b] __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93759120>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject2/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject2/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject2')
+source = 'a/b'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("source", BAD_SOURCES)
+    def test_A19_invalid_source_rejected_first(mk, roots, tmp_path, source):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________ test_A19_invalid_source_rejected_first[A] ___________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93759800>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject3/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject3/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject3')
+source = 'A'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("source", BAD_SOURCES)
+    def test_A19_invalid_source_rejected_first(mk, roots, tmp_path, source):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_ test_A19_invalid_source_rejected_first[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx] _
+
+mk = <function mk.<locals>._mk at 0x7f4f93759d00>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject4/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject4/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject4')
+source = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("source", BAD_SOURCES)
+    def test_A19_invalid_source_rejected_first(mk, roots, tmp_path, source):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________ test_A19_invalid_source_rejected_first[-a] __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375a200>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject5/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject5/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19_invalid_source_reject5')
+source = '-a'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("source", BAD_SOURCES)
+    def test_A19_invalid_source_rejected_first(mk, roots, tmp_path, source):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:217: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_______________________ test_A19b_valid_source_boundary ________________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375a700>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19b_valid_source_boundar0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19b_valid_source_boundar0/manifests'))
+
+    def test_A19b_valid_source_boundary(mk, roots):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:236: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________ test_A19c_invalid_sha_rejected[../../etc] ___________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375ac00>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected0/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected0')
+bad_sha = '../../etc'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad_sha", ["../../etc", HELLO_SHA.upper(), HELLO_SHA[:63], HELLO_SHA + "0", "", "g" * 64])
+    def test_A19c_invalid_sha_rejected(mk, roots, tmp_path, bad_sha):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_ test_A19c_invalid_sha_rejected[2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824] _
+
+mk = <function mk.<locals>._mk at 0x7f4f9375b100>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected1/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected1/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected1')
+bad_sha = '2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad_sha", ["../../etc", HELLO_SHA.upper(), HELLO_SHA[:63], HELLO_SHA + "0", "", "g" * 64])
+    def test_A19c_invalid_sha_rejected(mk, roots, tmp_path, bad_sha):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_ test_A19c_invalid_sha_rejected[2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b982] _
+
+mk = <function mk.<locals>._mk at 0x7f4f97ceb100>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected2/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected2/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected2')
+bad_sha = '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b982'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad_sha", ["../../etc", HELLO_SHA.upper(), HELLO_SHA[:63], HELLO_SHA + "0", "", "g" * 64])
+    def test_A19c_invalid_sha_rejected(mk, roots, tmp_path, bad_sha):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_ test_A19c_invalid_sha_rejected[2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b98240] _
+
+mk = <function mk.<locals>._mk at 0x7f4f97ceb740>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected3/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected3/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected3')
+bad_sha = '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b98240'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad_sha", ["../../etc", HELLO_SHA.upper(), HELLO_SHA[:63], HELLO_SHA + "0", "", "g" * 64])
+    def test_A19c_invalid_sha_rejected(mk, roots, tmp_path, bad_sha):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_______________________ test_A19c_invalid_sha_rejected[] _______________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375b240>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected4/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected4/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected4')
+bad_sha = ''
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad_sha", ["../../etc", HELLO_SHA.upper(), HELLO_SHA[:63], HELLO_SHA + "0", "", "g" * 64])
+    def test_A19c_invalid_sha_rejected(mk, roots, tmp_path, bad_sha):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_ test_A19c_invalid_sha_rejected[gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg] _
+
+mk = <function mk.<locals>._mk at 0x7f4f93759c60>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected5/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected5/manifests'))
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A19c_invalid_sha_rejected5')
+bad_sha = 'gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("bad_sha", ["../../etc", HELLO_SHA.upper(), HELLO_SHA[:63], HELLO_SHA + "0", "", "g" * 64])
+    def test_A19c_invalid_sha_rejected(mk, roots, tmp_path, bad_sha):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_read_verify.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+___________________ test_A1_store_content_addressed_readonly ___________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93759300>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A1_store_content_addresse0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A1_store_content_addresse0/manifests'))
+
+    def test_A1_store_content_addressed_readonly(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_____________________ test_A2_manifest_line_format_and_utc _____________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375b380>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A2_manifest_line_format_a0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A2_manifest_line_format_a0/manifests'))
+
+    def test_A2_manifest_line_format_and_utc(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_______________________ test_A3_naive_datetime_rejected ________________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375b920>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A3_naive_datetime_rejecte0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A3_naive_datetime_rejecte0/manifests'))
+
+    @pytest.mark.planted
+    def test_A3_naive_datetime_rejected(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_____________________ test_A3b_argument_constraints[url-] ______________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375be20>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_0/manifests'))
+field = 'url', value = ''
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("field,value", [
+        ("url", ""), ("source_version", ""), ("run_id", ""), ("logical_key", ""), ("logical_key", "k" * 513),
+    ])
+    def test_A3b_argument_constraints(mk, roots, field, value):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________ test_A3b_argument_constraints[source_version-] ________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93778400>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_1/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_1/manifests'))
+field = 'source_version', value = ''
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("field,value", [
+        ("url", ""), ("source_version", ""), ("run_id", ""), ("logical_key", ""), ("logical_key", "k" * 513),
+    ])
+    def test_A3b_argument_constraints(mk, roots, field, value):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+____________________ test_A3b_argument_constraints[run_id-] ____________________
+
+mk = <function mk.<locals>._mk at 0x7f4f937789a0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_2/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_2/manifests'))
+field = 'run_id', value = ''
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("field,value", [
+        ("url", ""), ("source_version", ""), ("run_id", ""), ("logical_key", ""), ("logical_key", "k" * 513),
+    ])
+    def test_A3b_argument_constraints(mk, roots, field, value):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_________________ test_A3b_argument_constraints[logical_key-] __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93778f40>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_3/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_3/manifests'))
+field = 'logical_key', value = ''
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("field,value", [
+        ("url", ""), ("source_version", ""), ("run_id", ""), ("logical_key", ""), ("logical_key", "k" * 513),
+    ])
+    def test_A3b_argument_constraints(mk, roots, field, value):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_ test_A3b_argument_constraints[logical_key-kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk] _
+
+mk = <function mk.<locals>._mk at 0x7f4f937794e0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_4/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A3b_argument_constraints_4/manifests'))
+field = 'logical_key'
+value = 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk...kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("field,value", [
+        ("url", ""), ("source_version", ""), ("run_id", ""), ("logical_key", ""), ("logical_key", "k" * 513),
+    ])
+    def test_A3b_argument_constraints(mk, roots, field, value):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_____________________ test_A3c_logical_key_boundary_512_ok _____________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93759b20>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A3c_logical_key_boundary_0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A3c_logical_key_boundary_0/manifests'))
+
+    def test_A3c_logical_key_boundary_512_ok(mk, roots):
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+______________________ test_A4_same_bytes_dedup_two_lines ______________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9375b240>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A4_same_bytes_dedup_two_l0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A4_same_bytes_dedup_two_l0/manifests'))
+
+    def test_A4_same_bytes_dedup_two_lines(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________ test_A5_tampered_existing_file_not_overwritten ________________
+
+mk = <function mk.<locals>._mk at 0x7f4f97cebe20>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A5_tampered_existing_file0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A5_tampered_existing_file0/manifests'))
+
+    @pytest.mark.planted
+    def test_A5_tampered_existing_file_not_overwritten(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+______________________ test_A6_no_destructive_public_api _______________________
+
+    def test_A6_no_destructive_public_api():
+>       import investos.acquire.manifest as m
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/test_manifest_write.py:130: ModuleNotFoundError
+________________ test_A7_failure_midstore_leaves_nothing[fsync] ________________
+
+mk = <function mk.<locals>._mk at 0x7f4f937796c0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A7_failure_midstore_leave0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A7_failure_midstore_leave0/manifests'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f4f93749940>
+target = 'fsync'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("target", ["fsync", "link"])
+    def test_A7_failure_midstore_leaves_nothing(mk, roots, monkeypatch, target):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+________________ test_A7_failure_midstore_leaves_nothing[link] _________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93778860>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A7_failure_midstore_leave1/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A7_failure_midstore_leave1/manifests'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f4f937496e0>
+target = 'link'
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("target", ["fsync", "link"])
+    def test_A7_failure_midstore_leaves_nothing(mk, roots, monkeypatch, target):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________ test_A8_link_race_identical_bytes_is_dedup __________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93779a80>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A8_link_race_identical_by0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A8_link_race_identical_by0/manifests'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f4f97cf84d0>
+
+    def test_A8_link_race_identical_bytes_is_dedup(mk, roots, monkeypatch):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+____________________________ test_A20_empty_payload ____________________________
+
+mk = <function mk.<locals>._mk at 0x7f4f93779f80>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A20_empty_payload0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A20_empty_payload0/manifests'))
+
+    def test_A20_empty_payload(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:185: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+____________________ test_A21_special_characters_roundtrip _____________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9377a480>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A21_special_characters_ro0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A21_special_characters_ro0/manifests'))
+
+    def test_A21_special_characters_roundtrip(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:195: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+__________________________ test_A22_stale_tmp_ignored __________________________
+
+mk = <function mk.<locals>._mk at 0x7f4f9377a980>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-47/test_A22_stale_tmp_ignored0/raw'), PosixPath('/tmp/pytest-of-root/pytest-47/test_A22_stale_tmp_ignored0/manifests'))
+
+    def test_A22_stale_tmp_ignored(mk, roots):
+        raw, man = roots
+>       st = mk()
+             ^^^^
+
+tests/unit/acquire/test_manifest_write.py:211: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+base = None, clock = None
+
+    def _mk(base=None, clock=None):
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/conftest.py:22: ModuleNotFoundError
+_______________ test_A23_missing_root_raises_manifest_error[raw] _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A23_missing_root_raises_m0')
+missing = 'raw'
+
+    @pytest.mark.parametrize("missing", ["raw", "manifests"])
+    def test_A23_missing_root_raises_manifest_error(tmp_path, missing):
+>       from investos.acquire.manifest import ManifestError, ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/test_manifest_write.py:225: ModuleNotFoundError
+____________ test_A23_missing_root_raises_manifest_error[manifests] ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A23_missing_root_raises_m1')
+missing = 'manifests'
+
+    @pytest.mark.parametrize("missing", ["raw", "manifests"])
+    def test_A23_missing_root_raises_manifest_error(tmp_path, missing):
+>       from investos.acquire.manifest import ManifestError, ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/test_manifest_write.py:225: ModuleNotFoundError
+_____________________________ test_A24_from_config _____________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-47/test_A24_from_config0')
+
+    def test_A24_from_config(tmp_path):
+        from investos.core.config import Config, RateLimits
+>       from investos.acquire.manifest import ManifestStore
+E       ModuleNotFoundError: No module named 'investos.acquire.manifest'
+
+tests/unit/acquire/test_manifest_write.py:240: ModuleNotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_manifest_concurrency.py::test_A9_multiprocess_appends_no_loss_no_tear
+FAILED tests/unit/acquire/test_manifest_concurrency.py::test_A9b_threads_share_one_store
+FAILED tests/unit/acquire/test_manifest_concurrency.py::test_A10_lock_blocks_same_source_not_other
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A11_truncated_last_line
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[invalid_json]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[json_array]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[missing_run_id]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[extra_field]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[size_as_string]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[sha_uppercase]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[fetched_at_no_Z]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A12_strict_reading_names_line[blank_line]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A13_no_manifest_is_empty_and_creates_nothing
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A14_lookup_latest_and_all
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A15_verify_detects_tampered_and_truncated
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A16_verify_missing_writable_misplaced
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A17_verify_healthy_readonly_and_scoped
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A18_read_bytes_reverifies
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19_invalid_source_rejected_first[]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19_invalid_source_rejected_first[..]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19_invalid_source_rejected_first[a/b]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19_invalid_source_rejected_first[A]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19_invalid_source_rejected_first[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19_invalid_source_rejected_first[-a]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19b_valid_source_boundary
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19c_invalid_sha_rejected[../../etc]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19c_invalid_sha_rejected[2CF24DBA5FB0A30E26E83B2AC5B9E29E1B161E5C1FA7425E73043362938B9824]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19c_invalid_sha_rejected[2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b982]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19c_invalid_sha_rejected[2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b98240]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19c_invalid_sha_rejected[]
+FAILED tests/unit/acquire/test_manifest_read_verify.py::test_A19c_invalid_sha_rejected[gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A1_store_content_addressed_readonly
+FAILED tests/unit/acquire/test_manifest_write.py::test_A2_manifest_line_format_and_utc
+FAILED tests/unit/acquire/test_manifest_write.py::test_A3_naive_datetime_rejected
+FAILED tests/unit/acquire/test_manifest_write.py::test_A3b_argument_constraints[url-]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A3b_argument_constraints[source_version-]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A3b_argument_constraints[run_id-]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A3b_argument_constraints[logical_key-]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A3b_argument_constraints[logical_key-kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A3c_logical_key_boundary_512_ok
+FAILED tests/unit/acquire/test_manifest_write.py::test_A4_same_bytes_dedup_two_lines
+FAILED tests/unit/acquire/test_manifest_write.py::test_A5_tampered_existing_file_not_overwritten
+FAILED tests/unit/acquire/test_manifest_write.py::test_A6_no_destructive_public_api
+FAILED tests/unit/acquire/test_manifest_write.py::test_A7_failure_midstore_leaves_nothing[fsync]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A7_failure_midstore_leaves_nothing[link]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A8_link_race_identical_bytes_is_dedup
+FAILED tests/unit/acquire/test_manifest_write.py::test_A20_empty_payload - Mo...
+FAILED tests/unit/acquire/test_manifest_write.py::test_A21_special_characters_roundtrip
+FAILED tests/unit/acquire/test_manifest_write.py::test_A22_stale_tmp_ignored
+FAILED tests/unit/acquire/test_manifest_write.py::test_A23_missing_root_raises_manifest_error[raw]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A23_missing_root_raises_manifest_error[manifests]
+FAILED tests/unit/acquire/test_manifest_write.py::test_A24_from_config - Modu...
+52 failed, 75 passed in 1.43s
