@@ -1,0 +1,23 @@
+== manifest lines
+{"fetched_at":"2026-11-19T10:00:00.000000Z","logical_key":"2026-11-19","run_id":"r1","sha256":"561910d04683886f53ccd37a58e2b928094308822c0029470fe8bcc76cfa98c0","size":11,"source":"sample","source_version":"v1","url":"https://example.test/2026-11-19"}
+{"fetched_at":"2026-11-20T10:00:00.000000Z","logical_key":"2026-11-20","run_id":"r2","sha256":"b5369b79c79ac3c12745ea3d1589c0f976de6f9daea25c2ab9746f5c20614edd","size":10,"source":"sample","source_version":"v1","url":"https://example.test/2026-11-20"}
+{"fetched_at":"2026-11-21T10:00:00.000000Z","logical_key":"2026-11-20","run_id":"r3","sha256":"b5369b79c79ac3c12745ea3d1589c0f976de6f9daea25c2ab9746f5c20614edd","size":10,"source":"sample","source_version":"v1","url":"https://example.test/2026-11-20"}
+{"fetched_at":"2026-11-21T10:00:00.000000Z","logical_key":"2026-11-21","run_id":"r4","sha256":"8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581","size":11,"source":"sample","source_version":"v1","url":"https://example.test/2026-11-21"}
+== raw tree
+drwxr-xr-x sample
+drwxr-xr-x sample/56
+-r--r--r-- sample/56/561910d04683886f53ccd37a58e2b928094308822c0029470fe8bcc76cfa98c0
+drwxr-xr-x sample/8d
+-r--r--r-- sample/8d/8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581
+drwxr-xr-x sample/b5
+-r--r--r-- sample/b5/b5369b79c79ac3c12745ea3d1589c0f976de6f9daea25c2ab9746f5c20614edd
+== get_by_key
+2026-11-19 -> ManifestEntry(sha256='561910d04683886f53ccd37a58e2b928094308822c0029470fe8bcc76cfa98c0', size=11, url='https://example.test/2026-11-19', fetched_at=datetime.datetime(2026, 11, 19, 10, 0, tzinfo=datetime.timezone.utc), source='sample', source_version='v1', logical_key='2026-11-19', run_id='r1')
+2026-11-20 -> ManifestEntry(sha256='b5369b79c79ac3c12745ea3d1589c0f976de6f9daea25c2ab9746f5c20614edd', size=10, url='https://example.test/2026-11-20', fetched_at=datetime.datetime(2026, 11, 21, 10, 0, tzinfo=datetime.timezone.utc), source='sample', source_version='v1', logical_key='2026-11-20', run_id='r3')
+2026-11-21 -> ManifestEntry(sha256='8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581', size=11, url='https://example.test/2026-11-21', fetched_at=datetime.datetime(2026, 11, 21, 10, 0, tzinfo=datetime.timezone.utc), source='sample', source_version='v1', logical_key='2026-11-21', run_id='r4')
+nope -> None
+== get_all_by_key 2026-11-20: ['r2', 'r3']
+== verify() -> []
+== after chmod u+w and changing one byte
+Problem(kind='hash_mismatch', source='sample', path='/tmp/s0t3-data-5afn6ubz/raw/sample/8d/8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581', line=None, detail='content hash differs from file name')
+Problem(kind='writable_file', source='sample', path='/tmp/s0t3-data-5afn6ubz/raw/sample/8d/8d15483c545086f42b42ac237e84b5c9e3643ec9ed342adc1a3f3c0ef57a6581', line=None, detail='mode 0644')
