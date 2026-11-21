@@ -179,3 +179,187 @@ A27. (R11) Given a `ManifestStore` double that records calls, then the collector
 - Real HTTP client (`urllib`/`httpx` adapter): a production `Transport` is out of Stage 0 scope; only the Protocol and the fake.
 - Scheduling, parallel fetching (one request at a time per collector instance).
 - Manifest/raw storage internals (S0-T3) and check CLI (S0-T5).
+
+---
+
+# Stage 1 amendment   (from brief S1-T1, task S1-SPEC1, 21 Nov 2026)
+
+Implements decision 0002 and 0002a and audit conditions C2 (A2, A6, A8 are already fixed in S0-FIX; this section covers the rest of C2). Modules: `src/investos/acquire/base.py` (amended), new `src/investos/acquire/access.py` (access modes, state file, limiter, caps), new `src/investos/acquire/transport.py` (`UrllibTransport`, `BrowserTransport` protocol), `src/investos/core/config.py` (new `[collect]` section), `config/investos.example.toml`, `src/investos/cli.py` (`investos access status|clear`). Stdlib only. Rule numbering continues from R16; acceptance tests from A28. The manifest side (schema v2) is in `specs/core_manifest.md`, "Stage 1 amendment", and must be merged first (S1-T2).
+
+## What this amendment supersedes
+| Old text | Status |
+|---|---|
+| R2 header value `investos/<version>` | superseded by R19, R20 (`InvestOS/<version> (personal research; <contact>)`, plus `Accept-Encoding`) |
+| R4 "HTTP 429 is retried" and the edge case "429 with Retry-After: fixed backoff applies" | superseded by R24: 429 is a block, never retried |
+| R5 block list `401, 403, 451` | extended by R24 (adds 429 and challenge pages; blocks persist) |
+| R3 / edge case "Per-host rate-limit state lives in the Collector instance (not persisted across processes)" | superseded by R27 (cross-process); the in-process monotonic rule of R3 still holds |
+| A9 (`[TransportError, 429, 200]` fetched after 3 calls) | superseded by A40; A9's TransportError and 5xx retry parts stay (covered by A10, A8) |
+| A13 (headers exactly `investos/<version>`) | superseded by A30, A31 |
+| "Not in this module: real HTTP client" | superseded by R21 (`UrllibTransport`) and R23 (`BrowserTransport` interface) |
+| `timeout_s: ClassVar[float] = 30.0` | changed to `ClassVar[float | None] = None`; `None` means `cfg.collect.timeout_s` (R21) |
+All other rules R1 to R16 and tests A1 to A27 stand. "Source" and "adapter" mean the same thing here: one `Collector` subclass, identified by its `source` class attribute.
+
+## Config addition (extends core_config R2; the schema stays strict)
+```toml
+[collect]                                   # optional section; a Collector refuses to instantiate without [collect].contact
+contact = "name@example.com"                # str, see R20
+timeout_s = 30.0                            # number > 0, default 30.0
+max_body_bytes = 536870912                  # int >= 1, decoded body cap for UrllibTransport, default 512 MiB
+
+[collect.access.nse_api]                    # one table per adapter that is not plain honest; key = Collector.source (SOURCE_RE)
+mode = "real_browser"                       # "honest" (default if table exists) | "real_browser" | "scoped_exception"
+decision = "0003"                           # str "NNNN" or "NNNNa"; required for scoped_exception, optional otherwise
+daily_cap = 300                             # int >= 1; REQUIRED for real_browser and scoped_exception, optional for honest
+challenge_signatures = ["Access Denied"]    # list of non-empty str, each <= 200 chars; optional
+```
+`Config.collect` is a frozen `CollectConfig(contact: str | None, timeout_s: float, max_body_bytes: int, access: Mapping[str, AccessEntry])` and is always present on `Config` (`contact=None` and an empty `access` when the section is absent). `AccessEntry(mode, decision, daily_cap, challenge_signatures)`. No environment overrides exist for `[collect]` keys; the typo guard of core_config R3 still rejects `INVESTOS_COLLECT__*`. Unknown keys or sections, wrong types, a bool where a number is required, a mode outside the three values, a table name that fails SOURCE_RE, a missing `decision` on `scoped_exception`, a missing `daily_cap` on a non-honest mode: `ConfigError` naming the dotted key. `rate_limits.hosts` in `config/investos.example.toml` gains `"nsearchives.nseindia.com" = 1.0`, `"www.nseindia.com" = 2.5`, `"www.nseindia.in" = 2.5`, `"api.bseindia.com" = 2.5`; the example `[collect]` block uses the placeholder `contact = "CHANGE-ME@example.invalid"` and no `access` tables. The example file must still load.
+
+## Inputs (new schema)
+```python
+class AccessMode(str, Enum):
+    HONEST = "honest"; REAL_BROWSER = "real_browser"; SCOPED_EXCEPTION = "scoped_exception"
+
+class Transport(Protocol):                    # unchanged signature
+    accept_encoding: str                      # NEW optional attribute: encodings it can decode, e.g. "identity" or "gzip, deflate"; absent means "identity"
+    def get(self, url: str, *, headers: Mapping[str, str], timeout: float) -> Response: ...
+
+@dataclass(frozen=True)
+class BrowserResponse:
+    status: int
+    headers: Mapping[str, str]                # response headers, lowercased names
+    body: bytes                               # bytes as received over the wire after the browser's own content decoding
+    final_url: str                            # URL after any redirects, fragment included if the browser reports it
+    request_headers: Mapping[str, str] | None # headers the browser reports it sent; None if unavailable
+
+class BrowserTransport(Protocol):
+    def fetch(self, url: str) -> BrowserResponse: ...      # raises TransportError on timeout / page crash / navigation failure
+
+class Collector(ABC):
+    access_mode: ClassVar[AccessMode] = AccessMode.HONEST
+    def __init__(self, *, transport: Transport | None = None, browser: BrowserTransport | None = None,
+                 manifest, cfg, run_id=None, sidecar_dir=None, clock=None, monotonic=None, sleeper=None,
+                 wall_clock: Callable[[], float] | None = None)   # wall_clock = epoch seconds, default time.time
+    def headers_for(self, key: str, url: str) -> Mapping[str, str]  # default: dict(self.extra_headers); scoped_exception adapters may override (Referer/Cookie per request)
+```
+```python
+# acquire/access.py (names are the contract; tests import them)
+class AccessStateError(Exception): ...        # unreadable or invalid access state file (fail closed)
+@dataclass(frozen=True)
+class AccessEvent: ts: str; date: str; event: str; source: str; host: str | None; detail: str; run_id: str; decision: str | None; schema: int = 1
+class AccessState:
+    def __init__(self, cfg: Config, source: str, *, clock)
+    def status(self) -> "AccessStatus"        # (blocked_today: bool, halted: bool, today: str, reason: str)
+    def record_block(self, *, host: str, detail: str, run_id: str) -> AccessEvent   # may also append a `halted` event (R26)
+    def events(self) -> list[AccessEvent]
+def clear_halt(cfg: Config, source: str, *, decision: str, clock, run_id: str) -> AccessEvent
+class HostLimiter:                            # R27
+    def __init__(self, state_dir: Path, *, wall_clock, monotonic, sleeper)
+    def acquire(self, host: str, interval: float) -> None
+class DailyCounter:                           # R29
+    def __init__(self, state_dir: Path, source: str, *, clock)
+    def reserve(self, cap: int | None) -> bool  # True and counted, or False (cap reached); atomic across processes
+```
+State directories: `AccessState` file `<cfg.zones["ledger"]>/access/<source>.jsonl` (lock `<file>.lock`); limiter and counter files under `<cfg.zones["ledger"]>/.state/` (ignored by git, see R25).
+
+## Rules (numbered, each gets at least one test and one planted failure)
+
+R17. Access mode per adapter. `Collector.access_mode` is a class attribute (default `honest`). At instantiation the base compares it with `cfg.collect.access[source].mode` (absent table = `honest`). They must be equal; any difference in either direction raises `ValueError` naming the source and both values. So a class cannot become non-honest by config alone, and a config entry cannot upgrade an honest class. A non-honest class must have a config table with `daily_cap` (the config validator already enforces it; the base re-checks). The mode value outside the three raises `ValueError`.
+
+R18. Decision row for `scoped_exception`. A `scoped_exception` adapter instantiates only if its config entry has `decision = "<id>"` and exactly one file `docs/decisions/<id>-*.md` exists under `cfg.repo_root` that contains the exact lines `Adapter: <source>` and `Access-mode: scoped_exception` (case-sensitive, whole line, either order, anywhere in the file). No such file, more than one file, or a file lacking either line raises `ValueError`. The check is repeated at every instantiation (no cache). `real_browser` adapters need only the config table (decision 0002a authorises the mode generally); if their entry has a `decision`, the same file test applies with `Access-mode: real_browser`. In this repo "decision row" means a numbered file in `docs/decisions/`; the `decisions` ledger (`decisions.jsonl`) holds trade decisions and cannot carry access approvals.
+
+R19. Headers by mode (supersedes R2 for the value and the exact set; the validation rules of S0-FIX stay: names are RFC 7230 tokens, `_` normalised to `-`, values have no CR/LF/NUL, a case-insensitive deny-list). Requests built by the base:
+- `honest`: exactly `{"User-Agent": <ua>, "Accept-Encoding": <enc>, **headers_for(...)}`. `extra_headers` may not contain `user-agent`, `referer`, `origin`, `cookie`, `accept-encoding` or any other denied name.
+- `scoped_exception`: the same, except `headers_for`/`extra_headers` may additionally contain `User-Agent` (then it replaces the honest UA), `Referer` and `Cookie`. Nothing else is unlocked.
+- `real_browser`: the base sends no headers at all (there is no header argument in `BrowserTransport.fetch`); the browser's own headers are only recorded (R23, R30).
+- In every mode the deny-list still refuses `origin`, `authorization`, `proxy-authorization`, `host`, `forwarded`, `via`, `x-forwarded-for`, `x-forwarded-host`, `x-real-ip`, `x-client-ip`, `true-client-ip`, `cookie2` and `accept-encoding` (the base owns it). `headers_for` is validated on every call; a violation raises `ValueError` before any request. There is still no code path that changes identity or headers after a block (R2 stands).
+- `<enc>` is `transport.accept_encoding` if the attribute exists, else `identity`.
+
+R20. Honest identity. `<ua>` = `InvestOS/<investos.__version__> (personal research; <contact>)`, `contact = cfg.collect.contact`. A `None` contact raises `ValueError("collect.contact is not configured")` at instantiation (every mode, because the manifest records the headers). Contact must be 3 to 100 printable ASCII characters, contain no `;`, `(`, `)`, CR, LF or NUL, and no leading/trailing space; otherwise `ValueError`. A contact ending in `.invalid` is refused when the transport is a `UrllibTransport` (placeholder not replaced); fakes may use it.
+
+R21. Production HTTP transport. `acquire/transport.py` provides `UrllibTransport(*, max_body_bytes: int = 536870912, allowed_schemes: tuple[str, ...] = ("https",), brotli_module=None)` implementing `Transport`, built on `urllib.request`:
+(a) it sends exactly the headers it is given, no more: an opener with `addheaders = []`, so no default `User-Agent`, `Accept` or `Accept-Encoding`; only the protocol-mandatory `Host` and `Connection: close` added by the library are allowed beyond the given set, and they are not part of the recorded headers;
+(b) it never follows redirects: a 3xx is returned as a `Response` with its `location` header and original body; an `HTTPError` (4xx/5xx) is converted to a `Response`, not raised;
+(c) environment proxy settings are ignored (empty `ProxyHandler`); schemes outside `allowed_schemes` raise `ValueError`;
+(d) `Content-Encoding` gzip and deflate (zlib-wrapped or raw) are decoded; `br` only if `brotli` imports (or `brotli_module` is given), otherwise it is never advertised. `accept_encoding` is `"gzip, deflate"`, plus `, br` when brotli is available. After decoding, the `content-encoding` and `content-length` headers are dropped. Decoding is streamed and the decoded size is capped at `max_body_bytes`; beyond it, `TransportError("body too large")`. An encoding it cannot decode leaves the body and the `content-encoding` header untouched (R22);
+(e) timeout: the per-call `timeout` argument bounds every socket operation, and the whole call (connect, headers, body) is bounded by `4 * timeout` wall seconds; a timeout, DNS failure, connection reset or incomplete read raises `TransportError`. The Collector passes `timeout = cls.timeout_s if not None else cfg.collect.timeout_s`;
+(f) response header names are lowercased; repeated headers are joined with `", "`; `Response.url` is the requested URL.
+
+R22. Undecoded bodies. After any successful response from either transport kind, if a `content-encoding` header remains whose lowercased value is neither empty nor `identity`, the key becomes `unreadable` (reason `"undecoded content-encoding <value>"`), `check_body` is not called and nothing is stored.
+
+R23. Real-browser interface. `real_browser` adapters use `browser=` and never an HTTP `Transport`. Construction rules: a `real_browser` class with `transport=` set, or any other mode with `browser=` set, or both or neither given, raises `ValueError`. Per key the base calls `browser.fetch(url)` once per attempt and builds the same `check_body` input as for HTTP: `Response(status, headers, body, url=requested url)`. Additional rules: (a) if `final_url` differs from the requested URL (ignoring a fragment) the key is `unreadable` (reason `"redirected to <final_url>"`, nothing stored), the same meaning as "a redirect is an outcome" for HTTP; (b) R4 retries, R5/R24 blocks, R6 body checks, R10 page limits, R12 archives, R22, R27 to R29 apply unchanged; (c) `TransportError` from `fetch` is retried like any transport error; (d) the browser implementation itself (Playwright or the Claude desktop browser) is not in this task: it is built later in the backfill runner task, must not hide `navigator.webdriver`, use stealth plugins or synthetic input, and only has to satisfy this Protocol; (e) "Sagar's Mac only" cannot be enforced in code and is not checked.
+
+R24. Block policy (supersedes R4's retry of 429 and R5's list; R5's abort and "never worked around" stand). A response is a block if (a) its status is 401, 403, 429 or 451, or (b) its body, any status, contains one of the adapter's configured `challenge_signatures` (UTF-8 bytes, case-sensitive substring, first 256 KiB of the body only). The status check happens before `check_body`; the signature check happens before `check_body` and before the R22 check. On a block the base: marks the key `unreadable` with reason `"blocked http <status>"` or `"challenge page: <signature>"`; does not retry (429 included); appends a `blocked` event to the adapter's access state (R25) before anything else; aborts the run per R8. From then until the end of the current IST day (R25) the adapter is blocked: every later run, in this or any other process, makes zero HTTP calls and every key that is not `skipped` becomes `not_attempted` with reason `"adapter blocked for IST day <YYYY-MM-DD>"` and status `aborted`. A process that is mid-run when another process records a block sees it before its next request attempt (the state is re-read before every attempt, including retries). Block state is never cleared by a successful request, a retry, or a mode/identity change.
+
+R25. Access state file. One append-only JSONL file per adapter, `<ledger zone>/access/<source>.jsonl`, tracked in git (small, an audit trail, and it travels with the daily routine of `specs/ops_roots_routine.md`). Chosen over the manifests zone because the manifests check treats every file there as a source manifest (`misplaced_file`/`bad_line`), and over an untracked file because a block history must survive a re-clone. Each line is `canonical_json`-style (`json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)` plus `"\n"`) of `{"schema":1,"ts":"<UTC, 6 digits, Z>","date":"<IST date of ts>","event":"blocked"|"halted"|"cleared","source":"<source>","host":<str or null>,"detail":"<text>","run_id":"<id>","decision":<str or null>}`. `decision` is non-null only for `cleared`. Writers take an exclusive `flock` on `<file>.lock`, write the whole line in one `write`, flush and fsync (and fsync the directory after creating the file), and refuse to append to a file whose last byte is not a newline. Readers parse strictly under a shared lock when the tail is unterminated (the S0-FIX A2 pattern): any invalid line, unknown field, unknown event, `schema != 1`, `date` not equal to the IST date of `ts`, a torn tail that persists under the lock, raises `AccessStateError`. The collector fails closed: `AccessStateError` at start or mid-run means zero further requests, status `aborted`, reason `"access state unreadable: <detail>"`, ERROR log; the torn-tail runbook procedure applies to these files too. Reads are cached by the stat signature `(inode, size, mtime_ns, ctime_ns)` and re-validated before every request attempt. "IST day" is `clock()` converted with `ZoneInfo("Asia/Kolkata")`. `.gitignore` gains `data/ledger/.state/` (limiter and counter files, R27, R29); `*.lock` is already ignored.
+
+R26. Halt after repeated blocks. After appending a `blocked` event the base counts the distinct IST dates of `blocked` events for that source within the 7 IST dates ending today (today and the 6 days before), counting only events after the latest `cleared` event. If the count is 3 or more and the adapter is not already halted, it appends a `halted` event (`detail = "3 blocked days in 7"`). A halted adapter (latest event among `halted`/`cleared` is `halted`) makes zero HTTP calls on any day: `not_attempted` with reason `"adapter halted: <detail>; needs a decision"`, status `aborted`. Only `clear_halt(cfg, source, decision=<id>, ...)` ends a halt: it requires the adapter to be halted and a decision file `docs/decisions/<id>-*.md` containing the line `Clears-halt: <source>` (exactly one match), and appends `cleared` with that `decision`; otherwise it raises `ValueError` and writes nothing. A `cleared` event resets the 7-day count (earlier blocks no longer count) but does not lift a day-block of the current IST day. `investos access status [source]` prints, per adapter, today's block flag, halted flag and the last 5 events; `investos access clear <source> --decision <id>` calls `clear_halt`; exit codes 0 ok, 1 refused, 2 usage.
+
+R27. Cross-process rate limiter. Per host (lowercased `urlparse(url).hostname`), files `<ledger zone>/.state/ratelimit/<host>.lock` and `<host>.last` (decimal integer nanoseconds since the Unix epoch, ASCII, no newline needed). `HostLimiter.acquire(host, interval)` does, in order: take `flock(LOCK_EX)` on the lock file (so concurrent processes queue); read the last-start stamp (missing file: no wait; unreadable or non-numeric content: wait the full `interval`); wait = `interval - (wall_now - last)`, clamped to `[0, interval]` (a stamp in the future, from a clock that moved backwards, never causes a wait longer than `interval`); also wait the in-process `monotonic` rule of R3 (`interval - (mono_now - last_mono_start)`), taking the larger of the two waits; call `sleeper(wait)` while still holding the lock if wait > 0; write `wall_now` (taken after the sleep) to the `.last` file via temp file plus `os.replace` and fsync; release. The first request to a host from a fresh process with no `.last` file does not wait. Hosts are independent. The lock is released on any exception. The Collector calls `acquire` before every request attempt, retries included, instead of its old private `_pace` (R3's observable behaviour with a fake clock is unchanged).
+
+R28. Interval defaults and floors. Interval = `cfg.rate_limits.interval_for(host)` (default 0.35, hosts from config, example config per above). For adapters whose mode is `real_browser` or `scoped_exception` the effective interval is `max(configured, 2.5)` seconds (decision 0002a floor), whatever the config says; `honest` adapters use the configured value unchanged (archives 1.0 s and `/api` hosts 2.5 s in the example config; those are config values, not code constants).
+
+R29. Daily request cap. `cfg.collect.access[source].daily_cap` (required for non-honest modes, optional for honest) bounds the number of HTTP request attempts (retries and browser fetches included, skipped keys excluded) per adapter per IST day, across processes. `DailyCounter.reserve(cap)` takes an exclusive lock on `<ledger zone>/.state/requests/<source>.lock`, reads `<source>.<IST date>.count` (decimal integer; missing = 0), and if `count >= cap` returns `False`, else writes `count + 1` atomically (temp file plus replace) and returns `True`. It is called immediately before each attempt, after the limiter wait. When it returns `False` the key and all later keys are `not_attempted` with reason `"daily cap <cap> reached"`, the run status is `aborted`, no block event is written and the next IST day starts at zero. A count file that is unreadable or not a non-negative integer is treated as "cap reached" (fail closed) with an ERROR log. Counter files older than 14 days are not deleted by the code (human clean-up).
+
+R30. Recording what was sent. Every `ManifestStore.store` call from the base passes `access_mode=<mode value>` and `request_headers`: for `honest` and `scoped_exception` the exact mapping given to `Transport.get` (including `Accept-Encoding`, not the library-added `Host`/`Connection`); for `real_browser` the `request_headers` of the winning `BrowserResponse` (may be `None`). The same applies to archive members. Cookie redaction is done by the manifest (see core_manifest R17), not by the base. The run sidecar becomes `"schema": 2` and gains `"access_mode"`; R14's reading of an existing sidecar accepts `schema` 1 or 2 and treats any other value like invalid JSON (renamed to `.corrupt-`).
+
+R31. Order of work per key (supersedes the implicit order of R8/R9/R3): (1) `skipped` if the manifest holds the key (zero HTTP, zero sleeps, even when blocked, halted or capped); (2) access state check (R24/R26; `AccessStateError` fails closed); (3) request attempt: limiter (R27), then cap reservation (R29), then the call; (4) response: block check (R24), R22, `check_body` and the rest as before. Instantiation order of failures: contact (R20), mode/config agreement (R17), decision row (R18), transport/browser wiring (R23), header validation (R19), then the existing `source`, `source_version`, `page_limit`, `run_id` checks.
+
+R32. Logging additions on task `collect.<source>`: ERROR `blocked` (fields `key`, `host`, `status` or `signature`, `source`), ERROR `halted`, WARNING `cap_reached` (`cap`, `date`), INFO `rate_wait` is not emitted (waits are normal), ERROR `access_state_unreadable`. Header values are never logged; the `Cookie` header is never logged in any form.
+
+## Edge cases
+- A run that crosses IST midnight: the day is evaluated at every request attempt, so a block recorded at 23:59 IST ends at 00:00 IST for later attempts; a block recorded at 00:01 belongs to the new day.
+- A challenge signature appearing in a valid data file (for example the text "Access Denied" inside a CSV) blocks the adapter: that is why signatures are per adapter and chosen carefully (open question 3).
+- `missing_holiday` responses (404 with `NO FILE`) are not blocks (404 is not in the status set).
+- The cap counts attempts, not keys: a key retried three times uses four.
+- Two collectors for the same `source` in one process share the state files; their `HostLimiter` in-process monotonic memory is per instance, the file stamp covers the rest.
+- Cookie warm-up requests (scoped_exception, held in reserve) would be ordinary adapter keys: counted, limited, recorded.
+- A `halted` adapter can still `skip` already stored keys, so a verification re-run over a complete range stays green.
+
+## Acceptance tests (in words)
+Fixtures added: `FakeBrowser` (scripted `BrowserResponse`s/`TransportError`s, records URLs), a config builder with `[collect]` and `access` tables and a temp repo with `docs/decisions/`, a `FakeWall` (epoch seconds, advances with the sleeper), a local `http.server` fixture on 127.0.0.1 (tests build `UrllibTransport(allowed_schemes=("http",))`), `run_in_process(fn)` using `multiprocessing` (spawn).
+
+A28. (R17, planted) Given a class `honest` with config mode `real_browser`; a class `real_browser` with no config table; a class `scoped_exception` with config `honest`; and a config mode `"stealth"`, then instantiation (or `load_config` for the last) raises with the source named. Matching pairs instantiate.
+A29. (R18, planted) Given a `scoped_exception` adapter: no `decision` key; a decision id with no file; a file lacking `Adapter: <source>`; a file with `Access-mode: honest`; two files with the same id prefix; a file for a different adapter, then `ValueError` each time. A correct file passes. A `real_browser` adapter with no `decision` passes.
+A30. (R19, R20) Given an honest run, then every recorded request has exactly the keys `User-Agent` and `Accept-Encoding` (value `identity` for the fake), and `User-Agent` matches `^InvestOS/0\.0\.0 \(personal research; test@example\.invalid\)$`. A fake with `accept_encoding = "gzip, deflate"` sends that value.
+A31. (R19, planted) Given an honest class with `extra_headers` containing, in turn, `Referer`, `cookie`, `User_Agent`, `Origin`, `Accept-Encoding`, `Authorization`, then `ValueError`; given a `scoped_exception` class with `Referer`, `Cookie`, `User-Agent` then instantiation passes and requests carry them; the same class with `Origin`, `Authorization`, `Host`, `X-Forwarded-For` still raises; a `headers_for` that returns `Host` on the second call raises `ValueError` before that request.
+A32. (R20, planted) Contact `None`, `""`, `"ab"`, `"a;b@x.com"`, `"a(b)@x.com"`, `"é@x.com"`, 101 characters, `" a@x.com"`, a CR/LF value: each raises `ValueError` at instantiation. Contact `x@example.invalid` with a `UrllibTransport` raises; with a fake it passes.
+A33. (R21, planted) Given a local server that records the raw request header names it receives, when `UrllibTransport.get` is called with `{"User-Agent": "u", "Accept-Encoding": "identity"}`, then the received names are a subset of `{host, connection, user-agent, accept-encoding}`; with `{}` as headers the server receives no `User-Agent`, `Accept` or `Accept-Encoding`.
+A34. (R21, planted) Given the server answers 302 with `Location`, then `get` returns status 302 with the `location` header and the server saw exactly one request. Given status 404 or 503, `get` returns a `Response` and does not raise. With `HTTP_PROXY`/`HTTPS_PROXY` set to a dead address, the call still reaches the local server. A URL with scheme `file` or `http` (default schemes) raises `ValueError`.
+A35. (R21) Given bodies served with `Content-Encoding` gzip, deflate (zlib-wrapped) and deflate (raw), then the returned body equals the original and `content-encoding`/`content-length` are absent from the headers. Given a small gzip body that expands past `max_body_bytes` (custom 1 MiB), then `TransportError`. Given `br` and no brotli module, the body and header are returned untouched and `accept_encoding == "gzip, deflate"`; with an injected fake brotli module, `accept_encoding` includes `br` and the body is decoded.
+A36. (R22, planted) Given a fake transport returning `content-encoding: br` with a body that `check_body` would accept, then outcome `unreadable` (reason `undecoded content-encoding br`), `check_body` never called, nothing stored. `content-encoding: identity` is accepted.
+A37. (R21) Given a server that sleeps longer than the timeout before replying, then `TransportError`; given a server that sends one byte per 0.2 s forever with `timeout=0.3`, then `TransportError` within about `4 * timeout`; given a closed port, `TransportError`.
+A38. (R23) Given a `real_browser` class: constructing with `transport=` raises `ValueError`; with neither raises; with both raises; an `honest` class given `browser=` raises. A normal run calls `fake_browser.fetch` once per key, never an HTTP transport, and `fetch` takes only the URL (signature check).
+A39. (R23, planted) Given `final_url != url` (host change, path change, added query), then outcome `unreadable` with reason `redirected to <final_url>` and nothing stored; with only a fragment difference the key is fetched. Given a 200 error page, then `check_body` rejects it and nothing is stored. Given `fetch` raising `TransportError` forever, then exactly 4 calls and `unreadable` `after 4 attempts`.
+A40. (R24, planted) Given first of three keys returns each of 401, 403, 429, 451, then exactly 1 call, reason `blocked http <status>`, the other two keys `not_attempted`, status `aborted`, an access state line with event `blocked` (host, run id, today's IST date), and no retry (429 included, superseding A9).
+A41. (R24, planted) Given an adapter with `challenge_signatures = ["Pardon Our Interruption"]` and a 200 body containing that text, then `unreadable` (reason `challenge page: Pardon Our Interruption`), a block event, run aborted, `check_body` not called. The same text after byte 262144 does not block. An adapter with no signatures never blocks on a 200. A signature on a 404 response blocks.
+A42. (R24, R31, planted) Given a block recorded earlier on the same IST day, when a new collector instance (fresh transport) runs the range, then zero HTTP calls, keys already in the manifest are `skipped`, the rest `not_attempted` with reason `adapter blocked for IST day <date>`, status `aborted`, sidecar written. With the injected clock at 23:59:59 IST the block still holds; at 00:00:00 IST of the next day requests proceed and a success does not write any event.
+A43. (R24, R25, planted) Given two processes sharing one data dir: process 1 receives a 403; process 2 started afterwards makes zero calls. Given process 2 already mid-run on a 5-key range and blocked on an event between keys 2 and 3 until process 1 has written its block, then process 2 never requests key 3.
+A44. (R25, planted) Given an access state file with each of: invalid JSON, missing field, extra field, unknown event, `schema` 2, wrong `date`, blank line, torn tail (no final newline), then `AccessState.status()` raises `AccessStateError`, a collector over that state makes zero HTTP calls, status `aborted`, reason starting `access state unreadable`, and an ERROR is logged. Writers refuse to append to a torn tail. A reader that catches a concurrent writer mid-append waits for the lock and does not raise (2-process test).
+A45. (R26, planted) Given blocks on 3 distinct IST days within 7 (days 1, 4, 7), then the third block appends `halted` and from day 8 on a run makes zero calls with reason starting `adapter halted`, even after the day-block ended. Days 1, 4, 8 do not halt (day 1 falls outside the window days 2 to 8). Two blocks on one day count once.
+A46. (R26, planted) Given a halted adapter: `clear_halt` with a missing decision file, a file without `Clears-halt: <source>`, two matching files, or a non-halted adapter raises `ValueError` and leaves the file byte-identical. With a valid file it appends `cleared` (with `decision`), the adapter runs on the next IST day, earlier blocks no longer count (two further blocked days do not re-halt), and a day-block recorded today still holds until midnight. `investos access status` shows the state; `investos access clear` returns 0 on success and 1 on refusal.
+A47. (R27) Given a `FakeWall`, `.last` stamp at t0, now = t0 + 0.4 and interval 1.0, then the sleeper is called with 0.6; first request with no stamp: no sleep; the stamp afterwards equals the wall time after the sleep.
+A48. (R27, planted) Given two processes (real clock, interval 0.3 s) each making 5 requests to the same host through the limiter and logging their request-start wall times, then the merged sorted start times are at least 0.28 s apart. Two different hosts do not delay each other. If the lock holder raises, a later `acquire` is not stuck.
+A49. (R27, planted) Given a `.last` stamp 1 hour in the future and interval 2.5, then the wait is at most 2.5; given an empty or non-numeric `.last`, the wait is the full interval; given the wall clock stepping backwards between two requests of one process, request starts are still at least the interval apart by the monotonic rule.
+A50. (R28) Given config hosts 0.35 for the host and a `real_browser` or `scoped_exception` adapter, then the effective interval is 2.5; with a configured 5.0 it stays 5.0; an `honest` adapter at 0.35 stays 0.35. The example config loads and gives 1.0 for `nsearchives.nseindia.com` and 2.5 for `www.nseindia.com`, `www.nseindia.in`, `api.bseindia.com`.
+A51. (R29, planted) Given `daily_cap = 3` and 5 keys, then 3 attempts are made, the rest `not_attempted` with reason `daily cap 3 reached`, status `aborted`, no block event. A key needing a retry uses 2. A second process on the same IST day makes zero attempts; the next IST day proceeds. Two processes together never exceed the cap. A non-honest adapter without `daily_cap` fails in `load_config`. A corrupt count file stops the adapter and logs ERROR. Skipped keys do not count.
+A52. (R30) Given a successful honest fetch, then the manifest entry has `access_mode == "honest"` and `request_headers` equal to the headers the fake saw; for an archive, the zip and every member row carry the same values. A `real_browser` fetch records the browser-reported headers, or `None` when the fake gives `None`. The sidecar has `schema == 2` and `access_mode`. An existing schema-1 complete sidecar still protects against an incomplete run (R14 unchanged); an existing sidecar with `schema` 3 is renamed `.corrupt-`.
+A53. (R31) Given a halted, blocked or capped adapter and a fully fetched range, then every key is `skipped`, zero HTTP, status `complete`. Given the order of instantiation failures (bad contact and bad mode together), then the contact error is raised.
+A54. (R32, planted) Given a block, then the captured log has an ERROR `blocked` line with `status`, `host`, `source` and no header values; given a run with a `Cookie` header on a scoped_exception adapter, then no log line contains the cookie value.
+A55. (R21, R23) Given the source of `base.py` and `transport.py`, then neither imports `requests`, `httpx`, `aiohttp`, `selenium`, `playwright` or `socks`; `transport.py` imports `urllib` only; and no module under `acquire/` contains the strings `webdriver`, `stealth` or `fake_useragent` (guard against the forbidden techniques of decision 0002 point 5).
+
+## Not in this module (Stage 1 additions)
+- The real-browser implementation (Playwright or the desktop browser) and the backfill runner: later task; only the `BrowserTransport` Protocol and the rules above are in scope.
+- Concrete NSE/BSE adapters, the RSS poller and its two-step item design (audit section 8, item 7).
+- Parsing a challenge page or solving it; any retry of a block; any identity change after a block.
+- A `check` for access state files (the torn-tail runbook covers manual repair).
+- Cleaning old counter and limiter files.
+
+## Open questions for Sagar (policy: not guessed here)
+1. Contact string for the User-Agent: which email or URL goes into `InvestOS/<version> (personal research; <contact>)`. It is sent to NSE/BSE and recorded in every pushed manifest row.
+2. Daily request caps per adapter (the config requires one for every `real_browser` and `scoped_exception` adapter; no default is built in). Suggested starting points for you to confirm or change: 300 per adapter for NSE history, 200 for gap-fill.
+3. Challenge-page signatures for NSE and BSE: need real captured blocked pages to choose strings; the code ships with none.
+4. Block scope: the spec stops one adapter. Should a block on a host (for example `www.nseindia.com`) stop every adapter on that host?
+5. HTTP 451 is kept in the block set (it was final in R5); say if it should not persist.
+6. "Decision row" means a numbered file in `docs/decisions/` with the lines `Adapter:`, `Access-mode:` and `Clears-halt:` (R18, R26). Say if you want these as rows in a ledger instead (that needs a new ledger schema).
+7. Environment proxies are ignored by `UrllibTransport` (R21c). Say if your network needs a proxy.
+8. Whether a halted source should also raise a visible alert (for example a push notification) beyond the ERROR log and `investos access status`.

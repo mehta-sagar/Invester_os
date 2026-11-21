@@ -23,3 +23,14 @@ Rule: one task, one branch (`task/<id>`), one PR. Steps per roadmap §5. Builder
 3. A re-run fetches nothing (manifest hit → outcome = `skipped`).
 4. Editing a past registry row breaks the hash chain (`investos check registry` fails).
 Then: Independent auditor (strongest model, fresh context) → Sagar approves layout + start of stage 1.
+
+## Stage 1 — Acquisition (audit condition C2 and C4 first)
+
+| ID | Task | Agent | Output | Status | Blocked by |
+|---|---|---|---|---|---|
+| S1-SPEC1 | Spec change for decisions 0002/0002a: collect amendment, manifest schema v2, roots routine | Spec writer | specs/collect_base.md, specs/core_manifest.md, specs/ops_roots_routine.md, briefs/S1-T1..T3.md | spec (branch task/S1-SPEC1; open questions for Sagar at the end of each spec) | S0-FIX |
+| S1-T1 | Collector amendment: access_mode, UrllibTransport, BrowserTransport interface, block policy, cross-process limiter, daily caps | Test writer → Builder | src/investos/acquire/{base,access,transport}.py, core/config.py | open | S1-SPEC1, S1-T2 |
+| S1-T2 | Manifest schema v2: access_mode, request_headers, schema; version-aware reader | Test writer → Builder | src/investos/acquire/manifest.py | open | S1-SPEC1 |
+| S1-T3 | Daily roots routine: write roots, commit, push (`investos routine roots`) | Test writer → Builder | src/investos/routine/roots.py | open | S1-SPEC1 |
+
+Order: S1-T2 first (v2 reader before any v2 writer), then S1-T1; S1-T3 can run in parallel with either. Conditions still open from the audit: C3 (suite and demo on the Mac as non-root), C5 (before raw passes a few GB).
