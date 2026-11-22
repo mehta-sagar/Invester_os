@@ -51,7 +51,9 @@ def test_D1_skip_only_rerun_loads_manifest_a_bounded_number_of_times(env, monkey
     keys = [f"k{i:04d}" for i in range(n)]
     for k in keys:                                               # pre-fetch via the writer, not via a run
         env.store.store(SOURCE, f"date,x\n{k},1\n".encode(), url=url_of(k), source_version=SOURCE_VERSION,
-                        logical_key=k, run_id="seed", fetched_at=datetime(2026, 11, 21, tzinfo=timezone.utc))
+                        logical_key=k, run_id="seed", fetched_at=datetime(2026, 11, 21, tzinfo=timezone.utc),
+                        access_mode="honest", request_headers={"User-Agent": "t"}, final_url=url_of(k),
+                        fetch_host="h")
     manifest_file = env.man / f"{SOURCE}.jsonl"
     assert manifest_file.exists()
     reads = []

@@ -21,7 +21,9 @@ def sha(data: bytes) -> str:
 
 def put(st, source: str, data: bytes, **over):
     kw = dict(url="https://example.test/f", source_version="v1", logical_key="2026-11-20",
-              run_id="run-1", fetched_at=FETCHED)
+              run_id="run-1", fetched_at=FETCHED, access_mode="honest",
+              request_headers={"User-Agent": "InvestOS/test", "Accept-Encoding": "identity"},
+              final_url=over.get("url", "https://example.test/f"), fetch_host="test-host")
     kw.update(over)
     return st.store(source, data, **kw)
 

@@ -63,7 +63,9 @@ def make_repo(root: Path, *, bootstrap: bool = True) -> Path:
 def put(cfg, source: str, data: bytes, **over):
     from investos.acquire.manifest import ManifestStore
     kw = dict(url="https://example.test/f", source_version="v1", logical_key="k-" + data.decode("latin1")[:20],
-              run_id="run-1", fetched_at=FETCHED)
+              run_id="run-1", fetched_at=FETCHED, access_mode="honest",
+              request_headers={"User-Agent": "InvestOS/test"},
+              final_url=over.get("url", "https://example.test/f"), fetch_host="test-host")
     kw.update(over)
     return ManifestStore.from_config(cfg).store(source, data, **kw)
 
