@@ -179,3 +179,69 @@ A30. (Edge) Given an empty migrations dir, `open_db` creates `schema_migrations`
 - Rate-limiting, HTTP, retries (S0-T4); manifest and raw-file storage (S0-T3); check CLI (S0-T5); ledgers (S0-T6).
 - Creating zone directories or the repo skeleton (S0-T1).
 - Secrets or credential handling.
+
+
+---
+
+# Stage 1 amendment   (from brief S1-T5, task S1-SPEC2, 22 Nov 2026): DuckDB resource caps for the 16 GB Mac
+
+Modules: `src/investos/core/config.py` (new optional `[duckdb]` section), `src/investos/core/db.py` (`open_db` applies the settings), `config/investos.example.toml`. Rule numbering continues from R19, acceptance tests from A30 (next is A31). The `[collect]` section added by `specs/collect_base.md` (S1-T1) is independent of this one; if both tasks touch `config.py`, S1-T5 is built after S1-T1 (see the brief).
+
+Why: DuckDB defaults to about 80% of RAM and as many threads as there are cores. On the 16 GB Mac, with the browser, the editor and Python processes open, a large join or sort would push the machine into swap. The caps make a heavy query spill to disk inside the data root instead of taking the machine down.
+
+## Config addition (the schema stays strict, core_config R2)
+```toml
+[duckdb]                              # optional section; absent means all defaults below
+memory_limit = "5GB"                  # str, DuckDB size text: integer or decimal number, optional space, unit KB MB GB TB KiB MiB GiB TiB (case-insensitive), default "5GB"
+threads = 4                           # int >= 1 and <= 64, default 4
+temp_directory = "data/canonical/.duckdb_tmp"   # str, optional; same resolution rule as paths; default is exactly this value
+```
+`Config.duckdb` is a frozen `DuckDBConfig(memory_limit: str, memory_limit_bytes: int, threads: int, temp_directory: Path)` and is always present (defaults when the section is absent). `memory_limit_bytes` is computed by the config module with decimal units for KB/MB/GB/TB and binary units for KiB/MiB/GiB/TiB (DuckDB's own convention), rounded down to an integer. Env overrides (extends R3): `INVESTOS_DUCKDB__MEMORY_LIMIT` (string, validated like the file value), `INVESTOS_DUCKDB__THREADS` (integer text; a non-integer or a float with a fraction raises `ConfigError`), `INVESTOS_DUCKDB__TEMP_DIRECTORY`. Booleans are not accepted for `threads`.
+
+## Rules (numbered, each gets at least one test and one planted failure)
+
+R20. `[duckdb]` validation. `memory_limit` must match `^[0-9]+(\.[0-9]+)?\s?(KB|MB|GB|TB|KiB|MiB|GiB|TiB)$` case-insensitively and be at least 64 MiB; a bare number, a percentage, `0`, a negative value or an unknown unit raises `ConfigError` naming `duckdb.memory_limit`. `threads` must be an integer in 1..64 (a bool, a float, 0 or 65 raises `ConfigError` naming `duckdb.threads`). Unknown keys in `[duckdb]` raise `ConfigError`. `memory_limit` larger than the machine's physical memory is not detected (no OS probing); the example config documents the Mac value.
+
+R21. `temp_directory` lives inside the data root. It is resolved like the zone paths (relative to `repo_root`, `Path.resolve()`). It must be strictly inside one of the six zone directories other than `registry` and `reports` (that is: `raw`, `manifests`, `canonical`, `ledger`), else `ConfigError` naming `duckdb.temp_directory`; the default is a hidden directory inside the `canonical` zone, which the repo's `.gitignore` already excludes. If the temp directory is inside the repo and the repo has a `.git`, it must be git-ignored (the same `git check-ignore` rule as R6, with the same refuse-to-start on failure) so spill files can never be committed. `load_config` does not create it (R5 stands: it creates nothing). The temp directory must not equal a zone directory itself.
+
+R22. `open_db` applies the caps on every connection it opens, write or read-only, before the migration step and before returning the connection: `SET memory_limit = '<memory_limit>'`, `SET threads = <threads>`, `SET preserve_insertion_order = false`, `SET temp_directory = '<temp_directory>'`, in that order. `preserve_insertion_order = false` is not configurable (it is what lets large scans, sorts and `COPY` stream and spill with less memory; no code may rely on the row order of an unordered query, and every query whose output order matters must say `ORDER BY`). `open_db` creates the temp directory with `Path.mkdir(parents=False, exist_ok=True)` (its parent, the canonical zone, must exist, as R5 already guarantees); if creation fails (permission, a file in the way) it raises `MigrationError("cannot create duckdb temp directory <path>: <reason>")` and closes the connection. A `SET` that DuckDB rejects raises `MigrationError("cannot apply duckdb setting <name>: <reason>")` after closing the connection. Values are quoted by doubling single quotes; the temp path is passed as a string, never interpolated unquoted.
+
+R23. The caps are real. After `open_db(cfg)` the connection reports `current_setting('threads') == cfg.duckdb.threads`, `current_setting('preserve_insertion_order') == false`, `current_setting('temp_directory') == str(cfg.duckdb.temp_directory)` and a `memory_limit` that parses (DuckDB prints sizes such as `4.6 GiB`) to within 2% of `memory_limit_bytes`. A helper `parse_size_text(text) -> int` in `core/db.py` (or `config.py`, used by both) does that parsing for tests and for the check below. Changing `memory_limit` in config changes the reported value (the setting is not a constant in code).
+
+R24. Spill instead of crash. With a small memory limit (the test uses `64MiB`) a query whose working set exceeds it (an `ORDER BY` over a few million generated rows with a wide string column) completes and returns the right answer, and files appear in the temp directory during the query. If the temp directory cannot be written (read-only or removed after open), the query fails with a DuckDB error that the caller sees; the code does not catch it and does not retry with a larger limit. The code never raises the memory limit by itself.
+
+R25. Visibility. `investos check` has no new check; instead `open_db` logs one INFO event `duckdb_settings` on task `core.db` with fields `memory_limit`, `threads`, `temp_directory`, `preserve_insertion_order` (values as reported by DuckDB after the `SET`s), once per connection opened. No value is secret.
+
+## Edge cases
+- `[duckdb]` absent: defaults apply (`5GB`, 4 threads, default temp directory); `config/investos.example.toml` writes them out explicitly and must still load (A4).
+- `memory_limit = "5 GB"` (with a space) is valid; `"5gb"` is valid; `"5G"` is not (unknown unit).
+- A read-only `open_db` also applies all four settings (read-only connections use memory for scans too). If DuckDB refuses one of them on a read-only database, that is R22's `MigrationError`; the Builder verifies this on the installed DuckDB version and reports it in the checkpoint (open question 2).
+- Two processes on the same temp directory: DuckDB names its spill files uniquely; no cross-process locking is added.
+- Stale spill files from a killed process are DuckDB's concern; this module does not clean the directory.
+- A `threads` value above the machine's core count is accepted.
+
+## Acceptance tests (in words)
+Fixtures: the temp-repo config builder of the existing tests, now with an optional `[duckdb]` section, and a helper reading `current_setting(...)`.
+
+A31. (R20) Given no `[duckdb]` section, then `cfg.duckdb` is `("5GB", 5_000_000_000, 4, <repo>/data/canonical/.duckdb_tmp)`. Given `memory_limit = "2GiB"`, `threads = 2`, then `memory_limit_bytes == 2147483648`. Given `"5 GB"` and `"5gb"`, then both load with `memory_limit_bytes == 5_000_000_000`.
+A32. (R20, planted) Given `memory_limit` of `5`, `"5G"`, `"80%"`, `"0GB"`, `"-1GB"`, `"10MB"` (below 64 MiB), `"5 bytes"`, or a number instead of a string, then `ConfigError` naming `duckdb.memory_limit`. Given `threads` of `0`, `65`, `2.5`, `true`, `"4"`, then `ConfigError` naming `duckdb.threads`. Given an unknown key `[duckdb] cache = 1`, `ConfigError`.
+A33. (R20, env) Given `INVESTOS_DUCKDB__MEMORY_LIMIT=3GB` and `INVESTOS_DUCKDB__THREADS=2`, then the values override the file; given `INVESTOS_DUCKDB__THREADS=2.5` or `abc`, `ConfigError`; given the typo `INVESTOS_DUCKDB__THREAD=2`, `ConfigError` (R3 guard).
+A34. (R21, planted) Given `temp_directory` equal to a zone path, outside every zone (`/tmp/x`), inside `registry/` or `reports/`, or inside the repo and not git-ignored (a tmp git repo without the ignore line), then `ConfigError` naming `duckdb.temp_directory`. Given the default in a tmp git repo whose `.gitignore` ignores `data/canonical/*`, no error. Given the directory does not exist, `load_config` still succeeds and creates nothing.
+A35. (R22) Given `open_db(cfg)`, then the temp directory exists, and `current_setting('threads')`, `preserve_insertion_order`, `temp_directory` match R23; the same holds for `open_db(cfg, read_only=True)` on an existing healthy DB. A migration run in the same call already sees the settings (checked by a migration whose SQL selects `current_setting('threads')` into a table).
+A36. (R22, planted) Given the temp directory path occupied by a regular file, then `open_db` raises `MigrationError` naming the path and no connection is left open (a second `open_db` on the same file works after the file is removed, proving the lock was released). Given a temp path containing a single quote in its name, `open_db` still applies it correctly (quoting).
+A37. (R23) Given `memory_limit = "2GiB"` and then `"5GB"`, the reported `memory_limit` setting differs and each parses to within 2% of its `memory_limit_bytes`.
+A38. (R24, planted) Given `memory_limit = "64MiB"` and `threads = 2`, a sort over 5 million generated rows with a 100-byte string column returns the correct first and last values and the number of rows, and at least one file was seen in the temp directory while the query ran (a sampling thread or the query's own `PRAGMA temp_directory`-based listing; the test may skip with a clear reason on a DuckDB build that reports no spill). Given the temp directory made read-only before the same query, the query raises a DuckDB error and the helper raised no `MigrationError` and did not change the limit.
+A39. (R22, planted) Given an unordered `SELECT` over a table loaded by a parallel `INSERT ... SELECT`, the module's own code never relies on row order (a source scan: no `LIMIT` without `ORDER BY` in `src/investos/core/db.py`); and `preserve_insertion_order` cannot be turned back on by config (an attempted key `preserve_insertion_order` in `[duckdb]` is `ConfigError` by R20).
+A40. (R25) Given a captured log, one `open_db` call emits exactly one INFO `duckdb_settings` event with the four fields as reported by DuckDB (not the configured strings).
+A41. (R20) Given `config/investos.example.toml`, it contains a `[duckdb]` section with the default values written out, and loads against a temp repo root (A4 extended).
+
+## Not in this module (this amendment)
+- Float32 storage for wide feature panels: a later-stage rule (Stage 3 or later, when the features zone exists), recorded here only so it is not forgotten: wide panels are stored and loaded as 32-bit floats to halve memory; prices and money amounts stay 64-bit or decimals. No work in S1-T5.
+- Per-query memory budgeting, connection pools, or automatic retry with a bigger limit.
+- Cleaning stale spill files; a `check` for spill-directory size.
+- Any change to the migration rules R13 to R19.
+
+## Open questions for Sagar (S1-SPEC2)
+1. The default `5GB` leaves about 11 GB for the OS, Chrome (the real-browser backfill runs there) and Python workers; if you run two DuckDB processes at once, each gets 5 GB, so set 3GB each. Say which you expect.
+2. `threads = 4` is a default I chose for a laptop sharing CPU with a headful browser; raise it in config if heavy queries are slow. Whether DuckDB accepts `SET temp_directory` on a read-only connection is to be verified by the Builder on the installed version (R22 edge case); if it does not, the read-only path skips only that setting and the spec changes.
+3. The temp directory sits inside `data/canonical` (git-ignored by the existing rule). If your data root is on an external drive, set `[paths]` and `temp_directory` together there.

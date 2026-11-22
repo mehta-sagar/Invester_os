@@ -389,3 +389,100 @@ Folded into the rules above: 1 -> R20, A58; 4 -> R24, R25, R26, A56; 8 -> R26, R
 6. (O) A decision row is a numbered file in docs/decisions/, as specced.
 7. (O) Environment proxies are ignored. Sagar's network needs none.
 8. (O) Yes, raise an alert. A halt writes an ERROR log line, shows on Mission Control (the Now panel and sources), and sends a macOS notification via osascript when the run is on the Mac.
+
+---
+
+# Stage 1 amendment 2: in-file date check   (from brief S1-T5, task S1-SPEC2, 22 Nov 2026)
+
+Rule: HTTP 200 is never proof of a trading day. Archive servers answer a date URL with a valid, well-formed file even when the date is a weekend or holiday (for example a Sunday URL returning Friday's file byte for byte). A date-keyed archive file is accepted only if the trade date written inside the file equals the requested key. Module: `src/investos/acquire/base.py` (amended). Rule numbering continues from R33, acceptance tests from A58 (next is A59). Stdlib only. R1 stands: the base parses nothing; the date is read by the adapter (like `check_body`), the base only compares dates.
+
+## What this amendment changes
+| Old text | Status |
+|---|---|
+| `Outcome` has six values; "Four outcomes kept separate" (R7) | extended by R34: a seventh outcome `rejected`; the four of R7 stay distinct from it |
+| Sidecar `outcomes` object has the seven count keys of the S0 schema | gains the key `rejected` (R40); `schema` stays 1 (additive, open question 1) |
+| Sidecar `received` = fetched, fetched_empty, skipped, missing_holiday | unchanged: `rejected` is not received (R40) |
+| Order of work per key, R31 step (4) "block check, R22, `check_body` and the rest as before" | the date check is inserted after the page-limit and archive steps, before any store (R38) |
+All other rules R1 to R33 and tests A1 to A58 stand.
+
+## Inputs (new schema)
+```python
+class Outcome(str, Enum):
+    ...                                   # six existing values
+    REJECTED = "rejected"                 # NEW: a well-formed body that is not what was asked for; nothing stored; re-attempted next run
+
+@dataclass(frozen=True)
+class DateEvidence:
+    dates: frozenset[date]                # the DISTINCT trade dates found in the file (see R36); empty = none found
+    field: str                            # name of the field read, e.g. "TradDt", "DATE1", "TIMESTAMP" (logged, never parsed by the base)
+    rows_examined: int                    # >= 0, number of data rows or records the adapter looked at
+
+class Collector(ABC):
+    date_keyed: ClassVar[bool] = False                    # True: keys are ISO trade dates and R35 to R41 apply
+    date_check_waiver: ClassVar[str | None] = None        # a reason (R35); only with date_keyed = True
+    def logical_date(self, key: str) -> date              # default date.fromisoformat(key); an adapter may override for other key spellings
+    def internal_dates(self, key: str, member: str | None, body: bytes) -> DateEvidence | None
+        # REQUIRED override when date_keyed and no waiver. Called with the body of a plain file (member None) or of one archive member.
+```
+
+## Rules (numbered, each gets at least one test and one planted failure)
+
+R34. The `rejected` outcome. `Outcome.REJECTED` means: the transfer worked and the body passed `check_body`, but the content is not the thing the key names. It stores nothing (no raw file, no manifest line, no archive members), is a gap (`status` can never be `complete`), does not abort the run (unlike a block, R8), does not count as received, and the key is requested again on the next run (no manifest entry exists, R9). The reason is mandatory and starts with a machine token: `date_mismatch` or `date_missing`, then `": "` and a human detail. `BodyVerdict` still may not carry `REJECTED` (subclass verdicts stay limited to the four of the base spec; a verdict with outcome `REJECTED` is an invalid verdict, R6). Only the base creates it, through R37.
+
+R35. Declaration. A subclass that sets `date_keyed = True` declares how its date is read in exactly one of two ways: (a) overriding `internal_dates` (mode `enforced`), or (b) setting `date_check_waiver` to a non-empty reason of at least 20 characters (mode `waived`) for a source whose files carry no date at all, naming why. Neither, both, a waiver on a class with `date_keyed = False`, or a waiver shorter than 20 characters (after strip) raises `ValueError` at instantiation naming the source. A class with `date_keyed = False` that overrides `internal_dates` raises `ValueError` too (dead code that looks like a check). The date check mode is `enforced`, `waived` or `not_date_keyed` and is written to the sidecar (R40). A waived run logs WARNING `date_check_waived` once at run start with the reason, and `investos check` lists every waived adapter as a WARNING. There is no config switch that disables the check; waiving is a code change that is reviewed.
+
+R36. What the adapter reports. `internal_dates` reads the trade-date field of the file's own records (for example the columns named in the per-format table below), nothing else: not the URL, the key, the file name, the HTTP headers (`Last-Modified`, `Date`), nor the fetch time. `dates` holds every distinct trade date the records state, as `datetime.date` with no time zone (the date is the exchange's IST trade date as printed). Columns that hold other dates (expiry date, listing date, settlement date) are not trade dates and are not reported. It examines every record, not a sample (a file may contain a second day appended). `None` means "this member carries no date" and is legal only for archive members (R39); for a plain file `None` is `date_missing`. A cell that cannot be parsed as a date makes the adapter raise (R37 error path); it is never skipped silently. The adapter owns the parser, the base never sees the format.
+   Per-format examples, illustrative; the exact column names and date spellings are fixed by the stage-1 probes and the adapters' own tests, not by this spec: BSE equity bhavcopy CSV, a trade-date column such as `TradDt` (ISO or `dd-mmm-yyyy`); NSE cash bhavcopy zip (new UDiFF layout), `TradDt`; NSE legacy cash and F&O bhavcopy zips, column `TIMESTAMP` (`dd-MMM-yyyy`), expiry in `EXPIRY_DT` which is NOT reported; NSE security-wise delivery file `sec_bhavdata_full`, column `DATE1`; index closing file, a column such as `Index Date`; files with the date only in a header line (for example the MTO delivery file) read it there.
+
+R37. The comparison. After the earlier steps of R38 the base calls `internal_dates(key, member, body)` (wrapped like `check_body`) and compares with `logical_date(key)`:
+   - the call raises, or returns anything that is neither `DateEvidence` nor (for archive members) `None`, or `rows_examined < 0`, or `dates` contains a `datetime` instead of a `date`: the key is `unreadable`, reason `"date check error: <detail>"` (an adapter bug or an unparseable file; not rejected, because nothing was learned about the date);
+   - `dates` empty or `None` for a plain file: `rejected`, reason `date_missing: no trade date found in <field> (<rows_examined> rows)`;
+   - `dates == {logical_date}` exactly: pass;
+   - any other non-empty set (a different single date, or several dates, even when one of them equals the key): `rejected`, reason `date_mismatch: key <key> but file has <sorted ISO dates, comma-separated> in <field>`.
+   There is no tolerance (no adjacent day), no weekday logic and no knowledge of holidays in the base: the file says its date, the key says its date, they must be equal. A genuine holiday that the server answers with 404 or `NO FILE` stays `missing_holiday` (A4, R6); the date check applies only to bodies that `check_body` returned as `FETCHED` or `FETCHED_EMPTY`.
+   A `FETCHED_EMPTY` body (a header-only file) is also checked: if it carries no trade date the key is `rejected` as `date_missing`. An adapter whose genuine empty files carry no date must not return `FETCHED_EMPTY`; it returns `MISSING_HOLIDAY` or `UNREADABLE` (open question 2).
+
+R38. Order of work for a date-keyed key (extends R31 step 4): block check (R24), R22 undecoded encoding, non-2xx downgrade (R6), `check_body`, page limit (R10), for archives `safe_unzip` (R12), then the date check (R37, R39), then store. `internal_dates` is never called for a response that was `unreadable`, `missing_holiday`, blocked or `incomplete`, nor for a `skipped` key (a manifest hit makes zero HTTP calls and zero date checks). So an HTML error page served with status 200 is still `unreadable` by `check_body`, not `rejected`.
+
+R39. Archives. For `archive = True` and `date_keyed = True` the date check runs on the extracted members after `safe_unzip` succeeds and before anything is stored. The base calls `internal_dates(key, member_name, member_bytes)` for each member, in name order. Members returning `None` are ignored (readme, manifest or index files). At least one member must return evidence; if none does, the key is `rejected` (`date_missing`). Every returned `DateEvidence` must pass R37 on its own; the first failing member decides the reason (member name included in the detail). On any failure, neither the zip nor any member is stored.
+
+R40. Sidecar and logs. The sidecar `outcomes` object gains `rejected` (count), the always-present key set becomes `fetched, fetched_empty, missing_holiday, unreadable, skipped, incomplete, rejected, not_attempted`; `sum(outcomes.values()) == expected` still holds. `gaps` includes `rejected` keys with their reason. A top-level string `"date_check"` with value `enforced`, `waived` or `not_date_keyed` is added. `received` is unchanged (rejected is not received), so a run with a rejected key has status `incomplete`. A rejected key emits WARNING `rejected` on task `collect.<source>` with fields `key`, `url`, `reason`, `file_dates` (sorted ISO strings, may be `[]`), `field`, `rows_examined`; a key passing the check includes `trade_date` (the verified ISO date) in its INFO `fetched`/`fetched_empty` line. The run-end counts include `rejected`.
+
+R41. Keys. When `date_keyed` is true every key from `keys()` must satisfy `logical_date(key)` without error and, for the default `logical_date`, be exactly the ISO form `YYYY-MM-DD`; a bad key makes the run fail with `ValueError` naming it before any HTTP call and without writing a sidecar (as R15 for `keys()` errors). `logical_date` may be overridden for adapters whose logical key is not ISO (for example `20261117`), but the manifest `logical_key` stays the key string given. Duplicate keys that map to the same date but differ as strings are rejected as `ValueError` too (two keys naming one date would double-store it).
+
+## Edge cases
+- The same file bytes returned for two different date URLs: the date check, not a hash comparison, decides. The first date's key is fetched, the second is rejected.
+- A file containing two trade dates (a Friday file with a stray Thursday row): rejected, even though the key date is present. Adapters whose source legitimately mixes dates in one file are not `date_keyed` (key by something else, for example a month) and are out of this rule.
+- A Saturday special session whose file carries Saturday's date passes; the base has no weekday knowledge (the calendar of `specs/trading_calendar.md` is not consulted here).
+- Already-stored files from before this amendment are not rechecked (open question 3); `skipped` stays authoritative.
+- Time zones: dates are compared as printed (IST trade date); `datetime.now()` or any clock is never involved in the comparison.
+- A waived adapter still stores whatever `check_body` accepts, as before.
+
+## Acceptance tests (in words)
+Fixtures added: `DateDemoCollector(DemoCollector)` with `date_keyed = True` and an `internal_dates` that reads a `DATE1` column from the demo CSV (the demo body becomes `DATE1,SYMBOL,CLOSE` plus rows with `dd-mmm-yyyy` dates); a body builder that sets the date; an archive builder; a `FakeTransport` that can return identical bytes for several URLs.
+
+A59. (R35, planted) Given `date_keyed = True` with neither an `internal_dates` override nor a waiver, then instantiation raises `ValueError` naming the source; with both, `ValueError`; a waiver of 10 characters, `ValueError`; `date_keyed = False` with a waiver, `ValueError`; `date_keyed = False` with an `internal_dates` override, `ValueError`; `date_keyed = True` with an override passes and `date_keyed = True` with a 20-character waiver passes.
+A60. (R37) Given key `2026-11-20` and a body whose `DATE1` column is `20-Nov-2026` on every row, then outcome `fetched`, the file stored, the INFO line carries `trade_date == "2026-11-20"`, sidecar `date_check == "enforced"`.
+A61. (R37, planted, the Sunday case) Given keys `2026-11-20` (a Friday) and `2026-11-22` (a Sunday) on one range, and a transport that answers both URLs with status 200 and the same bytes, whose `DATE1` is `20-Nov-2026`, then the Friday key is `fetched`, the Sunday key is `rejected` with reason beginning `date_mismatch` and naming both dates, nothing is stored for Sunday (manifest has one line, one raw file), the run continues, the sidecar `gaps` lists Sunday with outcome `rejected`, status `incomplete`, `outcomes.rejected == 1`. A re-run makes zero calls for Friday (`skipped`) and one call for Sunday (rejected again).
+A62. (R37, planted) Given a valid body with the header only and no rows when `check_body` says `FETCHED_EMPTY`, then `rejected` with `date_missing`; given rows whose date column is empty on every row (the adapter returns an empty set), `date_missing`; given a body for which the adapter returns `dates` with two values (the key date and the day before), `date_mismatch`, nothing stored; given `dates` of the day after the key, `date_mismatch`.
+A63. (R37, planted) Given `internal_dates` raising `ValueError("bad cell")`, returning `None` for a plain file, returning a `datetime` inside `dates`, or returning `"2026-11-20"` (a str), then: the first and third and fourth give `unreadable` with reason beginning `date check error`; the `None` for a plain file gives `rejected` `date_missing`. No run abort and nothing stored in any case; the next key is requested.
+A64. (R38, planted) Given a status-200 `<html>Error: data not available</html>` page, then `check_body` marks it `unreadable` and `internal_dates` is never called (the fixture counts calls); given a 404 with `NO FILE`, `missing_holiday` and zero calls to `internal_dates`; given a `skipped` key, zero calls to `internal_dates`; given a page-limit `incomplete`, zero calls.
+A65. (R39, planted) Given `archive = True` and a zip with members `a.csv` (dated `2026-11-20`, key `2026-11-20`) and `README.txt` (the adapter returns `None`), then `fetched`, the zip and `a.csv` stored. Given members `a.csv` dated right and `b.csv` dated `2026-11-19`, then `rejected` (`date_mismatch`, detail names `b.csv`), and neither the zip nor either member is stored. Given a zip whose members all return `None`, `rejected` `date_missing`. Given a zip with a `../evil` member, `unreadable` (`unsafe archive`) as before and `internal_dates` is not called.
+A66. (R40) Given a run with one fetched, one fetched_empty, one missing_holiday, one unreadable and one rejected key, then sidecar `outcomes` shows 1/1/1/1/1 for the five, `received == 3`, `gaps` has the unreadable and the rejected key sorted by key with reasons, `sum(outcomes.values()) == expected`, status `incomplete`; the captured log has a WARNING `rejected` with `key`, `reason`, `file_dates`, `field`, `rows_examined` and a `run_end` line whose counts include `rejected`.
+A67. (R35, R40) Given a waived adapter, then a run stores whatever `check_body` accepts, the sidecar says `date_check == "waived"`, a WARNING `date_check_waived` is logged once at run start with the reason, and `internal_dates` is never called. Given a non-date-keyed collector, the sidecar says `not_date_keyed`.
+A68. (R41, planted) Given a date-keyed collector whose `keys()` yields `"2026-11-2"`, `"20261120"`, or `"2026-11-20T00:00"` with the default `logical_date`, then `ValueError` naming the key, before any HTTP call, and no sidecar. Given an override `logical_date` for `20261120`-style keys, the run works, and the manifest `logical_key` is `"20261120"`. Given two keys `"20261120"` and `"2026-11-20"` under an override that maps both to one date, `ValueError`.
+A69. (R34, planted) Given a subclass `check_body` returning a verdict with outcome `REJECTED`, then the key is `unreadable` (`invalid verdict`). A rejected key leaves the manifest untouched (line count and raw tree unchanged), and a `date_mismatch` never aborts: a following key is fetched in the same run.
+A70. (R1) The A25 import test is re-run over the amended `base.py` and still passes: no parser module is imported; the date comparison uses only `datetime.date`.
+A71. (R37) Given an adapter that reports `{2026-11-20}` for key `2026-11-20` and the system clock set to another day or a different time zone in the fake clock, then the outcome is unchanged (`fetched`): no clock or zone is consulted.
+
+## Not in this module
+- The concrete per-source `internal_dates` implementations and the real column names (the stage-1 adapters and probes).
+- Deciding whether a date is a trading day (`specs/trading_calendar.md`); the calendar may later take `bhavcopy` evidence from stored files whose adapter has `date_check == "enforced"`.
+- Re-checking files stored before this amendment (a later audit task, open question 3).
+- Content checks other than the date (row counts, price sanity): later stages.
+
+## Open questions for Sagar (S1-SPEC2)
+1. `rejected` is a new outcome and the sidecar `outcomes` object gains a key; I kept `schema: 1` because consumers only read known keys. If any tool treats the sidecar strictly, bump `schema` to 2 in the same task.
+2. A source whose genuinely empty file has no date at all cannot use `FETCHED_EMPTY` under R37; it must return `MISSING_HOLIDAY` (if the server says so) or `UNREADABLE`. Say if you would rather allow a `date_check_waiver`-style exception for empty files.
+3. Files stored before this rule (Stage 0 and early Stage 1 fetches) were never date-checked. Do you want a one-off audit task that runs each adapter's `internal_dates` over the stored raw files and reports mismatches?
+4. R35 lets an adapter waive the check with a written reason (needed for sources with no date in the file). If you prefer no waivers at all, the rule becomes "every date-keyed source must carry an in-file date or it is not date-keyed".
