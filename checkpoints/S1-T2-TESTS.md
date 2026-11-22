@@ -6,7 +6,7 @@
 - new: tests/unit/acquire/test_manifest_v2.py (+ _v2_helpers.py), tests/unit/check/test_check_manifest_v2.py: 144 tests
 - red on old code: 142 (88 failed + 54 errors); 2 pass on purpose (v1 line with extra field stays corrupt; A6 public-API pin unchanged)
 - validation: a throwaway reference v2 implementation in /tmp (not committed) turns the full suite green: 830 passed, 2 skipped (686 old + 144 new). Needs also base.py call site and check/builtin.py plant call (see open questions).
-- full suite on the branch with OLD src: 69 failed + errors, all TypeError from the four new required store() arguments (callers are updated, src is not). Old suite on main was 686 green.
+- full suite on the branch with OLD src: 157 failed, 107 errors, 566 passed (142 new red + 122 old tests red only; all TypeError from the four new required store() arguments (callers are updated, src is not). Old suite on main was 686 green.
 
 ## Coverage map (test -> spec)
 - A24/R15: test_A24_* (v1 read: schema 1, None fields, to_json_line byte-exact, verify []; 10,000 v1 + 1 v2)
