@@ -17,7 +17,8 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable
+from types import MappingProxyType
+from typing import Callable, Mapping
 
 from investos.core.names import SOURCE_RE as _SOURCE_RE
 
@@ -26,6 +27,14 @@ _TS_RE = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}Z", re.ASCII)
 _FIELDS = ("sha256", "size", "url", "fetched_at", "source", "source_version", "logical_key", "run_id")
 _STR_FIELDS = ("url", "source", "source_version", "logical_key", "run_id")
 _MAX_KEY = 512
+_V2_EXTRA = ("schema", "access_mode", "request_headers", "final_url", "fetch_host")
+_V2_FIELDS = _FIELDS + _V2_EXTRA
+_MODES = ("honest", "real_browser", "scoped_exception")
+_TOKEN_RE = re.compile(r"[!#$%&'*+\-.^_`|~0-9A-Za-z]+", re.ASCII)
+_COOKIE_PAIRS_RE = re.compile(r"[^=;\s]+=[^;]*(?:; [^=;\s]+=[^;]*)*")
+_COOKIE_DONE_RE = re.compile(r"[^=;\s]+=<redacted>(?:; [^=;\s]+=<redacted>)*")
+_FORBIDDEN_HDRS = frozenset(("authorization", "proxy-authorization", "cookie2", "set-cookie"))
+_MAX_HDRS, _MAX_HNAME, _MAX_HVAL, _MAX_HBYTES = 64, 128, 4096, 16 * 1024
 
 
 class ManifestError(Exception):
@@ -60,6 +69,11 @@ class ManifestEntry:
     source_version: str
     logical_key: str
     run_id: str
+    schema: int = 1
+    access_mode: str | None = None
+    request_headers: Mapping[str, str] | None = None
+    final_url: str | None = None
+    fetch_host: str | None = None
 
     def to_json_line(self) -> str:
         obj = {
@@ -68,6 +82,12 @@ class ManifestEntry:
             "source_version": self.source_version, "logical_key": self.logical_key,
             "run_id": self.run_id,
         }
+        if self.schema == 2:
+            obj.update({
+                "schema": 2, "access_mode": self.access_mode,
+                "request_headers": None if self.request_headers is None else dict(self.request_headers),
+                "final_url": self.final_url, "fetch_host": self.fetch_host,
+            })
         return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
 
@@ -92,6 +112,56 @@ def _check_sha(sha) -> str:
     return sha
 
 
+def _bad_text(val, name: str, limit: int, *, url: bool = False) -> None:
+    """R21 text rule for final_url / fetch_host."""
+    if not isinstance(val, str):
+        raise TypeError(f"{name} must be a str")
+    if not 1 <= len(val) <= limit:
+        raise ValueError(f"{name} must be 1 to {limit} characters")
+    if any(ord(c) < 0x20 or ord(c) == 0x7F for c in val):
+        raise ValueError(f"{name} contains a control character")
+    if url:
+        if not (val.startswith("https://") or val.startswith("http://")):
+            raise ValueError(f"{name} must start with https:// or http://")
+    elif val != val.strip(" "):
+        raise ValueError(f"{name} has a leading or trailing space")
+
+
+def _check_headers(h, *, redact: bool) -> dict:
+    """R17. Returns the headers to record (cookie values redacted when redact). Raises ValueError/TypeError."""
+    if not isinstance(h, Mapping):
+        raise TypeError("request_headers must be None or a Mapping[str, str]")
+    if len(h) > _MAX_HDRS:
+        raise ValueError(f"more than {_MAX_HDRS} request headers")
+    out: dict[str, str] = {}
+    seen: set[str] = set()
+    for k, v in h.items():
+        if not isinstance(k, str) or not isinstance(v, str):
+            raise TypeError("request header names and values must be str")
+        if len(k) > _MAX_HNAME or not _TOKEN_RE.fullmatch(k):
+            raise ValueError(f"bad request header name {k!r}")
+        low = k.lower()
+        if low in seen:
+            raise ValueError(f"duplicate request header {k!r}")
+        seen.add(low)
+        if low in _FORBIDDEN_HDRS:
+            raise ValueError(f"request header {k!r} is not allowed")
+        if len(v) > _MAX_HVAL or any(c in v for c in "\r\n\0"):
+            raise ValueError(f"bad value for request header {k!r}")
+        if low == "cookie":
+            if redact:
+                if _COOKIE_PAIRS_RE.fullmatch(v):
+                    v = "; ".join(p.split("=", 1)[0] + "=<redacted>" for p in v.split("; "))
+                else:
+                    v = "<redacted>"
+            elif v != "<redacted>" and not _COOKIE_DONE_RE.fullmatch(v):
+                raise ValueError("cookie header value is not redacted")
+        out[k] = v
+    if len(json.dumps(out, ensure_ascii=False).encode("utf-8")) > _MAX_HBYTES:
+        raise ValueError("request headers longer than 16 KiB")
+    return out
+
+
 def _entry_from_line(raw: bytes) -> ManifestEntry:
     """Strictly parse one manifest line (no newline). Raises ValueError with a reason."""
     try:
@@ -106,8 +176,12 @@ def _entry_from_line(raw: bytes) -> ManifestEntry:
         raise ValueError(f"invalid JSON: {e}") from None
     if not isinstance(obj, dict):
         raise ValueError("not a JSON object")
-    missing = [k for k in _FIELDS if k not in obj]
-    extra = [k for k in obj if k not in _FIELDS]
+    v2 = "schema" in obj
+    if v2 and (type(obj["schema"]) is not int or obj["schema"] != 2):
+        raise ValueError(f"unsupported schema {obj['schema']!r}")
+    fields = _V2_FIELDS if v2 else _FIELDS
+    missing = [k for k in fields if k not in obj]
+    extra = [k for k in obj if k not in fields]
     if missing:
         raise ValueError(f"missing field(s) {missing}")
     if extra:
@@ -121,6 +195,31 @@ def _entry_from_line(raw: bytes) -> ManifestEntry:
     if not _SHA_RE.fullmatch(obj["sha256"]):
         raise ValueError("sha256 must be 64 lowercase hex")
     ts = _parse_ts(obj["fetched_at"])
+    if v2:
+        mode, hdrs = obj["access_mode"], obj["request_headers"]
+        if not isinstance(mode, str) or mode not in _MODES:
+            raise ValueError("access_mode must be honest, real_browser or scoped_exception")
+        if hdrs is None:
+            if mode != "real_browser":
+                raise ValueError("request_headers null needs access_mode real_browser")
+        else:
+            if not isinstance(hdrs, dict):
+                raise ValueError("request_headers must be an object or null")
+            if not all(isinstance(k, str) and isinstance(v, str) for k, v in hdrs.items()):
+                raise ValueError("request header names and values must be strings")
+            try:
+                _check_headers(hdrs, redact=False)
+            except TypeError as e:
+                raise ValueError(str(e)) from None
+            hdrs = MappingProxyType(dict(hdrs))
+        try:
+            _bad_text(obj["final_url"], "final_url", 2048, url=True)
+            _bad_text(obj["fetch_host"], "fetch_host", 255)
+        except TypeError as e:
+            raise ValueError(str(e)) from None
+        return ManifestEntry(obj["sha256"], size, obj["url"], ts, obj["source"], obj["source_version"],
+                             obj["logical_key"], obj["run_id"], 2, mode, hdrs,
+                             obj["final_url"], obj["fetch_host"])
     return ManifestEntry(obj["sha256"], size, obj["url"], ts, obj["source"],
                          obj["source_version"], obj["logical_key"], obj["run_id"])
 
@@ -217,7 +316,8 @@ class ManifestStore:
 
     # ---- write -------------------------------------------------------
     def store(self, source: str, data: bytes, *, url: str, source_version: str,
-              logical_key: str, run_id: str, fetched_at: datetime) -> ManifestEntry:
+              logical_key: str, run_id: str, fetched_at: datetime, access_mode: str,
+              request_headers: Mapping[str, str] | None, final_url: str, fetch_host: str) -> ManifestEntry:
         _check_source(source)
         if not isinstance(data, bytes):
             raise TypeError("data must be bytes")
@@ -230,6 +330,18 @@ class ManifestStore:
         if not isinstance(fetched_at, datetime) or fetched_at.tzinfo is None \
                 or fetched_at.utcoffset() is None:
             raise ValueError("fetched_at must be a timezone-aware datetime")
+        if not isinstance(access_mode, str):
+            raise TypeError("access_mode must be a str")
+        if access_mode not in _MODES:
+            raise ValueError(f"invalid access_mode {access_mode!r}")
+        _bad_text(final_url, "final_url", 2048, url=True)
+        _bad_text(fetch_host, "fetch_host", 255)
+        if request_headers is None:
+            if access_mode != "real_browser":
+                raise ValueError("request_headers None is only allowed for real_browser")
+            hdrs = None
+        else:
+            hdrs = MappingProxyType(_check_headers(request_headers, redact=True))
         for root in (self._raw_root, self._man_root):
             if not root.is_dir():
                 raise ManifestError(f"root directory missing: {root}")
@@ -237,7 +349,7 @@ class ManifestStore:
         fetched_utc = fetched_at.astimezone(timezone.utc)
         sha = hashlib.sha256(data).hexdigest()
         entry = ManifestEntry(sha, len(data), url, fetched_utc, source, source_version,
-                              logical_key, run_id)
+                              logical_key, run_id, 2, access_mode, hdrs, final_url, fetch_host)
         line = (entry.to_json_line() + "\n").encode("utf-8")
 
         self._write_raw(source, sha, data)
