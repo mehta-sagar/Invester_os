@@ -8,3 +8,31 @@ calendar  caught   1  close_eras.csv: gap between E2-CM-cat1 (to 2026-12-05) and
 OK
 report: /tmp/tmp.s84SrmLyQ3/r/reports/checks/20261127T111352Z-0224d45d.json
 exit 0
+
+# 26 warnings from the first run's JSON report (review D5):
+WARNING E3-CM-non_fo: cas_applicable unverified, treated as applicable (latest close)
+WARNING E4-CM-non_fo: cas_applicable unverified, treated as applicable (latest close)
+WARNING BSE-E1-CM-cat1: verified=assumed, not checked against any source
+WARNING BSE-E1-CM-non_fo: verified=assumed, not checked against any source
+WARNING BSE-E1-FO-index_fo: verified=assumed, not checked against any source
+WARNING BSE-E1-FO-index_fo_expiring: verified=assumed, not checked against any source
+WARNING BSE-E1-FO-stock_fo: verified=assumed, not checked against any source
+WARNING BSE-E2-CM-cat1: verified=assumed, not checked against any source
+WARNING BSE-E2-CM-non_fo: verified=assumed, not checked against any source
+WARNING BSE-E2-FO-index_fo: verified=assumed, not checked against any source
+WARNING BSE-E2-FO-index_fo_expiring: verified=assumed, not checked against any source
+WARNING BSE-E2-FO-stock_fo: verified=assumed, not checked against any source
+WARNING BSE-E3-CM-cat1: verified=assumed, not checked against any source
+WARNING BSE-E3-CM-non_fo: cas_applicable unverified, treated as applicable (latest close)
+WARNING BSE-E3-CM-non_fo: verified=assumed, not checked against any source
+WARNING BSE-E3-FO-index_fo: verified=assumed, not checked against any source
+WARNING BSE-E3-FO-stock_fo: verified=assumed, not checked against any source
+WARNING BSE-E3-FO-index_fo_expiring: verified=assumed, not checked against any source
+WARNING BSE-E4-CM-cat1: verified=assumed, not checked against any source
+WARNING BSE-E4-CM-non_fo: cas_applicable unverified, treated as applicable (latest close)
+WARNING BSE-E4-CM-non_fo: verified=assumed, not checked against any source
+WARNING BSE-E4-FO-index_fo: verified=assumed, not checked against any source
+WARNING BSE-E4-FO-stock_fo: verified=assumed, not checked against any source
+WARNING BSE-E4-FO-index_fo_expiring: verified=assumed, not checked against any source
+WARNING NSE: holiday list for 2026 (today's year) is not loaded
+WARNING BSE: holiday list for 2026 (today's year) is not loaded
