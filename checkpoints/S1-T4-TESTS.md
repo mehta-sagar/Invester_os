@@ -21,3 +21,9 @@
 
 ## Next step
 - Builder
+
+## Review regressions (after review 96f96dc)
+- tests/unit/calendar/test_calendar_regressions.py: 20 tests for D2 (M06 ALL-holiday vs segment trading, M42 market_close<cas_end), D3 (M26 unverified warning literal, count == unverified rows), D4 (M35 newest row open-ended, M46 times on non-special rows, M47 unsorted rows).
+- They pass on the reviewed code (it is correct); red evidence = run against a mutant copy with the six checks removed: 15 failed, 5 passed (the 5 are the legal-case guards): reports/S1-T4/regressions_red.txt
+- Spec needs a line: R8 should say the newest row of a group must be open-ended (effective_to empty); also R2 should say open_ist/close_ist must be empty for holiday/trading rows.
+- Full suite: 1520 passed expected (see commit message).

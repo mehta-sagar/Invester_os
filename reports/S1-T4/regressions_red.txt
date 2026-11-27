@@ -1,0 +1,30 @@
+            if e.post_close_start is not None and e.post_close_start < e.market_close:
+                raise CalendarError(f"{path.name}: {e.era_id}: post_close_start before market_close")
+        groups: dict[tuple, list[EraRow]] = {}
+        for e in rows:
+            groups.setdefault((e.exchange, e.segment, e.category), []).append(e)
+        for g, lst in groups.items():
+            pass
+            for a, b in zip(lst, lst[1:]):
+                if a.effective_to is None:
+>                   raise CalendarError(f"{path.name}: {a.era_id} is open-ended but {b.era_id} follows it")
+E                   investos.calendar.trading.CalendarError: close_eras.csv: BSE-E4-FO-index_fo_expiring is open-ended but BSE-E3-FO-index_fo_expiring follows it
+
+src/investos/calendar/trading.py:301: CalendarError
+=========================== short test summary info ============================
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D2_M06_holiday_vs_trading_on_overlapping_segment_rejected[ALL-CM]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D2_M06_holiday_vs_trading_on_overlapping_segment_rejected[ALL-FO]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D2_M06_holiday_vs_trading_on_overlapping_segment_rejected[CM-ALL]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D2_M06_holiday_vs_trading_on_overlapping_segment_rejected[FO-ALL]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D2_M42_market_close_before_cas_end_rejected_naming_era[E3-CM-cat1-15:39]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D2_M42_market_close_before_cas_end_rejected_naming_era[E2-CM-cat1-15:34]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D3_M26_unverified_warning_has_its_own_text
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M35_newest_era_row_with_effective_to_rejected
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M46_times_on_non_special_row_rejected[09:15--trading-manual]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M46_times_on_non_special_row_rejected[09:15--holiday-holiday_list]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M46_times_on_non_special_row_rejected[-15:30-trading-manual]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M46_times_on_non_special_row_rejected[-15:30-holiday-holiday_list]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M46_times_on_non_special_row_rejected[09:15-15:30-trading-manual]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M46_times_on_non_special_row_rejected[09:15-15:30-holiday-holiday_list]
+FAILED tests/unit/calendar/test_calendar_regressions.py::test_D4_M47_unsorted_era_rows_still_load_and_resolve
+15 failed, 5 passed in 1.61s
