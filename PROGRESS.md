@@ -1,7 +1,7 @@
 # PROGRESS — Invest OS build
 
 Current stage: 1 (Raw acquisition), in progress. Stage 0 DONE 2026-11-21 (audit PASS WITH CONDITIONS, all defects fixed in S0-FIX)
-Next task: specs for the RSS poller and the real-browser backfill runner; Mac steps (suite on Mac, 2026 holiday lists, probes). Session process log: Plan Project claude/SESSION_LOG.md
+Next task: first live RSS poll on the Mac (`investos collect rss --once`) and launchd job; spec for the real-browser backfill runner; remaining Mac probes (holiday lists, shareholding depth, results window, mcp.nseindia.in, TLS, BSE XBRL). Session process log: Plan Project claude/SESSION_LOG.md
 
 ## Log
 - 2026-11-21 S0-T0 done: TASKS.md, PROGRESS.md, templates (briefs/_TEMPLATE.md, specs/_TEMPLATE.md, checkpoints/_TEMPLATE.md, reports/_TEMPLATE.md), briefs S0-T1..T6.
@@ -10,3 +10,4 @@ Next task: specs for the RSS poller and the real-browser backfill runner; Mac st
 - 2026-11-21 S0-FIX: all audit defects A1-A17 fixed; 685 tests; demo ALL CLAIMS PASS.
 - 2026-11-22..27 S1-SPEC1, S1-T2 (manifest v2, main 7f61fbd), S1-T1 (collector amendment, 284fa68), S1-SPEC2 (9449f0f), S1-T4 (trading calendar, b4ebfe8), S1-T3 (nightly roots routine, 7824395) merged. (Back-filled 27 Nov: this file was not updated for these tasks at the time.)
 - 2026-11-27 S1-T5 merged (main d3b055c): in-file date check (outcome `rejected`, date_mismatch/date_missing) + `[duckdb]` caps in open_db. Review PASS WITH MINOR, 66/77 mutants killed, D1-D4 fixed. Suite 1912 passed non-root x3 (1909 + 3 skipped as root). One approved line outside the brief in check/runner.py. Open questions for Sagar in reports/S1-T5/REPORT.md.
+- 2026-11-28 S1-T6 merged (main d5f7ec8): RSS poller for 25 feeds (22 NSE corporate + Circulars + RBI + SEBI, all confirmed by the 27 Nov Mac probe), dedup on a content digest that ignores <lastBuildDate> (Sagar), item extractor (first_seen_at = our fetch time, pubDate read as IST), adapter registry, `investos check rss`. Review PASS WITH MINOR, 90/102 mutants; D1-D5 fixed; D6-D10 Info open. Suite 2257 passed non-root x3. Mac suite on f42b672: 1912 passed (macOS 27.2.1, Python 3.14.7).
