@@ -17,6 +17,7 @@ USAGE = "usage: investos check [all|<check name>] [--planted]"
 def load_builtin_checks() -> None:
     """Import the built-in checks; investos.registry.check only if it exists (S0-T6)."""
     importlib.import_module("investos.check.builtin")
+    importlib.import_module("investos.check.rss_check")
     try:
         importlib.import_module("investos.registry.check")
     except ModuleNotFoundError as e:

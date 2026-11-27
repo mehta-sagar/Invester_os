@@ -6,7 +6,8 @@ from typing import Sequence
 
 USAGE = ("usage: investos check [all|manifest|raw|registry|migrations|<name>] [--planted]\n"
          "       investos access status [source] | clear <source> --decision <id>\n"
-         "       investos routine roots [--dry-run] [--branch NAME] [--remote NAME]")
+         "       investos routine roots [--dry-run] [--branch NAME] [--remote NAME]\n"
+         "       investos collect rss --once [--force] [--dry-run]")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -19,6 +20,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return access_main(args[1:])
     if args and args[0] == "routine":
         return _routine(args[1:])
+    if args and args[0] == "collect":
+        return _collect(args[1:])
     print(USAGE)
     return 2
 
@@ -68,6 +71,76 @@ def _routine(args: list[str]) -> int:
         print(roots._redact(roots._first_line(res.message)), file=sys.stderr)
     print(json.dumps(roots.result_json(res, ns.branch), sort_keys=True, separators=(",", ":")))
     return int(res.exit_code)
+
+
+COLLECT_USAGE = "usage: investos collect rss --once [--force] [--dry-run]"
+
+
+def _collect(args: list[str]) -> int:
+    """`investos collect rss --once [--force] [--dry-run]` (spec collect_rss R18). Exit 0 ran or nothing due,
+    1 start refused (contact, config, access state, gap ledger), 2 usage error or invalid feed table."""
+    if not args or args[0] != "rss":
+        print(COLLECT_USAGE)
+        return 2
+    flags = set(args[1:])
+    if not flags <= {"--once", "--force", "--dry-run"} or len(args[1:]) != len(flags) or "--once" not in flags:
+        print(COLLECT_USAGE)
+        return 2
+    force, dry = "--force" in flags, "--dry-run" in flags
+    import os
+    from datetime import datetime, timezone
+    from pathlib import Path
+    from types import SimpleNamespace
+    from investos.core.config import ConfigError, load_config
+    try:
+        if "INVESTOS_ROOT" in os.environ or "INVESTOS_CONFIG" in os.environ:
+            cfg = load_config()
+        else:
+            cwd = Path.cwd()
+            top = next((d for d in [cwd, *cwd.parents] if (d / "pyproject.toml").is_file()), None)
+            cfg = load_config(repo_root=top)
+    except ConfigError as e:
+        print(f"investos collect rss: {e}", file=sys.stderr)
+        return 1
+    from investos.acquire import rss
+    from investos.acquire.access import AccessState, AccessStateError
+    from investos.acquire.base import _check_contact
+    try:                                                     # before any data is touched or a transport built
+        _check_contact(cfg.collect.contact, SimpleNamespace(real_network=True))
+    except ValueError as e:
+        print(f"investos collect rss: {e}", file=sys.stderr)
+        return 1
+    now = datetime.now(timezone.utc)
+    try:
+        AccessState(cfg, "rss", clock=lambda: now).events()
+    except AccessStateError as e:
+        print(f"investos collect rss: access state unreadable: {e}", file=sys.stderr)
+        return 1
+    try:
+        feeds = rss.load_feeds(rss.feed_table_path(cfg))
+    except rss.FeedTableError as e:
+        print(f"investos collect rss: {e}", file=sys.stderr)
+        return 2
+    slot = rss.slot_of(now)
+    if dry:
+        due = rss.due_feeds(cfg, feeds, slot)
+        scheduled = force or rss.is_poll_slot(slot)
+        print(f"slot {slot}" + ("" if scheduled else " (not a scheduled slot; use --force)"))
+        for f in (due if scheduled else []):
+            print(f"due {f.feed_id}")
+        return 0
+    from investos.acquire.manifest import ManifestStore
+    from investos.acquire.transport import UrllibTransport
+    from investos.core.notify import NullNotifier, OsascriptNotifier
+    transport = UrllibTransport(max_body_bytes=cfg.collect.max_body_bytes)
+    notifier = OsascriptNotifier() if sys.platform == "darwin" else NullNotifier()
+    res = rss.poll_cycle(cfg, now=now, transport=transport, manifest=ManifestStore.from_config(cfg),
+                         notifier=notifier, force=force, feeds=feeds,
+                         clock=lambda: datetime.now(timezone.utc))
+    if res.gap_write_failed:
+        print("investos collect rss: gap_write_failed: the gap ledger could not be written", file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
