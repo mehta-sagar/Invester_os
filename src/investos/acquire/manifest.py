@@ -157,7 +157,7 @@ def _check_headers(h, *, redact: bool) -> dict:
             elif v != "<redacted>" and not _COOKIE_DONE_RE.fullmatch(v):
                 raise ValueError("cookie header value is not redacted")
         out[k] = v
-    if len(json.dumps(out, ensure_ascii=False).encode("utf-8")) > _MAX_HBYTES:
+    if len(json.dumps(out, ensure_ascii=False, separators=(",", ":")).encode("utf-8")) > _MAX_HBYTES:
         raise ValueError("request headers longer than 16 KiB")
     return out
 
