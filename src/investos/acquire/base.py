@@ -38,7 +38,7 @@ from investos.core.notify import NullNotifier, Notifier
 __all__ = [
     "Collector", "Outcome", "Response", "Transport", "TransportError", "BodyVerdict", "RunRange",
     "UnzipLimits", "RunResult", "safe_unzip", "UnsafeArchiveError", "AccessMode", "BrowserResponse",
-    "BrowserTransport",
+    "BrowserTransport", "DateEvidence",
 ]
 
 MAX_ATTEMPTS = 4                                  # first try + 3 retries
@@ -52,6 +52,8 @@ _DENIED_ALWAYS = frozenset({
     "connection", "content-length", "transfer-encoding"})
 _DENIED_HONEST = _DENIED_ALWAYS | {"user-agent", "referer", "cookie"}
 _HEADER_NAME_RE = re.compile(r"[!#$%&'*+.^_`|~0-9A-Za-z-]+", re.ASCII)      # RFC 7230 token
+_ISO_KEY_RE = re.compile(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", re.ASCII)
+_WAIVER_MIN = 20
 _RUN_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", re.ASCII)
 _DRIVE_RE = re.compile(r"[A-Za-z]:")
 _MAX_MEMBER_NAME = 400                            # manifest logical_key cap is 512 incl. "<key>/"
@@ -65,6 +67,7 @@ class Outcome(str, Enum):
     UNREADABLE = "unreadable"
     SKIPPED = "skipped"
     INCOMPLETE = "incomplete"
+    REJECTED = "rejected"             # well-formed body that is not what the key names (R34): nothing stored
 
 
 _COUNT_KEYS = tuple(o.value for o in Outcome) + ("not_attempted",)
@@ -116,6 +119,14 @@ class BodyVerdict:
     outcome: Outcome
     reason: str = ""
     record_count: int | None = None
+
+
+@dataclass(frozen=True)
+class DateEvidence:
+    """What an adapter read inside a file: the distinct trade dates, the field read, the rows looked at (R36)."""
+    dates: frozenset[date]
+    field: str
+    rows_examined: int
 
 
 @dataclass(frozen=True)
@@ -244,6 +255,8 @@ class _Rec:
     reason: str = ""
     outputs: list[tuple[str, str]] | None = None      # (key, sha256) rows for the sidecar
     not_attempted: bool = False                       # no request was made (access state, halt or cap)
+    trade_date: str | None = None                     # verified ISO trade date (date check passed)
+    check: dict | None = None                         # rejected: file_dates, field, rows_examined for the log
 
 
 class _Stop(Exception):
@@ -309,6 +322,8 @@ class Collector(ABC):
     timeout_s: ClassVar[float | None] = None          # None: cfg.collect.timeout_s
     unzip_limits: ClassVar[UnzipLimits] = UnzipLimits()
     access_mode: ClassVar[AccessMode] = AccessMode.HONEST
+    date_keyed: ClassVar[bool] = False                # True: keys are trade dates and R35 to R41 apply
+    date_check_waiver: ClassVar[str | None] = None    # reason for a source whose files carry no date (R35)
 
     def __init__(self, *, transport: Transport | None = None, browser: BrowserTransport | None = None,
                  manifest: ManifestStore, cfg: Config, run_id: str | None = None, sidecar_dir: Path | None = None,
@@ -353,6 +368,7 @@ class Collector(ABC):
         if self.page_limit is not None and (isinstance(self.page_limit, bool)
                                             or not isinstance(self.page_limit, int) or self.page_limit < 1):
             raise ValueError("page_limit must be None or an int >= 1")
+        self._date_check = self._declare_date_check(source)
         rid = run_id if run_id is not None else log.get_run_id()
         if not isinstance(rid, str) or not _RUN_ID_RE.fullmatch(rid):
             raise ValueError(f"invalid run_id {rid!r}")
@@ -401,6 +417,53 @@ class Collector(ABC):
     @abstractmethod
     def check_body(self, key: str, resp: Response) -> BodyVerdict: ...
 
+    def logical_date(self, key: str) -> date:
+        """The date a key names. Default: exactly YYYY-MM-DD (R41); an adapter may override for other spellings."""
+        if not isinstance(key, str) or not _ISO_KEY_RE.fullmatch(key):
+            raise ValueError(f"key {key!r} is not of the form YYYY-MM-DD")
+        return date.fromisoformat(key)
+
+    def internal_dates(self, key: str, member: str | None, body: bytes) -> DateEvidence | None:
+        """Adapter hook (R36): the trade dates written inside the file. Required when date_keyed and not waived."""
+        raise NotImplementedError("internal_dates must be overridden by a date_keyed adapter")
+
+    def _declare_date_check(self, source: object) -> str:
+        cls = type(self)
+        keyed = getattr(cls, "date_keyed", False)
+        waiver = getattr(cls, "date_check_waiver", None)
+        overridden = getattr(cls, "internal_dates", None) is not Collector.internal_dates
+        if not isinstance(keyed, bool):
+            raise ValueError(f"{source}: date_keyed must be a bool")
+        if not keyed:
+            if waiver is not None:
+                raise ValueError(f"{source}: date_check_waiver is set but date_keyed is False")
+            if overridden:
+                raise ValueError(f"{source}: internal_dates is overridden but date_keyed is False (dead code)")
+            return "not_date_keyed"
+        if waiver is not None:
+            if not isinstance(waiver, str) or len(waiver.strip()) < _WAIVER_MIN:
+                raise ValueError(f"{source}: date_check_waiver must be a reason of at least {_WAIVER_MIN} characters")
+            if overridden:
+                raise ValueError(f"{source}: both internal_dates and date_check_waiver are declared; use one")
+            return "waived"
+        if not overridden:
+            raise ValueError(f"{source}: date_keyed needs an internal_dates override or a date_check_waiver")
+        return "enforced"
+
+    def _validate_keys(self, keys: list[str]) -> None:
+        """R41: every key names a date; two keys never name the same date. ValueError before any HTTP call."""
+        seen: dict[date, str] = {}
+        for k in keys:
+            try:
+                d = self.logical_date(k)
+            except Exception as e:
+                raise ValueError(f"key {k!r}: logical_date failed: {e}") from None
+            if not isinstance(d, date) or isinstance(d, datetime):
+                raise ValueError(f"key {k!r}: logical_date must return a datetime.date")
+            if d in seen:
+                raise ValueError(f"keys {seen[d]!r} and {k!r} name the same date {d.isoformat()}")
+            seen[d] = k
+
     def headers_for(self, key: str, url: str) -> Mapping[str, str]:
         """Extra request headers for one request (validated on every call). scoped_exception adapters may override."""
         return dict(self.extra_headers)
@@ -413,11 +476,15 @@ class Collector(ABC):
         for k in keys:
             if not isinstance(k, str) or not k:
                 raise TypeError(f"keys() must yield non-empty str, got {k!r}")
+        if self._date_check != "not_date_keyed":
+            self._validate_keys(keys)
         started = self._clock()
         self._calls = 0
         self._deny_reason = None
         recs: dict[str, _Rec] = {}
         aborted_after: str | None = None
+        if self._date_check == "waived":
+            self._log.warning("date_check_waived", reason=type(self).date_check_waiver)
         for i, key in enumerate(keys):
             try:
                 rec, abort = self._do_key(key)
@@ -600,7 +667,7 @@ class Collector(ABC):
         except Exception as e:
             return _Rec(Outcome.UNREADABLE, f"check_body error: {type(e).__name__}: {e}")
         if not isinstance(v, BodyVerdict) or not isinstance(v.outcome, Outcome) \
-                or v.outcome in (Outcome.SKIPPED, Outcome.INCOMPLETE):
+                or v.outcome in (Outcome.SKIPPED, Outcome.INCOMPLETE, Outcome.REJECTED):
             return _Rec(Outcome.UNREADABLE, "invalid verdict")
         reason = v.reason or ""
         if v.outcome is Outcome.UNREADABLE:
@@ -619,6 +686,11 @@ class Collector(ABC):
                 members = safe_unzip(resp.body, limits=self.unzip_limits)
             except UnsafeArchiveError as e:
                 return _Rec(Outcome.UNREADABLE, f"unsafe archive: {e}")
+        trade_date: str | None = None
+        if self._date_check == "enforced":
+            bad, trade_date = self._date_check_files(key, resp.body, members)
+            if bad is not None:
+                return bad
         outputs: list[tuple[str, str]] = []
         # members first, zip last: the zip key is what makes a re-run skip, so it is written only
         # once every member is safely in the manifest
@@ -628,7 +700,60 @@ class Collector(ABC):
         e = self._store(key, resp.body, url, received_at, final_url, sent)
         outputs.append((e.logical_key, e.sha256))
         outputs.sort()
-        return _Rec(v.outcome, reason, outputs)
+        return _Rec(v.outcome, reason, outputs, trade_date=trade_date)
+
+    # ---- date check (R36 to R39)
+    def _date_check_files(self, key: str, body: bytes,
+                          members: list[tuple[str, bytes]]) -> tuple[_Rec | None, str | None]:
+        """Compare the dates read inside the file (or every member) with the key. (None, iso) when it passes."""
+        target = self.logical_date(key)
+        if not self.archive:
+            bad = self._date_check_one(key, target, None, body)
+            return bad, (None if bad else target.isoformat())
+        found = False
+        for name, data in members:
+            bad = self._date_check_one(key, target, name, data, archive=True)
+            if bad is not None:
+                return bad, None
+            found = found or self._last_member_had_evidence
+        if not found:
+            return self._rejected("date_missing: no archive member carries a trade date (0 rows)",
+                                  [], "", 0), None
+        return None, target.isoformat()
+
+    def _date_check_one(self, key: str, target: date, member: str | None, body: bytes,
+                        archive: bool = False) -> _Rec | None:
+        where = f" (member {member})" if member is not None else ""
+        self._last_member_had_evidence = False
+        try:
+            ev = self.internal_dates(key, member, body)
+        except Exception as e:
+            return _Rec(Outcome.UNREADABLE, f"date check error{where}: {type(e).__name__}: {e}")
+        if ev is None:
+            if archive:
+                return None
+            return self._rejected("date_missing: no trade date found (adapter reported no evidence)", [], "", 0)
+        dates = getattr(ev, "dates", None)
+        rows = getattr(ev, "rows_examined", None)
+        field = getattr(ev, "field", None)
+        if (not isinstance(ev, DateEvidence) or not isinstance(dates, (set, frozenset))
+                or any(not isinstance(d, date) or isinstance(d, datetime) for d in dates)
+                or not isinstance(field, str) or isinstance(rows, bool) or not isinstance(rows, int) or rows < 0):
+            return _Rec(Outcome.UNREADABLE, f"date check error{where}: internal_dates returned invalid evidence")
+        self._last_member_had_evidence = True
+        iso = sorted(d.isoformat() for d in dates)
+        if not dates:
+            return self._rejected(f"date_missing: no trade date found in {field} ({rows} rows){where}",
+                                  iso, field, rows)
+        if dates != {target}:
+            return self._rejected(f"date_mismatch: key {key} but file has {','.join(iso)} in {field}{where}",
+                                  iso, field, rows)
+        return None
+
+    @staticmethod
+    def _rejected(reason: str, file_dates: list[str], field: str, rows: int) -> _Rec:
+        return _Rec(Outcome.REJECTED, reason,
+                    check={"file_dates": file_dates, "field": field, "rows_examined": rows})
 
     def _store(self, logical_key: str, data: bytes, url: str, fetched_at: datetime,
                final_url: str, sent: Mapping[str, str] | None) -> ManifestEntry:
@@ -656,7 +781,11 @@ class Collector(ABC):
             fields["size"] = len(resp.body)
         if rec.outcome is Outcome.UNREADABLE and abort:
             self._log.error("unreadable", **fields)
+        elif rec.outcome is Outcome.REJECTED:
+            self._log.warning("rejected", key=key, url=url, reason=rec.reason, **(rec.check or {}))
         else:
+            if rec.trade_date is not None:
+                fields["trade_date"] = rec.trade_date
             self._log.info(rec.outcome.value, **fields)
         return rec, abort
 
@@ -676,7 +805,7 @@ class Collector(ABC):
                 gaps.append({"key": key, "outcome": "not_attempted", "reason": rec.reason or "unspecified"})
                 continue
             counts[rec.outcome.value] += 1
-            if rec.outcome in (Outcome.UNREADABLE, Outcome.INCOMPLETE):
+            if rec.outcome in (Outcome.UNREADABLE, Outcome.INCOMPLETE, Outcome.REJECTED):
                 gaps.append({"key": key, "outcome": rec.outcome.value, "reason": rec.reason or "unspecified"})
             for k, h in rec.outputs or []:
                 outputs.append({"key": k, "sha256": h})
@@ -695,6 +824,7 @@ class Collector(ABC):
             "range": {"start": run_range.start.isoformat(), "end": run_range.end.isoformat()},
             "started_at": _fmt_ts(started), "finished_at": _fmt_ts(finished), "status": status,
             "expected": len(keys), "received": received, "outcomes": counts, "gaps": gaps, "outputs": outputs,
+            "date_check": self._date_check,
         }
 
     def _write_sidecar(self, run_range: RunRange, obj: dict) -> tuple[Path, bool]:
