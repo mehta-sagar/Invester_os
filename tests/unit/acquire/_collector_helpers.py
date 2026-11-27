@@ -139,8 +139,8 @@ class Env:
         from investos.core.config import Config, RateLimits
         self.tmp = tmp
         self.raw, self.man = tmp / "raw", tmp / "manifests"
-        self.raw.mkdir()
-        self.man.mkdir()
+        self.raw.mkdir(parents=True, exist_ok=True)
+        self.man.mkdir(parents=True, exist_ok=True)
         zones = {k: tmp / k for k in ("raw", "manifests", "canonical", "ledger", "reports", "registry")}
         self.cfg = Config(repo_root=tmp, timezone="Asia/Kolkata", zones=zones, migrations_dir=tmp / "mig",
                           rate_limits=RateLimits(default_interval_s=interval, hosts=hosts or {}))

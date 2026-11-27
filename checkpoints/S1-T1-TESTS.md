@@ -32,3 +32,8 @@
 8. A46: notifier exceptions are swallowed by the collector (spec: "a halt also writes this line even if the notifier fails").
 9. CLI status output format is loose: source name, "halted", last-5 events by marker; exit 1 or 2 accepted on unreadable state.
 10. Config: AccessEntry.mode compared as str or AccessMode (str enum) both fine; tests use plain strings via load_config.
+
+## Round 2 (Builder fb91557)
+- Fixed test defects: Env mkdir now parents=True (8 tests); A45 same-day test: [1,1,4] then [4,4] (days {1,4}) then [7] halts (the old [4,5] gave {1,4,5} = halt by R26, my error).
+- Superseded stage-0 test edited: test_collector_sidecar.py::test_sidecar_schema_canonical_bytes_and_no_temp_files now expects schema 2 and key access_mode (R30).
+- Reviewer note: the Builder derives wall time from the injected monotonic clock when no wall_clock is injected. The spec (R27, Inputs) only says wall_clock defaults to time.time; it does not allow deriving it from monotonic. This is a deviation to judge: it keeps stage-0 A8/A10b green but makes the cross-process stamp meaningless in that path. Orchestrator should decide (alternative: the old Env injects wall_clock).

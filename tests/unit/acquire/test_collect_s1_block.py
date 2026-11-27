@@ -423,7 +423,7 @@ def test_A45_two_blocks_on_one_day_count_once(tmp_path):
     e = S1Env(tmp_path)
     _block_days(e, [1, 1, 4])
     assert not _halted_events(e)
-    _block_days(e, [4, 5])
+    _block_days(e, [4, 4])                                                           # days {1, 4} only
     assert not _halted_events(e)
     _block_days(e, [7])
     assert len(_halted_events(e)) == 1
