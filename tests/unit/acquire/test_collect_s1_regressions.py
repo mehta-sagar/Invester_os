@@ -18,14 +18,14 @@ from _s1_helpers import (CSV, CTX, D17, D18, HOST, SOURCE, S1Env, cfg_access, co
 
 
 # ------------------------------------------------------------------ D1 fail closed when the block cannot be persisted
-def _deny_writes_under(monkeypatch, root: Path):
+def _deny_writes_under(monkeypatch, root: Path, suffix: str = ""):
     """Simulate an unwritable access state directory (works as root too)."""
     root = str(root)
     real_open, real_os_open = builtins.open, os.open
 
     def under(p):
         try:
-            return os.fspath(p).startswith(root)
+            return os.fspath(p).startswith(root) and os.fspath(p).endswith(suffix)
         except TypeError:
             return False
 
@@ -44,18 +44,26 @@ def _deny_writes_under(monkeypatch, root: Path):
 
 @pytest.mark.planted
 @pytest.mark.parametrize("status", [401, 403, 429])
-def test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call(tmp_path, monkeypatch, status):
+def test_D1_block_that_cannot_be_persisted_still_stops_this_process_and_later_runs(tmp_path, monkeypatch, status):
     e = S1Env(tmp_path)
     (e.ledger / "access" / "hosts").mkdir(parents=True)
-    _deny_writes_under(monkeypatch, e.ledger / "access")
-    e.transport.set(url_of(D17), resp(status, b"denied"))
-    e.script_ok(D18)
-    r = e.make().run(rr(D17, D18))
-    assert e.transport.n() == 1 and r.status == "aborted"                       # the block stops the run
-    e.fresh_transport()
-    e.script_ok(D17, D18)
-    r2 = e.make(run_id="run-2").run(rr(D17, D18))
-    assert e.transport.n() == 0 and r2.http_calls == 0 and r2.status == "aborted"   # fail closed
+    with monkeypatch.context() as m:                                            # locks fine, only the block-file write fails
+        _deny_writes_under(m, e.ledger / "access", suffix=".jsonl")
+        e.transport.set(url_of(D17), resp(status, b"denied"))
+        e.script_ok(D18)
+        c = e.make()
+        r = c.run(rr(D17, D18))
+        assert e.transport.n() == 1 and r.status == "aborted"                   # exactly one request, then stop
+        assert not e.host_file().exists()                                       # the block really was not persisted
+        e.script_ok(D17, D18)
+        r_again = c.run(rr(D17, D18))                                           # same process, later fetch
+        assert e.transport.n() == 1 and r_again.http_calls == 0
+    with monkeypatch.context() as m:                                            # fresh run, state still unwritable
+        _deny_writes_under(m, e.ledger / "access")
+        e.fresh_transport()
+        e.script_ok(D17, D18)
+        r2 = e.make(run_id="run-2").run(rr(D17, D18))
+        assert e.transport.n() == 0 and r2.http_calls == 0 and r2.status == "aborted"
 
 
 @pytest.mark.planted
