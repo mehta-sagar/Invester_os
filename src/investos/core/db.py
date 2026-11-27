@@ -9,7 +9,10 @@ from typing import Callable
 
 import duckdb
 
-from .config import Config
+from . import log
+from .config import Config, parse_size_text
+
+__all__ = ["MigrationError", "open_db", "apply_migrations", "migration_problems", "parse_size_text"]
 
 _NAME_RE = re.compile(r"^(\d{4})_[a-z0-9_]+\.sql$")
 
@@ -107,6 +110,32 @@ def apply_migrations(con, migrations_dir: Path, *,
     return applied_now
 
 
+def _sql_str(text: str) -> str:
+    return "'" + text.replace("'", "''") + "'"
+
+
+def _apply_caps(con, cfg: Config) -> None:
+    """R22: create the temp directory, then SET the four caps in the fixed order. Raises MigrationError."""
+    d = cfg.duckdb
+    try:
+        Path(d.temp_directory).mkdir(parents=False, exist_ok=True)
+    except OSError as e:
+        raise MigrationError(f"cannot create duckdb temp directory {d.temp_directory}: {e}") from e
+    for name, value in (("memory_limit", _sql_str(d.memory_limit)), ("threads", str(int(d.threads))),
+                        ("preserve_insertion_order", "false"),
+                        ("temp_directory", _sql_str(str(d.temp_directory)))):
+        try:
+            con.execute(f"SET {name} = {value}")
+        except Exception as e:
+            raise MigrationError(f"cannot apply duckdb setting {name}: {e}") from e
+
+
+def _log_caps(con) -> None:
+    vals = {n: con.execute("select current_setting(?)", [n]).fetchone()[0]
+            for n in ("memory_limit", "threads", "temp_directory", "preserve_insertion_order")}
+    log.get_logger("core.db").info("duckdb_settings", **vals)
+
+
 def open_db(cfg: Config, *, read_only: bool = False, apply: bool = True) -> duckdb.DuckDBPyConnection:
     path = cfg.db_path
     if read_only:
@@ -119,10 +148,12 @@ def open_db(cfg: Config, *, read_only: bool = False, apply: bool = True) -> duck
         if "lock" in str(e).lower():
             raise MigrationError("database locked") from e
         raise MigrationError(f"cannot open database {path}: {e}") from e
-    if apply:
-        try:
+    try:
+        _apply_caps(con, cfg)
+        if apply:
             apply_migrations(con, cfg.migrations_dir)
-        except BaseException:
-            con.close()
-            raise
+        _log_caps(con)
+    except BaseException:
+        con.close()
+        raise
     return con

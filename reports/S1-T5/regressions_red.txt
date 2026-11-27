@@ -1,0 +1,24 @@
+== N03 (if self._date_check != "not_date_keyed":
+            self._validate_keys -> if self._date_check == "enforced":
+            self._validate_keys)
+FAILED tests/unit/acquire/test_s1t5_datecheck_regressions.py::test_D2_waived_adapter_bad_key_fails_before_http[20261120]
+FAILED tests/unit/acquire/test_s1t5_datecheck_regressions.py::test_D2_waived_adapter_bad_key_fails_before_http[2026-W47-5]
+FAILED tests/unit/acquire/test_s1t5_datecheck_regressions.py::test_D2_waived_adapter_bad_key_fails_before_http[2026-11-20T00:00]
+FAILED tests/unit/acquire/test_s1t5_datecheck_regressions.py::test_D2_waived_adapter_bad_key_fails_before_http[abc]
+FAILED tests/unit/acquire/test_s1t5_datecheck_regressions.py::test_D2_waived_adapter_two_keys_naming_one_date_are_refused
+5 failed in 2.36s
+== M43 (return int(Decimal(m.group(1)) * _UNITS[m.group(2).lower()]) -> return round(Decimal(m.group(1)) * _UNITS[m.group(2).lower()]))
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3a_memory_limit_bytes_rounds_down_never_to_nearest[70.0000006MB-70000000]
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3a_memory_limit_bytes_rounds_down_never_to_nearest[64.0000009MB-64000000]
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3a_memory_limit_bytes_rounds_down_never_to_nearest[70.9999999KB-70999]
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3a_memory_limit_bytes_rounds_down_never_to_nearest[1.9999999KiB-2047]
+4 failed, 5 passed in 2.35s
+== N16 (f"cannot apply duckdb setting {name}: {e}" -> f"cannot apply duckdb setting: {e}")
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3b_rejected_set_error_names_the_setting_in_our_own_wording[memory_limit]
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3b_rejected_set_error_names_the_setting_in_our_own_wording[threads]
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3b_rejected_set_error_names_the_setting_in_our_own_wording[preserve_insertion_order]
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3b_rejected_set_error_names_the_setting_in_our_own_wording[temp_directory]
+4 failed, 5 passed in 0.25s
+== N17 (f"cannot create duckdb temp directory {d.temp_directory}: {e}" -> f"cannot create duckdb temp directory: {e}")
+FAILED tests/unit/core/test_s1t5_caps_regressions.py::test_D3c_temp_directory_error_names_the_path_in_our_own_wording
+1 failed, 8 passed in 0.21s

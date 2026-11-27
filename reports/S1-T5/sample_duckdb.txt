@@ -1,0 +1,26 @@
+duckdb version: 2.0.1 | python 3.13.18
+
+## open_db(cfg), defaults
+{"ts":"2026-11-27T15:04:13.644475Z","level":"INFO","run_id":"20261127T150413Z-953ab757","task":"core.db","event":"duckdb_settings","fields":{"memory_limit":"4.6 GiB","threads":4,"temp_directory":"/tmp/tmp0cokgmqv/repo/data/canonical/.duckdb_tmp","preserve_insertion_order":false}}
+  memory_limit = '4.6 GiB'
+  threads = 4
+  preserve_insertion_order = False
+  temp_directory = '/tmp/tmp0cokgmqv/repo/data/canonical/.duckdb_tmp'
+
+## open_db(cfg, read_only=True) (SET temp_directory accepted? yes if no MigrationError)
+{"ts":"2026-11-27T15:04:13.676116Z","level":"INFO","run_id":"20261127T150413Z-953ab757","task":"core.db","event":"duckdb_settings","fields":{"memory_limit":"4.6 GiB","threads":4,"temp_directory":"/tmp/tmp0cokgmqv/repo/data/canonical/.duckdb_tmp","preserve_insertion_order":false}}
+  memory_limit = '4.6 GiB'
+  threads = 4
+  preserve_insertion_order = False
+  temp_directory = '/tmp/tmp0cokgmqv/repo/data/canonical/.duckdb_tmp'
+  direct SET temp_directory on read-only connection: ACCEPTED
+
+## spill test, memory_limit 64MiB, threads 2, 3,000,000 rows x 100-byte string
+{"ts":"2026-11-27T15:04:13.714935Z","level":"INFO","run_id":"20261127T150413Z-953ab757","task":"core.db","event":"duckdb_settings","fields":{"memory_limit":"64.0 MiB","threads":2,"temp_directory":"/tmp/tmpm7n1cz1k/repo/data/canonical/.duckdb_tmp","preserve_insertion_order":false}}
+  memory_limit = '64.0 MiB'
+  threads = 2
+  preserve_insertion_order = False
+  temp_directory = '/tmp/tmpm7n1cz1k/repo/data/canonical/.duckdb_tmp'
+  rows=3000000 order_mismatches=0 first_ok=True last_ok=True elapsed=4.8s
+  spill files seen in temp dir: max 6 files, max 398 MiB  -> spilled: True
+  memory_limit after query: 64.0 MiB

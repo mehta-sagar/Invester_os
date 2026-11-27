@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import tomllib
 from dataclasses import dataclass, field
+from decimal import Decimal
 from pathlib import Path
 from typing import Any, Mapping
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -21,7 +22,25 @@ _OVERRIDABLE = {
     **{("paths", k): str for k in ZONE_KEYS},
     ("db", "migrations_dir"): str,
     ("rate_limits", "default_interval_s"): float,
+    ("duckdb", "memory_limit"): str,
+    ("duckdb", "threads"): int,
+    ("duckdb", "temp_directory"): str,
 }
+_SIZE_RE = re.compile(r"([0-9]+(?:\.[0-9]+)?) ?(KB|MB|GB|TB|KiB|MiB|GiB|TiB)", re.ASCII | re.IGNORECASE)
+_UNITS = {"kb": 10**3, "mb": 10**6, "gb": 10**9, "tb": 10**12,
+          "kib": 2**10, "mib": 2**20, "gib": 2**30, "tib": 2**40}
+_MIN_MEMORY_BYTES = 64 * 2**20
+DEFAULT_MEMORY_LIMIT = "5GB"
+DEFAULT_THREADS = 4
+DUCKDB_TEMP_NAME = ".duckdb_tmp"
+
+
+def parse_size_text(text: str) -> int:
+    """DuckDB size text ("5GB", "4.6 GiB") to bytes, rounded down. Decimal units for KB..TB, binary for KiB..TiB."""
+    m = _SIZE_RE.fullmatch(text) if isinstance(text, str) else None
+    if m is None:
+        raise ValueError(f"not a size text: {text!r}")
+    return int(Decimal(m.group(1)) * _UNITS[m.group(2).lower()])
 
 
 class ConfigError(Exception):
@@ -58,6 +77,14 @@ class CollectConfig:
 
 
 @dataclass(frozen=True)
+class DuckDBConfig:
+    memory_limit: str
+    memory_limit_bytes: int
+    threads: int
+    temp_directory: Path
+
+
+@dataclass(frozen=True)
 class Config:
     repo_root: Path
     timezone: str
@@ -65,6 +92,13 @@ class Config:
     migrations_dir: Path
     rate_limits: RateLimits
     collect: CollectConfig = field(default_factory=CollectConfig)
+    duckdb: DuckDBConfig | None = None             # None: defaults, temp directory inside the canonical zone
+
+    def __post_init__(self) -> None:
+        if self.duckdb is None:
+            object.__setattr__(self, "duckdb", DuckDBConfig(
+                DEFAULT_MEMORY_LIMIT, parse_size_text(DEFAULT_MEMORY_LIMIT), DEFAULT_THREADS,
+                Path(self.zones.get("canonical", Path(self.repo_root) / "data" / "canonical")) / DUCKDB_TEMP_NAME))
 
     @property
     def db_path(self) -> Path:
@@ -90,7 +124,11 @@ def _apply_env(data: dict, env: Mapping[str, str]) -> None:
         kind = _OVERRIDABLE.get((section, key))
         if kind is None:
             raise ConfigError(f"unrecognised config override {name} (typo?)")
-        if kind is float:
+        if kind is int:
+            if not value.isascii() or not value.isdigit():
+                raise ConfigError(f"{section}.{key}: env {name}={value!r} is not an integer")
+            parsed = int(value)
+        elif kind is float:
             try:
                 parsed: Any = float(value)
             except ValueError:
@@ -111,7 +149,7 @@ def _validate(data: dict) -> None:
         "rate_limits": {"default_interval_s", "hosts"},
     }
     for sec in data:
-        if sec not in schema and sec != "collect":
+        if sec not in schema and sec not in ("collect", "duckdb"):
             raise ConfigError(f"unknown config section: {sec}")
     for sec, keys in schema.items():
         tbl = data.get(sec)
@@ -209,15 +247,51 @@ def _parse_collect(data: dict) -> CollectConfig:
     return CollectConfig(contact, float(timeout_s), max_body, access)
 
 
+def _parse_duckdb(data: dict, root: Path, zones: Mapping[str, Path], env: Mapping[str, str]) -> DuckDBConfig:
+    tbl = data.get("duckdb", {})
+    if not isinstance(tbl, dict):
+        raise ConfigError("duckdb: must be a table")
+    for k in tbl:
+        if k not in ("memory_limit", "threads", "temp_directory"):
+            raise ConfigError(f"unknown config key: duckdb.{k}")
+    mem = tbl.get("memory_limit", DEFAULT_MEMORY_LIMIT)
+    try:
+        nbytes = parse_size_text(mem)
+    except ValueError:
+        raise ConfigError(f"duckdb.memory_limit: must be a size like '5GB' or '4 GiB' "
+                          f"(units KB MB GB TB KiB MiB GiB TiB), got {mem!r}") from None
+    if nbytes < _MIN_MEMORY_BYTES:
+        raise ConfigError(f"duckdb.memory_limit: must be at least 64 MiB, got {mem!r}")
+    threads = tbl.get("threads", DEFAULT_THREADS)
+    if not _is_int(threads) or not 1 <= threads <= 64:
+        raise ConfigError(f"duckdb.threads: must be an integer from 1 to 64, got {threads!r}")
+    td = tbl.get("temp_directory")
+    if td is None:
+        temp = zones["canonical"] / DUCKDB_TEMP_NAME
+    else:
+        if not isinstance(td, str) or not td:
+            raise ConfigError("duckdb.temp_directory: must be a non-empty string")
+        temp = _resolve(root, td)
+    if not any(zones[z] in temp.parents for z in ("raw", "manifests", "canonical", "ledger")):
+        raise ConfigError(f"duckdb.temp_directory: must be strictly inside the raw, manifests, canonical or "
+                          f"ledger zone, got {temp}")
+    if (temp == root or root in temp.parents) and (root / ".git").exists():
+        try:
+            _git_check_ignored(root, temp, env, "duckdb.temp_directory")
+        except ConfigError as e:
+            raise ConfigError(f"duckdb.temp_directory: {e}") from None
+    return DuckDBConfig(mem, nbytes, threads, temp)
+
+
 def _resolve(root: Path, s: str) -> Path:
     p = Path(s)  # no ~ expansion
     return (p if p.is_absolute() else root / p).resolve()
 
 
-def _git_check_ignored(root: Path, raw: Path, env: Mapping[str, str]) -> None:
+def _git_check_ignored(root: Path, raw: Path, env: Mapping[str, str], label: str = "raw path") -> None:
     git = shutil.which("git", path=env.get("PATH", ""))
     if git is None:
-        raise ConfigError(f"refuse to start: raw path {raw} is inside a git repo but git is not runnable")
+        raise ConfigError(f"refuse to start: {label} {raw} is inside a git repo but git is not runnable")
     try:
         r = subprocess.run([git, "-C", str(root), "check-ignore", "-q", "--", str(raw) + "/"],
                            capture_output=True, check=False, env=dict(env))
@@ -226,7 +300,7 @@ def _git_check_ignored(root: Path, raw: Path, env: Mapping[str, str]) -> None:
     if r.returncode == 0:
         return
     if r.returncode == 1:
-        raise ConfigError(f"refuse to start: raw path {raw} is inside the git tree and not git-ignored")
+        raise ConfigError(f"refuse to start: {label} {raw} is inside the git tree and not git-ignored")
     raise ConfigError(f"refuse to start: git check-ignore failed ({r.returncode}): "
                       f"{r.stderr.decode(errors='replace').strip()}")
 
@@ -295,7 +369,8 @@ def load_config(path: Path | None = None, *, env: Mapping[str, str] | None = Non
         _git_check_ignored(root, raw, env)
 
     collect = _parse_collect(data)
+    duck = _parse_duckdb(data, root, zones, env)
     rl = data["rate_limits"]
     rate_limits = RateLimits(float(rl["default_interval_s"]),
                              {h: float(v) for h, v in rl.get("hosts", {}).items()})
-    return Config(root, data["general"]["timezone"], zones, migrations_dir, rate_limits, collect)
+    return Config(root, data["general"]["timezone"], zones, migrations_dir, rate_limits, collect, duck)

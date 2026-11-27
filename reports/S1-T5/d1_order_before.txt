@@ -1,0 +1,8 @@
+ERROR tests/unit/check/test_checkrunner_builtin.py::test_A15_raw_passes_on_healthy_and_empty
+ERROR tests/unit/check/test_checkrunner_builtin.py::test_A15_raw_does_not_fail_on_hash_mismatch_alone
+ERROR tests/unit/check/test_checkrunner_builtin.py::test_A16_migrations_edited_file_fails_naming_file
+ERROR tests/unit/check/test_checkrunner_builtin.py::test_A16_migrations_database_missing
+ERROR tests/unit/check/test_checkrunner_builtin.py::test_A16_migrations_healthy_passes
+ERROR tests/unit/check/test_checkrunner_builtin.py::test_A16_migrations_unapplied_older_file_fails
+ERROR tests/unit/check/test_checkrunner_builtin.py::test_A17_main_planted_default_registry_catches_all_builtins
+1188 passed, 3 skipped, 33 errors in 32.89s

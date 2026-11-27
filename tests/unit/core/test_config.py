@@ -207,14 +207,14 @@ def test_A10_raw_ignored_or_no_git_or_outside(repo, tmp_path):
     # no .git -> passes without git
     _load(repo)
     # git repo with raw ignored -> passes
-    _git_init(repo, "data/raw/\n")
+    _git_init(repo, "data/raw/\ndata/canonical/*\n")   # S1-T5 R21: the duckdb temp dir (in canonical) must be ignored too
     cfg = _load(repo, env={"PATH": os.environ["PATH"]})  # git lookup uses only injected env PATH (D4)
     assert cfg.zones["raw"] == (repo / "data" / "raw").resolve()
     # raw outside the repo with .git present and nothing ignored -> passes
-    (repo / ".gitignore").write_text("")
+    (repo / ".gitignore").write_text("data/canonical/*\n")   # raw is not ignored here; only the duckdb temp dir (S1-T5 R21)
     outside = tmp_path / "outside_raw"
     outside.mkdir()
-    cfg2 = _load(repo, env={"INVESTOS_PATHS__RAW": str(outside)})
+    cfg2 = _load(repo, env={"INVESTOS_PATHS__RAW": str(outside), "PATH": os.environ["PATH"]})   # S1-T5 R21: temp dir check runs git
     assert cfg2.zones["raw"] == outside.resolve()
 
 

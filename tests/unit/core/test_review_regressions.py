@@ -18,7 +18,8 @@ FIXED = datetime(2026, 11, 21, 9, 30, 0, tzinfo=timezone.utc)
 def log():
     import importlib
     from investos.core import log as m
-    return importlib.reload(m)
+    yield importlib.reload(m)
+    importlib.reload(m)       # S1-T5 D1: never leave a test's sink (e.g. _BadFlush) configured for later tests
 
 
 # ---- D2: strictly valid JSON ------------------------------------------------
@@ -71,7 +72,7 @@ def test_D3_flush_error_propagates(log):
 # ---- D4: git check uses injected env ----------------------------------------
 def _git_repo(repo):
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
-    (repo / ".gitignore").write_text("data/raw/\n")
+    (repo / ".gitignore").write_text("data/raw/\ndata/canonical/*\n")   # S1-T5 R21
 
 
 def test_D4_control_injected_path_with_git_passes(repo):

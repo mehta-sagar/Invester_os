@@ -17,7 +17,8 @@ def log():
     """Fresh copy of the module so per-process state (run_id, sink) is reset per test."""
     import importlib
     from investos.core import log as m
-    return importlib.reload(m)
+    yield importlib.reload(m)
+    importlib.reload(m)       # S1-T5 D1: never leave a test's sink (e.g. _BadFlush) configured for later tests
 
 
 def _lines(sink: io.StringIO):
