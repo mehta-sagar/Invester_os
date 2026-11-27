@@ -26,3 +26,6 @@ __pycache__/
 .DS_Store
 # collector state (limiter stamps, daily counters): machine state, never committed
 data/ledger/.state/
+
+# Local config with personal values (contact email). Never commit.
+config/investos.toml
