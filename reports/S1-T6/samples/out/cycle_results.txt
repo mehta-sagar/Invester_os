@@ -1,0 +1,4 @@
+CycleResult(slot='20261127T0900', polled=('online_announcements', 'rbi_press'), outcomes={'online_announcements': 'fetched', 'rbi_press': 'fetched'}, skipped_slot=False, gaps_written=0, alerts=(), gap_write_failed=False)
+CycleResult(slot='20261127T0915', polled=('online_announcements', 'rbi_press'), outcomes={'online_announcements': 'skipped', 'rbi_press': 'skipped'}, skipped_slot=False, gaps_written=0, alerts=(), gap_write_failed=False)
+CycleResult(slot='20261127T0930', polled=('online_announcements', 'rbi_press'), outcomes={'online_announcements': 'fetched', 'rbi_press': 'skipped'}, skipped_slot=False, gaps_written=0, alerts=(), gap_write_failed=False)
+CycleResult(slot='20261127T1015', polled=('online_announcements', 'rbi_press'), outcomes={'online_announcements': 'fetched', 'rbi_press': 'unreadable'}, skipped_slot=False, gaps_written=3, alerts=('rbi_press poll_missed',), gap_write_failed=False)

@@ -1,0 +1,34 @@
+{
+  "access_mode": "honest",
+  "date_check": "not_date_keyed",
+  "expected": 1,
+  "finished_at": "2026-11-27T04:50:30.000000Z",
+  "gaps": [],
+  "outcomes": {
+    "fetched": 1,
+    "fetched_empty": 0,
+    "incomplete": 0,
+    "missing_holiday": 0,
+    "not_attempted": 0,
+    "rejected": 0,
+    "skipped": 0,
+    "unreadable": 0
+  },
+  "outputs": [
+    {
+      "key": "online_announcements/20261127T1015",
+      "sha256": "ed59cbf66e3c2bb9c5b642377542e15f6a04298017a454ded31999db875b9593"
+    }
+  ],
+  "range": {
+    "end": "2026-11-27",
+    "start": "2026-11-27"
+  },
+  "received": 1,
+  "run_id": "sample-c4",
+  "schema": 2,
+  "source": "rss",
+  "source_version": "rss-v1",
+  "started_at": "2026-11-27T04:50:30.000000Z",
+  "status": "complete"
+}

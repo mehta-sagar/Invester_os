@@ -1,0 +1,13 @@
+{
+  "alerted": {},
+  "consecutive_failures": 0,
+  "feed_id": "online_announcements",
+  "last_attempt_at": "2026-11-27T04:50:30.000000Z",
+  "last_change_at": "2026-11-27T04:50:30.000000Z",
+  "last_content_digest": "ed59cbf66e3c2bb9c5b642377542e15f6a04298017a454ded31999db875b9593",
+  "last_ok_at": "2026-11-27T04:50:30.000000Z",
+  "last_ok_slot": "20261127T1015",
+  "last_stored_sha": "ed59cbf66e3c2bb9c5b642377542e15f6a04298017a454ded31999db875b9593",
+  "newest_pub_ist": "2026-11-27T10:14:00+05:30",
+  "schema": 1
+}

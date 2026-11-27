@@ -1,0 +1,15 @@
+{
+  "alerted": {
+    "poll_missed": "2026-11-27"
+  },
+  "consecutive_failures": 1,
+  "feed_id": "rbi_press",
+  "last_attempt_at": "2026-11-27T04:50:30.000000Z",
+  "last_change_at": "2026-11-27T03:30:30.000000Z",
+  "last_content_digest": "d0f711705c43b1c29256fc2da3b4ab32ff2ce7bc1eeb6d9a34b0575a65fb2fa8",
+  "last_ok_at": "2026-11-27T04:00:30.000000Z",
+  "last_ok_slot": "20261127T0930",
+  "last_stored_sha": "d0f711705c43b1c29256fc2da3b4ab32ff2ce7bc1eeb6d9a34b0575a65fb2fa8",
+  "newest_pub_ist": "2026-11-27T08:30:00+05:30",
+  "schema": 1
+}
