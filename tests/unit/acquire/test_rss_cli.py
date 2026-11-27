@@ -198,3 +198,21 @@ def test_A26_a_broken_plist_is_caught_by_the_validator(tmp_path, old, new):
 def test_A26_plist_never_commits_or_pushes():
     t = EXAMPLE_PLIST.read_text().lower()
     assert not re.search(r"\bgit\b", t)
+
+
+def test_D1_cli_passes_a_live_wall_clock_to_poll_cycle(cli, monkeypatch):
+    """Review D1 (Orchestrator follow-up): the CLI must pass a real per-feed clock, not leave it at `now`."""
+    from datetime import datetime, timezone
+    from investos.acquire import rss
+    seen = {}
+    real = rss.poll_cycle
+
+    def spy(*a, **k):
+        seen["clock"] = k.get("clock")
+        return real(*a, **k)
+    monkeypatch.setattr(rss, "poll_cycle", spy)
+    run("collect", "rss", "--once", "--force")
+    c = seen.get("clock")
+    assert callable(c), "collect rss must pass clock= to poll_cycle"
+    t = c()
+    assert t.tzinfo is not None and abs((datetime.now(timezone.utc) - t).total_seconds()) < 60
