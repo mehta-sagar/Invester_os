@@ -1,0 +1,52 @@
+# S1-T5 sample: Friday key and Sunday key, same bytes (HTTP 200 both)
+body bytes: b'DATE1,SYMBOL,CLOSE\n20-Nov-2026,SYM0,100\n20-Nov-2026,SYM1,101\n'
+outcomes: {'2026-11-20': 'fetched', '2026-11-22': 'rejected'} status: incomplete
+
+## sidecar
+{
+  "access_mode": "honest",
+  "date_check": "enforced",
+  "expected": 2,
+  "finished_at": "2026-11-21T09:30:00.000000Z",
+  "gaps": [
+    {
+      "key": "2026-11-22",
+      "outcome": "rejected",
+      "reason": "date_mismatch: key 2026-11-22 but file has 2026-11-20 in DATE1"
+    }
+  ],
+  "outcomes": {
+    "fetched": 1,
+    "fetched_empty": 0,
+    "incomplete": 0,
+    "missing_holiday": 0,
+    "not_attempted": 0,
+    "rejected": 1,
+    "skipped": 0,
+    "unreadable": 0
+  },
+  "outputs": [
+    {
+      "key": "2026-11-20",
+      "sha256": "4aaa09094a68be91c1d60eb5f7c37d8992ed4aed0ea61fd2a7e6431cde0bdd5f"
+    }
+  ],
+  "range": {
+    "end": "2026-11-22",
+    "start": "2026-11-20"
+  },
+  "received": 1,
+  "run_id": "run-1",
+  "schema": 2,
+  "source": "demo_src",
+  "source_version": "demo-v1",
+  "started_at": "2026-11-21T09:30:00.000000Z",
+  "status": "incomplete"
+}
+
+## log lines (collect.* events)
+{"ts":"2026-11-27T15:04:13.431591Z","level":"INFO","run_id":"log-run-0001","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-20","url":"https://example.test/f/2026-11-20.csv","attempts":1,"reason":"","size":61,"trade_date":"2026-11-20"}}
+{"ts":"2026-11-27T15:04:13.433641Z","level":"WARNING","run_id":"log-run-0001","task":"collect.demo_src","event":"rejected","fields":{"key":"2026-11-22","url":"https://example.test/f/2026-11-22.csv","reason":"date_mismatch: key 2026-11-22 but file has 2026-11-20 in DATE1","file_dates":["2026-11-20"],"field":"DATE1","rows_examined":2}}
+{"ts":"2026-11-27T15:04:13.434438Z","level":"INFO","run_id":"log-run-0001","task":"collect.demo_src","event":"run_end","fields":{"status":"incomplete","expected":2,"received":1,"sidecar":"/tmp/tmpmkmgut2h/manifests/demo_src.runs/2026-11-20_2026-11-22.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"rejected":1,"not_attempted":0}}
+
+manifest line count: 1  raw files: 1
