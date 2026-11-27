@@ -1,0 +1,39 @@
+$ routine roots --dry-run -> exit 0
+  stdout: would stage: data/ledger/decisions.jsonl
+would stage: data/manifests/a.jsonl
+would stage: registry/trials.jsonl
+{"added":3,"branch":"main","committed":null,"exit":0,"pushed":false,"roots":{"decisions":[],"trials":[]}}
+  stderr: {"ts":"2026-11-27T11:29:47.584461Z","level":"INFO","run_id":"20261127T112947Z-fe2cf068","task":"routine.roots","event":"start","fields":{"branch":"main","remote":"origin","dry_run":true}}
+{"ts":"2026-
+  tree changed by dry-run? commits: 1
+$ routine roots -> exit 0
+  stdout: {"added":5,"branch":"main","committed":"0a549e48c3ee4e9f2fca24306320478190955bea","exit":0,"pushed":true,"roots":{"decisions":["2026-11-18","2026-11-19","2026-11-20"],"trials":["2026-11-18","2026-11-19","2026-11-20"]}}
+  stderr: {"ts":"2026-11-27T11:29:47.656439Z","level":"INFO","run_id":"20261127T112947Z-ef531442","task":"routine.roots","event":"start","fields":{"branch":"main","remote":"origin","dry_run":false}}
+{"ts":"2026
+  commit files: ['data/ledger/decisions.jsonl', 'data/ledger/decisions.roots.jsonl', 'data/manifests/a.jsonl', 'registry/trials.jsonl', 'registry/trials.roots.jsonl']
+  remote==local: True
+$ routine roots -> exit 0
+  stdout: {"added":5,"branch":"main","committed":null,"exit":0,"pushed":false,"roots":{"decisions":[],"trials":[]}}
+  stderr: {"ts":"2026-11-27T11:29:47.787554Z","level":"INFO","run_id":"20261127T112947Z-484b4ae8","task":"routine.roots","event":"start","fields":{"branch":"main","remote":"origin","dry_run":false}}
+{"ts":"2026
+$ routine roots -> exit 6
+  stdout: {"added":5,"branch":"main","committed":"82a3c1eb4efcf1ab145eb5de73e7a958e976aad4","exit":6,"pushed":false,"roots":{"decisions":[],"trials":[]}}
+  stderr: {"ts":"2026-11-27T11:29:47.887400Z","level":"INFO","run_id":"20261127T112947Z-603c4b59","task":"routine.roots","event":"start","fields":{"branch":"main","remote":"origin","dry_run":false}}
+{"ts":"2026
+  local commits ahead: 1
+$ routine roots -> exit 0
+  stdout: {"added":5,"branch":"main","committed":null,"exit":0,"pushed":true,"roots":{"decisions":[],"trials":[]}}
+  stderr: {"ts":"2026-11-27T11:29:48.009587Z","level":"INFO","run_id":"20261127T112948Z-c4bf9e0f","task":"routine.roots","event":"start","fields":{"branch":"main","remote":"origin","dry_run":false}}
+{"ts":"2026
+  remote==local: True
+$ routine roots --bogus -> exit 1
+  stdout: 
+  stderr: investos routine roots: unrecognized arguments: --bogus
+$ routine roots --branch other -> exit 3
+  stdout: {"added":0,"branch":"other","committed":null,"exit":3,"pushed":false,"roots":{"decisions":[],"trials":[]}}
+  stderr: {"ts":"2026-11-27T11:29:48.161772Z","level":"INFO","run_id":"20261127T112948Z-a5a66409","task":"routine.roots","event":"start","fields":{"branch":"other","remote":"origin","dry_run":false}}
+{"ts":"202
+$ routine roots --remote=--force -> exit 6
+  stdout: {"added":5,"branch":"main","committed":null,"exit":6,"pushed":false,"roots":{"decisions":[],"trials":[]}}
+  stderr: {"ts":"2026-11-27T11:29:48.223636Z","level":"INFO","run_id":"20261127T112948Z-ba627cc6","task":"routine.roots","event":"start","fields":{"branch":"main","remote":"--force","dry_run":false}}
+{"ts":"202

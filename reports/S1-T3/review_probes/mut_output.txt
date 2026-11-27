@@ -1,0 +1,45 @@
+M01 skip branch check KILLED >       assert [e["level"] for e in env.events_named("refused")] == ["ERROR"]
+M02 skip index-clean check KILLED FAILED tests/unit/routine/test_roots_core.py::test_A4_staged_unrelated_file_refused_index_unchanged
+M03 skip MERGE_HEAD etc KILLED FAILED tests/unit/routine/test_roots_safety.py::test_A5_merge_in_progress_refused
+M04 no verify before write KILLED         assert r.exit_code == _ec().VERIFY_FAILED == 2
+M05 verify without roots SURVIVED 
+M06 symlink allowed KILLED FAILED tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+M07 no ignore filter KILLED E       assert <ExitCode.COMMIT_FAILED: 4> == 0
+M08 no inside-repo check SURVIVED 
+M09 host regex loosened KILLED FAILED tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+M10 sidecar regex loosened KILLED FAILED tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+M11 source regex dropped for manifests KILLED FAILED tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+M12 no shared lock KILLED FAILED tests/unit/routine/test_roots_safety.py::test_A6_waits_for_writer_holding_exclusive_lock
+M13 torn tail not checked KILLED FAILED tests/unit/routine/test_roots_safety.py::test_A6_torn_tail_manifest_refused_and_nothing_committed
+M14 torn tail not unstaged KILLED FAILED tests/unit/routine/test_roots_safety.py::test_A6_torn_tail_manifest_refused_and_nothing_committed
+M15 subset check off KILLED FAILED tests/unit/routine/test_roots_core.py::test_A4_cached_set_not_subset_of_add_list_refuses
+M16 commit --no-verify KILLED ==================================== ERRORS ====================================
+M17 push --force KILLED ==================================== ERRORS ====================================
+M18 push never when nothing committed KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A9_offline_commit_locally_exit_6_then_catch_up
+M19 always push even if not ahead KILLED FAILED tests/unit/routine/test_roots_core.py::test_A16_empty_layout_ok_no_commit
+M20 rejected misclassified KILLED E        +  where 6 = int(<ExitCode.PUSH_FAILED: 6>)
+M21 identity not mapped to USAGE KILLED E        +  where 4 = int(<ExitCode.COMMIT_FAILED: 4>)
+M22 lock not exclusive-nonblocking KILLED FAILED tests/unit/routine/test_roots_safety.py::test_A11_two_routines_together_no_duplicate_roots
+M23 notify code 4 added KILLED E             Left contains one more item: ('Invest OS: roots routine', 'exit 4 COMMIT_FAILED: git commit fail
+M24 notify code 6 dropped KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[6]
+M25 notify in dry-run KILLED E         Left contains one more item: ('Invest OS: roots routine', 'exit 2 VERIFY_FAILED: trials ledger faile
+M26 notify exception propagates KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A17_failing_notifier_keeps_exit_code_and_logs
+M27 unexpected after write -> USAGE KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A13_exception_after_write_roots_exit_4_roots_on_disk
+M28 wrote flag never set KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A13_exception_after_write_roots_exit_4_roots_on_disk
+M29 roots written in wrong order SURVIVED 
+M30 last.json not written KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A9_offline_commit_locally_exit_6_then_catch_up
+M31 commit message IST->UTC date KILLED FAILED tests/unit/routine/test_roots_core.py::test_A1_ist_date_in_message_uses_clock_ist_not_utc
+M32 dry-run still writes KILLED FAILED tests/unit/routine/test_roots_safety.py::test_A8_dry_run_changes_nothing_and_lists_plan
+M33 commit even if clean index KILLED E       AssertionError: assert (<ExitCode.COMMIT_FAILED: 4> == 0)
+M34 push timeout dropped to 1s KILLED E       AssertionError: assert <ExitCode.PUSH_FAILED: 6> == <ExitCode.OK: 0>
+M35 URL not redacted SURVIVED 
+M36 path not redacted KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A9_offline_commit_locally_exit_6_then_catch_up
+M37 state dir (.state) included in add-list SURVIVED 
+M38 access hosts dropped KILLED FAILED tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+M39 add whole dir KILLED FAILED tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+M40 stdin NUL check-ignore text KILLED E       assert <ExitCode.COMMIT_FAILED: 4> == 0
+M41 GIT_TERMINAL_PROMPT removed SURVIVED 
+M42 shell=True KILLED FAILED tests/unit/routine/test_roots_core.py::test_A1_roots_for_closed_days_only_one_commit_pushed
+M43 busy exit code KILLED FAILED tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[7]
+M44 sidecars dir symlink followed SURVIVED 
+M45 write_roots LedgerError not mapped SURVIVED 
