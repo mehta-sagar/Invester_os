@@ -1,0 +1,93 @@
+..FF.............                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_D3_final_url_is_response_url_not_requested_url ______________
+
+env = <_collector_helpers.Env object at 0x7f850a3eb610>
+
+    def test_D3_final_url_is_response_url_not_requested_url(env):
+        final = "https://cdn.example.test/final/2026-11-17.csv"
+        env.transport.set(url_of(D17), resp(200, CSV, url=final))
+        env.make().run(rr(D17))
+        o = json.loads(env.manifest_lines()[0])
+        assert o["url"] == url_of(D17)
+>       assert o["final_url"] == final
+E       AssertionError: assert 'https://exam...026-11-17.csv' == 'https://cdn....026-11-17.csv'
+E         
+E         - https://cdn.example.test/final/2026-11-17.csv
+E         ?         ----              ----
+E         + https://example.test/f/2026-11-17.csv
+
+tests/unit/acquire/test_s1t2_regressions.py:51: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T09:27:45.729163Z","level":"INFO","run_id":"20261127T092745Z-728e5eb7","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T09:27:45.730213Z","level":"INFO","run_id":"20261127T092745Z-728e5eb7","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-258/test_D3_final_url_is_response_0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+_____________ test_D2_just_under_limit_in_compact_form_is_accepted _____________
+
+mk = <function mk.<locals>._mk at 0x7f850a4731a0>
+roots = (PosixPath('/tmp/pytest-of-root/pytest-258/test_D2_just_under_limit_in_co0/raw'), PosixPath('/tmp/pytest-of-root/pytest-258/test_D2_just_under_limit_in_co0/manifests'))
+
+    def test_D2_just_under_limit_in_compact_form_is_accepted(mk, roots):
+        h = _fits_compact_not_default()
+        compact = len(json.dumps(h, separators=(",", ":"), ensure_ascii=False).encode())
+        default = len(json.dumps(h, ensure_ascii=False).encode())
+        assert compact == 16384 and default > 16384 and all(len(v) <= 4096 for v in h.values())
+        st = mk()
+>       e = put(st, "bse", b"x", request_headers=h)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_s1t2_regressions.py:71: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_acq_helpers.py:28: in put
+    return st.store(source, data, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/investos/acquire/manifest.py:344: in store
+    hdrs = MappingProxyType(_check_headers(request_headers, redact=True))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+h = {'X-A': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa...ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'}
+redact = True
+
+    def _check_headers(h, *, redact: bool) -> dict:
+        """R17. Returns the headers to record (cookie values redacted when redact). Raises ValueError/TypeError."""
+        if not isinstance(h, Mapping):
+            raise TypeError("request_headers must be None or a Mapping[str, str]")
+        if len(h) > _MAX_HDRS:
+            raise ValueError(f"more than {_MAX_HDRS} request headers")
+        out: dict[str, str] = {}
+        seen: set[str] = set()
+        for k, v in h.items():
+            if not isinstance(k, str) or not isinstance(v, str):
+                raise TypeError("request header names and values must be str")
+            if len(k) > _MAX_HNAME or not _TOKEN_RE.fullmatch(k):
+                raise ValueError(f"bad request header name {k!r}")
+            low = k.lower()
+            if low in seen:
+                raise ValueError(f"duplicate request header {k!r}")
+            seen.add(low)
+            if low in _FORBIDDEN_HDRS:
+                raise ValueError(f"request header {k!r} is not allowed")
+            if len(v) > _MAX_HVAL or any(c in v for c in "\r\n\0"):
+                raise ValueError(f"bad value for request header {k!r}")
+            if low == "cookie":
+                if redact:
+                    if _COOKIE_PAIRS_RE.fullmatch(v):
+                        v = "; ".join(p.split("=", 1)[0] + "=<redacted>" for p in v.split("; "))
+                    else:
+                        v = "<redacted>"
+                elif v != "<redacted>" and not _COOKIE_DONE_RE.fullmatch(v):
+                    raise ValueError("cookie header value is not redacted")
+            out[k] = v
+        if len(json.dumps(out, ensure_ascii=False).encode("utf-8")) > _MAX_HBYTES:
+>           raise ValueError("request headers longer than 16 KiB")
+E           ValueError: request headers longer than 16 KiB
+
+src/investos/acquire/manifest.py:161: ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_s1t2_regressions.py::test_D3_final_url_is_response_url_not_requested_url
+FAILED tests/unit/acquire/test_s1t2_regressions.py::test_D2_just_under_limit_in_compact_form_is_accepted
+2 failed, 15 passed in 0.11s
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_s1t2_regressions.py::test_D3_final_url_is_response_url_not_requested_url
+FAILED tests/unit/acquire/test_s1t2_regressions.py::test_D2_just_under_limit_in_compact_form_is_accepted
+2 failed, 845 passed, 2 skipped in 14.57s

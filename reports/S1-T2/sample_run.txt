@@ -1,0 +1,47 @@
+# S1-T2 sample run (Reviewer, 22 Nov 2026). Script: scripts not committed; ran against branch task/S1-T2 src as root on Linux.
+# CLI step also records the details from the JSON report: bad_line .../bse.jsonl line 6: cookie header value is not redacted
+=== 1. mixed store: 2 v1 lines then 3 v2 lines via store()
+stored schema=2 mode=honest headers={'User-Agent': 'investos/0.0.0'}
+stored schema=2 mode=scoped_exception headers={'User-Agent': 'investos/0.0.0', 'Cookie': 'nsit=<redacted>; nseappid=<redacted>', 'Referer': 'https://www.nseindia.com/x'}
+stored schema=2 mode=real_browser headers=None
+
+--- manifest file bse.jsonl
+1: {"fetched_at":"2026-11-21T09:30:00.000000Z","logical_key":"2026-11-17","run_id":"run-1","sha256":"3496aaad851191656c9cca21f4995af46f9bb0d78fd4dd894f1802e99ad23857","size":12,"source":"bse","source_version":"v1","url":"https://example.test/f"}
+2: {"fetched_at":"2026-11-21T09:30:00.000000Z","logical_key":"2026-11-18","run_id":"run-1","sha256":"a4afcdb77c4012251244102c2ca89cf31af0d8bdc0fb4713584a6e0492ccae83","size":11,"source":"bse","source_version":"v1","url":"https://example.test/f"}
+3: {"access_mode":"honest","fetch_host":"vm","fetched_at":"2026-11-22T09:30:00.000000Z","final_url":"https://example.test/f","logical_key":"2026-11-20","request_headers":{"User-Agent":"investos/0.0.0"},"run_id":"sample","schema":2,"sha256":"6231862419288f10acef16a28eba695e8e7c658848712f3474583f10d6f5dcaa","size":8,"source":"bse","source_version":"s1","url":"https://example.test/f"}
+4: {"access_mode":"scoped_exception","fetch_host":"vm","fetched_at":"2026-11-22T09:30:00.000000Z","final_url":"https://example.test/f","logical_key":"2026-11-21","request_headers":{"Cookie":"nsit=<redacted>; nseappid=<redacted>","Referer":"https://www.nseindia.com/x","User-Agent":"investos/0.0.0"},"run_id":"sample","schema":2,"sha256":"cc2377ff11c99afa8fdc6b868d9649dbf8c01173d442f21804f13ee998bc3b07","size":8,"source":"bse","source_version":"s1","url":"https://example.test/f"}
+5: {"access_mode":"real_browser","fetch_host":"vm","fetched_at":"2026-11-22T09:30:00.000000Z","final_url":"https://example.test/f#frag","logical_key":"2026-11-22","request_headers":null,"run_id":"sample","schema":2,"sha256":"b11ff3a07f6198ba388d1641901067d1eef65993e4897995a419d3813a776766","size":8,"source":"bse","source_version":"s1","url":"https://example.test/f"}
+
+SECRETVALUE in file: False
+
+=== 2. reader view
+2026-11-17 schema 1 access_mode None fetch_host None
+2026-11-18 schema 1 access_mode None fetch_host None
+2026-11-20 schema 2 access_mode honest fetch_host vm
+2026-11-21 schema 2 access_mode scoped_exception fetch_host vm
+2026-11-22 schema 2 access_mode real_browser fetch_host vm
+get_by_key('2026-11-17'): None (v1 -> None)
+
+=== 3. verify() -> []
+
+=== 4. investos check manifest (mixed healthy store)
+NAME      STATUS  MS  MESSAGE
+manifest  pass     4  1 sources, 5 lines OK
+OK
+report: /tmp/SAMPLE/repo/reports/checks/20261122T150923Z-c7c988a9.json
+exit = 0
+
+=== 5. hand-added v2 line with raw cookie
+verify(): [('bad_line', 6, 'cookie header value is not redacted')]
+NAME      STATUS  MS  MESSAGE
+manifest  fail     4  1 problem(s): bad_line [bse.jsonl]
+FAILED (1)
+report: /tmp/SAMPLE/repo/reports/checks/20261122T150923Z-c4f17e3b.json
+exit = 1
+RAWSECRET echoed in stdout: False
+report details: [] | RAWSECRET in report: False
+
+=== 6. two-process run (A31): writer 200 v2 lines with 2 KiB headers, reader loops get_by_key/entries
+writer exit=0 reader exit=0 reader reads=5128 ManifestCorruptError=0
+nse lines: 200 all schema 2: True header bytes/line ~ 2080
+verify('nse') -> []

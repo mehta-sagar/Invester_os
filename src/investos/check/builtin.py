@@ -112,7 +112,9 @@ def _store_blobs(ctx: CheckContext, source: str, blobs) -> ManifestStore:
     store = ManifestStore.from_config(ctx.cfg)
     for i, b in enumerate(blobs):
         store.store(source, b, url="planted://fixture", source_version="plant",
-                    logical_key=f"plant-{i}", run_id=ctx.run_id, fetched_at=_FIXED_TIME)
+                    logical_key=f"plant-{i}", run_id=ctx.run_id, fetched_at=_FIXED_TIME,
+                    access_mode="honest", request_headers={},
+                    final_url="https://planted.invalid/fixture", fetch_host="planted-host")
     return store
 
 

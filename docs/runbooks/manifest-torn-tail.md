@@ -31,3 +31,6 @@ treat it as tampering.
 8. Record a decision: add a row (or a file in `docs/decisions/`) with the date, the file, the bytes removed
    (offset before and after), the cause if known, and the backup name.
 9. Restart the collectors.
+
+## Manifest schema v2 lines seen by older code
+Since S1-T2 every new manifest line carries `"schema": 2` (v2, thirteen fields). A checkout from before that change treats a v2 line as corrupt (extra fields) and reports `bad_line`, or raises `ManifestCorruptError`. If the `bad_line` is on a complete (newline-terminated) line, it can mean "a v2 line seen by old code": update the code (pull `main`), do not truncate. Truncate only a genuinely torn, unterminated last line, as above.

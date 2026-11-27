@@ -48,8 +48,9 @@ def test_A7b_other_process_append_is_seen(mk, roots):
         from pathlib import Path
         from investos.acquire.manifest import ManifestStore
         st = ManifestStore(Path({str(raw)!r}), Path({str(man)!r}))
-        st.store("bse", b"child-bytes", url="u", source_version="v1", logical_key="from-child",
-                 run_id="run-2", fetched_at=datetime(2026, 11, 21, tzinfo=timezone.utc))
+        st.store("bse", b"child-bytes", url="https://x.test/u", source_version="v1", logical_key="from-child",
+                 run_id="run-2", fetched_at=datetime(2026, 11, 21, tzinfo=timezone.utc),
+                 access_mode="honest", request_headers={{"User-Agent": "t"}}, final_url="https://x.test/u", fetch_host="h")
     """)
     subprocess.run([sys.executable, "-I", "-c", code], check=True)
     assert a.get_by_key("bse", "from-child") is not None, "index stale after another process appended"
@@ -156,7 +157,8 @@ def _a2_writer(raw, man, wid, n):
     for i in range(n):
         st.store("bse", f"p-{wid}-{i}".encode(), url="https://x.test/" + "u" * 300, source_version="v",
                  logical_key=f"k{wid}-{i}-" + "x" * 300, run_id="w",
-                 fetched_at=datetime(2026, 11, 21, tzinfo=timezone.utc))
+                 fetched_at=datetime(2026, 11, 21, tzinfo=timezone.utc), access_mode="honest",
+                 request_headers={"User-Agent": "t"}, final_url="https://x.test/" + "u" * 300, fetch_host="h")
 
 
 def _a2_reader(raw, man, stop, q):

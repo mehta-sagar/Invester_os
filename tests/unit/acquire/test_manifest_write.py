@@ -36,7 +36,9 @@ def test_A2_manifest_line_format_and_utc(mk, roots):
     text = mp.read_bytes().decode("utf-8")
     assert text.endswith("\n") and text.count("\n") == 1
     obj = json.loads(text)
-    assert sorted(obj) == sorted(FIELDS)
+    from _v2_helpers import V2_FIELDS      # S1-T2: a line written now is v2 (13 fields); v1 reading is in test_manifest_v2.py
+    assert sorted(obj) == sorted(V2_FIELDS)
+    assert obj["schema"] == 2
     assert obj["fetched_at"] == "2026-11-21T09:30:00.000000Z"
     assert obj["size"] == 5 and isinstance(obj["size"], int) and not isinstance(obj["size"], bool)
     assert obj["sha256"] == HELLO_SHA and obj["source"] == "bse"
@@ -195,8 +197,8 @@ def test_A21_special_characters_roundtrip(mk, roots):
     st = mk()
     url = 'https://x.test/a?q="1"\nline2&é'
     key = 'k"1\n2é'
-    put(st, "bse", b"one", url=url, logical_key=key)
-    put(st, "bse", b"two", url=url, logical_key=key, run_id="r2")
+    put(st, "bse", b"one", url=url, logical_key=key, final_url="https://x.test/a")
+    put(st, "bse", b"two", url=url, logical_key=key, run_id="r2", final_url="https://x.test/a")
     mp = manifest_path(man, "bse")
     data = mp.read_bytes()
     assert data.count(b"\n") == 2 and len(data.decode("utf-8").splitlines()) == 2
@@ -231,7 +233,8 @@ def test_A23_missing_root_raises_manifest_error(tmp_path, missing):
             p.mkdir()
     with pytest.raises(ManifestError):
         ManifestStore(raw, man).store("bse", b"x", url="u", source_version="v", logical_key="k",
-                                      run_id="r", fetched_at=FETCHED)
+                                      run_id="r", fetched_at=FETCHED, access_mode="honest",
+                                      request_headers={}, final_url="https://x.test/", fetch_host="h")
     assert not base.exists(), "directories created above a missing root"
 
 

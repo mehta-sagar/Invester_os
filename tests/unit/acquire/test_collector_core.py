@@ -270,11 +270,14 @@ class _ManifestDouble:
         self.calls.append(("get_by_key", source, logical_key))
         return self._entries.get((source, logical_key))
 
-    def store(self, source, data, *, url, source_version, logical_key, run_id, fetched_at):
+    def store(self, source, data, *, url, source_version, logical_key, run_id, fetched_at, access_mode,
+              request_headers, final_url, fetch_host):
         from investos.acquire.manifest import ManifestEntry
         self.calls.append(("store", source, logical_key, dict(url=url, source_version=source_version,
                                                             run_id=run_id, fetched_at=fetched_at, data=data)))
-        e = ManifestEntry(sha(data), len(data), url, fetched_at, source, source_version, logical_key, run_id)
+        e = ManifestEntry(sha(data), len(data), url, fetched_at, source, source_version, logical_key, run_id,
+                          schema=2, access_mode=access_mode, request_headers=request_headers,
+                          final_url=final_url, fetch_host=fetch_host)
         self._entries[(source, logical_key)] = e
         return e
 

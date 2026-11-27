@@ -14,6 +14,7 @@ import io
 import json
 import os
 import re
+import socket
 import stat
 import time
 import uuid
@@ -398,17 +399,21 @@ class Collector(ABC):
         outputs: list[tuple[str, str]] = []
         # members first, zip last: the zip key is what makes a re-run skip, so it is written only
         # once every member is safely in the manifest
+        final_url = getattr(resp, "url", "") or url
         for name, data in members:
-            e = self._store(f"{key}/{name}", data, url, received_at)
+            e = self._store(f"{key}/{name}", data, url, received_at, final_url)
             outputs.append((e.logical_key, e.sha256))
-        e = self._store(key, resp.body, url, received_at)
+        e = self._store(key, resp.body, url, received_at, final_url)
         outputs.append((e.logical_key, e.sha256))
         outputs.sort()
         return _Rec(v.outcome, reason, outputs)
 
-    def _store(self, logical_key: str, data: bytes, url: str, fetched_at: datetime) -> ManifestEntry:
+    def _store(self, logical_key: str, data: bytes, url: str, fetched_at: datetime,
+               final_url: str) -> ManifestEntry:
         return self._manifest.store(self.source, data, url=url, source_version=self.source_version,
-                                    logical_key=logical_key, run_id=self._run_id, fetched_at=fetched_at)
+                                    logical_key=logical_key, run_id=self._run_id, fetched_at=fetched_at,
+                                    access_mode="honest", request_headers=dict(self._headers),
+                                    final_url=final_url, fetch_host=socket.gethostname())
 
     def _known_outputs(self, key: str, entry: ManifestEntry) -> list[tuple[str, str]]:
         rows = [(key, entry.sha256)]
