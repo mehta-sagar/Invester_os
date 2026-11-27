@@ -30,12 +30,14 @@ def test_sidecar_schema_canonical_bytes_and_no_temp_files(env):  # R13
     obj = json.loads(raw)
     assert raw == (json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode()
     assert set(obj) == {"schema", "source", "source_version", "run_id", "range", "started_at", "finished_at",
-                        "status", "expected", "received", "outcomes", "gaps", "outputs", "access_mode"}   # S1-T1 R30
+                        "status", "expected", "received", "outcomes", "gaps", "outputs", "access_mode",
+                        "date_check"}   # S1-T1 R30; S1-T5 R40 adds date_check
     assert obj["schema"] == 2 and obj["access_mode"] == "honest" and obj["source"] == SOURCE and obj["source_version"] == SOURCE_VERSION
     assert obj["run_id"] == "run-9" and obj["range"] == {"start": D17, "end": D18}
     assert TS.match(obj["started_at"]) and TS.match(obj["finished_at"])
     assert set(obj["outcomes"]) == {"fetched", "fetched_empty", "missing_holiday", "unreadable", "skipped",
-                                    "incomplete", "not_attempted"}
+                                    "incomplete", "rejected", "not_attempted"}   # S1-T5 R40 adds rejected
+    assert obj["date_check"] == "not_date_keyed"
     assert obj["gaps"] == [{"key": D18, "outcome": "unreadable", "reason": obj["gaps"][0]["reason"]}]
     assert obj["gaps"][0]["reason"]
     assert obj["outputs"] == [{"key": D17, "sha256": sha(CSV)}]
