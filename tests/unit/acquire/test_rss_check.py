@@ -235,13 +235,16 @@ def isolated_registry():
     import investos.acquire.registry as reg
     snap = {}
     for k, v in vars(reg).items():
-        if isinstance(v, (dict, list, set)):
+        if not k.startswith("__") and isinstance(v, (dict, list, set)):
             snap[k] = copy.copy(v)
     yield reg
     for k, v in snap.items():
         cur = getattr(reg, k)
         cur.clear()
-        cur.update(v) if isinstance(cur, (dict, set)) and not isinstance(cur, list) else cur.extend(v)
+        if isinstance(cur, list):
+            cur.extend(v)
+        else:
+            cur.update(v)
 
 
 def dummy(source="dummy_waived", waiver="x" * 25, **kw):
@@ -295,3 +298,21 @@ def test_A29_check_prints_a_warning_per_waived_adapter_and_still_passes(e, isola
 
 def test_A29_without_a_waived_adapter_no_such_line(e):
     assert not any("waived date check" in l for l in verdict(e)[2].splitlines())
+
+
+# ------------------------------------------------------------------ repos without a feed table (existing `check all` tests)
+def test_R20_missing_feed_table_file_passes_with_a_warning_so_check_all_stays_green(tmp_path, monkeypatch):
+    env = RssEnv(tmp_path, ROWS)
+    set_check_clock(monkeypatch, NOW)
+    env.feeds_path.unlink()
+    code, out, rep = verdict(env)
+    assert code == 0 and any("rss_feeds" in l for l in warn_lines(rep))
+
+
+@pytest.mark.planted
+def test_A28_planted_run_is_caught_even_without_a_feed_table(tmp_path, monkeypatch):
+    env = RssEnv(tmp_path, ROWS)
+    set_check_clock(monkeypatch, NOW)
+    env.feeds_path.unlink()
+    code, out, rep = verdict(env, ("rss", "--planted"))
+    assert code == 0 and "caught" in out

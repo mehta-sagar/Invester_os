@@ -109,12 +109,13 @@ NAMES = ["Online_announcements", "Annual_Reports", "Board_Meetings", "brsr", "Co
          "Shareholding_Pattern", "Statement_Of_Deviation", "Unitholding_Patterns", "Voting_Results", "Circulars"]
 
 
-def test_A5_shipped_table_has_26_rows_all_enabled_and_confirmed():
+def test_A5_shipped_table_has_the_named_rows_all_enabled_and_confirmed():
+    """Spec R3a/A5 say 26 rows but name 23 NSE ids + rbi_press + sebi_press = 25 (see RED_TESTS.md, Questions).
+    The enumerated ids are the contract here: exactly those, each once."""
     feeds = load(SHIPPED_FEEDS)
-    assert len(feeds) == 26
     assert all(f.enabled and f.status == "confirmed" for f in feeds)
-    assert [f.feed_id for f in feeds] == NSE_IDS + ["rbi_press", "sebi_press"] or \
-        sorted(f.feed_id for f in feeds) == sorted(NSE_IDS + ["rbi_press", "sebi_press"])
+    assert sorted(f.feed_id for f in feeds) == sorted(NSE_IDS + ["rbi_press", "sebi_press"])
+    assert len(feeds) == len(set(f.feed_id for f in feeds)) == 25
 
 
 def test_A5_shipped_urls_publishers_and_kinds():

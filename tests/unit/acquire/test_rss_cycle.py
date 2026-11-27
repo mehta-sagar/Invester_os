@@ -542,11 +542,13 @@ def test_A17_two_processes_appending_concurrently_make_two_complete_lines(tmp_pa
     for fid in ("fa", "fb"):
         seed_ok(e, fid, "20261127T0800")
     go = CTX.Event()
-    procs = []
+    procs, queues = [], []
     for fid, url in (("fa", URL_A), ("fb", URL_B)):
         spec = {"tmp": str(tmp_path), "feed": {"feed_id": fid, "url": url}, "body": body_of(1).decode(),
                 "now": ist(2026, 11, 27, 8, 50).isoformat(), "run_id": f"w-{fid}", "go": go}
-        p = CTX.Process(target=cycle_worker, args=(spec, CTX.Queue()))
+        q = CTX.Queue()
+        queues.append(q)
+        p = CTX.Process(target=cycle_worker, args=(spec, q))
         p.start()
         procs.append(p)
     go.set()

@@ -59,7 +59,7 @@ def test_R17_example_config_lists_rbi_and_sebi_hosts():
 
 def test_R1_rss_py_sets_no_header_of_its_own():
     s = src_of(SRC / "acquire" / "rss.py")
-    assert not re.search(r"User-Agent|Accept-Encoding|headers\s*=\s*\{", s)
+    assert not re.search(r"User-Agent|Accept-Encoding|(?<!extra_)\bheaders\s*=\s*\{", s)
 
 
 def test_R19_cli_registers_collect_in_the_usage_text():

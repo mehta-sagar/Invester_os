@@ -267,8 +267,9 @@ class RssEnv(S1Env):
 
     def collector(self, feed, slot, last_sha=None, **kw):
         from investos.acquire.rss import RssFeedCollector
+        when = kw.pop("now", ist(2026, 11, 27, 9, 0))
         args = dict(transport=self.transport, manifest=self.store, cfg=self.cfg, run_id="run-1",
-                    clock=lambda: kw.pop("now", ist(2026, 11, 27, 9, 0)), monotonic=self.mono, sleeper=self.sleeper,
+                    clock=lambda: when, monotonic=self.mono, sleeper=self.sleeper,
                     wall_clock=self.wall, hostname=lambda: HOSTNAME)
         args.update(kw)
         return RssFeedCollector(feed, slot, last_stored_sha=last_sha, **args)
