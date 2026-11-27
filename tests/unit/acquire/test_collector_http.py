@@ -21,15 +21,6 @@ def test_A8_fourth_retry_never_attempted(env, logs):  # R4
     assert env.manifest_lines() == []
 
 
-def test_A9_transport_error_then_429_then_ok(env):  # R4
-    from investos.acquire.base import Outcome
-    env.transport.set(url_of(D17), terr("reset"), resp(429, b"slow down"), resp(200, CSV))
-    r = env.make().run(rr(D17))
-    assert r.outcomes == {D17: Outcome.FETCHED} and env.transport.n() == 3
-    assert env.sleeper.sleeps == [1, 2]
-    assert len(env.manifest_lines()) == 1
-
-
 @pytest.mark.planted
 def test_A9b_transport_error_forever_is_unreadable_not_holiday(env):  # R4, R8
     from investos.acquire.base import Outcome
@@ -123,43 +114,13 @@ def test_A12c_non_2xx_downgrade_does_not_abort(env):  # R8
 
 
 # ------------------------------------------------------------------ headers (R2)
-@pytest.mark.planted
-def test_A13a_user_agent_is_the_configured_honest_one(env):
-    import investos
-    env.script_ok(D17, D18)
-    env.make().run(rr(D17, D18))
-    assert env.transport.calls
-    for c in env.transport.calls:
-        assert c["headers"] == {"User-Agent": f"investos/{investos.__version__}"}
-        assert "mozilla" not in c["headers"]["User-Agent"].lower()
-        assert c["timeout"] == 30.0
-
-
-def test_A13b_declared_extra_headers_are_sent_and_nothing_else(env):
-    import investos
-    env.script_ok(D17)
-    env.make(demo_class(extra_headers={"Accept-Encoding": "gzip, deflate", "X-Api-Version": "2"},
-                        timeout_s=12.0)).run(rr(D17))
-    c = env.transport.calls[0]
-    assert c["headers"] == {"User-Agent": f"investos/{investos.__version__}",
-                            "Accept-Encoding": "gzip, deflate", "X-Api-Version": "2"}
-    assert c["timeout"] == 12.0
-
-
+# S1-T1: A9 (429 retried), A13a/b/d (UA investos/<v>, headers exactly one) removed; superseded by A30, A31, A40 (spec table).
 @pytest.mark.planted
 @pytest.mark.parametrize("name", ["Referer", "referer", "COOKIE", "User-Agent", "user-agent", "Origin",
                                   "X-Forwarded-For", "x-real-ip"])
 def test_A13c_spoofing_headers_rejected_at_instantiation(env, name):
     with pytest.raises(ValueError):
         env.make(demo_class(extra_headers={name: "https://x"}))
-
-
-@pytest.mark.planted
-def test_A13d_headers_unchanged_across_retries(env):
-    env.transport.set(url_of(D17), resp(503, b"x"), resp(429, b"x"), resp(200, CSV))
-    env.make().run(rr(D17))
-    assert env.transport.n() == 3
-    assert len({tuple(sorted(c["headers"].items())) for c in env.transport.calls}) == 1
 
 
 # ------------------------------------------------------------------ rate limits (R3)

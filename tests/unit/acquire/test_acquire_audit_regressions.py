@@ -223,7 +223,7 @@ def test_A6_control_characters_and_malformed_names_rejected(env, name, value):
         env.make(demo_class(extra_headers={name: value}))
 
 
-@pytest.mark.parametrize("name", ["Accept", "Accept-Language", "Accept-Encoding", "X-Api-Version"])
+@pytest.mark.parametrize("name", ["Accept", "Accept-Language", "X-Api-Version"])   # S1-T1: Accept-Encoding now denied (R19)
 def test_A6_guard_ordinary_headers_still_allowed(env, name):
     env.make(demo_class(extra_headers={name: "gzip"}))
 

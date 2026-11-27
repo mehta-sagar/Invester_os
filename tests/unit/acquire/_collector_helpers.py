@@ -144,6 +144,14 @@ class Env:
         zones = {k: tmp / k for k in ("raw", "manifests", "canonical", "ledger", "reports", "registry")}
         self.cfg = Config(repo_root=tmp, timezone="Asia/Kolkata", zones=zones, migrations_dir=tmp / "mig",
                           rate_limits=RateLimits(default_interval_s=interval, hosts=hosts or {}))
+        try:                                   # S1-T1: [collect] exists once the amendment is built; tests need a contact
+            from dataclasses import replace
+            from investos.core.config import CollectConfig
+            self.cfg = replace(self.cfg, collect=CollectConfig(contact="test@example.invalid", timeout_s=30.0,
+                                                               max_body_bytes=536870912, access={}))
+        except ImportError:
+            pass
+        (tmp / "ledger").mkdir(exist_ok=True)
         self.store = ManifestStore(self.raw, self.man)
         self.mono = FakeMono()
         self.sleeper = FakeSleeper(self.mono)
