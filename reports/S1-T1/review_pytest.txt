@@ -1,0 +1,11 @@
+# Reviewer runs, 27 Nov 2026, branch task/S1-T1 @ a6ea923 (Linux, Python 3.13)
+## root (repo as is)
+...............................................................          [100%]
+1141 passed, 2 skipped in 20.43s
+## non-root (user nobody, repo copy /tmp/s1t1_probe/nb)
+...............................................................          [100%]
+1143 passed in 19.99s
+## targeted suite used for mutations: tests/unit/acquire tests/unit/core
+826 passed (baseline, ~16 s)
+## flake seen: tests/unit/acquire/test_collect_s1_limiter.py::test_A48_two_processes_never_start_closer_than_the_interval
+4 suites in parallel on 2 cores: 1 of 8 runs failed, min gap 0.177 s vs 0.18 required (interval 0.2); 0 failures alone or under 3 busy loops
