@@ -35,5 +35,7 @@ Then: Independent auditor (strongest model, fresh context) → Sagar approves la
 | S1-SPEC2 | Spec change: trading calendar (closing-price eras), in-file date check (outcome `rejected`), DuckDB caps for the 16 GB Mac | Spec writer | specs/trading_calendar.md, specs/collect_base.md (R34-R41), specs/core_config_log_db.md (R20-R25), briefs/S1-T4..T5.md | merged (main 9449f0f) | S1-SPEC1 |
 | S1-T4 | Trading calendar: confirmed trading days, versioned closing eras, `market_close_ist`, `after_close_public_at`, `investos check calendar` | Test writer → Builder | src/investos/calendar/, config/calendar/*.csv | merged (main b4ebfe8) | S1-SPEC2 |
 | S1-T5 | Date check in the collector base (`rejected`, `date_mismatch`) + `[duckdb]` config caps applied by `open_db` | Test writer → Builder | src/investos/acquire/base.py, core/config.py, core/db.py | merged (main d3b055c) | S1-SPEC2, S1-T1 |
+| S1-SPEC3 | Spec: RSS poller (first real adapter), item extractor, freshness check | Spec writer | specs/collect_rss.md, briefs/S1-T6.md | open (4 questions for Sagar) | S1-SPEC2 |
+| S1-T6 | RSS poller, base `unchanged_body` hook, item extractor, adapter registry, `investos check rss` | Test writer → Builder | src/investos/acquire/{rss,registry}.py, src/investos/parse/rss_items.py, src/investos/check/rss_check.py, config/rss_feeds.csv | open | S1-SPEC3 |
 
 Order: S1-T2 first (v2 reader before any v2 writer), then S1-T1 (also builds core/notify.py), then S1-T3. C3 done (reports/S0-AUD/mac_run.txt: 688 passed, ALL CLAIMS PASS). Still open: C5 (before raw passes a few GB).
