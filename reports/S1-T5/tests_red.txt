@@ -1,0 +1,30 @@
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_parent_of_temp_directory_is_not_created
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_quoting_of_the_temp_path[it's_tmp]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_quoting_of_the_temp_path[o'brien's spill]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_quoting_of_the_temp_path[two words]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_quoting_of_the_temp_path[semi;colon]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_quoting_of_the_temp_path[a''b]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_rejected_set_raises_migration_error_and_closes[memory_limit]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_rejected_set_raises_migration_error_and_closes[threads]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_rejected_set_raises_migration_error_and_closes[preserve_insertion_order]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A36_rejected_set_raises_migration_error_and_closes[temp_directory]
+FAILED tests/unit/core/test_duckdb_caps.py::test_parse_size_text_units - Attr...
+FAILED tests/unit/core/test_duckdb_caps.py::test_parse_size_text_rejects_garbage[]
+FAILED tests/unit/core/test_duckdb_caps.py::test_parse_size_text_rejects_garbage[abc]
+FAILED tests/unit/core/test_duckdb_caps.py::test_parse_size_text_rejects_garbage[5]
+FAILED tests/unit/core/test_duckdb_caps.py::test_parse_size_text_rejects_garbage[5 parsecs]
+FAILED tests/unit/core/test_duckdb_caps.py::test_parse_size_text_rejects_garbage[GB]
+FAILED tests/unit/core/test_duckdb_caps.py::test_parse_size_text_rejects_garbage[-1GB]
+FAILED tests/unit/core/test_duckdb_caps.py::test_A37_reported_limit_follows_config
+FAILED tests/unit/core/test_duckdb_caps.py::test_A38_sort_over_5m_wide_rows_spills_with_64mib
+FAILED tests/unit/core/test_duckdb_caps.py::test_A38_unwritable_temp_directory_fails_loudly_and_limit_is_unchanged
+FAILED tests/unit/core/test_duckdb_caps.py::test_A39_db_source_has_no_limit_without_order_by
+FAILED tests/unit/core/test_duckdb_caps.py::test_A39_insertion_order_cannot_be_turned_back_on_by_config
+FAILED tests/unit/core/test_duckdb_caps.py::test_A40_one_duckdb_settings_event_with_reported_values
+FAILED tests/unit/core/test_duckdb_caps.py::test_A40_one_event_per_connection_including_read_only
+FAILED tests/unit/core/test_duckdb_caps.py::test_A40_no_event_when_the_connection_is_refused
+FAILED tests/unit/core/test_duckdb_caps.py::test_A41_example_toml_has_the_defaults_written_out
+FAILED tests/unit/core/test_duckdb_caps.py::test_A41_example_toml_loads_and_matches_the_defaults
+FAILED tests/unit/core/test_duckdb_caps.py::test_R24_the_code_never_raises_the_memory_limit
+FAILED tests/unit/core/test_duckdb_caps.py::test_R23_reported_threads_is_an_int_matching_config
+236 failed, 869 passed, 1 skipped in 26.52s

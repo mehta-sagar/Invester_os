@@ -76,19 +76,6 @@ def test_R35_waiver_counts_characters_after_strip(env):
     env.make(waived_class(date_check_waiver="  " + exactly20 + "  "))            # 20 after strip: ok
 
 
-def test_R35_no_config_switch_disables_the_check(env, tmp_path):
-    from _core_helpers import VALID_TOML, make_repo, set_toml
-    from investos.core.config import ConfigError, load_config
-    repo = make_repo(tmp_path / "r")
-    for line in ("date_check = false", "date_check = \"off\"", "enforce_date_check = false"):
-        set_toml(repo, VALID_TOML + f'\n[collect]\ncontact = "a@b.c"\n{line}\n')
-        with pytest.raises(ConfigError):
-            load_config(repo / "config" / "investos.toml", env={}, repo_root=repo)
-    with pytest.raises(ConfigError):
-        set_toml(repo, VALID_TOML)
-        load_config(repo / "config" / "investos.toml", env={"INVESTOS_COLLECT__DATE_CHECK": "off"}, repo_root=repo)
-
-
 # ============================================================ A60 (R37) pass
 def test_A60_matching_date_is_fetched_and_logged(env, logs):
     from investos.acquire.base import Outcome

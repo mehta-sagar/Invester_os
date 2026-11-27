@@ -71,7 +71,7 @@ def test_D3_flush_error_propagates(log):
 # ---- D4: git check uses injected env ----------------------------------------
 def _git_repo(repo):
     subprocess.run(["git", "init", "-q", str(repo)], check=True)
-    (repo / ".gitignore").write_text("data/raw/\n")
+    (repo / ".gitignore").write_text("data/raw/\ndata/canonical/*\n")   # S1-T5 R21
 
 
 def test_D4_control_injected_path_with_git_passes(repo):

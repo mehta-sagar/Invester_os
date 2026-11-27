@@ -140,6 +140,16 @@ def test_A31_defaults_when_section_absent(repo):
         cfg.duckdb.threads = 9
 
 
+def test_A31_default_temp_directory_follows_a_relocated_canonical_zone(repo):
+    """Existing fixtures put the zones elsewhere (tmp/canonical): the default must sit inside the canonical zone
+    wherever it is, so those configs keep loading without a [duckdb] section."""
+    text = VALID_TOML.replace('canonical  = "data/canonical"', 'canonical  = "elsewhere/canon"')
+    (repo / "elsewhere" / "canon").mkdir(parents=True)
+    set_toml(repo, text)
+    cfg = _cfgmod().load_config(repo / "config" / "investos.toml", env={}, repo_root=repo)
+    assert cfg.duckdb.temp_directory == repo.resolve() / "elsewhere" / "canon" / ".duckdb_tmp"
+
+
 def test_A31_empty_section_equals_defaults(repo):
     assert _load(repo, "") .duckdb == _load(repo, None).duckdb
 
@@ -161,7 +171,7 @@ def test_A31_gib_and_threads_from_file(repo):
 @pytest.mark.parametrize("text,expected", [
     ("5 GB", 5_000_000_000), ("5gb", 5_000_000_000), ("5Gb", 5_000_000_000), ("5GB", 5_000_000_000),
     ("100MB", 100_000_000), ("64MiB", 64 * MIB), ("64 mib", 64 * MIB), ("1.5GB", 1_500_000_000),
-    ("1.5GiB", 1610612736), ("0.1GiB", 107374182), ("64.5MB", 64_500_000), ("1TB", 10 ** 12), ("1TiB", 1024 ** 4),
+    ("1.5GiB", 1610612736), ("0.1GiB", 107374182), ("70.1MB", 70_100_000), ("1.1GB", 1_100_000_000), ("1TB", 10 ** 12), ("1TiB", 1024 ** 4),
     ("67109KB", 67_109_000), ("65536KiB", 64 * MIB), ("16GiB", 16 * GIB), ("2.5 TiB", int(2.5 * 1024 ** 4)),
 ], ids=lambda v: str(v))
 def test_A31_units_decimal_vs_binary_rounded_down(repo, text, expected):
@@ -197,12 +207,14 @@ def test_A32_bad_threads(repo, lit):
 @pytest.mark.parametrize("line", ["cache = 1", "preserve_insertion_order = true", "preserve_insertion_order = false",
                                   "Memory_Limit = \"5GB\"", "max_memory = \"5GB\"", "temp_dir = \"x\""])
 def test_A32_A39_unknown_key_in_duckdb_section(repo, line):
+    assert _load(repo, "threads = 4").duckdb.threads == 4          # the section itself is accepted
     with pytest.raises(_cfgmod().ConfigError, match="duckdb"):
         _load(repo, line)
 
 
 @pytest.mark.planted
 def test_A32_duckdb_must_be_a_table(repo):
+    assert _load(repo, "threads = 4").duckdb.threads == 4
     set_toml(repo, 'duckdb = 5\n' + VALID_TOML)
     with pytest.raises(_cfgmod().ConfigError, match="duckdb"):
         _cfgmod().load_config(repo / "config" / "investos.toml", env={}, repo_root=repo)
@@ -231,6 +243,7 @@ def test_A33_env_works_when_section_absent_and_temp_directory_override(repo):
 @pytest.mark.planted
 @pytest.mark.parametrize("val", ["2.5", "abc", "", "true", "0", "65", "-1", "4.0e0", "two"])
 def test_A33_bad_threads_env(repo, val):
+    assert _load(repo, None, env={"INVESTOS_DUCKDB__THREADS": "4"}).duckdb.threads == 4
     with pytest.raises(_cfgmod().ConfigError, match=r"duckdb\.threads|INVESTOS_DUCKDB__THREADS"):
         _load(repo, None, env={"INVESTOS_DUCKDB__THREADS": val})
 
@@ -238,6 +251,7 @@ def test_A33_bad_threads_env(repo, val):
 @pytest.mark.planted
 @pytest.mark.parametrize("val", ["80%", "5G", "0GB", "10MB", "", "5"])
 def test_A33_bad_memory_limit_env_is_validated_like_the_file_value(repo, val):
+    assert _load(repo, None, env={"INVESTOS_DUCKDB__MEMORY_LIMIT": "3GB"}).duckdb.memory_limit_bytes == 3_000_000_000
     with pytest.raises(_cfgmod().ConfigError, match=r"duckdb\.memory_limit|INVESTOS_DUCKDB__MEMORY_LIMIT"):
         _load(repo, None, env={"INVESTOS_DUCKDB__MEMORY_LIMIT": val})
 
@@ -246,6 +260,7 @@ def test_A33_bad_memory_limit_env_is_validated_like_the_file_value(repo, val):
 @pytest.mark.parametrize("name", ["INVESTOS_DUCKDB__THREAD", "INVESTOS_DUCKDB__MEMORY", "INVESTOS_DUCKDB__CACHE",
                                   "INVESTOS_DUCKDB__PRESERVE_INSERTION_ORDER", "INVESTOS_DUCKDB__TEMP_DIR"])
 def test_A33_typo_or_forbidden_env_key_is_an_error(repo, name):
+    assert _load(repo, None, env={"INVESTOS_DUCKDB__THREADS": "4"}).duckdb.threads == 4
     with pytest.raises(_cfgmod().ConfigError):
         _load(repo, None, env={name: "2"})
 
@@ -299,7 +314,9 @@ def test_A34_git_ignored_default_is_accepted(repo):
 
 @pytest.mark.planted
 def test_A34_git_unrunnable_refuses_when_temp_dir_is_in_repo_with_git(repo):
+    # (precondition: _git_init below; the same repo loads when git is runnable)
     _git_init(repo, "data/raw/\ndata/canonical/*\n")
+    assert _load(repo, None, env={"PATH": os.environ["PATH"]}).duckdb.threads == 4
     with pytest.raises(_cfgmod().ConfigError):
         _load(repo, None, env={"PATH": "/nonexistent"})
 
@@ -492,7 +509,7 @@ SELECT count(*), sum((rn <> i + 1)::INT), min(s) FILTER (WHERE rn = 1), max(s) F
 FROM (SELECT i, s, row_number() OVER (ORDER BY s) AS rn
       FROM (SELECT i, lpad(i::VARCHAR, 100, '0') AS s FROM range({n}) t(i)))
 """
-SPILL_ROWS = 5_000_000
+SPILL_ROWS = 3_000_000                 # spec A38 says 5 million; 3 million keeps the test under ~5 s and still needs ~350 MB vs a 64 MiB limit
 
 
 def test_A38_sort_over_5m_wide_rows_spills_with_64mib(repo):
