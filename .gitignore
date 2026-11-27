@@ -24,3 +24,5 @@ __pycache__/
 *.pyc
 .venv/
 .DS_Store
+# collector state (limiter stamps, daily counters): machine state, never committed
+data/ledger/.state/

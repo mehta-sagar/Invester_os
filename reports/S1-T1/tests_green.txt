@@ -1,0 +1,332 @@
+........................................................................ [  6%]
+.............................F..................F....................... [ 12%]
+.................F..............F....................................... [ 18%]
+...FF....................F................F............................. [ 25%]
+............F........................................................... [ 31%]
+........................................................................ [ 37%]
+...........................F............................................ [ 44%]
+........................................................................ [ 50%]
+........................................................................ [ 56%]
+........................................................................ [ 62%]
+........................................................................ [ 69%]
+........s......................................................s........ [ 75%]
+........................................................................ [ 81%]
+........................................................................ [ 88%]
+........................................................................ [ 94%]
+...............................................................          [100%]
+=================================== FAILURES ===================================
+_____________________ test_A28_matching_pairs_instantiate ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A28_matching_pairs_instan0')
+
+    def test_A28_matching_pairs_instantiate(tmp_path):
+>       S1Env(tmp_path / "a").make(demo_class())                                      # no table = honest
+        ^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_access.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A28_matching_pairs_instan0/a/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A28_matching_pairs_instan0/a/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+__________ test_A30_timeout_comes_from_config_unless_class_overrides ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A30_timeout_comes_from_co0')
+
+    def test_A30_timeout_comes_from_config_unless_class_overrides(tmp_path):
+>       e = S1Env(tmp_path / "a", timeout_s=7.5)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_access.py:172: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A30_timeout_comes_from_co0/a/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A30_timeout_comes_from_co0/a/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+____ test_A32_invalid_placeholder_contact_refused_with_real_transport_only _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A32_invalid_placeholder_c0')
+
+    @pytest.mark.planted
+    def test_A32_invalid_placeholder_contact_refused_with_real_transport_only(tmp_path):
+        from investos.acquire.transport import UrllibTransport
+        e = S1Env(tmp_path, contact="x@example.invalid")
+        e.make()                                                          # fake transport: passes
+        with pytest.raises(ValueError):
+            e.make(transport=UrllibTransport())
+>       S1Env(tmp_path / "ok", contact="ops@example.org").make(transport=UrllibTransport())
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_access.py:285: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A32_invalid_placeholder_c0/ok/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A32_invalid_placeholder_c0/ok/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+_____________ test_A41_case_sensitive_and_second_signature_matches _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A41_case_sensitive_and_se0')
+
+    @pytest.mark.planted
+    def test_A41_case_sensitive_and_second_signature_matches(tmp_path):
+        from investos.acquire.base import Outcome
+        e = sig_env(tmp_path, ["Access Denied", SIG])
+        e.transport.set(url_of(D17), resp(200, CSV + SIG.lower().encode()))
+        assert e.make().run(rr(D17)).outcomes == {D17: Outcome.FETCHED}
+>       e2 = sig_env(tmp_path / "b", ["Access Denied", SIG])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_block.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/test_collect_s1_block.py:71: in sig_env
+    return S1Env(tmp_path, access={SOURCE: {"mode": "honest", "challenge_signatures": list(sigs)}})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A41_case_sensitive_and_se0/b/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A41_case_sensitive_and_se0/b/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T10:06:10.971316Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":49}}
+{"ts":"2026-11-27T10:06:10.972176Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-293/test_A41_case_sensitive_and_se0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+_________________ test_A45_window_is_seven_dates_ending_today __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A45_window_is_seven_dates0')
+
+    @pytest.mark.planted
+    def test_A45_window_is_seven_dates_ending_today(tmp_path):
+>       e = S1Env(tmp_path / "a")
+            ^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_block.py:413: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A45_window_is_seven_dates0/a/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A45_window_is_seven_dates0/a/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+__________________ test_A45_two_blocks_on_one_day_count_once ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A45_two_blocks_on_one_day0')
+
+    @pytest.mark.planted
+    def test_A45_two_blocks_on_one_day_count_once(tmp_path):
+        e = S1Env(tmp_path)
+        _block_days(e, [1, 1, 4])
+        assert not _halted_events(e)
+        _block_days(e, [4, 5])
+>       assert not _halted_events(e)
+E       AssertionError: assert not [{'date': '2026-11-05', 'decision': None, 'detail': '3 blocked days in 7', 'event': 'halted', ...}]
+E        +  where [{'date': '2026-11-05', 'decision': None, 'detail': '3 blocked days in 7', 'event': 'halted', ...}] = _halted_events(<_s1_helpers.S1Env object at 0x7fd249bd67b0>)
+
+tests/unit/acquire/test_collect_s1_block.py:427: AssertionError
+____________________________ test_A38_wiring_rules _____________________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A38_wiring_rules0')
+
+    @pytest.mark.planted
+    def test_A38_wiring_rules(tmp_path):
+        from _s1_helpers import FakeBrowser
+>       e = rb_env(tmp_path / "a")
+            ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_browser_prov.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/test_collect_s1_browser_prov.py:15: in rb_env
+    return S1Env(tmp_path, access=cfg_access("real_browser"), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A38_wiring_rules0/a/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A38_wiring_rules0/a/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+________________ test_A52_sidecar_is_schema_2_with_access_mode _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A52_sidecar_is_schema_2_w0')
+
+    @pytest.mark.planted
+    def test_A52_sidecar_is_schema_2_with_access_mode(tmp_path):
+        e = S1Env(tmp_path)
+        e.script_ok(D17)
+        sc = e.sidecar(e.make().run(rr(D17)))
+        assert sc["schema"] == 2 and sc["access_mode"] == "honest"
+>       e2 = rb_env(tmp_path / "b")
+             ^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_browser_prov.py:199: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/test_collect_s1_browser_prov.py:15: in rb_env
+    return S1Env(tmp_path, access=cfg_access("real_browser"), **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A52_sidecar_is_schema_2_w0/b/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A52_sidecar_is_schema_2_w0/b/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T10:06:12.629797Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T10:06:12.630468Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-293/test_A52_sidecar_is_schema_2_w0/manifests/demo_src.runs/2026-11-17_2026-11-17.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+______________________ test_A50_honest_interval_unchanged ______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-293/test_A50_honest_interval_uncha0')
+
+    def test_A50_honest_interval_unchanged(tmp_path):
+        e = S1Env(tmp_path, hosts={HOST: 0.35})
+        assert _spacing(e, demo_class()) == pytest.approx([0.35])
+>       e2 = S1Env(tmp_path / "b", hosts={HOST: 1.0})
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/acquire/test_collect_s1_limiter.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/acquire/_s1_helpers.py:76: in __init__
+    super().__init__(tmp, hosts=hosts, interval=interval)
+tests/unit/acquire/_collector_helpers.py:142: in __init__
+    self.raw.mkdir()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = PosixPath('/tmp/pytest-of-root/pytest-293/test_A50_honest_interval_uncha0/b/raw')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-293/test_A50_honest_interval_uncha0/b/raw'
+
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T10:06:14.784779Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T10:06:14.786381Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-18","url":"https://example.test/f/2026-11-18.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T10:06:14.787645Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"run_end","fields":{"status":"complete","expected":2,"received":2,"sidecar":"/tmp/pytest-of-root/pytest-293/test_A50_honest_interval_uncha0/manifests/demo_src.runs/2026-11-17_2026-11-18.json","fetched":2,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+____________ test_sidecar_schema_canonical_bytes_and_no_temp_files _____________
+
+env = <_collector_helpers.Env object at 0x7fd249959950>
+
+    def test_sidecar_schema_canonical_bytes_and_no_temp_files(env):  # R13
+        env.script_ok(D17)
+        env.transport.set(url_of(D18), resp(200, b"junk"))
+        r = env.make(run_id="run-9").run(rr(D17, D18))
+        raw = Path(r.sidecar_path).read_bytes()
+        obj = json.loads(raw)
+        assert raw == (json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode()
+>       assert set(obj) == {"schema", "source", "source_version", "run_id", "range", "started_at", "finished_at",
+                            "status", "expected", "received", "outcomes", "gaps", "outputs"}
+E       AssertionError: assert {'access_mode...outputs', ...} == {'expected', ... 'range', ...}
+E         
+E         Extra items in the left set:
+E         'access_mode'
+E         Use -v to get more diff
+
+tests/unit/acquire/test_collector_sidecar.py:32: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T10:06:18.148808Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"fetched","fields":{"key":"2026-11-17","url":"https://example.test/f/2026-11-17.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T10:06:18.149512Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"unreadable","fields":{"key":"2026-11-18","url":"https://example.test/f/2026-11-18.csv","attempts":1,"reason":"check failed: unrecognised body","size":4}}
+{"ts":"2026-11-27T10:06:18.150221Z","level":"INFO","run_id":"20261127T100610Z-a55c9330","task":"collect.demo_src","event":"run_end","fields":{"status":"incomplete","expected":2,"received":1,"sidecar":"/tmp/pytest-of-root/pytest-293/test_sidecar_schema_canonical_0/manifests/demo_src.runs/2026-11-17_2026-11-18.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":1,"skipped":0,"incomplete":0,"not_attempted":0}}
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A28_matching_pairs_instantiate
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A30_timeout_comes_from_config_unless_class_overrides
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_invalid_placeholder_contact_refused_with_real_transport_only
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_case_sensitive_and_second_signature_matches
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_window_is_seven_dates_ending_today
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_two_blocks_on_one_day_count_once
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A38_wiring_rules
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_sidecar_is_schema_2_with_access_mode
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A50_honest_interval_unchanged
+FAILED tests/unit/acquire/test_collector_sidecar.py::test_sidecar_schema_canonical_bytes_and_no_temp_files
+10 failed, 1131 passed, 2 skipped in 20.21s

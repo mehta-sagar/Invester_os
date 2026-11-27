@@ -17,3 +17,13 @@ default_interval_s = 0.35
 
 [rate_limits.hosts]
 "www.bseindia.com" = 0.35
+"nsearchives.nseindia.com" = 1.0
+"www.nseindia.com" = 2.5
+"www.nseindia.in" = 2.5
+"api.bseindia.com" = 2.5
+
+[collect]
+# the dedicated address that goes into the User-Agent; a collector refuses to start while it is empty
+contact = "CHANGE-ME@example.invalid"
+timeout_s = 30.0
+max_body_bytes = 536870912
