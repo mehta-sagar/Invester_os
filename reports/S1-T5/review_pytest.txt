@@ -1,0 +1,12 @@
+# S1-T5 review: full suite (worktree /home/claude/wt/S1-T5, DuckDB 2.0.1)
+## root: PYTHONPATH=src python -m pytest -q -p no:cacheprovider
+........................................................................ [ 98%]
+..........................                                               [100%]
+1895 passed, 3 skipped in 56.83s
+## non-root user claude (git safe.directory injected)
+........................................................................ [ 98%]
+..........................                                               [100%]
+1898 passed in 51.76s
+## order-dependence probe: pytest tests/unit/acquire tests/unit/core tests/unit/check (core before check)
+branch: 1188 passed, 3 skipped, 33 errors (setup: OSError flush failed from leaked _BadFlush log sink, test_review_regressions D3, hit by open_db's duckdb_settings log line)
+main:   964 passed, 3 skipped
