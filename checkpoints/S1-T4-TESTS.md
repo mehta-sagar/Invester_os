@@ -2,9 +2,9 @@
 
 ## Done so far
 - baseline main 284fa68: 1163 passed, 3 skipped (old suite unchanged with new tests ignored)
-- tests/unit/calendar: _cal_helpers.py, conftest.py, test_calendar_{status,eras,pure,check,shipped}.py = 338 tests, A1-A23 + R1-R14 + shipped-table-vs-spec rows
-- red on current src: 338 (13 failed + 325 errors; no investos.calendar, no shipped CSVs)
-- validated against a throwaway reference impl in /tmp/wt_ref (not committed): 337/338 green when run (338 - 1 removed dubious test = 337), so tests are satisfiable
+- tests/unit/calendar: _cal_helpers.py, conftest.py, test_calendar_{status,eras,pure,check,shipped}.py = 337 tests, A1-A23 + R1-R14 + shipped-table-vs-spec rows
+- red on current src: 337 (13 failed + 324 errors; no investos.calendar, no shipped CSVs)
+- validated against a throwaway reference impl in /tmp/wt_ref (not committed): 337 of 337 green, so tests are satisfiable
 - tables for tests = copies of shipped config/calendar/close_eras.csv mutated via csv; guarded by test_calendar_shipped.py (row-by-row vs spec)
 
 ## Interface guesses the Builder must meet (spec silent)
