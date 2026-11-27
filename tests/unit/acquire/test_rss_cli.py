@@ -197,4 +197,4 @@ def test_A26_a_broken_plist_is_caught_by_the_validator(tmp_path, old, new):
 
 def test_A26_plist_never_commits_or_pushes():
     t = EXAMPLE_PLIST.read_text().lower()
-    assert "git" not in t.replace("digit", "")
+    assert not re.search(r"\bgit\b", t)

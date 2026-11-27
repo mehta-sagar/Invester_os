@@ -49,7 +49,9 @@ def test_A9_header_only_body_is_hooked_too(env):
 
 @pytest.mark.planted
 def test_A9_hook_none_stores_the_body(env):
-    r = run_one(env, hooked(lambda self, k, s, b: None))
+    calls = []
+    r = run_one(env, hooked(lambda self, k, s, b: calls.append(k)))
+    assert calls == [D17]
     assert r.outcomes[D17].value == "fetched" and len(env.manifest_lines()) == 1
 
 
@@ -60,7 +62,9 @@ def test_A9_bad_hook_is_ignored_and_the_body_is_stored(env, logs, bad):
         if bad == "raise":
             raise RuntimeError("boom")
         return bad
-    r = run_one(env, hooked(hook))
+    called = []
+    r = run_one(env, hooked(lambda self, k, s, b: called.append(1) or hook(self, k, s, b)))
+    assert called == [1]
     assert r.outcomes[D17].value == "fetched" and len(env.manifest_lines()) == 1
     if bad != "":
         assert any(x["event"] == "unchanged_hook_error" and x["level"] == "WARNING" for x in logs())
