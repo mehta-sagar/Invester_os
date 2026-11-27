@@ -36,8 +36,7 @@ def test_A5_good_table_loads_into_feedrows(tmp_path):
 
 @pytest.mark.planted
 def test_A5_wrong_or_extra_or_missing_columns(tmp_path):
-    assert "header" in err_for(tmp_path, [], header="feed_id,url").lower() or True
-    for h in (FEED_HEADER + ",extra", FEED_HEADER.replace("note", "notes"), FEED_HEADER.replace("url,", "")):
+    for h in ("feed_id,url", FEED_HEADER + ",extra", FEED_HEADER.replace("note", "notes"), FEED_HEADER.replace("url,", "")):
         m = err_for(tmp_path, [], header=h)
         assert "rss_feeds.csv" in m
 
