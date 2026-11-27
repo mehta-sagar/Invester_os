@@ -37,3 +37,9 @@
 - Fixed test defects: Env mkdir now parents=True (8 tests); A45 same-day test: [1,1,4] then [4,4] (days {1,4}) then [7] halts (the old [4,5] gave {1,4,5} = halt by R26, my error).
 - Superseded stage-0 test edited: test_collector_sidecar.py::test_sidecar_schema_canonical_bytes_and_no_temp_files now expects schema 2 and key access_mode (R30).
 - Reviewer note: the Builder derives wall time from the injected monotonic clock when no wall_clock is injected. The spec (R27, Inputs) only says wall_clock defaults to time.time; it does not allow deriving it from monotonic. This is a deviation to judge: it keeps stage-0 A8/A10b green but makes the cross-process stamp meaningless in that path. Orchestrator should decide (alternative: the old Env injects wall_clock).
+
+## Round 3 (review ecc23d6): regression tests, tests/unit/acquire/test_collect_s1_regressions.py (+ limiter, helpers)
+- Red (src wrong): D1 fail-closed on unwritable state (x4: 401/403/429 + refuse-before-block; chmod variant skipped as root), D2 slow-fsync spacing (stamp before fsync), D3 framing headers (7), D5 header-phase deadline. Output: reports/S1-T1/regressions_red.txt.
+- Green (kill review survivors): M05, M20, M22 (TLS context verified, no unverified strings), M42 (8 procs x 40 vs cap 120), M74 (retry path logs), M82 (truncated body).
+- A48 now asserts exact spacing on the limiter's own stamps (>= interval - 2 ms) and only >= 0.5 x interval on real return times.
+- Note D2 test demands src change: take wall_now after the write/fsync (spec R27 literal order differs; spec text should be amended).

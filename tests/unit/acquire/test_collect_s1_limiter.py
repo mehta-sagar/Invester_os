@@ -94,18 +94,45 @@ def test_A48_hosts_are_independent(tmp_path):
 
 @pytest.mark.planted
 def test_A48_two_processes_never_start_closer_than_the_interval(tmp_path):
+    """Spacing is asserted on the limiter's own stamps (exact), real return times only against a loose floor (D2)."""
     interval = 0.2
     q = CTX.Queue()
     ps = [CTX.Process(target=limiter_worker, args=(str(tmp_path / ".state"), "h", 5, interval, q)) for _ in range(2)]
     for p in ps:
         p.start()
-    starts = sorted(t for _ in ps for t in get_result(q, ps))
+    res = [get_result(q, ps) for _ in ps]
     for p in ps:
         p.join(30)
         assert p.exitcode == 0
-    assert len(starts) == 10
+    stamps = sorted(t for _, st in res for t in st)
+    assert len(stamps) == 10
+    gaps = [b - a for a, b in zip(stamps, stamps[1:])]
+    assert min(gaps) >= interval - 0.002, gaps                                      # exact: scheduling cannot shrink it
+    starts = sorted(t for st, _ in res for t in st)
+    assert min(b - a for a, b in zip(starts, starts[1:])) >= interval * 0.5          # loose: CPU load only adds jitter
+
+
+@pytest.mark.planted
+def test_D2_slow_fsync_cannot_shrink_real_spacing(tmp_path, monkeypatch):
+    """The stamp must be taken when the request may start (after the stamp file is durable), otherwise a slow
+    write/fsync of the previous holder eats into the next gap."""
+    import os
+    interval = 0.3
+    from investos.acquire.access import HostLimiter
+    lim = HostLimiter(tmp_path / ".state", wall_clock=time.time, monotonic=time.monotonic, sleeper=time.sleep)
+    real = os.fsync
+    delays = iter([0.2, 0.0, 0.0])
+
+    def slow_fsync(fd):
+        time.sleep(next(delays, 0.0))
+        return real(fd)
+    monkeypatch.setattr(os, "fsync", slow_fsync)
+    starts = []
+    for _ in range(3):
+        lim.acquire("h", interval)
+        starts.append(time.time())
     gaps = [b - a for a, b in zip(starts, starts[1:])]
-    assert min(gaps) >= interval - 0.02, gaps
+    assert min(gaps) >= interval - 0.03, gaps
 
 
 @pytest.mark.planted

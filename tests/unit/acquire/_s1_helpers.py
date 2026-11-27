@@ -268,7 +268,26 @@ def make_routes() -> dict:
         except OSError:
             pass
 
+    def short(h):
+        h.send_response(200)
+        h.send_header("Content-Length", "100")
+        h.end_headers()
+        h.wfile.write(b"abc")                                  # then the connection closes: truncated body
+
+    def hdrdrip(h):
+        try:
+            h.wfile.write(b"HTTP/1.0 200 OK\r\n")
+            for i in range(25):
+                h.wfile.write(f"X-N{i}: 1\r\n".encode())
+                h.wfile.flush()
+                time.sleep(0.2)
+            h.wfile.write(b"Content-Length: 2\r\n\r\nhi")
+        except OSError:
+            return
+
     return {
+        "/short": short,
+        "/hdrdrip": hdrdrip,
         "/ok": lambda h: send(h, 200, plain, {"X-Multi": ["a", "b"], "X-Mixed-Case": "v"}),
         "/redir": lambda h: send(h, 302, b"moved", {"Location": "/ok"}),
         "/s404": lambda h: send(h, 404, b"nope"),
@@ -421,13 +440,28 @@ def finish(p, q, timeout=60):
 
 
 def limiter_worker(state_dir: str, host: str, n: int, interval: float, out) -> None:
+    """Returns (return_times, stamps): stamps are the limiter's own wall readings (the last wall_clock() per acquire)."""
     from investos.acquire.access import HostLimiter
-    lim = HostLimiter(Path(state_dir), wall_clock=time.time, monotonic=time.monotonic, sleeper=time.sleep)
-    starts = []
+    last = []
+
+    def wall():
+        v = time.time()
+        last.append(v)
+        return v
+    lim = HostLimiter(Path(state_dir), wall_clock=wall, monotonic=time.monotonic, sleeper=time.sleep)
+    starts, stamps = [], []
     for _ in range(n):
         lim.acquire(host, interval)
         starts.append(time.time())
-    out.put(starts)
+        stamps.append(last[-1])
+    out.put((starts, stamps))
+
+
+def counter_worker(state_dir: str, source: str, n: int, cap: int, now_iso: str, go, out) -> None:
+    from investos.acquire.access import DailyCounter
+    c = DailyCounter(Path(state_dir), source, clock=lambda: datetime.fromisoformat(now_iso))
+    go.wait(30)
+    out.put(sum(1 for _ in range(n) if c.reserve(cap)))
 
 
 def torn_writer(path: str, line: str, ready, hold: float) -> None:
