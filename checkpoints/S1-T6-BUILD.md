@@ -21,5 +21,12 @@ None.
 - `rss_check` and `cli.py` import a few underscore helpers (`_append`, `_dump`, `_check_contact`, `_write_state`).
 - Plant uses its own one-feed table and fresh state in the temp copy, so the baseline is green whatever the real data holds.
 
+## Fix round (review D1-D5, tests 346bf7c)
+- D1: `poll_cycle(..., clock=None)`; collectors stamp fetched_at/first_seen_at from it (default `lambda: now`). Slot, state and gap timestamps stay on `now`.
+- D2: the missed range starts after max(last_ok_slot, slot of last_attempt_at), so a recorded failed/missed slot is never re-recorded. No schema change.
+- D4: state present, last_ok_slot null, failures >= 1 -> `poll_missed`; no state stays `unknown`.
+- D5: after a gap-write failure last_ok_slot/last_ok_at and also last_attempt_at are held back, so the unrecorded miss is written once the ledger works again.
+- Only src/investos/acquire/rss.py changed. Suite (root): 2253 passed, 3 skipped. `git diff 346bf7c..HEAD -- tests` empty.
+
 ## Next step
-None for the Builder; Reviewer reads the diff 7a196c9..HEAD.
+Orchestrator merge.

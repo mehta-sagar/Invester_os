@@ -518,6 +518,8 @@ def judge_feed(feed: FeedRow, state: dict | None, now: datetime, calendar: Calen
     failures = state["consecutive_failures"]
     if failures >= 3:
         alarms.append(("poll_missed", f"{failures} consecutive failures"))
+    elif last_ok is None and failures >= 1:
+        alarms.append(("poll_missed", f"never ok, {failures} consecutive failures"))
     elif last_ok is not None and last_ok < due:
         alarms.append(("poll_missed", f"last ok slot {last_ok}, latest due slot {due}"))
     # (b) content_stale
@@ -570,6 +572,7 @@ def poll_cycle(cfg: Config, *, now: datetime, transport, manifest: ManifestStore
                force: bool = False, feeds: Sequence[FeedRow] | None = None, run_id: str | None = None,
                monotonic: Callable[[], float] | None = None, sleeper: Callable[[float], None] | None = None,
                wall_clock: Callable[[], float] | None = None,
+               clock: Callable[[], datetime] | None = None,
                hostname: Callable[[], str] | None = None) -> CycleResult:
     logger = log.get_logger("collect.rss")
     notifier = notifier if notifier is not None else NullNotifier()
@@ -586,7 +589,7 @@ def poll_cycle(cfg: Config, *, now: datetime, transport, manifest: ManifestStore
         logger.warning("no_enabled_feeds", slot=slot)
         return CycleResult(slot, (), {}, False, 0, ())
     cycle = _Cycle(cfg, now=now, slot=slot, transport=transport, manifest=manifest, notifier=notifier, rid=rid,
-                   mono=mono, sleep=sleep, wall_clock=wall_clock, hostname=hostname, logger=logger)
+                   mono=mono, sleep=sleep, wall_clock=wall_clock, hostname=hostname, logger=logger, clock=clock)
     logger.info("cycle_start", slot=slot, feeds=len(enabled))
     started = mono()
     for feed in enabled:
@@ -601,10 +604,11 @@ def poll_cycle(cfg: Config, *, now: datetime, transport, manifest: ManifestStore
 
 class _Cycle:
     def __init__(self, cfg, *, now, slot, transport, manifest, notifier, rid, mono, sleep, wall_clock, hostname,
-                 logger) -> None:
+                 logger, clock=None) -> None:
         self.cfg, self.now, self.slot, self.transport, self.manifest = cfg, now, slot, transport, manifest
         self.notifier, self.rid, self.mono, self.sleep = notifier, rid, mono, sleep
         self.wall_clock, self.hostname, self.log = wall_clock, hostname, logger
+        self.clock = clock if clock is not None else (lambda: self.now)
         self.state_dir = state_dir_of(cfg)
         self.gaps_path = gaps_path_of(cfg)
         self.polled: list[str] = []
@@ -635,7 +639,7 @@ class _Cycle:
 
     def collector(self, feed: FeedRow, state: dict | None) -> RssFeedCollector:
         kw = dict(transport=self.transport, manifest=self.manifest, cfg=self.cfg, run_id=self.rid,
-                  clock=lambda: self.now, notifier=self.notifier,
+                  clock=self.clock, notifier=self.notifier,
                   sidecar_dir=Path(self.cfg.zones["manifests"]) / "rss.runs" / feed.feed_id,
                   monotonic=self.mono, sleeper=self.sleep)
         if self.wall_clock is not None:
@@ -659,9 +663,13 @@ class _Cycle:
                 self.finish_feed(feed, sp, state, None)
                 return
             old_ok = (state["last_ok_slot"], state["last_ok_at"]) if state else (None, None)
+            old_attempt = state["last_attempt_at"] if state else None
             gap_ok = True
             if state is not None and state["last_ok_slot"] is not None and not over_budget:
-                missed = _scheduled_between(state["last_ok_slot"], self.slot)
+                since = state["last_ok_slot"]
+                if state["last_attempt_at"] is not None:           # slots already recorded (failed/missed) are not repeated
+                    since = max(since, slot_of(_parse_ts(state["last_attempt_at"])))
+                missed = _scheduled_between(since, self.slot)
                 if missed:
                     gap_ok = self.write_gap(feed.feed_id, "missed", missed[0], missed[-1], len(missed),
                                             f"no ok poll between {state['last_ok_slot']} and {self.slot}")
@@ -677,6 +685,7 @@ class _Cycle:
                 self.ok += 1
             if not gap_ok:                                         # the miss was not recorded: keep it detectable
                 new["last_ok_slot"], new["last_ok_at"] = old_ok
+                new["last_attempt_at"] = old_attempt
             self.finish_feed(feed, sp, new, outcome)
 
     def poll(self, feed: FeedRow, state: dict | None) -> tuple[str, str]:
