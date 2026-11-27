@@ -200,7 +200,8 @@ def _temp_copy(cfg: Config, tmp_parent: Path | None,
     except BaseException:
         _cleanup(tmp)
         raise
-    return tmp, dataclasses.replace(cfg, zones=zones, migrations_dir=mig)
+    duck = dataclasses.replace(cfg.duckdb, temp_directory=zones["canonical"] / ".duckdb_tmp")
+    return tmp, dataclasses.replace(cfg, zones=zones, migrations_dir=mig, duckdb=duck)
 
 
 def _planted_one(registry: CheckRegistry, cfg: Config, name: str, run_id: str,

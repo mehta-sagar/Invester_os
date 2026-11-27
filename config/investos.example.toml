@@ -27,3 +27,10 @@ default_interval_s = 0.35
 contact = "CHANGE-ME@example.invalid"
 timeout_s = 30.0
 max_body_bytes = 536870912
+
+[duckdb]
+# resource caps applied by open_db on every connection (16 GB Mac: leave room for the browser and Python workers;
+# with two DuckDB processes at once use 3GB each). Heavy queries spill to temp_directory instead of swapping.
+memory_limit = "5GB"
+threads = 4
+temp_directory = "data/canonical/.duckdb_tmp"   # must be inside raw/manifests/canonical/ledger and git-ignored
