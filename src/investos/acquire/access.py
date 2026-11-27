@@ -284,6 +284,15 @@ class AccessState:
                 out += self._cache.read(p, "host", None)
         return out
 
+    def verify_writable(self, host: str) -> None:
+        """Fail closed: the host and source state files must be lockable (so a block can be persisted)."""
+        for p in (self.host_path(host), self.source_path()):
+            try:
+                with _flock(_lock_of(p), fcntl.LOCK_SH):
+                    pass
+            except OSError as e:
+                raise AccessStateError(f"{p.name}: state not writable: {e}") from None
+
     def status(self, host: str) -> AccessStatus:
         today = self.today()
         halt = _latest_halt_state(self._cache.read(self.source_path(), "source", self._source))
@@ -379,13 +388,17 @@ class HostLimiter:
             if wait > 0:
                 self._sleep(wait)
             self._last_mono[host] = self._mono()
-            stamp = str(int(round(self._wall() * 1e9))).encode("ascii")
+            # slow part first (create + fsync), THEN take the stamp, so the stamp is as close as possible to the
+            # moment the request may start; the final write and replace are not fsynced (spacing only)
             self._dir.mkdir(parents=True, exist_ok=True)
             tmp = self._dir / f".tmp-{host}-{os.getpid()}"
             fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o644)
             try:
-                os.write(fd, stamp)
+                os.write(fd, b"0")
                 os.fsync(fd)
+                stamp = str(int(round(self._wall() * 1e9))).encode("ascii")
+                os.ftruncate(fd, 0)
+                os.pwrite(fd, stamp, 0)
             finally:
                 os.close(fd)
             os.replace(tmp, last_file)

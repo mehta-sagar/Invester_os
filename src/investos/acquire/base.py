@@ -48,7 +48,8 @@ _FLOOR_INTERVAL_S = 2.5                           # R28: real_browser / scoped_e
 # headers no mode may set (compared lower-case, "_" as "-"); the base owns accept-encoding
 _DENIED_ALWAYS = frozenset({
     "origin", "authorization", "proxy-authorization", "host", "forwarded", "via", "x-forwarded-for",
-    "x-forwarded-host", "x-real-ip", "x-client-ip", "true-client-ip", "cookie2", "accept-encoding"})
+    "x-forwarded-host", "x-real-ip", "x-client-ip", "true-client-ip", "cookie2", "accept-encoding",
+    "connection", "content-length", "transfer-encoding"})
 _DENIED_HONEST = _DENIED_ALWAYS | {"user-agent", "referer", "cookie"}
 _HEADER_NAME_RE = re.compile(r"[!#$%&'*+.^_`|~0-9A-Za-z-]+", re.ASCII)      # RFC 7230 token
 _RUN_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", re.ASCII)
@@ -388,6 +389,7 @@ class Collector(ABC):
         self._log = log.get_logger(f"collect.{source}")
         self._calls = 0
         self._deny_reason: str | None = None
+        self._state_broken: str | None = None                  # set when a block could not be persisted
 
     # ---- subclass interface
     @abstractmethod
@@ -459,7 +461,11 @@ class Collector(ABC):
     def _gate(self, key: str, host: str, interval: float, attempts: int, cause: str) -> None:
         """Access state, then limiter, then cap (R31 step 2 and 3). Raises _Stop when the request must not go out."""
         reason = None
+        if self._state_broken is not None:
+            raise _Stop(_Rec(None, self._state_broken, None, True), self._state_broken) if attempts == 1 \
+                else _Stop(_Rec(Outcome.UNREADABLE, f"{cause}; {self._state_broken}"), self._state_broken)
         try:
+            self._access.verify_writable(host)
             st = self._access.status(host)
             if st.reason:
                 reason = st.reason
@@ -576,7 +582,8 @@ class Collector(ABC):
         try:
             self._access.record_block(host=host, detail=detail, run_id=self._run_id)
             halt = self._access.last_halt
-        except AccessStateError as e:
+        except (AccessStateError, OSError) as e:
+            self._state_broken = f"access state unreadable: block not persisted: {e}"
             self._log.error("access_state_unreadable", key=key, host=host, detail=str(e))
         self._log.error("blocked", key=key, host=host, source=self.source, **fields)
         if halt is not None:

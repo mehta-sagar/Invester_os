@@ -18,3 +18,11 @@
   (keeps Stage 0 fake-clock tests exact: A8, A10b). Production (neither injected) uses time.time.
 ## Next step
 - Orchestrator: fix the three test defects; macOS run (audit C3); suite was run as root here, not non-root.
+
+## Review fixes (D1, D2, D3, D5) - after b92813f
+- D1: _gate calls AccessState.verify_writable (lock host+source files) before every attempt; _record_block catches OSError and sets an in-process refusal.
+- D2: limiter stamp taken after create+fsync; final write not fsynced. D3: connection/content-length/transfer-encoding denied.
+- D5: whole-call 4x timeout via a timer that shuts the socket (covers header phase). Spec Resolved item 9 added.
+- Suite x3: 1160 passed, 3 skipped, 3 failed. The 3 failures: test_D1_..._next_run_makes_no_call[401/403/429] assert the first run
+  makes 1 request under the same unwritable-state setup where test_D1_unwritable_state_dir_refuses_even_before_any_block asserts 0.
+  Contradictory; I followed the coordinator's rule (refuse before any fetch). Test needs n()==0 on the first run.

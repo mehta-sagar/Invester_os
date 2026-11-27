@@ -1,0 +1,104 @@
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 18%]
+........................................................................ [ 24%]
+.................................FFFs................................... [ 30%]
+........................................................................ [ 37%]
+........................................................................ [ 43%]
+........................................................................ [ 49%]
+........................................................................ [ 55%]
+........................................................................ [ 61%]
+........................................................................ [ 67%]
+...............................s........................................ [ 74%]
+..............s......................................................... [ 80%]
+........................................................................ [ 86%]
+........................................................................ [ 92%]
+........................................................................ [ 98%]
+..............                                                           [100%]
+=================================== FAILURES ===================================
+_ test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call[401] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f65b1a22200>
+status = 401
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [401, 403, 429])
+    def test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call(tmp_path, monkeypatch, status):
+        e = S1Env(tmp_path)
+        (e.ledger / "access" / "hosts").mkdir(parents=True)
+        _deny_writes_under(monkeypatch, e.ledger / "access")
+        e.transport.set(url_of(D17), resp(status, b"denied"))
+        e.script_ok(D18)
+        r = e.make().run(rr(D17, D18))
+>       assert e.transport.n() == 1 and r.status == "aborted"                       # the block stops the run
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       assert (0 == 1)
+E        +  where 0 = n()
+E        +    where n = <_collector_helpers.FakeTransport object at 0x7f65b1c47950>.n
+E        +      where <_collector_helpers.FakeTransport object at 0x7f65b1c47950> = <_s1_helpers.S1Env object at 0x7f65b1b8ecf0>.transport
+
+tests/unit/acquire/test_collect_s1_regressions.py:54: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T10:50:47.991110Z","level":"ERROR","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"access_state_unreadable","fields":{"key":"2026-11-17","host":"example.test","detail":"example.test.jsonl: state not writable: [Errno 13] read-only state dir: '/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b0/ledger/access/hosts/example.test.jsonl.lock'"}}
+{"ts":"2026-11-27T10:50:47.991161Z","level":"ERROR","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"run_aborted","fields":{"key":"2026-11-17","reason":"access state unreadable: example.test.jsonl: state not writable: [Errno 13] read-only state dir: '/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b0/ledger/access/hosts/example.test.jsonl.lock'"}}
+{"ts":"2026-11-27T10:50:47.991859Z","level":"INFO","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"run_end","fields":{"status":"aborted","expected":2,"received":0,"sidecar":"/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b0/manifests/demo_src.runs/2026-11-17_2026-11-18.json","fetched":0,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":2}}
+_ test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call[403] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f65b1b9bed0>
+status = 403
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [401, 403, 429])
+    def test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call(tmp_path, monkeypatch, status):
+        e = S1Env(tmp_path)
+        (e.ledger / "access" / "hosts").mkdir(parents=True)
+        _deny_writes_under(monkeypatch, e.ledger / "access")
+        e.transport.set(url_of(D17), resp(status, b"denied"))
+        e.script_ok(D18)
+        r = e.make().run(rr(D17, D18))
+>       assert e.transport.n() == 1 and r.status == "aborted"                       # the block stops the run
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       assert (0 == 1)
+E        +  where 0 = n()
+E        +    where n = <_collector_helpers.FakeTransport object at 0x7f65b1c47ad0>.n
+E        +      where <_collector_helpers.FakeTransport object at 0x7f65b1c47ad0> = <_s1_helpers.S1Env object at 0x7f65b1b8f4d0>.transport
+
+tests/unit/acquire/test_collect_s1_regressions.py:54: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T10:50:48.006108Z","level":"ERROR","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"access_state_unreadable","fields":{"key":"2026-11-17","host":"example.test","detail":"example.test.jsonl: state not writable: [Errno 13] read-only state dir: '/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b1/ledger/access/hosts/example.test.jsonl.lock'"}}
+{"ts":"2026-11-27T10:50:48.006161Z","level":"ERROR","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"run_aborted","fields":{"key":"2026-11-17","reason":"access state unreadable: example.test.jsonl: state not writable: [Errno 13] read-only state dir: '/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b1/ledger/access/hosts/example.test.jsonl.lock'"}}
+{"ts":"2026-11-27T10:50:48.006912Z","level":"INFO","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"run_end","fields":{"status":"aborted","expected":2,"received":0,"sidecar":"/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b1/manifests/demo_src.runs/2026-11-17_2026-11-18.json","fetched":0,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":2}}
+_ test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call[429] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f65b1a53070>
+status = 429
+
+    @pytest.mark.planted
+    @pytest.mark.parametrize("status", [401, 403, 429])
+    def test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call(tmp_path, monkeypatch, status):
+        e = S1Env(tmp_path)
+        (e.ledger / "access" / "hosts").mkdir(parents=True)
+        _deny_writes_under(monkeypatch, e.ledger / "access")
+        e.transport.set(url_of(D17), resp(status, b"denied"))
+        e.script_ok(D18)
+        r = e.make().run(rr(D17, D18))
+>       assert e.transport.n() == 1 and r.status == "aborted"                       # the block stops the run
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       assert (0 == 1)
+E        +  where 0 = n()
+E        +    where n = <_collector_helpers.FakeTransport object at 0x7f65b1c46750>.n
+E        +      where <_collector_helpers.FakeTransport object at 0x7f65b1c46750> = <_s1_helpers.S1Env object at 0x7f65b1b8d0f0>.transport
+
+tests/unit/acquire/test_collect_s1_regressions.py:54: AssertionError
+----------------------------- Captured stderr call -----------------------------
+{"ts":"2026-11-27T10:50:48.013153Z","level":"ERROR","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"access_state_unreadable","fields":{"key":"2026-11-17","host":"example.test","detail":"example.test.jsonl: state not writable: [Errno 13] read-only state dir: '/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b2/ledger/access/hosts/example.test.jsonl.lock'"}}
+{"ts":"2026-11-27T10:50:48.013240Z","level":"ERROR","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"run_aborted","fields":{"key":"2026-11-17","reason":"access state unreadable: example.test.jsonl: state not writable: [Errno 13] read-only state dir: '/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b2/ledger/access/hosts/example.test.jsonl.lock'"}}
+{"ts":"2026-11-27T10:50:48.013914Z","level":"INFO","run_id":"20261127T105042Z-ad1543ed","task":"collect.demo_src","event":"run_end","fields":{"status":"aborted","expected":2,"received":0,"sidecar":"/tmp/pytest-of-root/pytest-408/test_D1_unwritable_state_dir_b2/manifests/demo_src.runs/2026-11-17_2026-11-18.json","fetched":0,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":2}}
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_collect_s1_regressions.py::test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call[401]
+FAILED tests/unit/acquire/test_collect_s1_regressions.py::test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call[403]
+FAILED tests/unit/acquire/test_collect_s1_regressions.py::test_D1_unwritable_state_dir_block_still_stops_run_and_next_run_makes_no_call[429]
+3 failed, 1160 passed, 3 skipped in 22.54s

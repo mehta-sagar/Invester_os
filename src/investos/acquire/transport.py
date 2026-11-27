@@ -9,6 +9,7 @@ from __future__ import annotations
 import http.client
 import socket
 import ssl
+import threading
 import time
 import zlib
 from typing import Mapping
@@ -61,8 +62,21 @@ class UrllibTransport:
                 host, port, timeout=timeout, context=ssl.create_default_context())
         else:
             conn = http.client.HTTPConnection(host, port, timeout=timeout)
+        timer: threading.Timer | None = None
+        expired = threading.Event()
         try:
             try:
+                conn.connect()
+
+                def _expire(sock=conn.sock) -> None:            # whole-call deadline, also while headers drip in
+                    expired.set()
+                    try:
+                        sock.shutdown(socket.SHUT_RDWR)
+                    except OSError:
+                        pass
+                timer = threading.Timer(max(4 * timeout, 0.001), _expire)
+                timer.daemon = True
+                timer.start()
                 conn.putrequest("GET", target, skip_host=False, skip_accept_encoding=True)
                 for name, value in headers.items():
                     conn.putheader(name, value)
@@ -73,9 +87,15 @@ class UrllibTransport:
                 status = r.status
                 hdrs = self._headers(r.getheaders())
             except (OSError, http.client.HTTPException, UnicodeError, socket.timeout) as e:
+                if expired.is_set():
+                    raise TransportError("timeout: whole request exceeded 4 x timeout") from None
                 raise TransportError(f"{type(e).__name__}: {e}") from None
         finally:
+            if timer is not None:
+                timer.cancel()
             conn.close()
+        if expired.is_set():
+            raise TransportError("timeout: whole request exceeded 4 x timeout")
         cl = hdrs.get("content-length")
         if cl is not None and cl.strip().isdigit() and int(cl) != len(raw):
             raise TransportError(f"incomplete read: got {len(raw)} of {cl} bytes")
