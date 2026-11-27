@@ -176,8 +176,9 @@ KILL_SCRIPT = textwrap.dedent("""
 def test_A14_sigkill_after_write_roots_then_next_run_commits(env):
     env.setup_three_days()
     n = env.count()
-    p = subprocess.run([sys.executable, "-I", "-c", KILL_SCRIPT, str(env.work)], capture_output=True, text=True,
-                       env={**os.environ})
+    # D9: no dependence on an editable install: PYTHONPATH=src, cwd outside the repo
+    p = subprocess.run([sys.executable, "-c", KILL_SCRIPT, str(env.work)], capture_output=True, text=True,
+                       cwd=str(env.tmp), env={**os.environ, "PYTHONPATH": str(REPO / "src")})
     assert p.returncode == -9, (p.returncode, p.stderr[-500:])
     assert env.roots_dates("trials") == [D1, D2] and env.count() == n
     r = env.run()

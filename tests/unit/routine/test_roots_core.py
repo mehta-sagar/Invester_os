@@ -221,7 +221,7 @@ def test_A4_each_add_is_one_explicit_path_and_push_is_plain(env):
     assert sorted(a[-1] for a in adds) == good
     assert all(a[:2] == ["add", "--"] and len(a) == 3 for a in adds)
     pushes = [c for c in env.git.commands if c[0] == "push"]
-    assert pushes == [["push", "origin", "main"]]
+    assert pushes == [["push", "origin", "refs/heads/main:refs/heads/main"]]
     flat = [x for c in env.git.commands for x in c]
     for token in ("--force", "-f", "--force-with-lease", "--no-verify", "-A", "-a", "--delete"):
         assert token not in flat

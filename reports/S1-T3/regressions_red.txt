@@ -1,0 +1,1958 @@
+.E.E.E..E.E..E.E.E.E.E.EFE....E.....................FE.E..E.....E.E..E.. [ 44%]
+.E.E..E........E..E.FEFEFEFEFEFEFEFEFEFEFEFEFEFEFEFEFEFEFFEFEFEFE.E..E.E [ 80%]
+.EFEFE......E.E..E..E.E....FE.E..                                        [100%]
+==================================== ERRORS ====================================
+__ ERROR at teardown of test_A1_roots_for_closed_days_only_one_commit_pushed ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A1_roots_for_closed_days_0')
+logbuf = <_io.StringIO object at 0x7fc5878f5480>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5878963c0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A1_commit_message_format_and_author_from_user_config _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A1_commit_message_format_0')
+logbuf = <_io.StringIO object at 0x7fc5878f5f00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876542d0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+___ ERROR at teardown of test_A1_ist_date_in_message_uses_clock_ist_not_utc ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A1_ist_date_in_message_us0')
+logbuf = <_io.StringIO object at 0x7fc5878f6e00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc587655090>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+__ ERROR at teardown of test_A15_five_missing_days_rooted_in_order_one_commit __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A15_five_missing_days_roo0')
+logbuf = <_io.StringIO object at 0x7fc5878f6f80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5877b6650>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+______ ERROR at teardown of test_A15_open_day_rooted_next_run_after_close ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A15_open_day_rooted_next_0')
+logbuf = <_io.StringIO object at 0x7fc5878f6980>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5877fd490>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`", "['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_______ ERROR at teardown of test_A16_first_run_manifests_only_committed _______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A16_first_run_manifests_o0')
+logbuf = <_io.StringIO object at 0x7fc5878f7040>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc587669370>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A2_chain_break_nothing_written_staged_or_committed[trials] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A2_chain_break_nothing_wr0')
+logbuf = <_io.StringIO object at 0x7fc5878f7700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc587661150>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A2_chain_break_nothing_written_staged_or_committed[decisions] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A2_chain_break_nothing_wr1')
+logbuf = <_io.StringIO object at 0x7fc5878f7ac0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc587661950>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_____________ ERROR at teardown of test_A2_wrong_root_hash_exit_2 ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A2_wrong_root_hash_exit_20')
+logbuf = <_io.StringIO object at 0x7fc5878f7d00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5877eeb70>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_________ ERROR at teardown of test_A2_missing_ledger_is_not_a_failure _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A2_missing_ledger_is_not_0')
+logbuf = <_io.StringIO object at 0x7fc5876241c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5877ef2f0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_A3_A4_A20_commit_holds_exactly_the_add_list _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A3_A4_A20_commit_holds_ex0')
+logbuf = <_io.StringIO object at 0x7fc5878f7c40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5877e7af0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A4_each_add_is_one_explicit_path_and_push_is_plain _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A4_each_add_is_one_explic0')
+logbuf = <_io.StringIO object at 0x7fc5878f7f40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5877e7230>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+___ ERROR at teardown of test_A9_offline_commit_locally_exit_6_then_catch_up ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A9_offline_commit_locally0')
+logbuf = <_io.StringIO object at 0x7fc5878f6e00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876b0e10>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`", "['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+______ ERROR at teardown of test_A12_commands_issued_are_all_allow_listed ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A12_commands_issued_are_a0')
+logbuf = <_io.StringIO object at 0x7fc5878f7ac0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc58769ce10>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+___________ ERROR at teardown of test_A13_happy_path_event_sequence ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A13_happy_path_event_sequ0')
+logbuf = <_io.StringIO object at 0x7fc5878f6b00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc58769d4f0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____________ ERROR at teardown of test_A13_verify_failed_logs_error ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A13_verify_failed_logs_er0')
+logbuf = <_io.StringIO object at 0x7fc5878f7040>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc58769df90>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A14_sigkill_after_write_roots_then_next_run_commits _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A14_sigkill_after_write_r0')
+logbuf = <_io.StringIO object at 0x7fc587624340>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc58769fc50>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_A17_notifier_called_once_on_2_3_5_6_only[0] _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A17_notifier_called_once_0')
+logbuf = <_io.StringIO object at 0x7fc587624940>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc58769f250>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_A17_notifier_called_once_on_2_3_5_6_only[2] _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A17_notifier_called_once_2')
+logbuf = <_io.StringIO object at 0x7fc587624700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d0230>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_A17_notifier_called_once_on_2_3_5_6_only[5] _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A17_notifier_called_once_5')
+logbuf = <_io.StringIO object at 0x7fc5876247c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d0eb0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_A17_notifier_called_once_on_2_3_5_6_only[6] _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A17_notifier_called_once_6')
+logbuf = <_io.StringIO object at 0x7fc5878f7040>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc58769e490>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+___________ ERROR at teardown of test_A17_dry_run_never_notifies[2] ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A17_dry_run_never_notifie0')
+logbuf = <_io.StringIO object at 0x7fc5878f5f00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc58769d090>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+________________ ERROR at teardown of test_A19_last_result_file ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A19_last_result_file0')
+logbuf = <_io.StringIO object at 0x7fc5878f6140>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d0910>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+__ ERROR at teardown of test_A19_unwritable_result_file_does_not_change_exit ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A19_unwritable_result_fil0')
+logbuf = <_io.StringIO object at 0x7fc5878f5240>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d0c30>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/*:refs/heads/*] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov0')
+logbuf = <_io.StringIO object at 0x7fc5878f7700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d0cd0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/main:refs/heads/main] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov1')
+logbuf = <_io.StringIO object at 0x7fc5878f7400>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d2210>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+main:main] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov2')
+logbuf = <_io.StringIO object at 0x7fc587624280>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d2710>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[global-remote.origin.push-+refs/heads/*:refs/heads/*] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov3')
+logbuf = <_io.StringIO object at 0x7fc587624640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d3070>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+__ ERROR at teardown of test_D1_push_default_variants_still_explicit_refspec ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_push_default_variants_0')
+logbuf = <_io.StringIO object at 0x7fc5878f7400>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d2c10>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[--force] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef0')
+logbuf = <_io.StringIO object at 0x7fc5878f7640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d2fd0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', '--force', 'main']: forbidden arg ['--force']", "['push', '--force', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+___ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[-f] ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef1')
+logbuf = <_io.StringIO object at 0x7fc5878f7c40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d2710>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', '-f', 'main']: forbidden arg ['-f']", "['push', '-f', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[origin --force] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef2')
+logbuf = <_io.StringIO object at 0x7fc5878f5f00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d1630>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin --force', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[-origin] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef3')
+logbuf = <_io.StringIO object at 0x7fc587624b80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d04b0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', '-origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+___ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[a b] ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef4')
+logbuf = <_io.StringIO object at 0x7fc587624580>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cc0f0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'a b', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+__ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[o\tx] ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef5')
+logbuf = <_io.StringIO object at 0x7fc5878f5f00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d04b0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'o\\tx', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[origin;rm] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef6')
+logbuf = <_io.StringIO object at 0x7fc5878f7c40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d18b0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin;rm', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[origin\n--force] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef7')
+logbuf = <_io.StringIO object at 0x7fc5878f7640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d27b0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin\\n--force', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[+origin] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef8')
+logbuf = <_io.StringIO object at 0x7fc5878f6f80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cc910>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', '+origin', 'main']: forbidden arg ['+origin']", "['push', '+origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[] _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef9')
+logbuf = <_io.StringIO object at 0x7fc587624880>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ccaf0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', '', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[--delete] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef10')
+logbuf = <_io.StringIO object at 0x7fc587625000>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cd590>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', '--delete', 'main']: forbidden arg ['--delete']", "['push', '--delete', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+__ ERROR at teardown of test_D2_odd_remote_refused_before_any_git_call[../x] ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_odd_remote_refused_bef11')
+logbuf = <_io.StringIO object at 0x7fc5878f6f80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5876d2cb0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', '../x', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_______ ERROR at teardown of test_D2_unknown_remote_name_exit_1_no_push ________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D2_unknown_remote_name_ex0')
+logbuf = <_io.StringIO object at 0x7fc5878f7b80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ccd70>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'nope', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_____ ERROR at teardown of test_D3_stuck_writer_lock_times_out_with_alert ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D3_stuck_writer_lock_time0')
+logbuf = <_io.StringIO object at 0x7fc5878f7700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cc910>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_____________ ERROR at teardown of test_D4_git_runs_with_lc_all_c ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D4_git_runs_with_lc_all_c0')
+logbuf = <_io.StringIO object at 0x7fc587625300>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cc550>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_______ ERROR at teardown of test_D5_busy_run_keeps_previous_last_result _______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D5_busy_run_keeps_previou0')
+logbuf = <_io.StringIO object at 0x7fc587624700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ce5d0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+______ ERROR at teardown of test_D6_hook_added_file_detected_after_commit ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D6_hook_added_file_detect0')
+logbuf = <_io.StringIO object at 0x7fc587625780>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ceb70>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D7_M05_bad_decisions_root_blocks_trials_roots_too __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D7_M05_bad_decisions_root0')
+logbuf = <_io.StringIO object at 0x7fc5878f7700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cef30>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D7_M08_M44_symlinked_dirs_pointing_outside_never_listed _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D7_M08_M44_symlinked_dirs0')
+logbuf = <_io.StringIO object at 0x7fc5878f6ec0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cd630>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D7_M37_state_dir_never_staged_even_when_not_ignored _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D7_M37_state_dir_never_st0')
+logbuf = <_io.StringIO object at 0x7fc5878f7c40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ce3f0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_D7_M35_url_with_credentials_never_in_message_log_or_alert _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D7_M35_url_with_credentia0')
+logbuf = <_io.StringIO object at 0x7fc5878f7b80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cca50>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_________ ERROR at teardown of test_D8_path_with_spaces_fully_redacted _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D8_path_with_spaces_fully0')
+logbuf = <_io.StringIO object at 0x7fc5878f6f80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cceb0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_D8_repo_root_with_spaces_redacted_from_alert ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D8_repo_root_with_spaces_0')
+logbuf = <_io.StringIO object at 0x7fc587624b80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875cfed0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_________ ERROR at teardown of test_A5_other_branch_allowed_when_asked _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A5_other_branch_allowed_w0')
+logbuf = <_io.StringIO object at 0x7fc587625840>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ed4f0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'other']: push must be exactly `push origin refs/heads/other:refs/heads/other`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A5_unstaged_changes_elsewhere_are_allowed_and_untouched _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A5_unstaged_changes_elsew0')
+logbuf = <_io.StringIO object at 0x7fc587624880>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875edc70>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_____ ERROR at teardown of test_A6_waits_for_writer_holding_exclusive_lock _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A6_waits_for_writer_holdi0')
+logbuf = <_io.StringIO object at 0x7fc587625a80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ee210>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A7_new_manifest_line_gives_one_commit_with_that_file_only _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A7_new_manifest_line_give0')
+logbuf = <_io.StringIO object at 0x7fc5878f7640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ce490>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`", "['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_____________ ERROR at teardown of test_A7_hooks_are_not_bypassed ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A7_hooks_are_not_bypassed0')
+logbuf = <_io.StringIO object at 0x7fc5878f6b00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875ce990>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+_ ERROR at teardown of test_A10_remote_ahead_exit_5_local_kept_no_integration __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A10_remote_ahead_exit_5_l0')
+logbuf = <_io.StringIO object at 0x7fc5878f6e00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875eddb0>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+____ ERROR at teardown of test_A10_pre_receive_hook_rejects_no_forced_retry ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_A10_pre_receive_hook_reje0')
+logbuf = <_io.StringIO object at 0x7fc5878f5240>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+        e = RoutineEnv(tmp_path / "w", logbuf)
+        yield e
+>       e.assert_commands_allowed()
+
+tests/unit/routine/conftest.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <_routine_helpers.RoutineEnv object at 0x7fc5875edd10>
+
+    def assert_commands_allowed(self):
+        v = violations(self.git.commands, self.remote, self.branch)
+>       assert not v, v
+               ^^^^^
+E       AssertionError: ["['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"]
+
+tests/unit/routine/_routine_helpers.py:224: AssertionError
+=================================== FAILURES ===================================
+___________ test_A4_each_add_is_one_explicit_path_and_push_is_plain ____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5877e7230>
+
+    def test_A4_each_add_is_one_explicit_path_and_push_is_plain(env):
+        good, _ = _plant(env)
+        env.run()
+        adds = [c for c in env.git.commands if c and c[0] == "add"]
+        assert sorted(a[-1] for a in adds) == good
+        assert all(a[:2] == ["add", "--"] and len(a) == 3 for a in adds)
+        pushes = [c for c in env.git.commands if c[0] == "push"]
+>       assert pushes == [["push", "origin", "refs/heads/main:refs/heads/main"]]
+E       AssertionError: assert [['push', 'origin', 'main']] == [['push', 'or.../heads/main']]
+E         
+E         At index 0 diff: ['push', 'origin', 'main'] != ['push', 'origin', 'refs/heads/main:refs/heads/main']
+E         Use -v to get more diff
+
+tests/unit/routine/test_roots_core.py:224: AssertionError
+________________ test_A12_commands_issued_are_all_allow_listed _________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc58769ce10>
+
+    def test_A12_commands_issued_are_all_allow_listed(env):
+        """The `env` fixture also checks this at teardown for every test; here an explicit full scenario."""
+        from _routine_helpers import violations
+        env.setup_three_days()
+        env.manifest("a")
+        env.run()
+        env.run()
+>       assert violations(env.git.commands) == []
+E       assert ["['push', 'o.../heads/main`"] == []
+E         
+E         Left contains one more item: "['push', 'origin', 'main']: push must be exactly `push origin refs/heads/main:refs/heads/main`"
+E         Use -v to get more diff
+
+tests/unit/routine/test_roots_ops.py:84: AssertionError
+_ test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/*:refs/heads/*] _
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d0cd0>, scope = 'local'
+key = 'remote.origin.push', val = '+refs/heads/*:refs/heads/*'
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov0')
+
+    @pytest.mark.parametrize("scope,key,val", HOSTILE)
+    def test_D1_diverged_remote_not_overwritten_under_plus_refspec_config(env, scope, key, val, tmp_path):
+        if scope == "global":
+            with open(os.environ["GIT_CONFIG_GLOBAL"], "a") as f:
+                f.write(f'[remote "origin"]\n\tpush = {val}\n')
+        else:
+            env.g("config", "--add", key, val)
+        env.push_to_origin_from_other_clone()
+        env.setup_three_days()
+        rhead = env.remote_head()
+        n = env.count()
+        r = env.run()
+>       assert r.exit_code == 5 and r.pushed is False
+E       AssertionError: assert (<ExitCode.OK: 0> == 5)
+E        +  where <ExitCode.OK: 0> = RoutineResult(exit_code=<ExitCode.OK: 0>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials': ['2026-1...ons.jsonl', 'data/ledger/decisions.roots.jsonl', 'registry/trials.jsonl', 'registry/trials.roots.jsonl'], message='ok').exit_code
+
+tests/unit/routine/test_roots_regressions.py:40: AssertionError
+_ test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/main:refs/heads/main] _
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d2210>, scope = 'local'
+key = 'remote.origin.push', val = '+refs/heads/main:refs/heads/main'
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov1')
+
+    @pytest.mark.parametrize("scope,key,val", HOSTILE)
+    def test_D1_diverged_remote_not_overwritten_under_plus_refspec_config(env, scope, key, val, tmp_path):
+        if scope == "global":
+            with open(os.environ["GIT_CONFIG_GLOBAL"], "a") as f:
+                f.write(f'[remote "origin"]\n\tpush = {val}\n')
+        else:
+            env.g("config", "--add", key, val)
+        env.push_to_origin_from_other_clone()
+        env.setup_three_days()
+        rhead = env.remote_head()
+        n = env.count()
+        r = env.run()
+>       assert r.exit_code == 5 and r.pushed is False
+E       AssertionError: assert (<ExitCode.OK: 0> == 5)
+E        +  where <ExitCode.OK: 0> = RoutineResult(exit_code=<ExitCode.OK: 0>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials': ['2026-1...ons.jsonl', 'data/ledger/decisions.roots.jsonl', 'registry/trials.jsonl', 'registry/trials.roots.jsonl'], message='ok').exit_code
+
+tests/unit/routine/test_roots_regressions.py:40: AssertionError
+_ test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+main:main] _
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d2710>, scope = 'local'
+key = 'remote.origin.push', val = '+main:main'
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov2')
+
+    @pytest.mark.parametrize("scope,key,val", HOSTILE)
+    def test_D1_diverged_remote_not_overwritten_under_plus_refspec_config(env, scope, key, val, tmp_path):
+        if scope == "global":
+            with open(os.environ["GIT_CONFIG_GLOBAL"], "a") as f:
+                f.write(f'[remote "origin"]\n\tpush = {val}\n')
+        else:
+            env.g("config", "--add", key, val)
+        env.push_to_origin_from_other_clone()
+        env.setup_three_days()
+        rhead = env.remote_head()
+        n = env.count()
+        r = env.run()
+        assert r.exit_code == 5 and r.pushed is False
+        assert env.remote_head() == rhead
+        assert env.count() == n + 1
+>       assert [c for c in env.git.commands if c[0] == "push"] == [REFSPEC]
+E       AssertionError: assert [['push', 'origin', 'main']] == [['push', 'or.../heads/main']]
+E         
+E         At index 0 diff: ['push', 'origin', 'main'] != ['push', 'origin', 'refs/heads/main:refs/heads/main']
+E         Use -v to get more diff
+
+tests/unit/routine/test_roots_regressions.py:43: AssertionError
+_ test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[global-remote.origin.push-+refs/heads/*:refs/heads/*] _
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d3070>, scope = 'global'
+key = 'remote.origin.push', val = '+refs/heads/*:refs/heads/*'
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D1_diverged_remote_not_ov3')
+
+    @pytest.mark.parametrize("scope,key,val", HOSTILE)
+    def test_D1_diverged_remote_not_overwritten_under_plus_refspec_config(env, scope, key, val, tmp_path):
+        if scope == "global":
+            with open(os.environ["GIT_CONFIG_GLOBAL"], "a") as f:
+                f.write(f'[remote "origin"]\n\tpush = {val}\n')
+        else:
+            env.g("config", "--add", key, val)
+        env.push_to_origin_from_other_clone()
+        env.setup_three_days()
+        rhead = env.remote_head()
+        n = env.count()
+        r = env.run()
+>       assert r.exit_code == 5 and r.pushed is False
+E       AssertionError: assert (<ExitCode.OK: 0> == 5)
+E        +  where <ExitCode.OK: 0> = RoutineResult(exit_code=<ExitCode.OK: 0>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials': ['2026-1...ons.jsonl', 'data/ledger/decisions.roots.jsonl', 'registry/trials.jsonl', 'registry/trials.roots.jsonl'], message='ok').exit_code
+
+tests/unit/routine/test_roots_regressions.py:40: AssertionError
+_____________ test_D1_push_default_variants_still_explicit_refspec _____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d2c10>
+
+    def test_D1_push_default_variants_still_explicit_refspec(env):
+        env.g("config", "push.default", "matching")
+        env.g("config", "push.followTags", "true")
+        env.setup_three_days()
+        assert env.run().exit_code == 0
+>       assert [c for c in env.git.commands if c[0] == "push"] == [REFSPEC]
+E       AssertionError: assert [['push', 'origin', 'main']] == [['push', 'or.../heads/main']]
+E         
+E         At index 0 diff: ['push', 'origin', 'main'] != ['push', 'origin', 'refs/heads/main:refs/heads/main']
+E         Use -v to get more diff
+
+tests/unit/routine/test_roots_regressions.py:51: AssertionError
+___________ test_D2_odd_remote_refused_before_any_git_call[--force] ____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d2fd0>, remote = '--force'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...nl'], message="push to --force failed (fatal: 'main' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+______________ test_D2_odd_remote_refused_before_any_git_call[-f] ______________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d2710>, remote = '-f'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...s.jsonl'], message="push to -f failed (fatal: 'main' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+________ test_D2_odd_remote_refused_before_any_git_call[origin --force] ________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d1630>
+remote = 'origin --force'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...sh to origin --force failed (fatal: 'origin --force' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+___________ test_D2_odd_remote_refused_before_any_git_call[-origin] ____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d04b0>, remote = '-origin'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...nl'], message="push to -origin failed (fatal: 'main' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+_____________ test_D2_odd_remote_refused_before_any_git_call[a b] ______________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cc0f0>, remote = 'a b'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...s.jsonl'], message="push to a b failed (fatal: 'a b' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+_____________ test_D2_odd_remote_refused_before_any_git_call[o\tx] _____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d04b0>, remote = 'o\tx'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...jsonl'], message="push to o\tx failed (fatal: 'o\tx' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+__________ test_D2_odd_remote_refused_before_any_git_call[origin;rm] ___________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d18b0>
+remote = 'origin;rm'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...essage="push to origin;rm failed (fatal: 'origin;rm' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+_______ test_D2_odd_remote_refused_before_any_git_call[origin\n--force] ________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d27b0>
+remote = 'origin\n--force'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...l', 'registry/trials.roots.jsonl'], message="push to origin\n--force failed (fatal: 'origin); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+___________ test_D2_odd_remote_refused_before_any_git_call[+origin] ____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cc910>, remote = '+origin'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...], message="push to +origin failed (fatal: '+origin' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+_______________ test_D2_odd_remote_refused_before_any_git_call[] _______________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875ccaf0>, remote = ''
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...essage="push to  failed (fatal: no path specified; see 'git help pull' for valid url syntax); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+___________ test_D2_odd_remote_refused_before_any_git_call[--delete] ___________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cd590>
+remote = '--delete'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...nl'], message="push to --delete failed (fatal: --delete doesn't make sense without any refs); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+_____________ test_D2_odd_remote_refused_before_any_git_call[../x] _____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5876d2cb0>, remote = '../x'
+
+    @pytest.mark.parametrize("remote", BAD_REMOTES)
+    def test_D2_odd_remote_refused_before_any_git_call(env, remote):
+        env.setup_three_days()
+        r = env.run(remote=remote)
+>       assert r.exit_code == 1
+E       assert <ExitCode.PUSH_FAILED: 6> == 1
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...jsonl'], message="push to ../x failed (fatal: '../x' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:65: AssertionError
+__________________ test_D2_unknown_remote_name_exit_1_no_push __________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875ccd70>
+
+    def test_D2_unknown_remote_name_exit_1_no_push(env):
+        env.setup_three_days()
+        r = env.run(remote="nope")
+>       assert r.exit_code == 1 and not any(c[0] == "push" for c in env.git.commands)
+E       assert (<ExitCode.PUSH_FAILED: 6> == 1)
+E        +  where <ExitCode.PUSH_FAILED: 6> = RoutineResult(exit_code=<ExitCode.PUSH_FAILED: 6>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials':...jsonl'], message="push to nope failed (fatal: 'nope' does not appear to be a git repository); the next run will retry").exit_code
+
+tests/unit/routine/test_roots_regressions.py:73: AssertionError
+_______________________ test_D2_cli_remote_equals_force ________________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cce10>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc587658280>
+capsys = <_pytest.capture.CaptureFixture object at 0x7fc5877fd7f0>
+
+    def test_D2_cli_remote_equals_force(env, monkeypatch, capsys):
+        monkeypatch.chdir(env.work)
+        from investos import cli
+        try:
+            code = cli.main(["routine", "roots", "--remote=--force"])
+        except SystemExit as e:
+            code = e.code
+>       assert code == 1
+E       assert 6 == 1
+
+/home/claude/invester_os/tests/unit/routine/test_roots_regressions.py:83: AssertionError
+----------------------------- Captured stdout call -----------------------------
+{"added":0,"branch":"main","committed":null,"exit":6,"pushed":false,"roots":{"decisions":[],"trials":[]}}
+----------------------------- Captured stderr call -----------------------------
+push to --force failed (fatal: 'main' does not appear to be a git repository); the next run will retry
+________________ test_D3_stuck_writer_lock_times_out_with_alert ________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cc910>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc58765b8c0>
+
+    def test_D3_stuck_writer_lock_times_out_with_alert(env, monkeypatch):
+        import investos.routine.roots as roots
+        for name in ("LOCK_WAIT_S", "LOCK_TIMEOUT_S", "SHARED_LOCK_TIMEOUT_S", "FILE_LOCK_TIMEOUT_S"):
+            monkeypatch.setattr(roots, name, 1.0, raising=False)
+        env.setup_three_days()
+        mp = env.write("data/manifests/a.jsonl", '{"n":1}\n')
+        lockp = env.work / "data/manifests/a.jsonl.lock"
+        held, release = threading.Event(), threading.Event()
+    
+        def writer():
+            with open(lockp, "a+") as lk:
+                fcntl.flock(lk, fcntl.LOCK_EX)
+                held.set()
+                release.wait(60)
+    
+        w = threading.Thread(target=writer)
+        w.start()
+        assert held.wait(5)
+        fn = FakeNotifier()
+        out = []
+        t = threading.Thread(target=lambda: out.append(env.run(notifier=fn)))
+        t0 = time.monotonic()
+        t.start()
+        t.join(45)
+        alive = t.is_alive()
+        release.set()
+        w.join(10)
+        t.join(10)
+>       assert not alive, "routine waits for ever on a stuck writer lock"
+E       AssertionError: routine waits for ever on a stuck writer lock
+E       assert not True
+
+tests/unit/routine/test_roots_regressions.py:116: AssertionError
+________________________ test_D4_git_runs_with_lc_all_c ________________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cc550>
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fc5875c52b0>
+
+    def test_D4_git_runs_with_lc_all_c(env, monkeypatch):
+        real = subprocess.run
+        envs = []
+    
+        def spy(args, *a, **kw):
+            if isinstance(args, (list, tuple)) and args and args[0] == "git":
+                envs.append(kw.get("env"))
+            return real(args, *a, **kw)
+    
+        monkeypatch.setattr(subprocess, "run", spy)
+        monkeypatch.setenv("LC_ALL", "de_DE.UTF-8")
+        monkeypatch.setenv("LANG", "de_DE.UTF-8")
+        env.setup_three_days()
+        env.run()
+>       assert envs and all(e is not None and e.get("LC_ALL") == "C" for e in envs)
+E       AssertionError: assert ([{'IS_SANDBOX': '1', 'SHELL': '/bin/bash', 'CCR_THINKING_DISPLAY_SUMMARIZED': '1', 'COREPACK_ENABLE_AUTO_PIN': '0', .....ANDBOX': '1', 'SHELL': '/bin/bash', 'CCR_THINKING_DISPLAY_SUMMARIZED': '1', 'COREPACK_ENABLE_AUTO_PIN': '0', ...}, ...] and False)
+E        +  where False = all(<generator object test_D4_git_runs_with_lc_all_c.<locals>.<genexpr> at 0x7fc587590d40>)
+
+tests/unit/routine/test_roots_regressions.py:143: AssertionError
+_________________ test_D5_busy_run_keeps_previous_last_result __________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875ce5d0>
+
+    def test_D5_busy_run_keeps_previous_last_result(env):
+        env.setup_three_days()
+        assert env.run().exit_code == 0
+        p = env.work / "data/ledger/.state/roots-routine.last.json"
+        before = p.read_bytes()
+        with open(env.work / "data/ledger/.state/roots-routine.lock", "a+") as lk:
+            fcntl.flock(lk, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            r = env.run()
+        assert r.exit_code == 7
+>       assert p.read_bytes() == before
+E       assert b'{"added":0,...0.000000Z"}\n' == b'{"added":4,...0.000000Z"}\n'
+E         
+E         At index 9 diff: b'0' != b'4'
+E         Use -v to get more diff
+
+tests/unit/routine/test_roots_regressions.py:157: AssertionError
+________________ test_D6_hook_added_file_detected_after_commit _________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875ceb70>
+
+    def test_D6_hook_added_file_detected_after_commit(env):
+        h = env.work / ".git" / "hooks" / "pre-commit"
+        h.write_text("#!/bin/sh\necho x > NOTES.txt\ngit add NOTES.txt\nexit 0\n")
+        h.chmod(0o755)
+        env.setup_three_days()
+        rhead = env.remote_head()
+        fn = FakeNotifier()
+        r = env.run(notifier=fn)
+>       assert r.exit_code == 3 and r.pushed is False
+E       AssertionError: assert (<ExitCode.OK: 0> == 3)
+E        +  where <ExitCode.OK: 0> = RoutineResult(exit_code=<ExitCode.OK: 0>, roots_written={'decisions': ['2026-11-18', '2026-11-19'], 'trials': ['2026-1...ons.jsonl', 'data/ledger/decisions.roots.jsonl', 'registry/trials.jsonl', 'registry/trials.roots.jsonl'], message='ok').exit_code
+
+tests/unit/routine/test_roots_regressions.py:171: AssertionError
+___________________ test_D8_path_with_spaces_fully_redacted ____________________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cceb0>
+
+    def test_D8_path_with_spaces_fully_redacted(env):
+        env.git.inject.append(_push_fail("fatal: '/Users/Ann Lee/My Repo/origin.git' does not appear to be a git "
+                                         "repository\n"))
+        env.setup_three_days()
+        fn = FakeNotifier()
+        r = env.run(notifier=fn)
+        assert r.exit_code == 6
+        blob = r.message + json.dumps(env.events()) + json.dumps(fn.calls) + \
+            (env.work / "data/ledger/.state/roots-routine.last.json").read_text()
+        for bad in ("Ann", "Lee", "My Repo", "Users", "origin.git"):
+>           assert bad not in blob
+E           assert 'Lee' not in 'push to ori....000000Z"}\n'
+E             
+E             'Lee' is contained here:
+E               push to origin failed (fatal: '[path] Lee/My Repo/origin.git' does not appear to be a git repository); the next run will retry[{"ts": "2026-11-27T11:35:49.889877Z", "level": "INFO", "run_id": "T3-RUN-1", "task": "routine.roots", "event": "start", "fields": {"branch": "main", "remote": "origin", "dry_run": false}}, {"ts": "2026-11-27T11:35:49.896377Z", "level": "INFO", "run_id": "T3-RUN-1", "task": "routine.roots", "event": "verified", "fields": {}}, {"ts": "2026-11-27T11:35:49.896961Z", "level": "INFO", "run_id": "T3-RUN-1", "task": "routine.roots", "event": "roots_w...
+E             
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+tests/unit/routine/test_roots_regressions.py:268: AssertionError
+______________ test_D8_repo_root_with_spaces_redacted_from_alert _______________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875cfed0>
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-546/test_D8_repo_root_with_spaces_0')
+
+    def test_D8_repo_root_with_spaces_redacted_from_alert(env, tmp_path):
+        spaced = "/tmp/Some Where/with space/repo"
+        env.git.inject.append(_push_fail(f"fatal: '{spaced}' does not appear to be a git repository\n"))
+        env.setup_three_days()
+        fn = FakeNotifier()
+        env.run(notifier=fn)
+>       assert "Some" not in fn.calls[0][1] and "space" not in fn.calls[0][1]
+E       AssertionError: assert ('Some' not in 'exit 6 PUSH...n will retry'
+E         
+E         'Some' is contained here:
+E            will retry and 'space' not in 'exit 6 PUSH...n will retry'
+E         
+E         'space' is contained here:
+E           here/with space/repo' does not appear to be a git repository); the next run will retry
+E         ?           +++++)
+
+tests/unit/routine/test_roots_regressions.py:277: AssertionError
+____________ test_A10_remote_ahead_exit_5_local_kept_no_integration ____________
+
+env = <_routine_helpers.RoutineEnv object at 0x7fc5875eddb0>
+
+    def test_A10_remote_ahead_exit_5_local_kept_no_integration(env):
+        env.push_to_origin_from_other_clone()
+        env.setup_three_days()
+        rhead = env.remote_head()
+        n = env.count()
+        r = env.run()
+        assert r.exit_code == 5 and r.pushed is False
+        assert env.count() == n + 1 and r.committed == env.head()
+        assert env.remote_head() == rhead
+        assert not any(c[0] in ("pull", "fetch", "rebase", "merge", "reset", "checkout") for c in env.git.commands)
+>       assert [c for c in env.git.commands if c[0] == "push"] == [["push", "origin", "refs/heads/main:refs/heads/main"]]
+E       AssertionError: assert [['push', 'origin', 'main']] == [['push', 'or.../heads/main']]
+E         
+E         At index 0 diff: ['push', 'origin', 'main'] != ['push', 'origin', 'refs/heads/main:refs/heads/main']
+E         Use -v to get more diff
+
+tests/unit/routine/test_roots_safety.py:216: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/routine/test_roots_core.py::test_A4_each_add_is_one_explicit_path_and_push_is_plain
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_commands_issued_are_all_allow_listed
+FAILED tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/*:refs/heads/*]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/main:refs/heads/main]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+main:main]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[global-remote.origin.push-+refs/heads/*:refs/heads/*]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D1_push_default_variants_still_explicit_refspec
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[--force]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[-f]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[origin --force]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[-origin]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[a b]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[o\tx]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[origin;rm]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[origin\n--force]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[+origin]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[--delete]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[../x]
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_unknown_remote_name_exit_1_no_push
+FAILED tests/unit/routine/test_roots_regressions.py::test_D2_cli_remote_equals_force
+FAILED tests/unit/routine/test_roots_regressions.py::test_D3_stuck_writer_lock_times_out_with_alert
+FAILED tests/unit/routine/test_roots_regressions.py::test_D4_git_runs_with_lc_all_c
+FAILED tests/unit/routine/test_roots_regressions.py::test_D5_busy_run_keeps_previous_last_result
+FAILED tests/unit/routine/test_roots_regressions.py::test_D6_hook_added_file_detected_after_commit
+FAILED tests/unit/routine/test_roots_regressions.py::test_D8_path_with_spaces_fully_redacted
+FAILED tests/unit/routine/test_roots_regressions.py::test_D8_repo_root_with_spaces_redacted_from_alert
+FAILED tests/unit/routine/test_roots_safety.py::test_A10_remote_ahead_exit_5_local_kept_no_integration
+ERROR tests/unit/routine/test_roots_core.py::test_A1_roots_for_closed_days_only_one_commit_pushed
+ERROR tests/unit/routine/test_roots_core.py::test_A1_commit_message_format_and_author_from_user_config
+ERROR tests/unit/routine/test_roots_core.py::test_A1_ist_date_in_message_uses_clock_ist_not_utc
+ERROR tests/unit/routine/test_roots_core.py::test_A15_five_missing_days_rooted_in_order_one_commit
+ERROR tests/unit/routine/test_roots_core.py::test_A15_open_day_rooted_next_run_after_close
+ERROR tests/unit/routine/test_roots_core.py::test_A16_first_run_manifests_only_committed
+ERROR tests/unit/routine/test_roots_core.py::test_A2_chain_break_nothing_written_staged_or_committed[trials]
+ERROR tests/unit/routine/test_roots_core.py::test_A2_chain_break_nothing_written_staged_or_committed[decisions]
+ERROR tests/unit/routine/test_roots_core.py::test_A2_wrong_root_hash_exit_2
+ERROR tests/unit/routine/test_roots_core.py::test_A2_missing_ledger_is_not_a_failure
+ERROR tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+ERROR tests/unit/routine/test_roots_core.py::test_A4_each_add_is_one_explicit_path_and_push_is_plain
+ERROR tests/unit/routine/test_roots_ops.py::test_A9_offline_commit_locally_exit_6_then_catch_up
+ERROR tests/unit/routine/test_roots_ops.py::test_A12_commands_issued_are_all_allow_listed
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_happy_path_event_sequence
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_verify_failed_logs_error
+ERROR tests/unit/routine/test_roots_ops.py::test_A14_sigkill_after_write_roots_then_next_run_commits
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[0]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[2]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[5]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[6]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_dry_run_never_notifies[2]
+ERROR tests/unit/routine/test_roots_ops.py::test_A19_last_result_file - Asser...
+ERROR tests/unit/routine/test_roots_ops.py::test_A19_unwritable_result_file_does_not_change_exit
+ERROR tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/*:refs/heads/*]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+refs/heads/main:refs/heads/main]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[local-remote.origin.push-+main:main]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D1_diverged_remote_not_overwritten_under_plus_refspec_config[global-remote.origin.push-+refs/heads/*:refs/heads/*]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D1_push_default_variants_still_explicit_refspec
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[--force]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[-f]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[origin --force]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[-origin]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[a b]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[o\tx]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[origin;rm]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[origin\n--force]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[+origin]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[--delete]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_odd_remote_refused_before_any_git_call[../x]
+ERROR tests/unit/routine/test_roots_regressions.py::test_D2_unknown_remote_name_exit_1_no_push
+ERROR tests/unit/routine/test_roots_regressions.py::test_D3_stuck_writer_lock_times_out_with_alert
+ERROR tests/unit/routine/test_roots_regressions.py::test_D4_git_runs_with_lc_all_c
+ERROR tests/unit/routine/test_roots_regressions.py::test_D5_busy_run_keeps_previous_last_result
+ERROR tests/unit/routine/test_roots_regressions.py::test_D6_hook_added_file_detected_after_commit
+ERROR tests/unit/routine/test_roots_regressions.py::test_D7_M05_bad_decisions_root_blocks_trials_roots_too
+ERROR tests/unit/routine/test_roots_regressions.py::test_D7_M08_M44_symlinked_dirs_pointing_outside_never_listed
+ERROR tests/unit/routine/test_roots_regressions.py::test_D7_M37_state_dir_never_staged_even_when_not_ignored
+ERROR tests/unit/routine/test_roots_regressions.py::test_D7_M35_url_with_credentials_never_in_message_log_or_alert
+ERROR tests/unit/routine/test_roots_regressions.py::test_D8_path_with_spaces_fully_redacted
+ERROR tests/unit/routine/test_roots_regressions.py::test_D8_repo_root_with_spaces_redacted_from_alert
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_other_branch_allowed_when_asked
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_unstaged_changes_elsewhere_are_allowed_and_untouched
+ERROR tests/unit/routine/test_roots_safety.py::test_A6_waits_for_writer_holding_exclusive_lock
+ERROR tests/unit/routine/test_roots_safety.py::test_A7_new_manifest_line_gives_one_commit_with_that_file_only
+ERROR tests/unit/routine/test_roots_safety.py::test_A7_hooks_are_not_bypassed
+ERROR tests/unit/routine/test_roots_safety.py::test_A10_remote_ahead_exit_5_local_kept_no_integration
+ERROR tests/unit/routine/test_roots_safety.py::test_A10_pre_receive_hook_rejects_no_forced_retry
+28 failed, 90 passed, 59 errors in 59.61s

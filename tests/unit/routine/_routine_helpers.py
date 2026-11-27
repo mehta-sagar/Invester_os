@@ -53,7 +53,7 @@ data/manifests/ignored.jsonl
 D1, D2, D3 = "2026-11-18", "2026-11-19", "2026-11-20"
 TODAY = "2026-11-20T10:00:00"
 
-READ_ONLY = {"rev-parse", "status", "diff", "show", "rev-list", "ls-files", "check-ignore", "config"}
+READ_ONLY = {"rev-parse", "status", "diff", "show", "rev-list", "ls-files", "check-ignore", "config", "remote"}
 FORBIDDEN_ARGS = {"--force", "-f", "--force-with-lease", "--delete", "-d", "--no-verify", "-A", "--all", "-a",
                   "-u", "-am", "-n", "--author", "--amend"}
 
@@ -155,8 +155,8 @@ def violations(cmds, remote="origin", branch="main") -> list[str]:
         elif sub == "commit":
             pass
         elif sub == "push":
-            if a != ["push", remote, branch]:
-                out.append(f"{a}: push must be exactly `push {remote} {branch}`")
+            if a != ["push", remote, f"refs/heads/{branch}:refs/heads/{branch}"]:
+                out.append(f"{a}: push must be exactly `push {remote} refs/heads/{branch}:refs/heads/{branch}`")
         elif sub == "restore":
             if not (len(a) == 4 and a[1:3] == ["--staged", "--"]):
                 out.append(f"{a}: restore only `--staged -- <path>`")

@@ -15,3 +15,12 @@
 5. Log `done` carries the exit code as an int field value (any name). push_failed fields hold no URL/path.
 6. Torn-tail refuse message contains the file name and "manifest-torn-tail".
 7. Unwritable last.json simulated by a directory at that path (R10 lock lives in the same .state dir).
+
+## Review regressions (D1-D9), tests/unit/routine/test_roots_regressions.py - red vs 39e22d1
+- Red output: reports/S1-T3/regressions_red.txt (28 failed + 59 errors incl. teardown). Old suite 1163 pass.
+- Allow-list changed: push must be exactly `push <remote> refs/heads/<b>:refs/heads/<b>` (D1); `git remote` allowed read-only (D2). A4/A10 assertions updated; every test that pushes now errors at teardown until Builder fixes D1.
+- D1 hostile configs local+global (+refspec); D2 12 odd remote names -> exit 1 with NO git call, unknown remote -> 1 no push, CLI --remote=--force -> 1.
+- D3 assumes REFUSED (3, alerts) after the lock wait, per the review's fix (R13 has no alert for BUSY 7, so BUSY+alert would contradict spec). Test patches roots.LOCK_WAIT_S / LOCK_TIMEOUT_S / SHARED_LOCK_TIMEOUT_S / FILE_LOCK_TIMEOUT_S (raising=False) to 1 s; if Builder names the constant differently the test just waits the default (<45 s limit).
+- D4 LC_ALL=C in env of every git subprocess; D5 BUSY keeps last.json bytes and leaves no .tmp file; D6 hook-added file -> exit 3, not pushed, alerted; D8 spaces in paths redacted (injected push stderr).
+- D7 mutation-killers (M05, M45, M08/M44, M37, M35) pass on current code by design (they fail only under the mutation); their red shown is only the D1 teardown.
+- D9: A14 now uses PYTHONPATH=src, no -I, cwd outside repo (passes already).

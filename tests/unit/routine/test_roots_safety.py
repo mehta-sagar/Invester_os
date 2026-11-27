@@ -213,7 +213,7 @@ def test_A10_remote_ahead_exit_5_local_kept_no_integration(env):
     assert env.count() == n + 1 and r.committed == env.head()
     assert env.remote_head() == rhead
     assert not any(c[0] in ("pull", "fetch", "rebase", "merge", "reset", "checkout") for c in env.git.commands)
-    assert [c for c in env.git.commands if c[0] == "push"] == [["push", "origin", "main"]]
+    assert [c for c in env.git.commands if c[0] == "push"] == [["push", "origin", "refs/heads/main:refs/heads/main"]]
 
 
 def test_A10_pre_receive_hook_rejects_no_forced_retry(env):
