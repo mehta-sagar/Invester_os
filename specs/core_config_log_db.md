@@ -194,7 +194,7 @@ Why: DuckDB defaults to about 80% of RAM and as many threads as there are cores.
 [duckdb]                              # optional section; absent means all defaults below
 memory_limit = "5GB"                  # str, DuckDB size text: integer or decimal number, optional space, unit KB MB GB TB KiB MiB GiB TiB (case-insensitive), default "5GB"
 threads = 4                           # int >= 1 and <= 64, default 4
-temp_directory = "data/canonical/.duckdb_tmp"   # str, optional; same resolution rule as paths; default is exactly this value
+temp_directory = "data/canonical/.duckdb_tmp"   # str, optional; same resolution rule as paths; default is `<canonical zone>/.duckdb_tmp` (equal to this value under the standard layout; follows a relocated canonical zone; Sagar 27 Nov)
 ```
 `Config.duckdb` is a frozen `DuckDBConfig(memory_limit: str, memory_limit_bytes: int, threads: int, temp_directory: Path)` and is always present (defaults when the section is absent). `memory_limit_bytes` is computed by the config module with decimal units for KB/MB/GB/TB and binary units for KiB/MiB/GiB/TiB (DuckDB's own convention), rounded down to an integer. Env overrides (extends R3): `INVESTOS_DUCKDB__MEMORY_LIMIT` (string, validated like the file value), `INVESTOS_DUCKDB__THREADS` (integer text; a non-integer or a float with a fraction raises `ConfigError`), `INVESTOS_DUCKDB__TEMP_DIRECTORY`. Booleans are not accepted for `threads`.
 
@@ -243,5 +243,5 @@ A41. (R20) Given `config/investos.example.toml`, it contains a `[duckdb]` sectio
 
 ## Open questions for Sagar (S1-SPEC2)
 1. The default `5GB` leaves about 11 GB for the OS, Chrome (the real-browser backfill runs there) and Python workers; if you run two DuckDB processes at once, each gets 5 GB, so set 3GB each. Say which you expect.
-2. `threads = 4` is a default I chose for a laptop sharing CPU with a headful browser; raise it in config if heavy queries are slow. Whether DuckDB accepts `SET temp_directory` on a read-only connection is to be verified by the Builder on the installed version (R22 edge case); if it does not, the read-only path skips only that setting and the spec changes.
-3. The temp directory sits inside `data/canonical` (git-ignored by the existing rule). If your data root is on an external drive, set `[paths]` and `temp_directory` together there.
+2. Verified in S1-T5: DuckDB 2.0.1 accepts `SET temp_directory` on a read-only connection, so no spec change. `threads = 4` is a default I chose for a laptop sharing CPU with a headful browser; raise it in config if heavy queries are slow. Whether DuckDB accepts `SET temp_directory` on a read-only connection is to be verified by the Builder on the installed version (R22 edge case); if it does not, the read-only path skips only that setting and the spec changes.
+3. Resolved (Sagar, 27 Nov 2026): the default follows the canonical zone (`<canonical>/.duckdb_tmp`), as built in S1-T5. Original note: The temp directory sits inside `data/canonical` (git-ignored by the existing rule). If your data root is on an external drive, set `[paths]` and `temp_directory` together there.
