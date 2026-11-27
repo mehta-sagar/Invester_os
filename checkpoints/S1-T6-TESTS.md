@@ -1,3 +1,14 @@
+# Checkpoint S1-T6 - Test writer - fix round
+
+## Done (fix round, review 3f5fce2)
+- tests/unit/acquire/test_rss_fixes.py: 26 tests for D1 (per-feed `clock`), D2 (no repeated gap lines), D3 (mutants M22, M33, M45, M53, M56, M90, M96 killed; M65 equivalent, pinned only), D4 (never-succeeded feed alarms at once), D5 (last_ok_slot held back).
+- Red against current src: 8 failed (D1 3, D2 2, D4 3), 18 green (guards and mutant killers). Throwaway fix (uncommitted): full suite 2253 passed, 3 skipped.
+- No existing test changed, no src change committed. Evidence: "Fix round" section of reports/S1-T6/RED_TESTS.md.
+
+## Next step
+Builder: add `clock` to `poll_cycle` (CLI passes a real UTC clock), measure misses from the last failed attempt (without losing misses after a gap-write failure), alarm `poll_missed` for a never-ok feed with failures. Orchestrator: decide M65 (equivalent) and the D4 first-failure alert.
+
+---
 # Checkpoint S1-T6 - Test writer - final
 
 ## Done

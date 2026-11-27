@@ -74,3 +74,24 @@ tests/unit/routine/test_rss_roots_addlist.py (RT). "planted" = marked `@pytest.m
 7. **Lock wait**: the "waits at most 5 s" test uses the injected sleeper/monotonic if the builder does; with real time it costs 5 s once or twice.
 8. **Existing-test constraint** (see (b)): missing feed table must be a WARNING pass, plant must still work.
 9. Existing tests changed: **none**.
+
+## Fix round (review 3f5fce2: D1-D5)
+File: `tests/unit/acquire/test_rss_fixes.py` (26 tests). No existing test changed. Satisfiability: a throwaway src patch (not committed: `clock` param on `poll_cycle`, miss range measured from the last failed attempt, `poll_missed` for a never-ok feed with failures) gives the full suite 2253 passed, 3 skipped (2227 + 26), so no existing test contradicts a fix.
+
+Red run against current src (HEAD 3f5fce2 plus the new file): **8 failed, 18 passed** (full suite: 2245 passed, 8 failed, 3 skipped).
+
+| Defect | Tests | Against current src |
+|---|---|---|
+| D1 | `test_D1_each_feed_is_stamped_with_its_own_fetch_time_not_the_cycle_start`, `..._fetched_at_is_never_earlier_than_the_transport_call`, `..._slot_and_state_stay_on_the_cycle_start_while_the_clock_moves` (TypeError: no `clock`); `..._without_a_clock_the_cycle_start_is_still_the_stamp` (guard) | 3 red, 1 green |
+| D2 | `test_D2_eight_failing_cycles_record_each_scheduled_slot_at_most_once` (7 slots repeated), `..._failures_then_recovery_never_cover_a_slot_twice`; guard `..._a_single_outage_still_reports_each_missed_slot_once` | 2 red, 1 green |
+| D4 | `test_D4_a_feed_that_never_succeeded_raises_poll_missed_without_waiting_for_three_failures` (failures 1 and 2), `..._the_cycle_alerts_for_a_new_feed_that_failed_its_first_polls`, `..._the_check_flags_a_never_succeeded_feed_after_one_failure`; guard `..._a_feed_with_no_state_at_all_is_still_only_unknown` | 3 red, 1 green |
+| D5 / M56 | `test_D5_after_a_gap_write_failure_last_ok_slot_is_not_advanced`, `..._the_held_back_miss_is_written_once_the_ledger_works_again`, `..._while_the_writer_stays_broken_poll_missed_is_raised` | green (pins current behaviour) |
+| D3 | M22 `test_D3_negative_utc_offsets_are_converted_to_ist` (4 cases); M33 `..._every_lastbuilddate_element_is_ignored_by_the_digest`, `..._two_lastbuilddate_elements_changing_alone_is_skipped_as_unchanged`; M45 `..._a_cycle_budget_of_exactly_600_seconds_is_spent` (+ just-under guard); M53 `..._the_lock_wait_is_at_most_five_seconds`; M90 `..._an_adapter_with_a_waiver_but_without_date_keyed_is_not_listed`; M96 `..._a_duplicate_manifest_key_fails_the_check`; M65 `..._future_dated_newest_item_gives_no_early_alarm_and_alarms_after_date_plus_window` | green (mutant killers) |
+
+D3/D5 tests are green by design (the code is right, the tests were missing), so their red evidence is mutation: each mutant re-applied in a throwaway copy of src and the new file run. Killed: M22 (4 tests), M33 (2), M45 (1), M53 (1), M56 (3, the D5 tests), M90 (1), M96 (1). **M65 is equivalent, not killed**: `min(newest, now)` and no cap give the same alarms for every input, because a negative age and a zero age both stay below any window >= 15 min and `ref = max(newest, 09:15)` is also in the future. The test only pins the reading (no early alarm, alarm once stated date plus window has passed). If the review wants the cap to matter, the spec must say what it caps against (for example `last_change_at`); the spec is silent, so no such test was written.
+
+Readings pinned where the spec is silent:
+- D1: `clock` is a wall-clock callable on `poll_cycle`; slot, state timestamps and gap `detected_at` stay on `now`; manifest `fetched_at` comes from `clock`.
+- D2: "at most once" is checked on scheduled slots expanded from `from_slot..to_slot` of every line; every failed current slot must still be recorded.
+- D4: with a state present, `last_ok_slot` null and at least one failure, the check at the end of the first failed cycle already raises `poll_missed` (the latest slot at least 10 minutes old, 08:45 at a 09:00 cycle, has no ok poll). A missing state stays `unknown`.
+- D5: after a gap-write failure `last_ok_slot` and `last_ok_at` keep their old values while the other fields record the ok poll; once the ledger is writable again the truly missed slots (0715-0800 in the test) are written and no slot is written twice.
