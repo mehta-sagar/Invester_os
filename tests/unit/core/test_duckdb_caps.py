@@ -509,10 +509,10 @@ SELECT count(*), sum((rn <> i + 1)::INT), min(s) FILTER (WHERE rn = 1), max(s) F
 FROM (SELECT i, s, row_number() OVER (ORDER BY s) AS rn
       FROM (SELECT i, lpad(i::VARCHAR, 100, '0') AS s FROM range({n}) t(i)))
 """
-SPILL_ROWS = 3_000_000                 # spec A38 says 5 million; 3 million keeps the test under ~5 s and still needs ~350 MB vs a 64 MiB limit
+SPILL_ROWS = 5_000_000                 # spec A38: 5 million rows (Sagar chose the spec size, 27 Nov)
 
 
-def test_A38_sort_over_3m_wide_rows_spills_with_64mib(repo):
+def test_A38_sort_over_5m_wide_rows_spills_with_64mib(repo):
     cfg = _repo_cfg(repo, 'memory_limit = "64MiB"\nthreads = 2')
     con = _db().open_db(cfg)
     seen = {"files": 0, "bytes": 0}

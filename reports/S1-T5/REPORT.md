@@ -34,7 +34,7 @@ Branch task/S1-T5, from main 7824395. Agents (all Sonnet):
 - **DuckDB settings** (sample_duckdb.txt):
   - Default memory_limit `5GB` shows as `4.6 GiB`. DuckDB's GB is 10^9 bytes.
   - threads 4, preserve_insertion_order false, temp_directory `<data root>/data/canonical/.duckdb_tmp`.
-  - The 64 MiB spill test passes: 3M rows sort in about 5 s and spill files appear.
+  - The 64 MiB spill test passes: 5M rows sort in about 8.6 s (3M in the first build; raised to the spec's 5M per Sagar) and spill files appear.
 - **Read-only connection:** DuckDB **2.0.1** (Python 3.13) accepts `SET temp_directory` on a read-only connection.
 - **Reviewer note:** no open critical defect. D1 (Medium, test-order leak) and D2–D4 (Low/Info) are fixed in 333e97c.
 - **Suite:** run as non-root on Linux. The macOS run is still open; it needs the Mac.
@@ -49,3 +49,9 @@ Branch task/S1-T5, from main 7824395. Agents (all Sonnet):
 2. Sidecar schema stays 2. The spec line saying "stays 1" is stale.
 3. The spill test uses 3M rows; the spec says 5M.
 4. R35's "investos check lists waived adapters" is deferred to the first real adapter.
+
+## Answers (Sagar, 27 Nov 2026, 22:00 IST): 1a 2a 3b 4a
+1. a: the temp directory follows the canonical zone (kept; spec line updated).
+2. a: the schema stays 2 (stale spec line fixed).
+3. b: the spill test now uses 5M rows, as the spec says (about 8.6 s here).
+4. a: R35's waived-adapter listing is built with the first real adapter, the RSS poller (spec note added).
