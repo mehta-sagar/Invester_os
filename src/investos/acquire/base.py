@@ -10,6 +10,7 @@ run sidecar only.
 """
 from __future__ import annotations
 
+import hashlib
 import io
 import json
 import os
@@ -464,6 +465,11 @@ class Collector(ABC):
                 raise ValueError(f"keys {seen[d]!r} and {k!r} name the same date {d.isoformat()}")
             seen[d] = k
 
+    def unchanged_body(self, key: str, sha256: str, body: bytes) -> str | None:
+        """Adapter hook (collect_rss R7): a non-empty str means "this body is not new": the key is skipped with that
+        reason and nothing is stored. The base only passes the raw body and its sha256, it never interprets them."""
+        return None
+
     def headers_for(self, key: str, url: str) -> Mapping[str, str]:
         """Extra request headers for one request (validated on every call). scoped_exception adapters may override."""
         return dict(self.extra_headers)
@@ -691,6 +697,16 @@ class Collector(ABC):
             bad, trade_date = self._date_check_files(key, resp.body, members)
             if bad is not None:
                 return bad
+        try:
+            same = self.unchanged_body(key, hashlib.sha256(resp.body).hexdigest(), resp.body)
+        except Exception as e:                                  # fail toward keeping evidence
+            self._log.warning("unchanged_hook_error", key=key, reason=type(e).__name__)
+            same = None
+        if same is not None and not isinstance(same, str):
+            self._log.warning("unchanged_hook_error", key=key, reason=f"bad return type {type(same).__name__}")
+            same = None
+        if same:
+            return _Rec(Outcome.SKIPPED, same)
         outputs: list[tuple[str, str]] = []
         # members first, zip last: the zip key is what makes a re-run skip, so it is written only
         # once every member is safely in the manifest

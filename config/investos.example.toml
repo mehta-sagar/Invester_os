@@ -21,6 +21,8 @@ default_interval_s = 0.35
 "www.nseindia.com" = 2.5
 "www.nseindia.in" = 2.5
 "api.bseindia.com" = 2.5
+"www.rbi.org.in" = 1.0
+"www.sebi.gov.in" = 1.0
 
 [collect]
 # the dedicated address that goes into the User-Agent; a collector refuses to start while it is empty

@@ -135,6 +135,9 @@ def build_add_list(cfg: Config, git: Git) -> list[str]:
         hosts = access / "hosts"
         if hosts.is_dir() and not hosts.is_symlink():
             cands += [p for p in hosts.glob("*.jsonl") if HOST_RE.fullmatch(p.stem)]
+    rss_dir = led / "rss"
+    if rss_dir.is_dir() and not rss_dir.is_symlink():
+        cands.append(rss_dir / "gaps.jsonl")                        # collect_rss R12: the gap ledger only
     if man.is_dir() and not man.is_symlink():
         cands += [p for p in man.glob("*.jsonl") if SOURCE_RE.fullmatch(p.stem)]
         for d in man.glob("*.runs"):

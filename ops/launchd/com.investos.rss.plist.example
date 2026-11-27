@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Example only; installing the job is a human step (copy to ~/Library/LaunchAgents/ and run launchctl).
+  The poller runs one cycle per start and exits (the investos collect rss command with the once flag); launchd supplies the repetition,
+  every 900 seconds (15 minutes). launchd uses the Mac's local time zone, but the slots are computed in IST from
+  the clock, so the zone of the Mac does not matter for slots. A sleeping Mac skips slots: the next cycle records
+  every scheduled slot it missed as one "missed" line in data/ledger/rss/gaps.jsonl.
+  RunAtLoad makes the first cycle run when the agent loads. The roots routine (23:30) and this poller are
+  independent processes; the poller only fetches and stores.
+  Edit the two example paths below to the real virtualenv script and repository checkout.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.investos.rss</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/example/invester_os/.venv/bin/investos</string>
+    <string>collect</string>
+    <string>rss</string>
+    <string>--once</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/example/invester_os</string>
+  <key>StartInterval</key>
+  <integer>900</integer>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/Users/example/invester_os/data/ledger/.state/rss-poller.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/example/invester_os/data/ledger/.state/rss-poller.err.log</string>
+</dict>
+</plist>
