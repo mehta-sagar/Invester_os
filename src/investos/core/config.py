@@ -288,6 +288,9 @@ def _resolve(root: Path, s: str) -> Path:
     return (p if p.is_absolute() else root / p).resolve()
 
 
+_IGNORE_PROBE_NAME = "investos-ignore-probe.bin"   # never created; only asked of git
+
+
 def _git_check_ignored(root: Path, raw: Path, env: Mapping[str, str], label: str = "raw path") -> None:
     git = shutil.which("git", path=env.get("PATH", ""))
     if git is None:
@@ -300,6 +303,15 @@ def _git_check_ignored(root: Path, raw: Path, env: Mapping[str, str], label: str
     if r.returncode == 0:
         return
     if r.returncode == 1:
+        # A directory holding a tracked placeholder (data/raw/.gitkeep) is never reported as ignored even when
+        # its contents are (`data/raw/*`). What keeps bytes off git is the contents rule, so test a probe child.
+        try:
+            r2 = subprocess.run([git, "-C", str(root), "check-ignore", "-q", "--",
+                                 str(raw) + "/" + _IGNORE_PROBE_NAME], capture_output=True, check=False, env=dict(env))
+        except OSError as e:
+            raise ConfigError(f"refuse to start: cannot run git: {e}") from None
+        if r2.returncode == 0:
+            return
         raise ConfigError(f"refuse to start: {label} {raw} is inside the git tree and not git-ignored")
     raise ConfigError(f"refuse to start: git check-ignore failed ({r.returncode}): "
                       f"{r.stderr.decode(errors='replace').strip()}")
