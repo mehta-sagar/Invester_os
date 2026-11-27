@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Example only; installing the job is a human step (copy to ~/Library/LaunchAgents/ and run launchctl).
+  launchd uses the Mac's local time zone, so Hour 23 / Minute 30 means 23:30 IST only while the Mac is
+  set to Asia/Kolkata. RunAtLoad makes a Mac that was asleep catch up when it wakes or the agent loads.
+  Edit the two example paths below to the real virtualenv script and repository checkout.
+  Roots exist only for closed days, so a 23:30 run roots the days before today.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.investos.roots</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/example/invester_os/.venv/bin/investos</string>
+    <string>routine</string>
+    <string>roots</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/example/invester_os</string>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>23</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardOutPath</key>
+  <string>/Users/example/invester_os/data/ledger/.state/roots-routine.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/example/invester_os/data/ledger/.state/roots-routine.err.log</string>
+</dict>
+</plist>
