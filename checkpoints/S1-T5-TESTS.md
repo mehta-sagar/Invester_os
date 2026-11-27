@@ -47,3 +47,10 @@ No assertion was weakened; each only adds the ignore line the new rule needs.
 ## State
 - branch: task/S1-T5 (base main 7824395)
 - files touched: tests/unit/acquire/{_datecheck_helpers,test_collect_s1_datecheck,test_collector_sidecar}.py, tests/unit/core/{test_duckdb_caps,test_collect_date_check_config,test_config,test_review_regressions}.py, reports/S1-T5/tests_red.txt, checkpoints/S1-T5-TESTS.md
+
+## Review regressions (D1-D4, reports/S1-T5/review.md)
+- D1: the `log` fixtures in tests/unit/core/test_log.py and test_review_regressions.py now yield and reload the log module on teardown, so `_BadFlush` no longer leaks into later tests. Before: `acquire core check` gave 33 setup errors (reports/S1-T5/d1_order_before.txt); after: 1221 passed in both `acquire core check` and `check core acquire` order (d1_order_after.txt).
+- D2: tests/unit/acquire/test_s1t5_datecheck_regressions.py (waived adapter: 4 bad keys, two keys naming one date; ValueError before any HTTP, no sidecar). Kills N03.
+- D3: tests/unit/core/test_s1t5_caps_regressions.py (rounding down, exact "cannot apply duckdb setting <name>:" prefix, exact "cannot create duckdb temp directory <path>:" prefix; the old assertions passed because DuckDB/OSError text repeated the name/path). Kills M43, N16, N17.
+- D4: spill test renamed test_A38_sort_over_3m_wide_rows_spills_with_64mib.
+- Mutant evidence: reports/S1-T5/regressions_red.txt (copy in scratchpad s1t5_fix). New files use distinct basenames (pytest basename clash between core/ and acquire/).

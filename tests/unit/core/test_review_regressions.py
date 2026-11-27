@@ -18,7 +18,8 @@ FIXED = datetime(2026, 11, 21, 9, 30, 0, tzinfo=timezone.utc)
 def log():
     import importlib
     from investos.core import log as m
-    return importlib.reload(m)
+    yield importlib.reload(m)
+    importlib.reload(m)       # S1-T5 D1: never leave a test's sink (e.g. _BadFlush) configured for later tests
 
 
 # ---- D2: strictly valid JSON ------------------------------------------------
