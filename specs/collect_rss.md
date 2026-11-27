@@ -163,6 +163,8 @@ A31. (R10, R12, planted) Given a long outage (Mac off for 3 days), then the next
 - A separate `adapters` check (R21 note).
 
 ## Open questions for Sagar
+Resolved (Sagar, 27 Nov 2026, by pop-up): 1a, 2a, 3a, 4a, the recommended option each time. The rules above already follow these options. Original questions kept below.
+
 1. Overnight polls (R9). (a) 15-minute slots 07:00-23:45 IST plus 01:00, 03:00, 05:00 (recommended: matches "a few overnight polls", about 76 slots a day); (b) hourly from 00:00 to 06:00; (c) all 96 slots, every day. The rolling windows (InsiderTrading about 4 hours) are shorter than a missed overnight gap under (a), so (a) can lose late-night insider items if the Mac sleeps; the cost of (c) is only about 20 extra polls per feed per day.
 2. News feeds beyond the official RBI and SEBI (R3). (a) Add ET, Livemint, Business Standard and BusinessLine later as `enabled=no` rows that the probe confirms, storing their raw XML locally like all raw files (recommended); (b) official sources only. Third-party RSS terms are "personal reading", and the raw zone is not pushed to GitHub, but only the manifest rows (URL, hash) are; the ToS call is yours.
 3. Stale windows (R13). (a) The shipped defaults (90 minutes for announcements, 360 for insider trading, four days for RBI and SEBI), tuned after the probe measures real cadence (recommended); (b) no content-stale alarm until the probe has measured, only `poll_missed`. Wrong windows give false alarms, which teach you to ignore real ones.
