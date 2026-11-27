@@ -1,0 +1,2037 @@
+EEEEEEEEEEEEEEEEEEEFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEEEEEEEEEEEEEEEEEEEFEEEE [ 81%]
+EEEEEEEEEEEEEEEE                                                         [100%]
+==================================== ERRORS ====================================
+____ ERROR at setup of test_A1_roots_for_closed_days_only_one_commit_pushed ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A1_roots_for_closed_days_0')
+logbuf = <_io.StringIO object at 0x7f6b5c2e9f00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A1_commit_message_format_and_author_from_user_config __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A1_commit_message_format_0')
+logbuf = <_io.StringIO object at 0x7f6b5c2e9b40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____ ERROR at setup of test_A1_ist_date_in_message_uses_clock_ist_not_utc _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A1_ist_date_in_message_us0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eaec0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+________________ ERROR at setup of test_A1_stdout_json_via_cli _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A1_stdout_json_via_cli0')
+logbuf = <_io.StringIO object at 0x7f6b5c2e84c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+___ ERROR at setup of test_A15_five_missing_days_rooted_in_order_one_commit ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A15_five_missing_days_roo0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb040>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_______ ERROR at setup of test_A15_open_day_rooted_next_run_after_close ________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A15_open_day_rooted_next_0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb100>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A16_empty_layout_ok_no_commit _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A16_empty_layout_ok_no_co0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb580>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+________ ERROR at setup of test_A16_first_run_manifests_only_committed _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A16_first_run_manifests_o0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb7c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A2_chain_break_nothing_written_staged_or_committed[trials] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A2_chain_break_nothing_wr0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebc40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A2_chain_break_nothing_written_staged_or_committed[decisions] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A2_chain_break_nothing_wr1')
+logbuf = <_io.StringIO object at 0x7f6b5c15c040>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_______________ ERROR at setup of test_A2_wrong_root_hash_exit_2 _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A2_wrong_root_hash_exit_20')
+logbuf = <_io.StringIO object at 0x7f6b5c15c1c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+__________ ERROR at setup of test_A2_missing_ledger_is_not_a_failure ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A2_missing_ledger_is_not_0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c340>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A3_A4_A20_commit_holds_exactly_the_add_list ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A3_A4_A20_commit_holds_ex0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebc40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+__ ERROR at setup of test_A4_each_add_is_one_explicit_path_and_push_is_plain ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A4_each_add_is_one_explic0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebdc0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+___ ERROR at setup of test_A4_staged_unrelated_file_refused_index_unchanged ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A4_staged_unrelated_file_0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eba00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____ ERROR at setup of test_A4_cached_set_not_subset_of_add_list_refuses ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A4_cached_set_not_subset_0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb100>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+____________ ERROR at setup of test_A4_ignored_manifest_never_added ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A4_ignored_manifest_never0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+____ ERROR at setup of test_A9_offline_commit_locally_exit_6_then_catch_up _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A9_offline_commit_locally0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c7c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_________ ERROR at setup of test_A9_cli_stdout_has_no_url_when_offline _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A9_cli_stdout_has_no_url_0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_______ ERROR at setup of test_A12_commands_issued_are_all_allow_listed ________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A12_commands_issued_are_a0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebac0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A13_happy_path_event_sequence _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A13_happy_path_event_sequ0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eae00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+________ ERROR at setup of test_A13_refused_and_verify_failed_log_error ________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A13_refused_and_verify_fa0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb100>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A13_verify_failed_logs_error ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A13_verify_failed_logs_er0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ea8c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A13_exception_after_write_roots_exit_4_roots_on_disk __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A13_exception_after_write0')
+logbuf = <_io.StringIO object at 0x7f6b5c15d300>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_________ ERROR at setup of test_A13_exception_before_any_root_exit_1 __________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A13_exception_before_any_0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c7c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+__________ ERROR at setup of test_A13_process_exit_status_equals_code __________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A13_process_exit_status_e0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_________________ ERROR at setup of test_A13_bad_flags_exit_1 __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A13_bad_flags_exit_10')
+logbuf = <_io.StringIO object at 0x7f6b5c15cb80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+__ ERROR at setup of test_A14_sigkill_after_write_roots_then_next_run_commits __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A14_sigkill_after_write_r0')
+logbuf = <_io.StringIO object at 0x7f6b5c15cd00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[0] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[1] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_1')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb580>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[2] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_2')
+logbuf = <_io.StringIO object at 0x7f6b5c2eaec0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[3] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_3')
+logbuf = <_io.StringIO object at 0x7f6b5c2e84c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[4] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_4')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb1c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[5] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_5')
+logbuf = <_io.StringIO object at 0x7f6b5c2eab00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[6] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_6')
+logbuf = <_io.StringIO object at 0x7f6b5c2eba00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A17_notifier_called_once_on_2_3_5_6_only[7] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_notifier_called_once_7')
+logbuf = <_io.StringIO object at 0x7f6b5c15cf40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A17_dry_run_never_notifies[2] _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_dry_run_never_notifie0')
+logbuf = <_io.StringIO object at 0x7f6b5c15cc40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A17_dry_run_never_notifies[3] _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_dry_run_never_notifie1')
+logbuf = <_io.StringIO object at 0x7f6b5c15c700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A17_dry_run_never_notifies[5] _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_dry_run_never_notifie2')
+logbuf = <_io.StringIO object at 0x7f6b5c15ca00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A17_dry_run_never_notifies[6] _____________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_dry_run_never_notifie3')
+logbuf = <_io.StringIO object at 0x7f6b5c15d240>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____ ERROR at setup of test_A17_failing_notifier_keeps_exit_code_and_logs _____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A17_failing_notifier_keep0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebdc0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+________ ERROR at setup of test_A18_default_notifier_runs_no_osascript _________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A18_default_notifier_runs0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebb80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A18_cli_selects_osascript_notifier_only_on_darwin[darwin-True] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A18_cli_selects_osascript0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb880>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A18_cli_selects_osascript_notifier_only_on_darwin[linux-False] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A18_cli_selects_osascript1')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb7c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_________________ ERROR at setup of test_A19_last_result_file __________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A19_last_result_file0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebac0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A19_written_also_for_failed_runs_and_dry_run_leaves_it _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A19_written_also_for_fail0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eae00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+____ ERROR at setup of test_A19_unwritable_result_file_does_not_change_exit ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A19_unwritable_result_fil0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb100>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+________ ERROR at setup of test_A5_wrong_branch_refused_nothing_written ________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A5_wrong_branch_refused_n0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c7c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____________ ERROR at setup of test_A5_merge_in_progress_refused ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A5_merge_in_progress_refu0')
+logbuf = <_io.StringIO object at 0x7f6b5c15d0c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A5_rebase_or_cherry_pick_in_progress_refused[rebase-merge-True] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A5_rebase_or_cherry_pick_0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A5_rebase_or_cherry_pick_in_progress_refused[rebase-apply-True] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A5_rebase_or_cherry_pick_1')
+logbuf = <_io.StringIO object at 0x7f6b5c15cb80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A5_rebase_or_cherry_pick_in_progress_refused[CHERRY_PICK_HEAD-False] _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A5_rebase_or_cherry_pick_2')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb100>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+__________ ERROR at setup of test_A5_other_branch_allowed_when_asked ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A5_other_branch_allowed_w0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb640>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A5_unstaged_changes_elsewhere_are_allowed_and_untouched _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A5_unstaged_changes_elsew0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eae00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+__ ERROR at setup of test_A6_torn_tail_manifest_refused_and_nothing_committed __
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A6_torn_tail_manifest_ref0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebac0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+______ ERROR at setup of test_A6_waits_for_writer_holding_exclusive_lock _______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A6_waits_for_writer_holdi0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb7c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+________________ ERROR at setup of test_A7_second_run_is_a_noop ________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A7_second_run_is_a_noop0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb880>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_ ERROR at setup of test_A7_new_manifest_line_gives_one_commit_with_that_file_only _
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A7_new_manifest_line_give0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebb80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_______________ ERROR at setup of test_A7_hooks_are_not_bypassed _______________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A7_hooks_are_not_bypassed0')
+logbuf = <_io.StringIO object at 0x7f6b5c15ce80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+____ ERROR at setup of test_A7_commit_failure_from_hook_is_exit_4_not_usage ____
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A7_commit_failure_from_ho0')
+logbuf = <_io.StringIO object at 0x7f6b5c15cc40>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_________________ ERROR at setup of test_A8_no_identity_exit_1 _________________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A8_no_identity_exit_10')
+logbuf = <_io.StringIO object at 0x7f6b5c15c700>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_______ ERROR at setup of test_A8_dry_run_changes_nothing_and_lists_plan _______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A8_dry_run_changes_nothin0')
+logbuf = <_io.StringIO object at 0x7f6b5c15ca00>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_______ ERROR at setup of test_A8_dry_run_api_no_git_change_no_last_file _______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A8_dry_run_api_no_git_cha0')
+logbuf = <_io.StringIO object at 0x7f6b5c15c280>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+___ ERROR at setup of test_A10_remote_ahead_exit_5_local_kept_no_integration ___
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A10_remote_ahead_exit_5_l0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebdc0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____ ERROR at setup of test_A10_pre_receive_hook_rejects_no_forced_retry ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A10_pre_receive_hook_reje0')
+logbuf = <_io.StringIO object at 0x7f6b5c2ebb80>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_________ ERROR at setup of test_A11_lock_held_exit_7_nothing_written __________
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A11_lock_held_exit_7_noth0')
+logbuf = <_io.StringIO object at 0x7f6b5c2eb880>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+_____ ERROR at setup of test_A11_two_routines_together_no_duplicate_roots ______
+
+tmp_path = PosixPath('/tmp/pytest-of-root/pytest-423/test_A11_two_routines_together0')
+logbuf = <_io.StringIO object at 0x7f6b5c2e90c0>
+
+    @pytest.fixture
+    def env(tmp_path, logbuf):
+>       e = RoutineEnv(tmp_path / "w", logbuf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/routine/conftest.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/unit/routine/_routine_helpers.py:201: in __init__
+    self.git = make_git_classes()(work)
+               ^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def make_git_classes():
+        """Build RecordingGit lazily (needs investos.routine.roots.Git)."""
+>       from investos.routine.roots import Git
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/_routine_helpers.py:105: ModuleNotFoundError
+=================================== FAILURES ===================================
+______________ test_A12_source_has_no_forbidden_call[os\\.remove] ______________
+
+pat = 'os\\.remove'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+_____________ test_A12_source_has_no_forbidden_call[\\.unlink\\(] ______________
+
+pat = '\\.unlink\\('
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+________________ test_A12_source_has_no_forbidden_call[rmtree] _________________
+
+pat = 'rmtree'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+____________ test_A12_source_has_no_forbidden_call[\\.truncate\\(] _____________
+
+pat = '\\.truncate\\('
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+______________ test_A12_source_has_no_forbidden_call[os\\.rename] ______________
+
+pat = 'os\\.rename'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+_____________ test_A12_source_has_no_forbidden_call[\\.rename\\(] ______________
+
+pat = '\\.rename\\('
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+__________ test_A12_source_has_no_forbidden_call[shell\\s*=\\s*True] ___________
+
+pat = 'shell\\s*=\\s*True'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+______________ test_A12_source_has_no_forbidden_call[os\\.system] ______________
+
+pat = 'os\\.system'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+________________ test_A12_source_has_no_forbidden_call[--force] ________________
+
+pat = '--force'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+______________ test_A12_source_has_no_forbidden_call[--no-verify] ______________
+
+pat = '--no-verify'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+___________ test_A12_source_has_no_forbidden_call[force-with-lease] ____________
+
+pat = 'force-with-lease'
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+_____________ test_A12_source_has_no_forbidden_call[\\"-A\\"|'-A'] _____________
+
+pat = '\\"-A\\"|\'-A\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+__________ test_A12_source_has_no_forbidden_call[\\"reset\\"|'reset'] __________
+
+pat = '\\"reset\\"|\'reset\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+_______ test_A12_source_has_no_forbidden_call[\\"checkout\\"|'checkout'] _______
+
+pat = '\\"checkout\\"|\'checkout\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+__________ test_A12_source_has_no_forbidden_call[\\"clean\\"|'clean'] __________
+
+pat = '\\"clean\\"|\'clean\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+__________ test_A12_source_has_no_forbidden_call[\\"stash\\"|'stash'] __________
+
+pat = '\\"stash\\"|\'stash\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+___________ test_A12_source_has_no_forbidden_call[\\"pull\\"|'pull'] ___________
+
+pat = '\\"pull\\"|\'pull\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+__________ test_A12_source_has_no_forbidden_call[\\"fetch\\"|'fetch'] __________
+
+pat = '\\"fetch\\"|\'fetch\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+_________ test_A12_source_has_no_forbidden_call[\\"rebase\\"|'rebase'] _________
+
+pat = '\\"rebase\\"|\'rebase\''
+
+    @pytest.mark.parametrize("pat", [r"os\.remove", r"\.unlink\(", r"rmtree", r"\.truncate\(", r"os\.rename", r"\.rename\(",
+                                     r"shell\s*=\s*True", r"os\.system", r"--force", r"--no-verify", r"force-with-lease",
+                                     r"\"-A\"|'-A'", r"\"reset\"|'reset'", r"\"checkout\"|'checkout'", r"\"clean\"|'clean'",
+                                     r"\"stash\"|'stash'", r"\"pull\"|'pull'", r"\"fetch\"|'fetch'", r"\"rebase\"|'rebase'"])
+    def test_A12_source_has_no_forbidden_call(pat):
+>       assert re.search(pat, _src()) is None, pat
+                              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+_____ test_A12_no_open_in_write_mode_and_no_os_replace_outside_state_file ______
+
+    def test_A12_no_open_in_write_mode_and_no_os_replace_outside_state_file():
+>       src = _src()
+              ^^^^^^
+
+tests/unit/routine/test_roots_ops.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def _src() -> str:
+>       import investos.routine.roots as m
+E       ModuleNotFoundError: No module named 'investos.routine.roots'
+
+tests/unit/routine/test_roots_ops.py:59: ModuleNotFoundError
+____________________________ test_A20_plist_content ____________________________
+
+    def test_A20_plist_content():
+>       with open(PLIST, "rb") as f:
+             ^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: '/home/claude/invester_os/ops/launchd/com.investos.roots.plist.example'
+
+tests/unit/routine/test_roots_ops.py:367: FileNotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[os\\.remove]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\.unlink\\(]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[rmtree]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\.truncate\\(]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[os\\.rename]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\.rename\\(]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[shell\\s*=\\s*True]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[os\\.system]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[--force]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[--no-verify]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[force-with-lease]
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"-A\\"|'-A']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"reset\\"|'reset']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"checkout\\"|'checkout']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"clean\\"|'clean']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"stash\\"|'stash']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"pull\\"|'pull']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"fetch\\"|'fetch']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_source_has_no_forbidden_call[\\"rebase\\"|'rebase']
+FAILED tests/unit/routine/test_roots_ops.py::test_A12_no_open_in_write_mode_and_no_os_replace_outside_state_file
+FAILED tests/unit/routine/test_roots_ops.py::test_A20_plist_content - FileNot...
+ERROR tests/unit/routine/test_roots_core.py::test_A1_roots_for_closed_days_only_one_commit_pushed
+ERROR tests/unit/routine/test_roots_core.py::test_A1_commit_message_format_and_author_from_user_config
+ERROR tests/unit/routine/test_roots_core.py::test_A1_ist_date_in_message_uses_clock_ist_not_utc
+ERROR tests/unit/routine/test_roots_core.py::test_A1_stdout_json_via_cli - Mo...
+ERROR tests/unit/routine/test_roots_core.py::test_A15_five_missing_days_rooted_in_order_one_commit
+ERROR tests/unit/routine/test_roots_core.py::test_A15_open_day_rooted_next_run_after_close
+ERROR tests/unit/routine/test_roots_core.py::test_A16_empty_layout_ok_no_commit
+ERROR tests/unit/routine/test_roots_core.py::test_A16_first_run_manifests_only_committed
+ERROR tests/unit/routine/test_roots_core.py::test_A2_chain_break_nothing_written_staged_or_committed[trials]
+ERROR tests/unit/routine/test_roots_core.py::test_A2_chain_break_nothing_written_staged_or_committed[decisions]
+ERROR tests/unit/routine/test_roots_core.py::test_A2_wrong_root_hash_exit_2
+ERROR tests/unit/routine/test_roots_core.py::test_A2_missing_ledger_is_not_a_failure
+ERROR tests/unit/routine/test_roots_core.py::test_A3_A4_A20_commit_holds_exactly_the_add_list
+ERROR tests/unit/routine/test_roots_core.py::test_A4_each_add_is_one_explicit_path_and_push_is_plain
+ERROR tests/unit/routine/test_roots_core.py::test_A4_staged_unrelated_file_refused_index_unchanged
+ERROR tests/unit/routine/test_roots_core.py::test_A4_cached_set_not_subset_of_add_list_refuses
+ERROR tests/unit/routine/test_roots_core.py::test_A4_ignored_manifest_never_added
+ERROR tests/unit/routine/test_roots_ops.py::test_A9_offline_commit_locally_exit_6_then_catch_up
+ERROR tests/unit/routine/test_roots_ops.py::test_A9_cli_stdout_has_no_url_when_offline
+ERROR tests/unit/routine/test_roots_ops.py::test_A12_commands_issued_are_all_allow_listed
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_happy_path_event_sequence
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_refused_and_verify_failed_log_error
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_verify_failed_logs_error
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_exception_after_write_roots_exit_4_roots_on_disk
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_exception_before_any_root_exit_1
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_process_exit_status_equals_code
+ERROR tests/unit/routine/test_roots_ops.py::test_A13_bad_flags_exit_1 - Modul...
+ERROR tests/unit/routine/test_roots_ops.py::test_A14_sigkill_after_write_roots_then_next_run_commits
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[0]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[1]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[2]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[3]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[4]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[5]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[6]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_notifier_called_once_on_2_3_5_6_only[7]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_dry_run_never_notifies[2]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_dry_run_never_notifies[3]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_dry_run_never_notifies[5]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_dry_run_never_notifies[6]
+ERROR tests/unit/routine/test_roots_ops.py::test_A17_failing_notifier_keeps_exit_code_and_logs
+ERROR tests/unit/routine/test_roots_ops.py::test_A18_default_notifier_runs_no_osascript
+ERROR tests/unit/routine/test_roots_ops.py::test_A18_cli_selects_osascript_notifier_only_on_darwin[darwin-True]
+ERROR tests/unit/routine/test_roots_ops.py::test_A18_cli_selects_osascript_notifier_only_on_darwin[linux-False]
+ERROR tests/unit/routine/test_roots_ops.py::test_A19_last_result_file - Modul...
+ERROR tests/unit/routine/test_roots_ops.py::test_A19_written_also_for_failed_runs_and_dry_run_leaves_it
+ERROR tests/unit/routine/test_roots_ops.py::test_A19_unwritable_result_file_does_not_change_exit
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_wrong_branch_refused_nothing_written
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_merge_in_progress_refused
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_rebase_or_cherry_pick_in_progress_refused[rebase-merge-True]
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_rebase_or_cherry_pick_in_progress_refused[rebase-apply-True]
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_rebase_or_cherry_pick_in_progress_refused[CHERRY_PICK_HEAD-False]
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_other_branch_allowed_when_asked
+ERROR tests/unit/routine/test_roots_safety.py::test_A5_unstaged_changes_elsewhere_are_allowed_and_untouched
+ERROR tests/unit/routine/test_roots_safety.py::test_A6_torn_tail_manifest_refused_and_nothing_committed
+ERROR tests/unit/routine/test_roots_safety.py::test_A6_waits_for_writer_holding_exclusive_lock
+ERROR tests/unit/routine/test_roots_safety.py::test_A7_second_run_is_a_noop
+ERROR tests/unit/routine/test_roots_safety.py::test_A7_new_manifest_line_gives_one_commit_with_that_file_only
+ERROR tests/unit/routine/test_roots_safety.py::test_A7_hooks_are_not_bypassed
+ERROR tests/unit/routine/test_roots_safety.py::test_A7_commit_failure_from_hook_is_exit_4_not_usage
+ERROR tests/unit/routine/test_roots_safety.py::test_A8_no_identity_exit_1 - M...
+ERROR tests/unit/routine/test_roots_safety.py::test_A8_dry_run_changes_nothing_and_lists_plan
+ERROR tests/unit/routine/test_roots_safety.py::test_A8_dry_run_api_no_git_change_no_last_file
+ERROR tests/unit/routine/test_roots_safety.py::test_A10_remote_ahead_exit_5_local_kept_no_integration
+ERROR tests/unit/routine/test_roots_safety.py::test_A10_pre_receive_hook_rejects_no_forced_retry
+ERROR tests/unit/routine/test_roots_safety.py::test_A11_lock_held_exit_7_nothing_written
+ERROR tests/unit/routine/test_roots_safety.py::test_A11_two_routines_together_no_duplicate_roots
+21 failed, 67 errors in 5.65s
