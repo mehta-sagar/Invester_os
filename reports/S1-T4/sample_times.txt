@@ -1,0 +1,26 @@
+(dates confirmed by fixture rows; real holidays not loaded)
+2026-08-02 CM cat1 close 15:30 public 16:00
+2026-08-02 CM non_fo close 15:30 public 16:00
+2026-08-02 FO index_fo close 15:30 public 16:00
+2026-08-02 FO index_fo_expiring close 15:30 public 16:00
+2026-08-02 FO stock_fo close 15:30 public 16:00
+2026-08-03 CM cat1 close 15:35 public 16:05
+2026-08-03 CM non_fo close 15:30 public 16:00
+2026-08-03 FO index_fo close 15:40 public 16:10
+2026-08-03 FO index_fo_expiring close 15:40 public 16:10
+2026-08-03 FO stock_fo close 15:40 public 16:10
+2026-12-06 CM cat1 close 15:35 public 16:05
+2026-12-06 CM non_fo close 15:30 public 16:00
+2026-12-06 FO index_fo close 15:40 public 16:10
+2026-12-06 FO index_fo_expiring close 15:40 public 16:10
+2026-12-06 FO stock_fo close 15:40 public 16:10
+2026-12-07 CM cat1 close 15:40 public 16:10
+2026-12-07 CM non_fo close 15:40 public 16:10
+2026-12-07 FO index_fo close 15:45 public 16:15
+2026-12-07 FO index_fo_expiring close 15:30 public 16:00
+2026-12-07 FO stock_fo close 15:45 public 16:15
+2027-02-08 CM cat1 close 15:40 public 16:10
+2027-02-08 CM non_fo close 15:40 public 16:10
+2027-02-08 FO index_fo close 15:45 public 16:15
+2027-02-08 FO index_fo_expiring close 15:30 public 16:00
+2027-02-08 FO stock_fo close 15:45 public 16:15

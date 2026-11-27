@@ -155,3 +155,6 @@ def _migrations_plant(ctx: CheckContext) -> None:
     target = sorted(ctx.cfg.migrations_dir.glob("*.sql"))[0]
     with open(target, "ab") as fh:
         fh.write(b"-- planted edit\n")
+
+
+from . import calendar_check as _calendar_check  # noqa: E402,F401  registers check `calendar` and its plant
