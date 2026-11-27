@@ -135,7 +135,8 @@ def _collect(args: list[str]) -> int:
     transport = UrllibTransport(max_body_bytes=cfg.collect.max_body_bytes)
     notifier = OsascriptNotifier() if sys.platform == "darwin" else NullNotifier()
     res = rss.poll_cycle(cfg, now=now, transport=transport, manifest=ManifestStore.from_config(cfg),
-                         notifier=notifier, force=force, feeds=feeds)
+                         notifier=notifier, force=force, feeds=feeds,
+                         clock=lambda: datetime.now(timezone.utc))
     if res.gap_write_failed:
         print("investos collect rss: gap_write_failed: the gap ledger could not be written", file=sys.stderr)
         return 1
