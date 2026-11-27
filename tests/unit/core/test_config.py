@@ -276,3 +276,39 @@ def test_A13_timezone_must_be_kolkata(repo, tz):
     config = _cfgmod()
     with pytest.raises(config.ConfigError):
         _load(repo, VALID_TOML.replace('timezone = "Asia/Kolkata"', f'timezone = "{tz}"'))
+
+
+# ---------------------------------------------------------------- 28 Nov 2026 live-run regression
+def test_R6_contents_only_ignore_pattern_with_gitkeep_is_accepted(repo):
+    """The real repo ignores data/raw/* (contents) and keeps data/raw/.gitkeep tracked. The first live
+    `investos collect rss` on the Mac refused to start because only the directory itself was checked."""
+    _git_init(repo, "data/raw/*\n!data/raw/.gitkeep\ndata/canonical/*\n!data/canonical/.gitkeep\n")
+    _commit_gitkeeps(repo)
+    cfg = _load(repo, env={"PATH": os.environ["PATH"]})
+    assert cfg.zones["raw"] == (repo / "data" / "raw").resolve()
+
+
+def test_R6_the_repos_own_gitignore_is_accepted(repo):
+    real = Path(__file__).resolve().parents[3] / ".gitignore"
+    _git_init(repo, real.read_text())
+    _commit_gitkeeps(repo)
+    _load(repo, env={"PATH": os.environ["PATH"]})
+
+
+@pytest.mark.planted
+def test_R6_gitkeep_only_unignore_does_not_pass_when_contents_are_tracked(repo):
+    config = _cfgmod()
+    _git_init(repo, "data/raw/.gitkeep\ndata/canonical/*\n")   # only one file ignored: raw contents NOT ignored
+    with pytest.raises(config.ConfigError):
+        _load(repo, env={"PATH": os.environ["PATH"]})
+
+
+def _commit_gitkeeps(repo):
+    """Track data/raw/.gitkeep and data/canonical/.gitkeep, as the real repo does."""
+    for z in ("raw", "canonical"):
+        d = repo / "data" / z
+        d.mkdir(parents=True, exist_ok=True)
+        (d / ".gitkeep").write_text("")
+    g = ["git", "-C", str(repo), "-c", "user.email=t@example.org", "-c", "user.name=t"]
+    subprocess.run(g + ["add", "-f", "data/raw/.gitkeep", "data/canonical/.gitkeep"], check=True, capture_output=True)
+    subprocess.run(g + ["commit", "-q", "-m", "keep"], check=True, capture_output=True)
