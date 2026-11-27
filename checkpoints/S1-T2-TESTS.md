@@ -37,3 +37,10 @@
 9. Reviewer note on A31: uses spawn context; ~5 s.
 ## State
 - branch: task/S1-T2
+
+## Review regressions (after review 4290a87)
+- tests/unit/acquire/test_s1t2_regressions.py (17 tests). Red on 63c4991: D2 (16 KiB measured on compact JSON; 16384-byte compact set refused) and D3 (final_url must be resp.url). 2 red.
+- D1 collector test with real ManifestStore passes on current code by design; mutation check by hand: M30 (access_mode), M31 (request_headers), M32 (fetch_host) each now fail it; src restored.
+- Non-str header value pinned to TypeError (test_manifest_v2 A28 value_int/value_none tightened); malformed/no-space cookie -> whole <redacted> pinned (7 forms). Both already pass.
+- Note for Builder: after D3, existing tests use resp(url="") (default in _collector_helpers.resp); final_url must then fall back to the requested url when resp.url is empty, or those tests need a non-empty url. Test writer chose not to edit those tests; open question for Orchestrator.
+- Full suite: 2 failed (the two above), rest pass.
