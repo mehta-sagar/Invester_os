@@ -1,0 +1,1029 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 24%]
+FFFFFFFFFFFFFFFFFFFFFFFF.FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 48%]
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 72%]
+FFFFFFFFFFFFFFFFFFFFFFFFEEEEEEEEEEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 96%]
+FFFFFFFF.FF                                                              [100%]
+==================================== ERRORS ====================================
+_ ERROR at setup of test_A46_status_shows_flags_and_only_the_last_five_events __
+E   investos.core.config.ConfigError: unknown config section: collect
+_______ ERROR at setup of test_A46_status_for_one_source_and_clean_state _______
+E   investos.core.config.ConfigError: unknown config section: collect
+____________ ERROR at setup of test_A46_clear_exit_codes_and_effect ____________
+E   investos.core.config.ConfigError: unknown config section: collect
+___ ERROR at setup of test_A46_clear_refused_without_matching_decision_file ____
+E   investos.core.config.ConfigError: unknown config section: collect
+____________ ERROR at setup of test_A46_usage_errors_exit_2[args0] _____________
+E   investos.core.config.ConfigError: unknown config section: collect
+____________ ERROR at setup of test_A46_usage_errors_exit_2[args1] _____________
+E   investos.core.config.ConfigError: unknown config section: collect
+____________ ERROR at setup of test_A46_usage_errors_exit_2[args2] _____________
+E   investos.core.config.ConfigError: unknown config section: collect
+____________ ERROR at setup of test_A46_usage_errors_exit_2[args3] _____________
+E   investos.core.config.ConfigError: unknown config section: collect
+____________ ERROR at setup of test_A46_usage_errors_exit_2[args4] _____________
+E   investos.core.config.ConfigError: unknown config section: collect
+_ ERROR at setup of test_A46_status_on_unreadable_state_does_not_crash_and_is_not_ok _
+E   investos.core.config.ConfigError: unknown config section: collect
+=================================== FAILURES ===================================
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   AssertionError: assert 'collect.access.demo_src.mode' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_access.py:49: AssertionError: assert 'collect.access.demo_src.mode' in 'unknown config section: collect'
+E   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A28_matching_pairs_instan0/a/raw'
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A28_matching_pairs_instan0/a/raw'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   AssertionError: assert 'collect.access.demo_src.decision' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_access.py:79: AssertionError: assert 'collect.access.demo_src.decision' in 'unknown config section: collect'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A30_timeout_comes_from_co0/a/raw'
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A30_timeout_comes_from_co0/a/raw'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_access.py:280: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_transport.py:82: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   ModuleNotFoundError: No module named 'investos.acquire.transport'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:344: ModuleNotFoundError: No module named 'investos.acquire.transport'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   AssertionError: /home/claude/invester_os/src/investos/acquire/transport.py missing
+    assert False
+     +  where False = exists()
+     +    where exists = PosixPath('/home/claude/invester_os/src/investos/acquire/transport.py').exists
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_transport.py:263: AssertionError: /home/claude/invester_os/src/investos/acquire/transport.py missing
+E   AssertionError: /home/claude/invester_os/src/investos/acquire/access.py missing
+    assert False
+     +  where False = exists()
+     +    where exists = PosixPath('/home/claude/invester_os/src/investos/acquire/access.py').exists
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_transport.py:263: AssertionError: /home/claude/invester_os/src/investos/acquire/access.py missing
+E   AssertionError: assert False
+     +  where False = exists()
+     +    where exists = PosixPath('/home/claude/invester_os/src/investos/acquire/transport.py').exists
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_transport.py:269: AssertionError: assert False
+E   AssertionError: assert {'__init__.py...'manifest.py'} >= {'access.py',...transport.py'}
+      
+      Extra items in the right set:
+      'access.py'
+      'transport.py'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_transport.py:278: AssertionError: assert {'__init__.py...'manifest.py'} >= {'access.py',...transport.py'}
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:296: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:312: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:321: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:334: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:352: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:362: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:362: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:362: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:362: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:362: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_block.py:362: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A45_window_is_seven_dates0/a/raw'
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A45_window_is_seven_dates0/a/raw'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   _queue.Empty
+
+During handling of the above exception, another exception occurred:
+E   _queue.Empty
+
+During handling of the above exception, another exception occurred:
+E   Failed: child process died with exit code 1 before answering
+----------------------------- Captured stderr call -----------------------------
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/usr/local/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py", line 424, in limiter_worker
+    from investos.acquire.access import HostLimiter
+ModuleNotFoundError: No module named 'investos.acquire.access'
+Process SpawnProcess-2:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/usr/local/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py", line 424, in limiter_worker
+    from investos.acquire.access import HostLimiter
+ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:412: Failed: child process died with exit code 1 before answering
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:115: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   ModuleNotFoundError: No module named 'investos.acquire.access'
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:38: ModuleNotFoundError: No module named 'investos.acquire.access'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   AssertionError: assert 0.35 == 1.0
+     +  where 0.35 = interval_for('nsearchives.nseindia.com')
+     +    where interval_for = RateLimits(default_interval_s=0.35, hosts={'www.bseindia.com': 0.35}).interval_for
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:231: AssertionError: assert 0.35 == 1.0
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   AssertionError: assert 'collect.access.demo_src.daily_cap' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:321: AssertionError: assert 'collect.access.demo_src.daily_cap' in 'unknown config section: collect'
+E   AssertionError: assert 'collect.access.demo_src.daily_cap' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_limiter.py:321: AssertionError: assert 'collect.access.demo_src.daily_cap' in 'unknown config section: collect'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A38_wiring_rules0/a/raw'
+/usr/local/lib/python3.13/pathlib/_local.py:722: FileNotFoundError: [Errno 2] No such file or directory: '/tmp/pytest-of-root/pytest-283/test_A38_wiring_rules0/a/raw'
+E   ImportError: cannot import name 'BrowserTransport' from 'investos.acquire.base' (/home/claude/invester_os/src/investos/acquire/base.py)
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_browser_prov.py:44: ImportError: cannot import name 'BrowserTransport' from 'investos.acquire.base' (/home/claude/invester_os/src/investos/acquire/base.py)
+E   ImportError: cannot import name 'BrowserResponse' from 'investos.acquire.base' (/home/claude/invester_os/src/investos/acquire/base.py)
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_browser_prov.py:49: ImportError: cannot import name 'BrowserResponse' from 'investos.acquire.base' (/home/claude/invester_os/src/investos/acquire/base.py)
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   TypeError: Collector.__init__() got an unexpected keyword argument 'browser'
+/home/claude/invester_os/tests/unit/acquire/_s1_helpers.py:115: TypeError: Collector.__init__() got an unexpected keyword argument 'browser'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   ImportError: cannot import name 'transport' from 'investos.acquire' (/home/claude/invester_os/src/investos/acquire/__init__.py)
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_cli.py:108: ImportError: cannot import name 'transport' from 'investos.acquire' (/home/claude/invester_os/src/investos/acquire/__init__.py)
+E   ImportError: cannot import name 'transport' from 'investos.acquire' (/home/claude/invester_os/src/investos/acquire/__init__.py)
+/home/claude/invester_os/tests/unit/acquire/test_collect_s1_cli.py:108: ImportError: cannot import name 'transport' from 'investos.acquire' (/home/claude/invester_os/src/investos/acquire/__init__.py)
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:48: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:53: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:59: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:75: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:94: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:105: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:105: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:105: ModuleNotFoundError: No module named 'investos.core.notify'
+E   ModuleNotFoundError: No module named 'investos.core.notify'
+/home/claude/invester_os/tests/unit/core/test_notify.py:120: ModuleNotFoundError: No module named 'investos.core.notify'
+E   assert ('NullNotifier' in '"""Acquire layer: fetching and manifesting raw bytes (nothing else)."""\n\n"""Collector base class (spec: specs/colle...                      add("writable_file", p, None, f"mode {stat.S_IMODE(st.st_mode):04o}")\n        return problems\n')
+/home/claude/invester_os/tests/unit/core/test_notify.py:133: assert ('NullNotifier' in '"""Acquire layer: fetching and manifesting raw bytes (nothing else)."""\n\n"""Collector base class (spec: specs/colle...                      add("writable_file", p, None, f"mode {stat.S_IMODE(st.st_mode):04o}")\n        return problems\n')
+E   AttributeError: 'Config' object has no attribute 'collect'
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:30: AttributeError: 'Config' object has no attribute 'collect'
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.bogus' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.contact' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.timeout_s' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.timeout_s' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.timeout_s' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.timeout_s' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.max_body_bytes' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.max_body_bytes' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.max_body_bytes' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.nope' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.mode' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.mode' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'Bad-Name' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.decision' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.daily_cap' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.daily_cap' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.daily_cap' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.daily_cap' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.daily_cap' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.decision' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.decision' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.extra' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.challenge_signatures' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.challenge_signatures' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.challenge_signatures' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   AssertionError: unknown config section: collect
+    assert 'collect.access.x_src.challenge_signatures' in 'unknown config section: collect'
+     +  where 'unknown config section: collect' = str(ConfigError('unknown config section: collect'))
+     +    where ConfigError('unknown config section: collect') = <ExceptionInfo ConfigError('unknown config section: collect') tblen=4>.value
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:21: AssertionError: unknown config section: collect
+E   investos.core.config.ConfigError: unknown config section: collect
+/home/claude/invester_os/src/investos/core/config.py:92: investos.core.config.ConfigError: unknown config section: collect
+E   ImportError: cannot import name 'CollectConfig' from 'investos.core.config' (/home/claude/invester_os/src/investos/core/config.py)
+/home/claude/invester_os/tests/unit/core/test_collect_config.py:123: ImportError: cannot import name 'CollectConfig' from 'investos.core.config' (/home/claude/invester_os/src/investos/core/config.py)
+=========================== short test summary info ============================
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A28_honest_class_with_config_real_browser_refused
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A28_real_browser_class_without_config_table_refused
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A28_scoped_exception_class_with_honest_config_refused
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A28_unknown_config_mode_rejected_by_load_config
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A28_matching_pairs_instantiate
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A28_non_honest_class_needs_daily_cap_base_rechecks
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[no_decision_key]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[no_file]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[missing_adapter_line]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[mode_honest]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[two_files]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[other_adapter]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[case_differs]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[partial_line]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_scoped_exception_decision_row_required[no_mode_line]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_correct_file_passes_in_either_line_order_anywhere
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_decision_check_repeated_at_every_instantiation
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_real_browser_without_decision_passes
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A29_real_browser_with_decision_uses_same_file_test
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A30_honest_request_has_only_ua_and_accept_encoding
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A30_fake_with_accept_encoding_attribute_is_advertised
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A30_declared_extra_headers_sent_and_nothing_else
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A30_headers_identical_across_retries_and_keys
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A30_timeout_comes_from_config_unless_class_overrides
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_honest_class_cannot_set_denied_headers[Referer]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_honest_class_cannot_set_denied_headers[cookie]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_honest_class_cannot_set_denied_headers[User_Agent]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_honest_class_cannot_set_denied_headers[Origin]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_honest_class_cannot_set_denied_headers[Accept-Encoding]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_honest_class_cannot_set_denied_headers[Authorization]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_may_set_referer_cookie_ua[Referer]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_may_set_referer_cookie_ua[Cookie]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_may_set_referer_cookie_ua[User-Agent]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Origin]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Authorization]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Host]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[X-Forwarded-For]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Accept-Encoding]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Via]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[X-Real-IP]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Cookie2]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Forwarded]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[True-Client-IP]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_exception_still_refuses_the_rest[Proxy-Authorization]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_headers_for_validated_on_every_call
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_headers_for_on_honest_class_cannot_smuggle_referer
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A31_scoped_headers_for_per_request_values
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation[None]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['ab']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a;b@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a(b)@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a)b@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['\xe9@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['aaaaaaaaaaaaaaaaaaaaaaaaaaaaa]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation[' a@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a@x.com ']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a@x.com\\r\\nX-Evil: 1']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a\\nb@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a\\x00b@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_bad_contact_refused_at_instantiation['a\\tb@x.com']
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_valid_contacts_accepted[a@b]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_valid_contacts_accepted[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@example.com]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_valid_contacts_accepted[dedicated-inbox@example.org]
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A32_invalid_placeholder_contact_refused_with_real_transport_only
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A53_contact_error_wins_over_mode_error
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A53_mode_error_wins_over_decision_error
+FAILED tests/unit/acquire/test_collect_s1_access.py::test_A53_decision_error_wins_over_wiring_error
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A33_only_given_headers_are_sent
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A33_empty_headers_means_no_library_defaults
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A33_response_shape
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_redirect_returned_not_followed
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_http_errors_are_responses_not_exceptions[/s404-404]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_http_errors_are_responses_not_exceptions[/s503-503]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_environment_proxies_ignored
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_disallowed_schemes_raise_value_error[file:///etc/passwd]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_disallowed_schemes_raise_value_error[ftp://127.0.0.1/x]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_disallowed_schemes_raise_value_error[data:text/plain,hi]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A34_http_refused_with_default_schemes
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A35_gzip_and_deflate_decoded[/gzip]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A35_gzip_and_deflate_decoded[/deflate]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A35_gzip_and_deflate_decoded[/deflate-raw]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A35_decoded_size_capped
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A35_decoded_size_under_cap_ok
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A35_brotli_absent_body_and_header_untouched_and_not_advertised
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A35_brotli_present_advertised_and_decoded
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A37_server_slower_than_timeout
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A37_slow_drip_bounded_by_four_times_timeout
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A37_closed_port_is_transport_error
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A37_unresolvable_host_is_transport_error
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_collector_over_urllib_transport_end_to_end
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A36_undecoded_content_encoding_is_unreadable
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A36_identity_or_empty_is_accepted[identity]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A36_identity_or_empty_is_accepted[]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A36_identity_or_empty_is_accepted[IDENTITY]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A36_applies_to_browser_responses_too
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A55_no_forbidden_http_or_browser_library[transport.py]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A55_no_forbidden_http_or_browser_library[access.py]
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A55_transport_is_urllib_only
+FAILED tests/unit/acquire/test_collect_s1_transport.py::test_A55_no_stealth_strings_anywhere_under_acquire
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A40_block_statuses_stop_the_run_and_persist[401]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A40_block_statuses_stop_the_run_and_persist[403]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A40_block_statuses_stop_the_run_and_persist[429]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A40_block_statuses_stop_the_run_and_persist[451]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A40_nothing_else_is_a_block_status
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A40_blocked_event_written_before_anything_else_and_no_identity_change
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_challenge_page_on_200_blocks
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_only_first_256_kib_examined
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_signature_inside_first_256_kib_blocks
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_adapter_without_signatures_never_blocks_on_200
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_signature_on_404_blocks
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_case_sensitive_and_second_signature_matches
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A41_signature_checked_before_undecoded_encoding
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A42_block_holds_for_the_ist_day_for_new_instances
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A42_block_ends_at_ist_midnight_and_success_writes_nothing
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A42_block_recorded_just_after_midnight_belongs_to_new_day
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A42_skipped_keys_stay_skipped_when_blocked_halted_or_capped
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A42_state_reread_before_every_attempt_including_retries
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A43_second_process_after_a_block_makes_zero_calls
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A43_process_mid_run_sees_a_block_written_by_another_process
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-invalid_json]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-missing_field]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-extra_field]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-unknown_event]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-schema_2]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-wrong_date]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-wrong_kind_for_file]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-blank_line]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-torn_tail]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-not_an_object]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[host-host_null_in_host_file]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-invalid_json]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-missing_field]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-extra_field]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-unknown_event]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-schema_2]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-wrong_date]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-wrong_kind_for_file]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-blank_line]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-torn_tail]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-not_an_object]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_state_file_fails_closed[source-host_set_in_source_file]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_valid_state_file_reads_fine
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_writer_refuses_to_append_to_torn_tail
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_reader_waits_for_a_writer_mid_append
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_record_block_creates_files_and_dirs
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_host_name_refused_by_state[Bad_Host]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_host_name_refused_by_state[a/b]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_host_name_refused_by_state[]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_host_name_refused_by_state[-x.test]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_host_name_refused_by_state[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A44_bad_host_name_refused_by_state[../evil]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_three_blocked_days_in_seven_halt
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_halted_adapter_makes_zero_calls_even_after_the_day_block_ends
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_window_is_seven_dates_ending_today
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_two_blocks_on_one_day_count_once
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_another_sources_blocks_do_not_count
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A45_halted_event_not_appended_twice
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_halt_notifies_exactly_once_naming_source_and_host
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_failing_notifier_never_changes_the_outcome
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_default_notifier_runs_no_command
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_clear_halt_refusals_leave_state_untouched[no_file]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_clear_halt_refusals_leave_state_untouched[no_line]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_clear_halt_refusals_leave_state_untouched[two_files]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_clear_halt_refusals_leave_state_untouched[not_halted]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_clear_halt_refusals_leave_state_untouched[wrong_source]
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A46_valid_clear_resets_count_but_not_todays_host_block
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A54_blocked_log_line_has_status_host_source_and_no_header_values
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A54_cookie_value_never_logged
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A54_challenge_log_has_signature
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A54_no_rate_wait_event
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A56_block_on_one_adapter_stops_every_adapter_on_that_host_only
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A56_block_is_checked_per_request_host
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A56_all_adapters_resume_at_ist_midnight
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A56_browser_adapters_share_the_host_block
+FAILED tests/unit/acquire/test_collect_s1_block.py::test_A56_browser_block_is_recorded_like_http
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A47_waits_for_the_remainder_of_the_interval
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A47_first_request_does_not_wait_and_stamps
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A47_consecutive_acquires_are_spaced_by_the_interval
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A47_no_wait_when_interval_already_elapsed
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A48_hosts_are_independent
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A48_two_processes_never_start_closer_than_the_interval
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A48_lock_released_when_the_holder_raises
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_stamp_in_the_future_never_waits_more_than_the_interval
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_unreadable_stamp_waits_the_full_interval[]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_unreadable_stamp_waits_the_full_interval[abc]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_unreadable_stamp_waits_the_full_interval[1.5e3]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_unreadable_stamp_waits_the_full_interval[-]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_unreadable_stamp_waits_the_full_interval[12 34]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_wall_clock_stepping_backwards_still_spaces_by_monotonic
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A49_larger_of_wall_and_monotonic_wait_is_used
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_collector_uses_the_shared_limiter_across_instances
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A50_real_browser_floor_is_2_5_seconds
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A50_scoped_exception_floor_is_2_5_seconds
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A50_floor_never_lowers_a_larger_configured_interval
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A50_honest_interval_unchanged
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A50_example_config_loads_with_nse_bse_intervals
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_cap_stops_the_run_without_a_block
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_a_retry_uses_two_of_the_cap
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_skipped_keys_do_not_count
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_second_process_same_day_makes_zero_attempts_next_day_proceeds
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_two_processes_together_never_exceed_the_cap
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_non_honest_adapter_without_daily_cap_fails_in_load_config[real_browser]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_non_honest_adapter_without_daily_cap_fails_in_load_config[scoped_exception]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_corrupt_count_file_fails_closed[abc]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_corrupt_count_file_fails_closed[-1]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_corrupt_count_file_fails_closed[]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_corrupt_count_file_fails_closed[1.5]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_corrupt_count_file_fails_closed[3 3]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_corrupt_count_file_fails_closed[ ]
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_cap_applies_to_browser_fetches
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_A51_cap_optional_for_honest_means_unbounded
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_R29_reserve_counts_until_cap_then_refuses
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_R29_new_ist_day_starts_at_zero_and_sources_are_independent
+FAILED tests/unit/acquire/test_collect_s1_limiter.py::test_R29_ist_day_boundary_not_utc
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A38_wiring_rules
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A38_fetch_takes_only_the_url
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A38_browser_response_fields
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A38_normal_run_one_fetch_per_key_and_no_http_transport
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A38_base_sends_no_headers_for_real_browser
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_redirect_is_unreadable_and_not_stored[https://other.test/f/2026-11-17.csv]
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_redirect_is_unreadable_and_not_stored[https://example.test/other/2026-11-17.csv]
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_redirect_is_unreadable_and_not_stored[https://example.test/f/2026-11-17.csv?a=1]
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_fragment_only_difference_is_fetched_and_recorded
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_error_page_with_200_is_rejected_by_check_body
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_transport_error_forever_makes_exactly_four_calls
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_browser_5xx_is_retried_then_fetched
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A39_browser_archive_members_stored
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_honest_fetch_records_mode_headers_final_url_host
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_archive_zip_and_members_carry_the_same_provenance
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_scoped_exception_records_the_extra_headers_sent
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_real_browser_records_browser_reported_headers_and_final_url
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_sidecar_is_schema_2_with_access_mode
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_existing_schema_1_complete_sidecar_still_protects
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A52_sidecar_with_unknown_schema_is_renamed_corrupt
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A53_fully_fetched_range_is_skipped_whatever_the_access_state[blocked]
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A53_fully_fetched_range_is_skipped_whatever_the_access_state[halted]
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A53_fully_fetched_range_is_skipped_whatever_the_access_state[capped]
+FAILED tests/unit/acquire/test_collect_s1_browser_prov.py::test_A53_fully_fetched_range_is_skipped_whatever_the_access_state[all]
+FAILED tests/unit/acquire/test_collect_s1_cli.py::test_A58_collector_refuses_to_start_without_contact[None]
+FAILED tests/unit/acquire/test_collect_s1_cli.py::test_A58_collector_refuses_to_start_without_contact[]
+FAILED tests/unit/acquire/test_collect_s1_cli.py::test_A58_empty_contact_in_the_toml_also_refused[None]
+FAILED tests/unit/acquire/test_collect_s1_cli.py::test_A58_empty_contact_in_the_toml_also_refused[]
+FAILED tests/unit/acquire/test_collect_s1_cli.py::test_A58_cli_factory_refuses_before_touching_data_or_building_a_transport[None]
+FAILED tests/unit/acquire/test_collect_s1_cli.py::test_A58_cli_factory_refuses_before_touching_data_or_building_a_transport[]
+FAILED tests/unit/core/test_notify.py::test_null_notifier_does_nothing - Modu...
+FAILED tests/unit/core/test_notify.py::test_notifier_protocol_exists - Module...
+FAILED tests/unit/core/test_notify.py::test_A57_darwin_issues_one_argument_list_call_with_timeout
+FAILED tests/unit/core/test_notify.py::test_A57_quotes_backslashes_and_control_characters_are_neutralised
+FAILED tests/unit/core/test_notify.py::test_A57_no_call_off_darwin - ModuleNo...
+FAILED tests/unit/core/test_notify.py::test_A57_failures_are_swallowed_and_logged[oserror]
+FAILED tests/unit/core/test_notify.py::test_A57_failures_are_swallowed_and_logged[exit1]
+FAILED tests/unit/core/test_notify.py::test_A57_failures_are_swallowed_and_logged[timeout]
+FAILED tests/unit/core/test_notify.py::test_A57_success_logs_no_warning - Mod...
+FAILED tests/unit/core/test_notify.py::test_A57_default_collector_notifier_is_the_null_one
+FAILED tests/unit/core/test_collect_config.py::test_section_absent_gives_defaults
+FAILED tests/unit/core/test_collect_config.py::test_full_section_parses - inv...
+FAILED tests/unit/core/test_collect_config.py::test_collect_config_is_frozen
+FAILED tests/unit/core/test_collect_config.py::test_table_without_mode_defaults_to_honest
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\nbogus = 1\n-collect.bogus]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\ncontact = 5\n-collect.contact]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\ntimeout_s = "30"\n-collect.timeout_s]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\ntimeout_s = true\n-collect.timeout_s]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\ntimeout_s = 0\n-collect.timeout_s]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\ntimeout_s = -1\n-collect.timeout_s]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\nmax_body_bytes = 0\n-collect.max_body_bytes]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\nmax_body_bytes = true\n-collect.max_body_bytes]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\nmax_body_bytes = 1.5\n-collect.max_body_bytes]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect]\n[collect.nope]\nx = 1\n-collect.nope]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "stealth"\ndaily_cap = 5\n-collect.access.x_src.mode]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = 3\n-collect.access.x_src.mode]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.Bad-Name]\nmode = "honest"\n-Bad-Name]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "scoped_exception"\ndaily_cap = 5\n-collect.access.x_src.decision]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "real_browser"\n-collect.access.x_src.daily_cap]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "scoped_exception"\ndecision = "0003"\n-collect.access.x_src.daily_cap]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\ndaily_cap = 0\n-collect.access.x_src.daily_cap]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\ndaily_cap = true\n-collect.access.x_src.daily_cap]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\ndaily_cap = 1.5\n-collect.access.x_src.daily_cap]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\ndecision = "3"\n-collect.access.x_src.decision]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\ndecision = 3\n-collect.access.x_src.decision]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\nextra = 1\n-collect.access.x_src.extra]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\nchallenge_signatures = "x"\n-collect.access.x_src.challenge_signatures]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\nchallenge_signatures = [""]\n-collect.access.x_src.challenge_signatures]
+FAILED tests/unit/core/test_collect_config.py::test_invalid_collect_config_names_the_dotted_key[[collect.access.x_src]\nmode = "honest"\nchallenge_signatures = [1]\n-collect.access.x_src.challenge_signatures]
+FAILED tests/unit/core/test_collect_config.py::test_signature_over_200_chars_rejected_200_accepted
+FAILED tests/unit/core/test_collect_config.py::test_decision_ids_accepted - i...
+FAILED tests/unit/core/test_collect_config.py::test_config_always_has_collect_attribute
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_status_shows_flags_and_only_the_last_five_events
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_status_for_one_source_and_clean_state
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_clear_exit_codes_and_effect
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_clear_refused_without_matching_decision_file
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_usage_errors_exit_2[args0]
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_usage_errors_exit_2[args1]
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_usage_errors_exit_2[args2]
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_usage_errors_exit_2[args3]
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_usage_errors_exit_2[args4]
+ERROR tests/unit/acquire/test_collect_s1_cli.py::test_A46_status_on_unreadable_state_does_not_crash_and_is_not_ok
+287 failed, 2 passed, 10 errors in 1.60s

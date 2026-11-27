@@ -389,6 +389,7 @@ Folded into the rules above: 1 -> R20, A58; 4 -> R24, R25, R26, A56; 8 -> R26, R
 6. (O) A decision row is a numbered file in docs/decisions/, as specced.
 7. (O) Environment proxies are ignored. Sagar's network needs none.
 8. (O) Yes, raise an alert. A halt writes an ERROR log line, shows on Mission Control (the Now panel and sources), and sends a macOS notification via osascript when the run is on the Mac.
+9. (O, S1-T1 review) (a) R27 order amended: the limiter stamp is taken after the durable (fsynced) part of the write, so the minimum spacing holds on the wire; (b) the transport uses `http.client` (A33), not `urllib.request`; (c) when only a monotonic clock is injected (tests), wall time is derived from it; production injects neither. Also: `connection`, `content-length`, `transfer-encoding` are denied headers; an unwritable access state refuses all fetches (fail closed).
 
 ---
 

@@ -1,0 +1,2 @@
+grep for forbidden libs/strings under src/investos/acquire (expect no hits):
+no hits

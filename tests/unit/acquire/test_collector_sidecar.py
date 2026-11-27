@@ -30,8 +30,8 @@ def test_sidecar_schema_canonical_bytes_and_no_temp_files(env):  # R13
     obj = json.loads(raw)
     assert raw == (json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False) + "\n").encode()
     assert set(obj) == {"schema", "source", "source_version", "run_id", "range", "started_at", "finished_at",
-                        "status", "expected", "received", "outcomes", "gaps", "outputs"}
-    assert obj["schema"] == 1 and obj["source"] == SOURCE and obj["source_version"] == SOURCE_VERSION
+                        "status", "expected", "received", "outcomes", "gaps", "outputs", "access_mode"}   # S1-T1 R30
+    assert obj["schema"] == 2 and obj["access_mode"] == "honest" and obj["source"] == SOURCE and obj["source_version"] == SOURCE_VERSION
     assert obj["run_id"] == "run-9" and obj["range"] == {"start": D17, "end": D18}
     assert TS.match(obj["started_at"]) and TS.match(obj["finished_at"])
     assert set(obj["outcomes"]) == {"fetched", "fetched_empty", "missing_holiday", "unreadable", "skipped",

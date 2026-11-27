@@ -7,10 +7,12 @@ import re
 import shutil
 import subprocess
 import tomllib
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Mapping
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+from investos.core.names import SOURCE_RE
 
 ZONE_KEYS = ("raw", "manifests", "canonical", "ledger", "reports", "registry")
 _ENV_RE = re.compile(r"^INVESTOS_[A-Z0-9_]+__[A-Z0-9_]+$")
@@ -35,6 +37,26 @@ class RateLimits:
         return self.hosts.get(host.lower(), self.default_interval_s)
 
 
+ACCESS_MODES = ("honest", "real_browser", "scoped_exception")
+_DECISION_RE = re.compile(r"[0-9]{4}a?", re.ASCII)
+
+
+@dataclass(frozen=True)
+class AccessEntry:
+    mode: str = "honest"
+    decision: str | None = None
+    daily_cap: int | None = None
+    challenge_signatures: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class CollectConfig:
+    contact: str | None = None
+    timeout_s: float = 30.0
+    max_body_bytes: int = 536870912
+    access: Mapping[str, AccessEntry] = field(default_factory=dict)
+
+
 @dataclass(frozen=True)
 class Config:
     repo_root: Path
@@ -42,6 +64,7 @@ class Config:
     zones: Mapping[str, Path]
     migrations_dir: Path
     rate_limits: RateLimits
+    collect: CollectConfig = field(default_factory=CollectConfig)
 
     @property
     def db_path(self) -> Path:
@@ -88,7 +111,7 @@ def _validate(data: dict) -> None:
         "rate_limits": {"default_interval_s", "hosts"},
     }
     for sec in data:
-        if sec not in schema:
+        if sec not in schema and sec != "collect":
             raise ConfigError(f"unknown config section: {sec}")
     for sec, keys in schema.items():
         tbl = data.get(sec)
@@ -129,6 +152,61 @@ def _validate(data: dict) -> None:
         ZoneInfo(tz)
     except (ZoneInfoNotFoundError, ValueError, OSError) as e:
         raise ConfigError(f"general.timezone: cannot load {tz!r}: {e}") from None
+
+
+def _is_int(v: Any) -> bool:
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
+def _parse_collect(data: dict) -> CollectConfig:
+    tbl = data.get("collect")
+    if tbl is None:
+        return CollectConfig()
+    if not isinstance(tbl, dict):
+        raise ConfigError("collect: must be a table")
+    for k in tbl:
+        if k not in ("contact", "timeout_s", "max_body_bytes", "access"):
+            raise ConfigError(f"unknown config key: collect.{k}")
+    contact = tbl.get("contact")
+    if contact is not None and not isinstance(contact, str):
+        raise ConfigError("collect.contact: must be a string")
+    timeout_s = tbl.get("timeout_s", 30.0)
+    if not _is_num(timeout_s) or not math.isfinite(timeout_s) or timeout_s <= 0:
+        raise ConfigError(f"collect.timeout_s: must be a finite number > 0, got {timeout_s!r}")
+    max_body = tbl.get("max_body_bytes", 536870912)
+    if not _is_int(max_body) or max_body < 1:
+        raise ConfigError(f"collect.max_body_bytes: must be an int >= 1, got {max_body!r}")
+    acc = tbl.get("access", {})
+    if not isinstance(acc, dict):
+        raise ConfigError("collect.access: must be a table")
+    access: dict[str, AccessEntry] = {}
+    for name, ent in acc.items():
+        where = f"collect.access.{name}"
+        if not SOURCE_RE.fullmatch(name):
+            raise ConfigError(f"{where}: table name is not a valid source name")
+        if not isinstance(ent, dict):
+            raise ConfigError(f"{where}: must be a table")
+        for k in ent:
+            if k not in ("mode", "decision", "daily_cap", "challenge_signatures"):
+                raise ConfigError(f"unknown config key: {where}.{k}")
+        mode = ent.get("mode", "honest")
+        if not isinstance(mode, str) or mode not in ACCESS_MODES:
+            raise ConfigError(f"{where}.mode: must be one of {', '.join(ACCESS_MODES)}, got {mode!r}")
+        decision = ent.get("decision")
+        if decision is not None and (not isinstance(decision, str) or not _DECISION_RE.fullmatch(decision)):
+            raise ConfigError(f"{where}.decision: must be a string like '0003' or '0003a', got {decision!r}")
+        if mode == "scoped_exception" and decision is None:
+            raise ConfigError(f"{where}.decision: required for mode scoped_exception")
+        cap = ent.get("daily_cap")
+        if cap is not None and (not _is_int(cap) or cap < 1):
+            raise ConfigError(f"{where}.daily_cap: must be an int >= 1, got {cap!r}")
+        if mode != "honest" and cap is None:
+            raise ConfigError(f"{where}.daily_cap: required for mode {mode}")
+        sigs = ent.get("challenge_signatures", [])
+        if not isinstance(sigs, list) or any(not isinstance(x, str) or not x or len(x) > 200 for x in sigs):
+            raise ConfigError(f"{where}.challenge_signatures: must be a list of non-empty strings, each <= 200 chars")
+        access[name] = AccessEntry(mode, decision, cap, tuple(sigs))
+    return CollectConfig(contact, float(timeout_s), max_body, access)
 
 
 def _resolve(root: Path, s: str) -> Path:
@@ -216,7 +294,8 @@ def load_config(path: Path | None = None, *, env: Mapping[str, str] | None = Non
     if (raw == root or root in raw.parents) and (root / ".git").exists():
         _git_check_ignored(root, raw, env)
 
+    collect = _parse_collect(data)
     rl = data["rate_limits"]
     rate_limits = RateLimits(float(rl["default_interval_s"]),
                              {h: float(v) for h, v in rl.get("hosts", {}).items()})
-    return Config(root, data["general"]["timezone"], zones, migrations_dir, rate_limits)
+    return Config(root, data["general"]["timezone"], zones, migrations_dir, rate_limits, collect)

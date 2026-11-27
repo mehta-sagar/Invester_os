@@ -8,7 +8,7 @@ for the last line. Fix it by hand, as below. A reader that merely catches a writ
 and does not see this error, so a persistent error means a real torn tail.
 
 Files: `data/manifests/<source>.jsonl` (lock: `data/manifests/<source>.jsonl.lock`). The same steps apply to a
-ledger tail: `registry/trials.jsonl` and `data/ledger/decisions.jsonl` (locks: `<file>.lock`). Ledger rows
+ledger tail: `registry/trials.jsonl` and `data/ledger/decisions.jsonl` (locks: `<file>.lock`). The same repair applies to `data/ledger/access/*.jsonl` and `data/ledger/access/hosts/*.jsonl` (collector access state). Ledger rows
 are hash-chained, so only an unterminated final fragment may be removed; if any complete line is damaged, stop and
 treat it as tampering.
 

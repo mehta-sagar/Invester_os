@@ -1,0 +1,41 @@
+== 1. honest fetch: headers the server received
+{"ts":"2026-11-27T10:22:43.668527Z","level":"INFO","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_ok","event":"fetched","fields":{"key":"2026-11-17","url":"http://127.0.0.1:34187/f/2026-11-17.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T10:22:43.676425Z","level":"INFO","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_ok","event":"run_end","fields":{"status":"complete","expected":1,"received":1,"sidecar":"/tmp/s1t1-demo-hvk6gd7b/data/manifests/demo_ok.runs/2026-11-17_2026-11-17.json","fetched":1,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":0}}
+complete {'2026-11-17': <Outcome.FETCHED: 'fetched'>} {
+ "Host": "127.0.0.1:34187",
+ "User-Agent": "InvestOS/0.0.0 (personal research; demo@example.org)",
+ "Accept-Encoding": "gzip, deflate",
+ "Connection": "close"
+}
+== 2. 403 blocks the adapter's host for the IST day
+{"ts":"2026-11-27T10:22:43.723392Z","level":"ERROR","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_blk","event":"blocked","fields":{"key":"2026-11-17","host":"127.0.0.1","source":"demo_blk","status":403}}
+{"ts":"2026-11-27T10:22:43.723454Z","level":"ERROR","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_blk","event":"unreadable","fields":{"key":"2026-11-17","url":"http://127.0.0.1:34187/f/2026-11-17.csv","attempts":1,"reason":"blocked http 403","size":6}}
+{"ts":"2026-11-27T10:22:43.723478Z","level":"ERROR","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_blk","event":"run_aborted","fields":{"key":"2026-11-17","reason":"blocked http 403"}}
+{"ts":"2026-11-27T10:22:43.732433Z","level":"INFO","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_blk","event":"run_end","fields":{"status":"aborted","expected":2,"received":0,"sidecar":"/tmp/s1t1-demo-hvk6gd7b/data/manifests/demo_blk.runs/2026-11-18_2026-11-19.json","fetched":0,"fetched_empty":0,"missing_holiday":0,"unreadable":1,"skipped":0,"incomplete":0,"not_attempted":1}}
+aborted {'2026-11-17': 'unreadable'} calls: 1
+{"date":"2026-11-27","decision":null,"detail":"http 403","event":"blocked","host":"127.0.0.1","run_id":"20261127T102243Z-bdc21575","schema":1,"source":"demo_blk","ts":"2026-11-27T10:22:43.712483Z"}
+
+== 3. second process, zero calls
+aborted 0 | server saw new requests: 0
+== 4. daily cap 2
+{"ts":"2026-11-27T10:22:43.875177Z","level":"INFO","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_cap","event":"fetched","fields":{"key":"2026-11-17","url":"http://localhost:34187/f/2026-11-17.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T10:22:43.930200Z","level":"INFO","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_cap","event":"fetched","fields":{"key":"2026-11-18","url":"http://localhost:34187/f/2026-11-18.csv","attempts":1,"reason":"","size":26}}
+{"ts":"2026-11-27T10:22:43.967631Z","level":"WARNING","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_cap","event":"cap_reached","fields":{"key":"2026-11-19","cap":2,"date":"2026-11-27"}}
+{"ts":"2026-11-27T10:22:43.967749Z","level":"ERROR","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_cap","event":"run_aborted","fields":{"key":"2026-11-19","reason":"daily cap 2 reached"}}
+{"ts":"2026-11-27T10:22:43.968766Z","level":"INFO","run_id":"20261127T102243Z-bdc21575","task":"collect.demo_cap","event":"run_end","fields":{"status":"aborted","expected":5,"received":2,"sidecar":"/tmp/s1t1-demo-hvk6gd7b/data/manifests/demo_cap.runs/2026-11-17_2026-11-21.json","fetched":2,"fetched_empty":0,"missing_holiday":0,"unreadable":0,"skipped":0,"incomplete":0,"not_attempted":3}}
+aborted {'2026-11-17': 'fetched', '2026-11-18': 'fetched'} calls: 2
+[{"key": "2026-11-19", "outcome": "not_attempted", "reason": "daily cap 2 reached"}]
+== 5. investos access status
+demo_blk: blocked_today=yes (127.0.0.1) halted=no
+  2026-11-27T10:22:43.712483Z blocked host=127.0.0.1 http 403
+demo_cap: blocked_today=no halted=no
+
+== 6. investos check all
+0 NAME        STATUS  MS  MESSAGE
+manifest    pass     2  2 sources, 3 lines OK
+raw         pass     0  2 sources, raw files read-only and in place
+migrations  pass     0  no migrations and no database
+registry    pass     0  trials: 0 rows OK; decisions: 0 rows OK
+OK
+ report: /tmp/s1t1-demo-hvk6gd7b/reports/checks/20261127T102244Z-2c604090.json
+

@@ -1,0 +1,30 @@
+== 1. honest fetch: headers the server received
+complete {'2026-11-17': <Outcome.FETCHED: 'fetched'>} {
+ "Host": "127.0.0.1:35089",
+ "User-Agent": "InvestOS/0.0.0 (personal research; demo@example.org)",
+ "Accept-Encoding": "gzip, deflate",
+ "Connection": "close"
+}
+== 2. 403 blocks the adapter's host for the IST day
+aborted {'2026-11-17': 'unreadable'} calls: 1
+{"date":"2026-11-27","decision":null,"detail":"http 403","event":"blocked","host":"127.0.0.1","run_id":"20261127T100522Z-17eb09cb","schema":1,"source":"demo_blk","ts":"2026-11-27T10:05:22.449233Z"}
+
+== 3. second process, zero calls
+aborted 0 | server saw new requests: 0
+== 4. daily cap 2
+aborted {'2026-11-17': 'fetched', '2026-11-18': 'fetched'} calls: 2
+[{"key": "2026-11-19", "outcome": "not_attempted", "reason": "daily cap 2 reached"}]
+== 5. investos access status
+demo_blk: blocked_today=yes (127.0.0.1) halted=no
+  2026-11-27T10:05:22.449233Z blocked host=127.0.0.1 http 403
+demo_cap: blocked_today=no halted=no
+
+== 6. investos check all
+0 NAME        STATUS  MS  MESSAGE
+manifest    pass     2  2 sources, 3 lines OK
+raw         pass     0  2 sources, raw files read-only and in place
+migrations  pass     0  no migrations and no database
+registry    pass     0  trials: 0 rows OK; decisions: 0 rows OK
+OK
+ report: /tmp/s1t1-demo-m6a97emy/reports/checks/20261127T100522Z-c64d69da.json
+
