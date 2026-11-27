@@ -1,7 +1,7 @@
 # Checkpoint S1-T1 — Test writer — 2026-11-27
 ## State
 - branch task/S1-T1 (base f29f6dc). Tests written, red output in reports/S1-T1/tests_red.txt.
-- New tests: 299 in 8 files. Red: 296 (286 failed + 10 fixture errors). Green on purpose (guards): A55 base.py imports, env-override typo guard (existing behaviour).
+- New tests: 299 in 8 files. Red: 297 (287 failed + 10 fixture errors). Green on purpose (guards): A55 base.py imports, env-override typo guard (existing behaviour).
 - Old suite: 842 pass + 2 skip. Baseline 847 minus 5 (see "Superseded" below).
 ## Next step
 - Builder: make tests/unit/acquire/test_collect_s1_*.py, tests/unit/core/test_notify.py, test_collect_config.py green.
