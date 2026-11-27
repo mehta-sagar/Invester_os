@@ -6,3 +6,6 @@
 - A14 spawns `python -I`, which needs investos installed: I ran `pip install -e . --no-deps` (env only, not in repo); it fails without it.
 - BUSY runs also write last.json (spec R14 literal). Staged paths are unstaged (restore --staged, own paths only) on torn tail, stray path and commit failure so the next run is not blocked by R5.
 - Dry run skips the routine lock (no files created).
+## Review fixes (D1-D8) - done
+- D1 explicit refspec push; D2 remote/branch validated + `git remote` check before any write; D3 LOCK_TIMEOUT_S=30 shared-lock poll -> REFUSED; D4 LC_ALL=C; D5 BUSY skips last.json, unique tmp name; D6 post-commit `show --name-only` check -> REFUSED, no push; D8 prefix + quoted-path redaction.
+- Suite x3: 1281 passed, 3 skipped (reports/S1-T3/tests_green_after_fixes.txt). Editable install removed (D9 test no longer needs it).

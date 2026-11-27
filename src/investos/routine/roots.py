@@ -10,6 +10,8 @@ import json
 import os
 import re
 import subprocess
+import threading
+import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from enum import IntEnum
@@ -34,6 +36,10 @@ SIDECAR_RE = re.compile(
 _IDENTITY_HINTS = ("please tell me who you are", "unable to auto-detect", "empty ident", "user.useconfigonly",
                    "user.name", "user.email")
 _NOTIFY_CODES = (2, 3, 5, 6)
+LOCK_TIMEOUT_S = 30.0                       # longest wait for a writer's file lock while staging (R6)
+REMOTE_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}", re.ASCII)
+BRANCH_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._/-]{0,127}", re.ASCII)
+_REDACT_PREFIXES: list[str] = []
 
 
 class ExitCode(IntEnum):
@@ -70,6 +76,7 @@ class Git:
             argv = ["git", *argv]
         env = dict(os.environ)
         env["GIT_TERMINAL_PROMPT"] = "0"
+        env["LC_ALL"] = "C"
         try:
             r = subprocess.run(argv, cwd=str(self.cwd), capture_output=True, text=True, errors="replace",
                                env=env, timeout=timeout, input=input, check=False, shell=False)
@@ -83,7 +90,10 @@ class Git:
 # ---------------------------------------------------------------- helpers
 
 def _redact(text: str) -> str:
+    for pre in sorted(_REDACT_PREFIXES, key=len, reverse=True):
+        text = text.replace(pre, "[path]")
     text = re.sub(r"\S*://\S*", "[url]", text)
+    text = re.sub(r"'/[^'\n]*'|\"/[^\"\n]*\"", "[path]", text)
     text = re.sub(r"(?<![\w.\-])/[\w./\-~+@%]+", "[path]", text)
     return text
 
@@ -141,13 +151,24 @@ def build_add_list(cfg: Config, git: Git) -> list[str]:
 
 
 class _Flock:
-    def __init__(self, path: Path, op: int):
-        self.path, self.op, self.fd = path, op, None
+    def __init__(self, path: Path, op: int, timeout: float | None = None):
+        self.path, self.op, self.timeout, self.fd = path, op, timeout, None
 
     def __enter__(self):
         self.fd = os.open(self.path, os.O_RDWR | os.O_CREAT, 0o644)
         try:
-            fcntl.flock(self.fd, self.op)
+            if self.timeout is None:
+                fcntl.flock(self.fd, self.op)
+            else:
+                deadline = time.monotonic() + self.timeout
+                while True:
+                    try:
+                        fcntl.flock(self.fd, self.op | fcntl.LOCK_NB)
+                        break
+                    except BlockingIOError:
+                        if time.monotonic() >= deadline:
+                            raise TimeoutError(str(self.path.name))
+                        time.sleep(0.05)
         except BaseException:
             os.close(self.fd)
             self.fd = None
@@ -170,7 +191,7 @@ def result_json(res: RoutineResult, branch: str) -> dict:
 
 def _write_last(state_dir: Path, obj: dict) -> None:
     """Scratch file plus os.replace so readers never see a half-written file (R14)."""
-    tmp = state_dir / ".tmp-roots-routine.last"
+    tmp = state_dir / f".tmp-roots-routine.last.{os.getpid()}.{threading.get_ident()}"
     fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o644)
     try:
         data = (json.dumps(obj, sort_keys=True, separators=(",", ":")) + "\n").encode("utf-8")
@@ -184,6 +205,10 @@ def _write_last(state_dir: Path, obj: dict) -> None:
 
 
 # ---------------------------------------------------------------- the routine
+
+class _Skip(Exception):
+    pass
+
 
 class _Stop(Exception):
     def __init__(self, code: ExitCode, message: str):
@@ -199,8 +224,15 @@ def run_routine(cfg: Config, *, git: Git, clock: Callable[[], datetime] | None =
     state = {"wrote": False, "roots": {"decisions": [], "trials": []}, "committed": None, "pushed": False,
              "added": []}
     state_dir = Path(cfg.zones["ledger"]) / ".state"
-    logger.info("start", branch=branch, remote=remote, dry_run=dry_run)
+    for pre in (str(cfg.repo_root), os.path.expanduser("~")):
+        if len(pre) > 1 and pre not in _REDACT_PREFIXES:
+            _REDACT_PREFIXES.append(pre)
+    logger.info("start", branch=branch, remote=str(remote)[:64], dry_run=dry_run)
     try:
+        if not isinstance(remote, str) or not REMOTE_RE.fullmatch(remote):
+            raise _Stop(ExitCode.USAGE, "invalid remote name")
+        if not isinstance(branch, str) or not BRANCH_RE.fullmatch(branch):
+            raise _Stop(ExitCode.USAGE, "invalid branch name")
         if dry_run:
             _body(cfg, git, clock, branch, remote, True, state, logger)
         else:
@@ -226,9 +258,13 @@ def run_routine(cfg: Config, *, git: Git, clock: Callable[[], datetime] | None =
     logger.info("done", exit=int(code), name=code.name)
     if not dry_run:
         try:
+            if code == ExitCode.BUSY:                             # the lock holder owns the last result
+                raise _Skip()
             obj = result_json(res, branch)
             obj["ts"] = clock().astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
             _write_last(state_dir, obj)
+        except _Skip:
+            pass
         except Exception as e:
             logger.warning("last_result_failed", error=type(e).__name__)
         if int(code) in _NOTIFY_CODES:
@@ -244,6 +280,11 @@ def _body(cfg, git, clock, branch, remote, dry_run, state, logger) -> None:
     root = Path(cfg.repo_root)
     if not (root / ".git").exists():
         raise _Stop(ExitCode.USAGE, "not a git repository")
+    r = git.run(["remote"])
+    if r.returncode != 0:
+        raise RuntimeError("git remote failed")
+    if remote not in r.stdout.split():
+        raise _Stop(ExitCode.USAGE, f"unknown remote {remote}")
 
     # R5: safe repo state, before anything is written
     r = git.run(["rev-parse", "--abbrev-ref", "HEAD"])
@@ -300,8 +341,12 @@ def _body(cfg, git, clock, branch, remote, dry_run, state, logger) -> None:
     for rel in add_list:
         needs_lock = rel.endswith(".jsonl") and not rel.endswith(".roots.jsonl")
         if needs_lock:
-            with _Flock(root / (rel + ".lock"), fcntl.LOCK_SH):
-                r = git.run(["add", "--", rel])
+            try:
+                with _Flock(root / (rel + ".lock"), fcntl.LOCK_SH, LOCK_TIMEOUT_S):
+                    r = git.run(["add", "--", rel])
+            except TimeoutError:
+                unstage(staged)
+                _refuse(logger, f"{rel} is locked by a writer for more than {LOCK_TIMEOUT_S:g}s")
         else:
             r = git.run(["add", "--", rel])
         if r.returncode != 0:
@@ -343,6 +388,13 @@ def _body(cfg, git, clock, branch, remote, dry_run, state, logger) -> None:
             raise RuntimeError("git rev-parse HEAD failed")
         state["committed"] = r.stdout.strip()
         logger.info("committed", hash=state["committed"])
+        r = git.run(["show", "--name-only", "--format=", "-z", "HEAD"])
+        if r.returncode != 0:
+            raise RuntimeError("git show HEAD failed")
+        allowed = set(add_list)
+        stray = sorted(x for x in r.stdout.split("\0") if x and x not in allowed)
+        if stray:
+            _refuse(logger, f"commit holds a path outside the add-list: {stray[0]} (a hook added it?); not pushed")
 
     # R8: push (also when an earlier run committed but could not push)
     if state["committed"] is None:
@@ -350,7 +402,7 @@ def _body(cfg, git, clock, branch, remote, dry_run, state, logger) -> None:
         ahead = True if r.returncode != 0 else int(r.stdout.strip() or "0") > 0
         if not ahead:
             return
-    r = git.run(["push", remote, branch], timeout=60)
+    r = git.run(["push", remote, f"refs/heads/{branch}:refs/heads/{branch}"], timeout=60)
     if r.returncode == 0:
         state["pushed"] = True
         logger.info("pushed", remote=remote, branch=branch)
