@@ -29,11 +29,11 @@ Then: Independent auditor (strongest model, fresh context) → Sagar approves la
 | ID | Task | Agent | Output | Status | Blocked by |
 |---|---|---|---|---|---|
 | S1-SPEC1 | Spec change for decisions 0002/0002a: collect amendment, manifest schema v2, roots routine | Spec writer | specs/collect_base.md, specs/core_manifest.md, specs/ops_roots_routine.md, briefs/S1-T1..T3.md | merged (main e72fa38; questions resolved in each spec) | S0-FIX |
-| S1-T1 | Collector amendment: access_mode, UrllibTransport, BrowserTransport interface, block policy, cross-process limiter, daily caps, per-host blocks, notifier | Test writer → Builder | src/investos/acquire/{base,access,transport}.py, core/config.py | open | S1-SPEC1, S1-T2 |
-| S1-T2 | Manifest schema v2: access_mode, request_headers, final_url, fetch_host, schema; version-aware reader | Test writer → Builder | src/investos/acquire/manifest.py | open | S1-SPEC1 |
-| S1-T3 | Daily roots routine: write roots, commit, push (`investos routine roots`) | Test writer → Builder | src/investos/routine/roots.py | open | S1-SPEC1, S1-T1 |
-| S1-SPEC2 | Spec change: trading calendar (closing-price eras), in-file date check (outcome `rejected`), DuckDB caps for the 16 GB Mac | Spec writer | specs/trading_calendar.md, specs/collect_base.md (R34-R41), specs/core_config_log_db.md (R20-R25), briefs/S1-T4..T5.md | spec | S1-SPEC1 |
-| S1-T4 | Trading calendar: confirmed trading days, versioned closing eras, `market_close_ist`, `after_close_public_at`, `investos check calendar` | Test writer → Builder | src/investos/calendar/, config/calendar/*.csv | open | S1-SPEC2 |
-| S1-T5 | Date check in the collector base (`rejected`, `date_mismatch`) + `[duckdb]` config caps applied by `open_db` | Test writer → Builder | src/investos/acquire/base.py, core/config.py, core/db.py | open | S1-SPEC2, S1-T1 |
+| S1-T1 | Collector amendment: access_mode, UrllibTransport, BrowserTransport interface, block policy, cross-process limiter, daily caps, per-host blocks, notifier | Test writer → Builder | src/investos/acquire/{base,access,transport}.py, core/config.py | merged (main 284fa68) | S1-SPEC1, S1-T2 |
+| S1-T2 | Manifest schema v2: access_mode, request_headers, final_url, fetch_host, schema; version-aware reader | Test writer → Builder | src/investos/acquire/manifest.py | merged (main 7f61fbd) | S1-SPEC1 |
+| S1-T3 | Daily roots routine: write roots, commit, push (`investos routine roots`) | Test writer → Builder | src/investos/routine/roots.py | merged (main 7824395) | S1-SPEC1, S1-T1 |
+| S1-SPEC2 | Spec change: trading calendar (closing-price eras), in-file date check (outcome `rejected`), DuckDB caps for the 16 GB Mac | Spec writer | specs/trading_calendar.md, specs/collect_base.md (R34-R41), specs/core_config_log_db.md (R20-R25), briefs/S1-T4..T5.md | merged (main 9449f0f) | S1-SPEC1 |
+| S1-T4 | Trading calendar: confirmed trading days, versioned closing eras, `market_close_ist`, `after_close_public_at`, `investos check calendar` | Test writer → Builder | src/investos/calendar/, config/calendar/*.csv | merged (main b4ebfe8) | S1-SPEC2 |
+| S1-T5 | Date check in the collector base (`rejected`, `date_mismatch`) + `[duckdb]` config caps applied by `open_db` | Test writer → Builder | src/investos/acquire/base.py, core/config.py, core/db.py | merged (main d3b055c) | S1-SPEC2, S1-T1 |
 
 Order: S1-T2 first (v2 reader before any v2 writer), then S1-T1 (also builds core/notify.py), then S1-T3. C3 done (reports/S0-AUD/mac_run.txt: 688 passed, ALL CLAIMS PASS). Still open: C5 (before raw passes a few GB).
