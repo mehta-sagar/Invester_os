@@ -113,7 +113,9 @@ def test_A5_shipped_table_has_the_named_rows_all_enabled_and_confirmed():
     """Spec R3a/A5 say 26 rows but name 23 NSE ids + rbi_press + sebi_press = 25 (see RED_TESTS.md, Questions).
     The enumerated ids are the contract here: exactly those, each once."""
     feeds = load(SHIPPED_FEEDS)
-    assert all(f.enabled and f.status == "confirmed" for f in feeds)
+    assert all(f.status == "confirmed" for f in feeds)
+    # R3b (Sagar, 28 Nov): NSE feeds ship disabled until the real-Chrome transport exists; RBI/SEBI enabled
+    assert {f.feed_id for f in feeds if f.enabled} == {"rbi_press", "sebi_press"}
     assert sorted(f.feed_id for f in feeds) == sorted(NSE_IDS + ["rbi_press", "sebi_press"])
     assert len(feeds) == len(set(f.feed_id for f in feeds)) == 25
 
