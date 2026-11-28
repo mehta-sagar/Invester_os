@@ -273,3 +273,6 @@ Parsing, normalising, deduplicating or typing any backfilled row (a later stage,
 2. Scope: the probe covers all 8 endpoints; the backfill runs the core first (announcements, PIT, corporate actions, bulk deals, block deals), then the remaining confirmed endpoints automatically. An endpoint whose probe fails is skipped; only a block stops everything.
 3. Start dates: the earliest date the probe finds. 4. One-day windows still at the cap: recorded as gaps (`unsplittable`), decided after the first pass.
 5. Mac at night: `pmset` wake at 00:25 (Sagar runs one sudo line once) + keep-awake (caffeinate) during the run.
+
+## Orchestrator resolutions after the red tests (28 Nov 2026)
+Accepted as the Builder's contract (reports/S1-T8/RED_TESTS.md "Questions"): (1) the backfill passes `allowed_hosts` to the transport itself; `BROWSER_HOSTS` stays unchanged (browser A4/A15). (2) A36: average requests per window = total requests counted in the window ledger (anchors and audits included) / windows completed; ETA nights = remaining windows x that average / the current night budget; the tests' planted counters are the contract. (3) The plan ends at the last completed IST day; each new night adds that day's window. (4) A21: on a manifest key conflict, skip and never overwrite.
