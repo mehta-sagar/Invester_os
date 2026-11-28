@@ -218,7 +218,7 @@ def test_A12_a_403_makes_same_host_feeds_not_attempted_and_other_hosts_proceed(t
     r = e.cycle(N0)
     assert r.outcomes["f1"] == "unreadable" and r.outcomes["f2"] == "not_attempted" and r.outcomes["f3"] == "fetched"
     assert n_calls(e, "f2") == 0 and n_calls(e, "f3") == 1
-    assert e.host_events("nsearchives.nseindia.com")[0]["event"] == "blocked"
+    assert e.host_events("rss.example.test")[0]["event"] == "blocked"
     assert e.sidecar_for("f2")["outcomes"]["not_attempted"] == 1
 
 
@@ -689,7 +689,7 @@ def test_A24_example_config_gives_the_hosts_their_intervals(tmp_path):
 @pytest.mark.planted
 def test_A24_24_nse_feeds_are_at_least_one_second_apart_and_need_no_daily_cap(tmp_path):
     rows = [frow(f"n{i:02d}", NSE + f"F{i}.xml", scope="always", stale="525600") for i in range(24)]
-    e = RssEnv(tmp_path, rows, hosts={"nsearchives.nseindia.com": 1.0})
+    e = RssEnv(tmp_path, rows, hosts={"rss.example.test": 1.0})
     e.serve_all()
     r = e.cycle(N0)
     assert len(r.polled) == 24 and e.transport.n() == 24

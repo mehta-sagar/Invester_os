@@ -31,7 +31,8 @@ RSS_MODULES = [SRC / "acquire" / "rss.py", SRC / "acquire" / "registry.py", SRC 
 
 FEED_HEADER = "feed_id,url,kind,publisher,enabled,stale_after_min,stale_scope,status,note"
 FEED_COLS = FEED_HEADER.split(",")
-NSE = "https://nsearchives.nseindia.com/content/RSS/"
+NSE = "https://rss.example.test/content/RSS/"   # an honest-mode test host (S1-T7: real NSE-host feeds now route to the browser)
+NSE_REAL = "https://nsearchives.nseindia.com/content/RSS/"
 URL_ANN = NSE + "Online_announcements.xml"
 URL_INS = NSE + "InsiderTrading.xml"
 URL_RBI = "https://www.rbi.org.in/pressreleases_rss.xml"

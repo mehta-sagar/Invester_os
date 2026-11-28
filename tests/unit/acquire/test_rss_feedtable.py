@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-from _rss_helpers import FEED_HEADER, SHIPPED_FEEDS, URL_ANN, URL_RBI, frow, write_feeds
+from _rss_helpers import FEED_HEADER, NSE_REAL, SHIPPED_FEEDS, URL_ANN, URL_RBI, frow, write_feeds
 
 
 def load(path):
@@ -128,7 +128,7 @@ def test_A5_shipped_urls_publishers_and_kinds():
         assert f.publisher == "NSE" and f.kind == "corporate", fid
     assert by["rbi_press"].url == URL_RBI and by["rbi_press"].kind == "news"
     assert by["sebi_press"].url == "https://www.sebi.gov.in/sebirss.xml" and by["sebi_press"].kind == "news"
-    assert by["online_announcements"].url == URL_ANN
+    assert by["online_announcements"].url == NSE_REAL + "Online_announcements.xml"
 
 
 @pytest.mark.planted
