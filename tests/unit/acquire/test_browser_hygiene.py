@@ -202,23 +202,24 @@ def shipped_rows():
         return list(csv.DictReader(fh))
 
 
-def assert_phase_a(rows):
+def assert_phase_b(rows):
+    """Phase B (Sagar, 28 Nov, after the live Mac check 25/25): all 25 rows on, the R3b note gone."""
     nse = [r for r in rows if r["url"].startswith("https://nsearchives.nseindia.com/")]
     assert len(rows) == 25 and len(nse) == 23
-    assert all(r["enabled"] == "no" and r["note"].startswith("off 28 Nov") for r in nse)
+    assert all(r["enabled"] == "yes" and r["note"] == "" for r in nse)
     assert {r["feed_id"]: r["enabled"] for r in rows if r not in nse} == {"rbi_press": "yes", "sebi_press": "yes"}
 
 
-def test_A35_phase_a_shipped_table_has_the_23_nse_rows_disabled_with_the_r3b_note():
-    assert_phase_a(shipped_rows())
+def test_A35_phase_b_shipped_table_has_all_23_nse_rows_enabled():
+    assert_phase_b(shipped_rows())
 
 
 @pytest.mark.planted
-def test_A35_an_early_flip_of_any_nse_row_is_caught():
+def test_A35_a_disabled_nse_row_is_caught():
     rows = [dict(r) for r in shipped_rows()]
-    next(r for r in rows if r["feed_id"] == "circulars")["enabled"] = "yes"
+    next(r for r in rows if r["feed_id"] == "circulars")["enabled"] = "no"
     with pytest.raises(AssertionError):
-        assert_phase_a(rows)
+        assert_phase_b(rows)
 
 
 # ------------------------------------------------------------------ A37 (R1, R7, R14): the base is not touched
