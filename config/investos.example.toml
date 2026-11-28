@@ -30,6 +30,13 @@ contact = "CHANGE-ME@example.invalid"
 timeout_s = 30.0
 max_body_bytes = 536870912
 
+# NSE archive feeds are read through the installed Chrome (decision 0002a, access mode real_browser; needs
+# `pip install 'investos[browser]'`). Copy this block, uncommented, into your local config/investos.toml.
+# The request spacing for the host is floored at 2.5 s by the collector base whatever [rate_limits.hosts] says.
+# [collect.access.rss_nse]
+# mode = "real_browser"
+# daily_cap = 2000            # attempts per IST day for the whole NSE poller (23 feeds x 76 slots = 1748, plus retries)
+
 [duckdb]
 # resource caps applied by open_db on every connection (16 GB Mac: leave room for the browser and Python workers;
 # with two DuckDB processes at once use 3GB each). Heavy queries spill to temp_directory instead of swapping.
