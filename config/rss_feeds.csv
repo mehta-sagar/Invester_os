@@ -1,26 +1,26 @@
 feed_id,url,kind,publisher,enabled,stale_after_min,stale_scope,status,note
-online_announcements,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,corporate,NSE,no,90,trading_hours,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-annual_reports,https://nsearchives.nseindia.com/content/RSS/Annual_Reports.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-board_meetings,https://nsearchives.nseindia.com/content/RSS/Board_Meetings.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-brsr,https://nsearchives.nseindia.com/content/RSS/brsr.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-corporate_action,https://nsearchives.nseindia.com/content/RSS/Corporate_action.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-corporate_governance,https://nsearchives.nseindia.com/content/RSS/Corporate_Governance.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-daily_buyback,https://nsearchives.nseindia.com/content/RSS/Daily_Buyback.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-financial_results,https://nsearchives.nseindia.com/content/RSS/Financial_Results.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-integrated_filing_financials,https://nsearchives.nseindia.com/content/RSS/Integrated_Filing_Financials.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-insider_trading,https://nsearchives.nseindia.com/content/RSS/InsiderTrading.xml,corporate,NSE,no,360,trading_hours,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-investor_complaints,https://nsearchives.nseindia.com/content/RSS/Investor_Complaints.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-offer_documents,https://nsearchives.nseindia.com/content/RSS/Offer_Documents.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-related_party_trans,https://nsearchives.nseindia.com/content/RSS/Related_Party_Trans.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-sast_regulation29,https://nsearchives.nseindia.com/content/RSS/Sast_Regulation29.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-sast_regulation31,https://nsearchives.nseindia.com/content/RSS/Sast_Regulation31.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-sast_reasonforencumbrance,https://nsearchives.nseindia.com/content/RSS/Sast_ReasonForEncumbrance.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-secretarial_compliance,https://nsearchives.nseindia.com/content/RSS/Secretarial_Compliance.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-share_transfers,https://nsearchives.nseindia.com/content/RSS/Share_Transfers.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-shareholding_pattern,https://nsearchives.nseindia.com/content/RSS/Shareholding_Pattern.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-statement_of_deviation,https://nsearchives.nseindia.com/content/RSS/Statement_Of_Deviation.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-unitholding_patterns,https://nsearchives.nseindia.com/content/RSS/Unitholding_Patterns.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-voting_results,https://nsearchives.nseindia.com/content/RSS/Voting_Results.xml,corporate,NSE,no,525600,always,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
-circulars,https://nsearchives.nseindia.com/content/RSS/Circulars.xml,corporate,NSE,no,2880,trading_hours,confirmed,off 28 Nov: NSE refuses non-browser clients; needs the real-Chrome transport
+online_announcements,https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml,corporate,NSE,yes,90,trading_hours,confirmed,
+annual_reports,https://nsearchives.nseindia.com/content/RSS/Annual_Reports.xml,corporate,NSE,yes,5256000,always,confirmed,
+board_meetings,https://nsearchives.nseindia.com/content/RSS/Board_Meetings.xml,corporate,NSE,yes,5256000,always,confirmed,
+brsr,https://nsearchives.nseindia.com/content/RSS/brsr.xml,corporate,NSE,yes,5256000,always,confirmed,
+corporate_action,https://nsearchives.nseindia.com/content/RSS/Corporate_action.xml,corporate,NSE,yes,5256000,always,confirmed,
+corporate_governance,https://nsearchives.nseindia.com/content/RSS/Corporate_Governance.xml,corporate,NSE,yes,5256000,always,confirmed,
+daily_buyback,https://nsearchives.nseindia.com/content/RSS/Daily_Buyback.xml,corporate,NSE,yes,5256000,always,confirmed,
+financial_results,https://nsearchives.nseindia.com/content/RSS/Financial_Results.xml,corporate,NSE,yes,5256000,always,confirmed,
+integrated_filing_financials,https://nsearchives.nseindia.com/content/RSS/Integrated_Filing_Financials.xml,corporate,NSE,yes,5256000,always,confirmed,
+insider_trading,https://nsearchives.nseindia.com/content/RSS/InsiderTrading.xml,corporate,NSE,yes,360,trading_hours,confirmed,
+investor_complaints,https://nsearchives.nseindia.com/content/RSS/Investor_Complaints.xml,corporate,NSE,yes,5256000,always,confirmed,
+offer_documents,https://nsearchives.nseindia.com/content/RSS/Offer_Documents.xml,corporate,NSE,yes,5256000,always,confirmed,
+related_party_trans,https://nsearchives.nseindia.com/content/RSS/Related_Party_Trans.xml,corporate,NSE,yes,5256000,always,confirmed,
+sast_regulation29,https://nsearchives.nseindia.com/content/RSS/Sast_Regulation29.xml,corporate,NSE,yes,5256000,always,confirmed,
+sast_regulation31,https://nsearchives.nseindia.com/content/RSS/Sast_Regulation31.xml,corporate,NSE,yes,5256000,always,confirmed,
+sast_reasonforencumbrance,https://nsearchives.nseindia.com/content/RSS/Sast_ReasonForEncumbrance.xml,corporate,NSE,yes,5256000,always,confirmed,
+secretarial_compliance,https://nsearchives.nseindia.com/content/RSS/Secretarial_Compliance.xml,corporate,NSE,yes,5256000,always,confirmed,
+share_transfers,https://nsearchives.nseindia.com/content/RSS/Share_Transfers.xml,corporate,NSE,yes,5256000,always,confirmed,
+shareholding_pattern,https://nsearchives.nseindia.com/content/RSS/Shareholding_Pattern.xml,corporate,NSE,yes,5256000,always,confirmed,
+statement_of_deviation,https://nsearchives.nseindia.com/content/RSS/Statement_Of_Deviation.xml,corporate,NSE,yes,5256000,always,confirmed,
+unitholding_patterns,https://nsearchives.nseindia.com/content/RSS/Unitholding_Patterns.xml,corporate,NSE,yes,5256000,always,confirmed,
+voting_results,https://nsearchives.nseindia.com/content/RSS/Voting_Results.xml,corporate,NSE,yes,5256000,always,confirmed,
+circulars,https://nsearchives.nseindia.com/content/RSS/Circulars.xml,corporate,NSE,yes,2880,trading_hours,confirmed,
 rbi_press,https://www.rbi.org.in/pressreleases_rss.xml,news,RBI,yes,5760,always,confirmed,
 sebi_press,https://www.sebi.gov.in/sebirss.xml,news,SEBI,yes,5760,always,confirmed,

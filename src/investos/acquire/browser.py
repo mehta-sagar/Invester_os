@@ -30,11 +30,18 @@ from investos.core.config import Config
 from investos.core.notify import Notifier
 
 __all__ = ["BROWSER_HOSTS", "ANCHOR_PATH", "FetchResult", "AnchorResult", "BrowserSession", "BrowserDriver", "Reaper",
-           "PsReaper", "PlaywrightDriver", "RealBrowserTransport", "LAUNCH_TIMEOUT_S", "CLOSE_TIMEOUT_S",
+           "PsReaper", "PlaywrightDriver", "ANCHOR_PATHS", "anchor_url_for", "RealBrowserTransport", "LAUNCH_TIMEOUT_S", "CLOSE_TIMEOUT_S",
            "WATCHDOG_MARGIN_S", "PROFILE_LOCK_WAIT_S", "REAP_GRACE_S", "MAX_BODY_CAP"]
 
 BROWSER_HOSTS: frozenset[str] = frozenset({"nsearchives.nseindia.com"})
-ANCHOR_PATH = "/robots.txt"
+ANCHOR_PATH = "/robots.txt"   # fallback for hosts without a known page (review D1)
+# Review D1 (28 Nov live run): nsearchives has no robots.txt (HTTP 404); anchor on a page that exists, one of
+# the shipped feed URLs. A non-200 anchor is logged (WARNING anchor_status) and the fetch proceeds unchanged.
+ANCHOR_PATHS: dict[str, str] = {"nsearchives.nseindia.com": "/content/RSS/Circulars.xml"}
+
+
+def anchor_url_for(host: str) -> str:
+    return f"https://{host}{ANCHOR_PATHS.get(host, ANCHOR_PATH)}"
 LAUNCH_TIMEOUT_S = 60
 CLOSE_TIMEOUT_S = 15
 WATCHDOG_MARGIN_S = 10
@@ -456,12 +463,14 @@ class RealBrowserTransport:
                 self._dead = True
 
     def _anchor(self, session: BrowserSession, host: str, origin: str, timeout_s: float) -> BrowserResponse | None:
-        anchor_url = f"{origin}{ANCHOR_PATH}"
+        anchor_url = f"{origin}{ANCHOR_PATHS.get(host, ANCHOR_PATH)}"
         interval = self._interval(host)
         self._limiter.acquire(host, interval)
         res = self._guarded(timeout_s, lambda: session.goto_anchor(anchor_url, timeout_s))
         if res.status in _BLOCK_STATUSES:
             return BrowserResponse(res.status, {}, b"", anchor_url, None)
+        if res.status != 200:
+            self._log.warning("anchor_status", host=host, status=res.status)
         final_origin = _origin_of(res.final_url)
         if final_origin != origin:
             raise TransportError(f"anchor left origin: {final_origin or 'unknown'}")
