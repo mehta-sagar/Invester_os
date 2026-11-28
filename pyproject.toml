@@ -10,6 +10,7 @@ dependencies = ["duckdb"]
 
 [project.optional-dependencies]
 dev = ["pytest"]
+browser = ["playwright>=1.65"]
 
 [project.scripts]
 investos = "investos.cli:main"
@@ -21,5 +22,6 @@ where = ["src"]
 pythonpath = ["src"]
 testpaths = ["tests"]
 markers = [
+    "real_browser: drives the real installed Chrome on the Mac; skipped unless INVESTOS_BROWSER_SMOKE=1",
     "planted: deliberately-broken-input test that must be rejected (planted failure)",
 ]

@@ -7,7 +7,7 @@ from typing import Sequence
 USAGE = ("usage: investos check [all|manifest|raw|registry|migrations|<name>] [--planted]\n"
          "       investos access status [source] | clear <source> --decision <id>\n"
          "       investos routine roots [--dry-run] [--branch NAME] [--remote NAME]\n"
-         "       investos collect rss --once [--force] [--dry-run]")
+         "       investos collect rss --once [--force] [--dry-run] [--headless]")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -73,20 +73,33 @@ def _routine(args: list[str]) -> int:
     return int(res.exit_code)
 
 
-COLLECT_USAGE = "usage: investos collect rss --once [--force] [--dry-run]"
+def _on_sigterm(signum, frame) -> None:
+    raise KeyboardInterrupt("SIGTERM")                      # unwinds through the finally that closes Chrome
+
+
+def _install_sigterm_handler() -> None:
+    import signal
+    try:
+        signal.signal(signal.SIGTERM, _on_sigterm)
+    except ValueError:                                       # not the main thread
+        pass
+
+
+COLLECT_USAGE = "usage: investos collect rss --once [--force] [--dry-run] [--headless]"
 
 
 def _collect(args: list[str]) -> int:
-    """`investos collect rss --once [--force] [--dry-run]` (spec collect_rss R18). Exit 0 ran or nothing due,
-    1 start refused (contact, config, access state, gap ledger), 2 usage error or invalid feed table."""
+    """`investos collect rss --once [--force] [--dry-run] [--headless]` (spec collect_rss R18, collect_browser R9, R10).
+    Exit 0 ran or nothing due, 1 start refused (contact, config, access state, gap ledger), 2 usage error or invalid
+    feed table. ``--headless`` only changes how Chrome is started for the NSE feeds; the default is headful."""
     if not args or args[0] != "rss":
         print(COLLECT_USAGE)
         return 2
     flags = set(args[1:])
-    if not flags <= {"--once", "--force", "--dry-run"} or len(args[1:]) != len(flags) or "--once" not in flags:
+    if not flags <= {"--once", "--force", "--dry-run", "--headless"} or len(args[1:]) != len(flags) or "--once" not in flags:
         print(COLLECT_USAGE)
         return 2
-    force, dry = "--force" in flags, "--dry-run" in flags
+    force, dry, headless = "--force" in flags, "--dry-run" in flags, "--headless" in flags
     import os
     from datetime import datetime, timezone
     from pathlib import Path
@@ -104,7 +117,7 @@ def _collect(args: list[str]) -> int:
         return 1
     from investos.acquire import rss
     from investos.acquire.access import AccessState, AccessStateError
-    from investos.acquire.base import _check_contact
+    from investos.acquire.base import AccessMode, _check_contact
     try:                                                     # before any data is touched or a transport built
         _check_contact(cfg.collect.contact, SimpleNamespace(real_network=True))
     except ValueError as e:
@@ -134,9 +147,23 @@ def _collect(args: list[str]) -> int:
     from investos.core.notify import NullNotifier, OsascriptNotifier
     transport = UrllibTransport(max_body_bytes=cfg.collect.max_body_bytes)
     notifier = OsascriptNotifier() if sys.platform == "darwin" else NullNotifier()
-    res = rss.poll_cycle(cfg, now=now, transport=transport, manifest=ManifestStore.from_config(cfg),
-                         notifier=notifier, force=force, feeds=feeds,
-                         clock=lambda: datetime.now(timezone.utc))
+    browser = None
+    if any(f.enabled and rss.collector_class_for(f).access_mode is AccessMode.REAL_BROWSER for f in feeds):
+        import importlib.util
+        if importlib.util.find_spec("playwright") is None:
+            print("investos collect rss: playwright is not installed (pip install 'investos[browser]'); "
+                  "the NSE feeds cannot be read", file=sys.stderr)
+        from investos.acquire.browser import RealBrowserTransport
+        browser = RealBrowserTransport(cfg, headless=headless)
+    try:
+        if browser is not None:
+            _install_sigterm_handler()
+        res = rss.poll_cycle(cfg, now=now, transport=transport, manifest=ManifestStore.from_config(cfg),
+                             notifier=notifier, browser=browser, force=force, feeds=feeds,
+                             clock=lambda: datetime.now(timezone.utc))
+    finally:
+        if browser is not None:
+            browser.close()
     if res.gap_write_failed:
         print("investos collect rss: gap_write_failed: the gap ledger could not be written", file=sys.stderr)
         return 1

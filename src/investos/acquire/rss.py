@@ -1,7 +1,8 @@
-"""RSS poller, the first real collector adapter (spec: specs/collect_rss.md, brief S1-T6).
+"""RSS poller, the first real collector adapter (spec: specs/collect_rss.md, brief S1-T6; S1-T7 adds the NSE adapter).
 
-Honest mode only. One ``RssFeedCollector`` per (feed, 15-minute IST slot); ``poll_cycle`` runs one slot over the
-feed table. The body is stored byte-exact through the manifest only when its content digest changed (R8a); feed
+One collector per (feed, 15-minute IST slot): ``RssFeedCollector`` (honest, source ``rss``) for RBI and SEBI and
+``RssNseFeedCollector`` (real_browser, source ``rss_nse``) for the NSE archive host, chosen in code by the URL host
+(``collector_class_for``). ``poll_cycle`` runs one slot over the feed table. The body is stored byte-exact through the manifest only when its content digest changed (R8a); feed
 state, the gap ledger and the freshness alarms live next to it. Time, sleeping and the notifier are injected: this
 module never reads the system clock. The only XML reading is ``investos.parse.rss_items.parse_feed``.
 """
@@ -24,7 +25,9 @@ from urllib.parse import urlsplit
 from zoneinfo import ZoneInfo
 
 from investos.acquire.access import AccessStateError, _append, _dump, _flock, _lock_of
-from investos.acquire.base import AccessMode, BodyVerdict, Collector, Outcome, Response, RunRange
+from investos.acquire.base import (MAX_ATTEMPTS, AccessMode, BodyVerdict, BrowserTransport, Collector, Outcome,
+                                   Response, RunRange)
+from investos.acquire.browser import BROWSER_HOSTS
 from investos.acquire.manifest import ManifestStore
 from investos.acquire.registry import register_adapter
 from investos.core import log
@@ -33,7 +36,7 @@ from investos.core.notify import Notifier, NullNotifier
 from investos.parse.rss_items import FeedParseError, parse_feed
 
 __all__ = ["FeedRow", "FeedTableError", "load_feeds", "slot_of", "is_poll_slot", "content_digest",
-           "RssFeedCollector", "poll_cycle", "CycleResult", "GapLedgerError", "read_gaps", "read_state",
+           "RssFeedCollector", "RssNseFeedCollector", "collector_class_for", "poll_cycle", "CycleResult", "GapLedgerError", "read_gaps", "read_state",
            "judge_feed", "FeedVerdict", "CalendarView", "feed_table_path", "state_dir_of", "gaps_path_of",
            "slot_start", "latest_due_slot", "KEY_RE", "due_feeds", "ADAPTERS"]
 
@@ -289,7 +292,21 @@ class RssFeedCollector(Collector):
         return None
 
 
-ADAPTERS = (RssFeedCollector,)
+@register_adapter
+class RssNseFeedCollector(RssFeedCollector):
+    """The NSE feeds, read through the real-Chrome transport (decision 0002a; spec collect_browser R13)."""
+    source = "rss_nse"
+    source_version = "rss-v1"
+    access_mode = AccessMode.REAL_BROWSER
+
+
+def collector_class_for(feed: FeedRow) -> type[RssFeedCollector]:
+    """Routing is a code constant keyed on the URL host; the feed table has no say (R13)."""
+    host = (urlsplit(feed.url).hostname or "").lower()
+    return RssNseFeedCollector if host in BROWSER_HOSTS else RssFeedCollector
+
+
+ADAPTERS = (RssFeedCollector, RssNseFeedCollector)
 
 
 # --------------------------------------------------------------------------- feed state (R11)
@@ -558,6 +575,11 @@ class CycleResult:
     gaps_written: int
     alerts: tuple[str, ...]
     gap_write_failed: bool = False
+    down_hosts: tuple[str, ...] = ()
+
+
+def _host_of(feed: FeedRow) -> str:
+    return (urlsplit(feed.url).hostname or "").lower()
 
 
 def _newest_pub(body: bytes) -> str | None:
@@ -569,6 +591,7 @@ def _newest_pub(body: bytes) -> str | None:
 
 
 def poll_cycle(cfg: Config, *, now: datetime, transport, manifest: ManifestStore, notifier: Notifier | None = None,
+               browser: BrowserTransport | None = None,
                force: bool = False, feeds: Sequence[FeedRow] | None = None, run_id: str | None = None,
                monotonic: Callable[[], float] | None = None, sleeper: Callable[[float], None] | None = None,
                wall_clock: Callable[[], float] | None = None,
@@ -589,22 +612,31 @@ def poll_cycle(cfg: Config, *, now: datetime, transport, manifest: ManifestStore
         logger.warning("no_enabled_feeds", slot=slot)
         return CycleResult(slot, (), {}, False, 0, ())
     cycle = _Cycle(cfg, now=now, slot=slot, transport=transport, manifest=manifest, notifier=notifier, rid=rid,
-                   mono=mono, sleep=sleep, wall_clock=wall_clock, hostname=hostname, logger=logger, clock=clock)
+                   mono=mono, sleep=sleep, wall_clock=wall_clock, hostname=hostname, logger=logger, clock=clock,
+                   browser=browser)
     logger.info("cycle_start", slot=slot, feeds=len(enabled))
     started = mono()
     for feed in enabled:
         over_budget = mono() - started >= _CYCLE_BUDGET_S
         cycle.process(feed, over_budget=over_budget)
     c = cycle
+    c.log_down_hosts()
+    c.send_alerts()
     logger.info("cycle_end", slot=slot, ok=c.ok, failed=c.failed, not_due=c.not_due, locked=c.locked,
                 gaps_written=c.gaps_written)
     return CycleResult(slot, tuple(c.polled), dict(c.outcomes), False, c.gaps_written, tuple(c.alerts),
-                       c.gap_write_failed)
+                       c.gap_write_failed, tuple(c.down_hosts))
 
 
 class _Cycle:
     def __init__(self, cfg, *, now, slot, transport, manifest, notifier, rid, mono, sleep, wall_clock, hostname,
-                 logger, clock=None) -> None:
+                 logger, clock=None, browser=None) -> None:
+        self.browser = browser
+        self.down_hosts: dict[str, str] = {}                         # host -> probe feed (cycle-local, R16)
+        self.host_skipped: dict[str, int] = {}
+        self._pending: list[tuple[str, str, str]] = []              # (host, feed_id, kind) raised this cycle
+        self._warned_no_browser = False
+        self._warned_no_table = False
         self.cfg, self.now, self.slot, self.transport, self.manifest = cfg, now, slot, transport, manifest
         self.notifier, self.rid, self.mono, self.sleep = notifier, rid, mono, sleep
         self.wall_clock, self.hostname, self.log = wall_clock, hostname, logger
@@ -638,16 +670,21 @@ class _Cycle:
         return True
 
     def collector(self, feed: FeedRow, state: dict | None) -> RssFeedCollector:
-        kw = dict(transport=self.transport, manifest=self.manifest, cfg=self.cfg, run_id=self.rid,
+        cls = collector_class_for(feed)
+        kw = dict(manifest=self.manifest, cfg=self.cfg, run_id=self.rid,
                   clock=self.clock, notifier=self.notifier,
                   sidecar_dir=Path(self.cfg.zones["manifests"]) / "rss.runs" / feed.feed_id,
                   monotonic=self.mono, sleeper=self.sleep)
+        if cls.access_mode is AccessMode.REAL_BROWSER:
+            kw["browser"] = self.browser
+        else:
+            kw["transport"] = self.transport
         if self.wall_clock is not None:
             kw["wall_clock"] = self.wall_clock
         if self.hostname is not None:
             kw["hostname"] = self.hostname
-        return RssFeedCollector(feed, self.slot, last_stored_sha=state["last_stored_sha"] if state else None,
-                                last_content_digest=state["last_content_digest"] if state else None, **kw)
+        return cls(feed, self.slot, last_stored_sha=state["last_stored_sha"] if state else None,
+                   last_content_digest=state["last_content_digest"] if state else None, **kw)
 
     # ---- one feed
     def process(self, feed: FeedRow, *, over_budget: bool) -> None:
@@ -665,7 +702,19 @@ class _Cycle:
             old_ok = (state["last_ok_slot"], state["last_ok_at"]) if state else (None, None)
             old_attempt = state["last_attempt_at"] if state else None
             gap_ok = True
-            if state is not None and state["last_ok_slot"] is not None and not over_budget:
+            host = _host_of(feed)
+            skip_reason = None
+            if over_budget:
+                skip_reason = "cycle budget"
+            elif host in self.down_hosts:
+                skip_reason = f"host down: {host}"
+                self.host_skipped[host] = self.host_skipped.get(host, 0) + 1
+            elif collector_class_for(feed).access_mode is AccessMode.REAL_BROWSER and self.browser is None:
+                skip_reason = "browser transport not configured"
+                if not self._warned_no_browser:
+                    self._warned_no_browser = True
+                    self.log.warning("browser_not_configured", feed_id=feed.feed_id)
+            if state is not None and state["last_ok_slot"] is not None and skip_reason is None:
                 since = state["last_ok_slot"]
                 if state["last_attempt_at"] is not None:           # slots already recorded (failed/missed) are not repeated
                     since = max(since, slot_of(_parse_ts(state["last_attempt_at"])))
@@ -673,10 +722,13 @@ class _Cycle:
                 if missed:
                     gap_ok = self.write_gap(feed.feed_id, "missed", missed[0], missed[-1], len(missed),
                                             f"no ok poll between {state['last_ok_slot']} and {self.slot}")
-            if over_budget:
-                outcome, reason = "not_attempted", "cycle budget"
+            if skip_reason is not None:
+                outcome, reason = "not_attempted", skip_reason
             else:
                 outcome, reason = self.poll(feed, state)
+                if outcome == "unreadable" and reason.startswith("transport error:") \
+                        and reason.endswith(f"after {MAX_ATTEMPTS} attempts"):
+                    self.down_hosts.setdefault(host, feed.feed_id)
             new = self.apply_outcome(feed, state, outcome)
             if outcome in _FAIL_OUTCOMES:
                 self.failed += 1
@@ -692,7 +744,18 @@ class _Cycle:
         key = f"{feed.feed_id}/{self.slot}"
         self.polled.append(feed.feed_id)
         try:
-            col = self.collector(feed, state)
+            try:
+                col = self.collector(feed, state)
+            except ValueError as e:
+                entry = self.cfg.collect.access.get(RssNseFeedCollector.source)
+                if collector_class_for(feed) is RssNseFeedCollector and (entry is None or entry.mode != "real_browser"):
+                    if not self._warned_no_table:
+                        self._warned_no_table = True
+                        self.log.error("access_table_missing", source=RssNseFeedCollector.source, reason=str(e)[:200])
+                    self.polled.remove(feed.feed_id)
+                    self.outcomes[feed.feed_id] = "not_attempted"
+                    return "not_attempted", str(e)[:300]
+                raise
             res = col.run(RunRange(self.today, self.today))
         except Exception as e:                                     # one feed never stops the cycle
             self.log.error("feed_failed", feed_id=feed.feed_id, reason=type(e).__name__)
@@ -728,9 +791,10 @@ class _Cycle:
             st["last_ok_at"] = _fmt_ts(self.now)
             st["consecutive_failures"] = 0
             if outcome != "skipped":
-                entry = self.manifest.get_by_key("rss", f"{feed.feed_id}/{self.slot}")
+                source = collector_class_for(feed).source
+                entry = self.manifest.get_by_key(source, f"{feed.feed_id}/{self.slot}")
                 if entry is not None:
-                    body = self.manifest.read_bytes("rss", entry.sha256)
+                    body = self.manifest.read_bytes(source, entry.sha256)
                     st["last_stored_sha"] = entry.sha256
                     st["last_content_digest"] = content_digest(body)
                     st["last_change_at"] = _fmt_ts(self.now)
@@ -750,13 +814,9 @@ class _Cycle:
             if st["alerted"].get(kind) == today:
                 continue
             self.log.error("feed_alarm", feed_id=feed.feed_id, kind=kind, detail=detail)
-            try:
-                self.notifier.notify("Invest OS: feed stale", f"{feed.feed_id} {kind}")
-            except Exception as e:                                 # an alert never breaks the cycle
-                self.log.warning("notify_failed", reason=type(e).__name__)
-                continue
             st = dict(st)
-            st["alerted"] = {**st["alerted"], kind: today}
+            st["alerted"] = {**st["alerted"], kind: today}          # marked now, sent at the end of the cycle (R17)
+            self._pending.append((_host_of(feed), feed.feed_id, kind))
             self.alerts.append(f"{feed.feed_id} {kind}")
             changed = True
         if changed:
@@ -764,6 +824,31 @@ class _Cycle:
                 _write_state(sp, st)
             except OSError as e:
                 self.log.error("state_write_failed", feed_id=feed.feed_id, reason=str(e)[:200])
+
+    def log_down_hosts(self) -> None:
+        for host, probe in self.down_hosts.items():
+            self.log.info("host_down", host=host, probe_feed=probe, skipped=self.host_skipped.get(host, 0))
+
+    def send_alerts(self) -> None:
+        """One notification per feed, except that several poll_missed alarms of one host become one (R17)."""
+        by_host: dict[str, list[str]] = {}
+        for host, feed_id, kind in self._pending:
+            if kind == "poll_missed":
+                by_host.setdefault(host, []).append(feed_id)
+        messages: list[tuple[str, str]] = []
+        done_hosts: set[str] = set()
+        for host, feed_id, kind in self._pending:
+            if kind == "poll_missed" and len(by_host[host]) >= 2:
+                if host not in done_hosts:
+                    done_hosts.add(host)
+                    messages.append(("Invest OS: host down", f"{host}: {len(by_host[host])} feeds"))
+            else:
+                messages.append(("Invest OS: feed stale", f"{feed_id} {kind}"))
+        for title, text in messages:
+            try:
+                self.notifier.notify(title, text)
+            except Exception as e:                                 # an alert never breaks the cycle
+                self.log.warning("notify_failed", reason=type(e).__name__)
 
 
 def due_feeds(cfg: Config, feeds: Sequence[FeedRow], slot: str) -> list[FeedRow]:

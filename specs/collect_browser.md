@@ -210,3 +210,10 @@ A37. (R1, R7, R14) Given all existing collector, access, manifest, RSS and check
 
 ## Sagar's answers (28 Nov 2026, pop-up)
 1a headful, window off-screen. 2a keep 2.5 s per request (decision 0002a). 3a one Chrome per cycle. 4a at most one "host down" alert per day. 5a daily_cap 2000. 6a separate source `rss_nse` (real_browser) next to `rss`.
+
+## Orchestrator resolutions after the red tests (28 Nov 2026)
+The Test writer's readings in reports/S1-T7/RED_TESTS.md "Questions for Orchestrator" (all 10) are accepted as the contract for the Builder: names left open by the spec (PsReaper args, page-function result shape, anchor goto args), the watchdog polling the injected monotonic with a short real wait, the A15 string list applying to browser.py only, A33 asserting the word `headless`, A31 using 38 s attempts, and R17's `alerted` set before sending. The NSE test-host change in the old RSS helpers (NSE -> honest test host, NSE_REAL kept) is accepted; no assertion was weakened.
+
+## Fix round and phase B (Orchestrator, 28 Nov 2026)
+- Review D1 fixed: the anchor is a per-host existing page (`ANCHOR_PATHS`, NSE: /content/RSS/Circulars.xml); a non-200 anchor logs WARNING `anchor_status` and the fetch proceeds. D2 (alert marked before notify) and D3 (duplicate length check) left open as Low/Info.
+- Phase B after the live Mac check (25/25 ok on 00c2dc9): the 23 NSE rows are enabled (R3b undone). Sagar: quiet NSE feeds get no content alarm, implemented as a 5256000-minute (10-year) `always` window; content alarms stay on online_announcements (90, trading_hours), insider_trading (360), circulars (2880), rbi_press and sebi_press (5760).

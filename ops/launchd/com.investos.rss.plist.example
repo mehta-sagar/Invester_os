@@ -8,6 +8,13 @@
   every scheduled slot it missed as one "missed" line in data/ledger/rss/gaps.jsonl.
   RunAtLoad makes the first cycle run when the agent loads. The roots routine (23:30) and this poller are
   independent processes; the poller only fetches and stores.
+  The NSE feeds are read through the installed Google Chrome, which needs the user's GUI session: the key
+  LimitLoadToSessionType = Aqua runs the agent only while Sagar is logged in (not necessarily unlocked; to be
+  observed on the first Mac run). Chrome must be installed at its default location and the Python of this
+  virtualenv needs the browser extra (pip install 'investos[browser]'). Chrome starts headful with its window off
+  screen; to run it headless instead add one more ProgramArguments string, the headless flag of the collect command,
+  after the once flag (it announces itself as HeadlessChrome, so decide before the first run).
+  A Mac that is asleep skips the slot (recorded as above).
   Edit the two example paths below to the real virtualenv script and repository checkout.
 -->
 <plist version="1.0">
@@ -27,6 +34,8 @@
   <integer>900</integer>
   <key>RunAtLoad</key>
   <true/>
+  <key>LimitLoadToSessionType</key>
+  <string>Aqua</string>
   <key>StandardOutPath</key>
   <string>/Users/example/invester_os/data/ledger/.state/rss-poller.out.log</string>
   <key>StandardErrorPath</key>

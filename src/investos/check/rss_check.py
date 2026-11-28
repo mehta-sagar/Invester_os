@@ -8,9 +8,10 @@ from pathlib import Path
 
 from investos.acquire.manifest import ManifestError, ManifestStore
 from investos.acquire.registry import waived_adapters
-from investos.acquire.rss import (KEY_RE, CalendarView, FeedTableError, GapLedgerError, feed_table_path,
-                                  gaps_path_of, judge_feed, latest_due_slot, load_feeds, read_gaps, read_state,
-                                  slot_start, state_dir_of)
+from investos.acquire.rss import (KEY_RE, CalendarView, FeedTableError, GapLedgerError, RssFeedCollector,
+                                  RssNseFeedCollector, collector_class_for, feed_table_path, gaps_path_of,
+                                  judge_feed, latest_due_slot, load_feeds, read_gaps, read_state, slot_start,
+                                  state_dir_of)
 from investos.core.config import Config
 
 from .registry import CheckContext, CheckResult, check, plant_for
@@ -30,28 +31,36 @@ def _table_path(cfg: Config) -> Path:
     return _PLANT_TABLES.get(Path(cfg.zones["reports"]), feed_table_path(cfg))
 
 
-def _key_problems(cfg: Config, feed_ids: set[str]) -> list[str]:
-    try:
-        entries = ManifestStore.from_config(cfg).entries("rss")
-    except (ManifestError, OSError) as e:
-        return [f"rss manifest unreadable: {e}"]
-    out, seen = [], set()
-    for e in entries:
-        key = e.logical_key
-        m = KEY_RE.fullmatch(key)
-        if m is None:
-            out.append(f"malformed key {key!r}: expected <feed_id>/<YYYYMMDDTHHMM>")
-            continue
+def _key_problems(cfg: Config, feeds) -> list[str]:
+    """Keys of both sources (``rss`` honest, ``rss_nse`` real browser); a feed has exactly one source, by routing."""
+    expected = {f.feed_id: collector_class_for(f).source for f in feeds}
+    out: list[str] = []
+    for source in sorted({RssFeedCollector.source, RssNseFeedCollector.source}):
         try:
-            slot_start(m.group(2))
-        except ValueError:
-            out.append(f"malformed key {key!r}: not a real slot time")
+            entries = ManifestStore.from_config(cfg).entries(source)
+        except (ManifestError, OSError) as e:
+            out.append(f"{source} manifest unreadable: {e}")
             continue
-        if m.group(1) not in feed_ids:
-            out.append(f"unknown feed {m.group(1)!r} in key {key!r}")
-        if key in seen:
-            out.append(f"duplicate key {key!r}")
-        seen.add(key)
+        seen: set[str] = set()
+        for e in entries:
+            key = e.logical_key
+            m = KEY_RE.fullmatch(key)
+            if m is None:
+                out.append(f"malformed key {key!r}: expected <feed_id>/<YYYYMMDDTHHMM>")
+                continue
+            try:
+                slot_start(m.group(2))
+            except ValueError:
+                out.append(f"malformed key {key!r}: not a real slot time")
+                continue
+            want = expected.get(m.group(1))
+            if want is None:
+                out.append(f"unknown feed {m.group(1)!r} in key {key!r}")
+            elif want != source:
+                out.append(f"ghost feed {m.group(1)!r}: key {key!r} sits under source {source}, routing says {want}")
+            if key in seen:
+                out.append(f"duplicate key {key!r}")
+            seen.add(key)
     return out
 
 
@@ -75,7 +84,7 @@ def check_rss(ctx: CheckContext) -> CheckResult:
     except GapLedgerError as e:
         gaps = []
         fails.append(f"gap ledger invalid: {e}")
-    fails += _key_problems(cfg, {f.feed_id for f in feeds})
+    fails += _key_problems(cfg, feeds)
     gap_count: dict[str, int] = {}
     for g in gaps:
         gap_count[g["feed_id"]] = gap_count.get(g["feed_id"], 0) + 1
