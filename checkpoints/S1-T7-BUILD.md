@@ -1,11 +1,12 @@
-# Checkpoint S1-T7 - Builder - midway (28 Nov 2026)
+# Checkpoint S1-T7 - Builder - end (28 Nov 2026)
 
 ## State
-Steps 1-6 of the brief built: `src/investos/acquire/browser.py` (seam types, header sanitiser, PsReaper, PlaywrightDriver, RealBrowserTransport), `rss.py` (RssNseFeedCollector, collector_class_for, browser= parameter, host-down rule, coalescing, source-aware manifest reads), `check/rss_check.py` (both manifests, ghost rule), `cli.py` (--headless, transport build/close, SIGTERM handler, playwright hint), pyproject extra `browser` + marker `real_browser`, example toml (commented block), plist (Aqua + notes).
-Full suite: 2450 passed, 4 skipped, 0 failed (root, Linux, no Chrome, no network).
+Phase A complete. Suite as root: 2450 passed, 4 skipped, 0 failed; playwright blocked: same; non-root: 2453 passed, 1 skipped.
+`git diff 4b939b8..HEAD -- tests` empty; base.py untouched. Report: reports/S1-T7/REPORT.md (grep evidence, deviations).
 
 ## Next step
-Non-root run, run with playwright blocked, grep evidence + REPORT.md, final checkpoint, commit.
+Reviewer (fresh), then the Orchestrator's Mac check (install `pip install 'investos[browser]'` on 3.14.7, hand-launch the profile once,
+`INVESTOS_BROWSER_SMOKE=1 pytest -m real_browser -s`, scratch-table `--once --force` cycle, MAC_CHECK.md). Phase B only on instruction.
 
 ## Test disputes
-none so far.
+none.
