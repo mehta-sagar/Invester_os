@@ -2,6 +2,7 @@
 A17-A22, A36). No browser, no network, no real sleeps."""
 from __future__ import annotations
 
+from pathlib import Path
 import inspect
 import json
 import threading
@@ -819,3 +820,27 @@ def test_A36_a_chrome_that_dies_mid_cycle_is_replaced_once_and_nothing_is_left_b
     assert len(e.driver.launches) == 2
     assert e.driver.sessions[1].close_calls == 1 and e.driver.sessions[0].close_calls <= 1
     assert e.procs.matching(e.profile_dir) == [] and not lock_is_held(e.lock_path)
+
+
+# ---------------------------------------------------------------- review D1 (28 Nov live run): anchor must exist
+def test_D1_nse_anchor_is_an_existing_shipped_feed_url_not_robots_txt(tmp_path):
+    from investos.acquire.browser import anchor_url_for
+    from investos.acquire import rss
+    a = anchor_url_for("nsearchives.nseindia.com")
+    assert "robots.txt" not in a
+    shipped = {f.url for f in rss.load_feeds(Path(__file__).resolve().parents[3] / "config" / "rss_feeds.csv")}
+    assert a in shipped
+    e = one_feed(tmp_path)
+    with e.rb() as rb:
+        rb.fetch(URL_N1)
+    assert e.driver.urls("anchor")[-1] == a
+
+
+def test_D1_an_anchor_that_is_not_200_logs_anchor_status_and_the_fetch_still_proceeds(tmp_path, logs):
+    from investos.acquire.browser import AnchorResult
+    e = one_feed(tmp_path)
+    e.driver.anchors = [AnchorResult(404, ANCHOR)]
+    with e.rb() as rb:
+        assert rb.fetch(URL_N1).status == 200
+    w = [x for x in logs() if x["event"] == "anchor_status"]
+    assert w and w[0]["level"] == "WARNING" and w[0]["fields"]["status"] == 404

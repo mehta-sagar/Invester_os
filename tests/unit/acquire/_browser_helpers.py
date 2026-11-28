@@ -20,14 +20,14 @@ from _s1_helpers import EPOCH0, FakeNotifier, bresp  # noqa: F401
 
 HOST = "nsearchives.nseindia.com"
 URL_N1 = NSE_REAL + "F01.xml"                    # the first row of nse_rows()
-ANCHOR = f"https://{HOST}/robots.txt"
+ANCHOR = f"https://{HOST}/content/RSS/Circulars.xml"   # review D1: robots.txt is a live 404 on nsearchives
 ACCESS = {"rss_nse": {"mode": "real_browser", "daily_cap": 2000}}
 HOSTS = {HOST: 1.0, "www.rbi.org.in": 1.0, "www.sebi.gov.in": 1.0}
 CHROME_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) "
              "Chrome/142.0.0.0 Safari/537.36")
 SENT_OK = {"user-agent": CHROME_UA, "accept": "*/*", "accept-language": "en-US,en;q=0.9",
            "sec-fetch-site": "same-origin", "sec-fetch-mode": "cors", "sec-fetch-dest": "empty",
-           "sec-ch-ua": '"Chromium";v="142", "Google Chrome";v="142"', "referer": f"https://{HOST}/robots.txt"}
+           "sec-ch-ua": '"Chromium";v="142", "Google Chrome";v="142"', "referer": ANCHOR}
 N0 = ist(2026, 11, 27, 9, 0, 30)
 SLOT0 = "20261127T0900"
 URL_SEBI = "https://www.sebi.gov.in/sebirss.xml"
