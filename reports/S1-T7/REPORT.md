@@ -33,3 +33,9 @@ current release on the index at build time); `dependencies` unchanged.
    the absolute and the symlink-resolved path.
 4. `_check_headers` of manifest.py (private) is reused to validate the recorded request headers so the transport and the manifest cannot
    disagree.
+
+## Orchestrator (28 Nov 2026)
+- Live Mac check on 00c2dc9: smoke passed (fetch sha == navigation sha), 25/25 feeds, 63 s cycle, no Chrome left running.
+- Review e744faf (rerun; the first reviewer was stopped by Sagar): PASS WITH MINOR, 40/43 mutants. D1 Medium (anchor robots.txt is a live 404): fixed by the Orchestrator, red test ba28088, then the fix. D2 Low / D3 Info open.
+- Phase B: 23 NSE rows enabled; quiet feeds have a 10-year content window (Sagar). Tests updated red first.
+- Suite non-root 3x: 2455, 2455, 2455 passed (1 skipped: the env-gated smoke test).
