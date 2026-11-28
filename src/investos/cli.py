@@ -7,7 +7,8 @@ from typing import Sequence
 USAGE = ("usage: investos check [all|manifest|raw|registry|migrations|<name>] [--planted]\n"
          "       investos access status [source] | clear <source> --decision <id>\n"
          "       investos routine roots [--dry-run] [--branch NAME] [--remote NAME]\n"
-         "       investos collect rss --once [--force] [--dry-run] [--headless]")
+         "       investos collect rss --once [--force] [--dry-run] [--headless]\n"
+         "       investos backfill status [--json] | plan | probe | run [--outside-window] [--max-requests N]")
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -22,6 +23,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _routine(args[1:])
     if args and args[0] == "collect":
         return _collect(args[1:])
+    if args and args[0] == "backfill":
+        from investos.backfill.cli import main as backfill_main
+        return backfill_main(args[1:])
     print(USAGE)
     return 2
 

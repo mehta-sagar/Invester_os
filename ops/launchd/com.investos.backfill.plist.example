@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Example only; installing the job is a human step, done after `investos backfill probe` confirmed every endpoint you
+  want and after one supervised night (copy to ~/Library/LaunchAgents/ and run launchctl).
+  The job runs `investos backfill run` once a night at 00:35. The runner works inside its own window of 00:30 to
+  06:30 IST and spends the night budget of the [backfill] ramp (night 1: 4000 requests, later clean nights: 8000),
+  one request every 2.5 seconds. When every confirmed endpoint is complete it does nothing: remove this job by hand
+  when `investos backfill status` says so.
+  Time zone: launchd uses the Mac's local zone, so Hour 0 / Minute 35 means 00:35 IST only while the Mac is set to
+  Asia/Kolkata (System Settings, General, Date and Time).
+  Sleep, wake and a missed run: caffeinate -i keeps the Mac from idle sleep while the runner works. A run missed
+  because the Mac slept starts when it wakes (launchd fires a missed calendar job on wake; RunAtLoad also starts one
+  when the agent loads); the runner then checks the window and exits 0 with status window_closed if it has passed.
+  A missed night's budget is not carried over. To wake the Mac for the window, run this once (needs sudo):
+    sudo pmset repeat wakeorpoweron MTWRFSU 00:25:00
+  Keep the Mac on power and logged in. Headful Chrome needs the user's GUI session: LimitLoadToSessionType = Aqua
+  runs the agent only while Sagar is logged in.
+  Edit the example paths below to the real virtualenv script and repository checkout. Output goes under the
+  ledger zone's .state directory (untracked).
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.investos.backfill</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/caffeinate</string>
+    <string>-i</string>
+    <string>/Users/example/invester_os/.venv/bin/investos</string>
+    <string>backfill</string>
+    <string>run</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>/Users/example/invester_os</string>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>0</integer>
+    <key>Minute</key>
+    <integer>35</integer>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>LimitLoadToSessionType</key>
+  <string>Aqua</string>
+  <key>StandardOutPath</key>
+  <string>/Users/example/invester_os/data/ledger/.state/backfill.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/example/invester_os/data/ledger/.state/backfill.err.log</string>
+</dict>
+</plist>

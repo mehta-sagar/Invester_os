@@ -158,3 +158,5 @@ def _migrations_plant(ctx: CheckContext) -> None:
 
 
 from . import calendar_check as _calendar_check  # noqa: E402,F401  registers check `calendar` and its plant
+
+from . import backfill_check as _backfill_check  # noqa: E402,F401  registers check `backfill` and its plant

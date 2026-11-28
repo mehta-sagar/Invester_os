@@ -77,6 +77,17 @@ class CollectConfig:
 
 
 @dataclass(frozen=True)
+class BackfillConfig:
+    """`[backfill]` (spec collect_backfill): nightly ramp of request budgets, window, batch size, audit cadence."""
+    ramp: tuple[int, ...] = (4000, 8000)
+    window_start: str = "00:30"
+    window_end: str = "06:30"
+    batch_windows: int = 25
+    audit_every: int = 50
+    profile_name: str = "chrome-profile-backfill"
+
+
+@dataclass(frozen=True)
 class DuckDBConfig:
     memory_limit: str
     memory_limit_bytes: int
@@ -93,6 +104,7 @@ class Config:
     rate_limits: RateLimits
     collect: CollectConfig = field(default_factory=CollectConfig)
     duckdb: DuckDBConfig | None = None             # None: defaults, temp directory inside the canonical zone
+    backfill: BackfillConfig = field(default_factory=BackfillConfig)
 
     def __post_init__(self) -> None:
         if self.duckdb is None:
@@ -149,7 +161,7 @@ def _validate(data: dict) -> None:
         "rate_limits": {"default_interval_s", "hosts"},
     }
     for sec in data:
-        if sec not in schema and sec not in ("collect", "duckdb"):
+        if sec not in schema and sec not in ("collect", "duckdb", "backfill"):
             raise ConfigError(f"unknown config section: {sec}")
     for sec, keys in schema.items():
         tbl = data.get(sec)
@@ -245,6 +257,38 @@ def _parse_collect(data: dict) -> CollectConfig:
             raise ConfigError(f"{where}.challenge_signatures: must be a list of non-empty strings, each <= 200 chars")
         access[name] = AccessEntry(mode, decision, cap, tuple(sigs))
     return CollectConfig(contact, float(timeout_s), max_body, access)
+
+
+_HHMM_RE = re.compile(r"([01][0-9]|2[0-3]):[0-5][0-9]", re.ASCII)
+_PROFILE_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,63}", re.ASCII)
+
+
+def _parse_backfill(data: dict) -> BackfillConfig:
+    tbl = data.get("backfill")
+    if tbl is None:
+        return BackfillConfig()
+    if not isinstance(tbl, dict):
+        raise ConfigError("backfill: must be a table")
+    for k in tbl:
+        if k not in ("ramp", "window_start", "window_end", "batch_windows", "audit_every", "profile_name"):
+            raise ConfigError(f"unknown config key: backfill.{k}")
+    d = BackfillConfig()
+    ramp = tbl.get("ramp", list(d.ramp))
+    if not isinstance(ramp, list) or not ramp or any(not _is_int(x) or x < 1 for x in ramp):
+        raise ConfigError(f"backfill.ramp: must be a non-empty list of ints >= 1, got {ramp!r}")
+    for k in ("window_start", "window_end"):
+        v = tbl.get(k, getattr(d, k))
+        if not isinstance(v, str) or not _HHMM_RE.fullmatch(v):
+            raise ConfigError(f"backfill.{k}: must be an IST time 'HH:MM', got {v!r}")
+    for k in ("batch_windows", "audit_every"):
+        v = tbl.get(k, getattr(d, k))
+        if not _is_int(v) or v < 1:
+            raise ConfigError(f"backfill.{k}: must be an int >= 1, got {v!r}")
+    prof = tbl.get("profile_name", d.profile_name)
+    if not isinstance(prof, str) or not _PROFILE_RE.fullmatch(prof):
+        raise ConfigError(f"backfill.profile_name: must be a plain directory name, got {prof!r}")
+    return BackfillConfig(tuple(ramp), tbl.get("window_start", d.window_start), tbl.get("window_end", d.window_end),
+                          tbl.get("batch_windows", d.batch_windows), tbl.get("audit_every", d.audit_every), prof)
 
 
 def _parse_duckdb(data: dict, root: Path, zones: Mapping[str, Path], env: Mapping[str, str]) -> DuckDBConfig:
@@ -385,4 +429,5 @@ def load_config(path: Path | None = None, *, env: Mapping[str, str] | None = Non
     rl = data["rate_limits"]
     rate_limits = RateLimits(float(rl["default_interval_s"]),
                              {h: float(v) for h, v in rl.get("hosts", {}).items()})
-    return Config(root, data["general"]["timezone"], zones, migrations_dir, rate_limits, collect, duck)
+    return Config(root, data["general"]["timezone"], zones, migrations_dir, rate_limits, collect, duck,
+                  _parse_backfill(data))

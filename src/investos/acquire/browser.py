@@ -378,7 +378,9 @@ class RealBrowserTransport:
     def __init__(self, cfg: Config, *, driver: BrowserDriver | None = None,
                  allowed_hosts: frozenset[str] = BROWSER_HOSTS, headless: bool = False,
                  clock=None, monotonic=None, wall_clock=None, sleeper=None,
-                 reaper: Reaper | None = None, notifier: Notifier | None = None) -> None:
+                 reaper: Reaper | None = None, notifier: Notifier | None = None,
+                 anchor_for: Callable[[str], str] | None = None, origin_aliases: Mapping[str, str] | None = None,
+                 profile_name: str = "chrome-profile") -> None:
         self._cfg = cfg
         self._driver = driver if driver is not None else PlaywrightDriver()
         self._allowed = frozenset(h.lower() for h in allowed_hosts)
@@ -391,8 +393,12 @@ class RealBrowserTransport:
         self._clock = clock
         state_dir = Path(cfg.zones["ledger"]) / ".state"
         self._state_dir = state_dir
-        self._profile = state_dir / "chrome-profile"
-        self._lock_path = state_dir / "chrome-profile.lock"
+        self._profile = state_dir / profile_name
+        self._lock_path = state_dir / f"{profile_name}.lock"
+        self._anchor_for = anchor_for
+        self._aliases = {str(k).lower(): str(v).lower() for k, v in (origin_aliases or {}).items()}
+        self._anchor_url: str | None = None                  # set_anchor: the page this run anchors on
+        self._anchor_pending = False
         self._limiter = HostLimiter(state_dir, wall_clock=wall, monotonic=self._mono, sleeper=self._sleep)
         self._log = log.get_logger("collect.browser")
         self._session: BrowserSession | None = None
@@ -417,14 +423,22 @@ class RealBrowserTransport:
         max_bytes = min(int(cfg.collect.max_body_bytes), MAX_BODY_CAP)
         session = self._ensure_session()
         origin = _origin_of(url)
-        if session.page_origin() != origin:
-            blocked = self._anchor(session, host, origin, timeout_s)
+        if self._anchor_pending or session.page_origin() != origin:
+            blocked = self._anchor(session, host, origin, timeout_s, url)
             if blocked is not None:
                 return blocked
             self._limiter.acquire(host, self._interval(host))
         fr = self._guarded(timeout_s, lambda: session.fetch(url, timeout_s, max_bytes))
         resp = self._to_response(url, fr, max_bytes)
         return BrowserResponse(resp.status, resp.headers, resp.body, resp.final_url, self._sent(session, url))
+
+    def set_anchor(self, url: str) -> None:
+        """The next fetch navigates the page to this anchor, through the limiter, even when the origin already
+        matches; later restarts of Chrome anchor on it too (spec collect_backfill C3)."""
+        parts = urlsplit(url)
+        if parts.scheme != "https" or (parts.hostname or "").lower() not in self._allowed or "@" in parts.netloc:
+            raise ValueError(f"anchor is not an allowed https URL of {sorted(self._allowed)}")
+        self._anchor_url, self._anchor_pending = url, True
 
     def close(self) -> None:
         session, self._session = self._session, None
@@ -462,17 +476,25 @@ class RealBrowserTransport:
             if wd.fired:
                 self._dead = True
 
-    def _anchor(self, session: BrowserSession, host: str, origin: str, timeout_s: float) -> BrowserResponse | None:
-        anchor_url = f"{origin}{ANCHOR_PATHS.get(host, ANCHOR_PATH)}"
+    def _anchor(self, session: BrowserSession, host: str, origin: str, timeout_s: float,
+                url: str) -> BrowserResponse | None:
+        if self._anchor_url is not None:
+            anchor_url = self._anchor_url
+        elif self._anchor_for is not None:
+            anchor_url = self._anchor_for(url)
+        else:
+            anchor_url = f"{origin}{ANCHOR_PATHS.get(host, ANCHOR_PATH)}"
+        anchor_origin = _origin_of(anchor_url)
         interval = self._interval(host)
         self._limiter.acquire(host, interval)
         res = self._guarded(timeout_s, lambda: session.goto_anchor(anchor_url, timeout_s))
+        self._anchor_pending = False
         if res.status in _BLOCK_STATUSES:
             return BrowserResponse(res.status, {}, b"", anchor_url, None)
         if res.status != 200:
             self._log.warning("anchor_status", host=host, status=res.status)
         final_origin = _origin_of(res.final_url)
-        if final_origin != origin:
+        if final_origin != anchor_origin and final_origin != self._aliases.get(anchor_origin):
             raise TransportError(f"anchor left origin: {final_origin or 'unknown'}")
         return None
 

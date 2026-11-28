@@ -37,6 +37,44 @@ max_body_bytes = 536870912
 # mode = "real_browser"
 # daily_cap = 2000            # attempts per IST day for the whole NSE poller (23 feeds x 76 slots = 1748, plus retries)
 
+# One-time history backfill of the NSE www endpoints (spec collect_backfill, decision 0002a, access mode real_browser).
+# Copy these blocks, uncommented, into your local config/investos.toml only after the probe has been read with Sagar.
+# ramp: request budget per night: night 1 = first number, later nights without a block = second number.
+# [backfill]
+# ramp          = [4000, 8000]
+# window_start  = "00:30"      # IST, nightly window
+# window_end    = "06:30"
+# batch_windows = 25           # windows per base run() call; clock and budget are checked between batches
+# audit_every   = 50           # every n-th completed window is re-fetched as two halves to prove completeness
+# profile_name  = "chrome-profile-backfill"   # a Chrome profile separate from the RSS poller's
+# [collect.access.backfill_announcements]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_pit]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_corporate_actions]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_shareholding]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_bulk_deals]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_block_deals]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_board_meetings]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_results]
+# mode = "real_browser"
+# daily_cap = 9000
+# [collect.access.backfill_probe]
+# mode = "real_browser"
+# daily_cap = 9000
+
 [duckdb]
 # resource caps applied by open_db on every connection (16 GB Mac: leave room for the browser and Python workers;
 # with two DuckDB processes at once use 3GB each). Heavy queries spill to temp_directory instead of swapping.
