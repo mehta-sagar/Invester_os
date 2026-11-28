@@ -229,7 +229,7 @@ def test_A7_length_mismatch_invalid_base64_and_oversize_are_transport_errors(tmp
         e, w, rb = pw_env(tmp_path / f"c{n}")
         w.handler = lambda url, arg, result=result: result
         with rb:
-            with pytest.raises(TransportError, match=text or ""):
+            with pytest.raises(TransportError, match=text or None):
                 rb.fetch(URL_N1)
 
 

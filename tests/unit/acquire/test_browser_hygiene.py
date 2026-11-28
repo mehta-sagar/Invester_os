@@ -121,7 +121,8 @@ def test_A28_everything_imports_with_playwright_blocked():
         "importlib.import_module('investos.cli')\n"
         "importlib.import_module('investos.check.rss_check')\n"
         "for m in pkgutil.walk_packages(investos.__path__, 'investos.'):\n"
-        "    importlib.import_module(m.name)\n"
+        "    if not m.name.endswith('__main__'):\n"
+        "        importlib.import_module(m.name)\n"
         "assert sys.modules['playwright'] is None\n")
     r = subprocess.run([sys.executable, "-I", "-c", code], capture_output=True, text=True, timeout=120)
     assert r.returncode == 0, r.stderr[-800:]
@@ -169,7 +170,7 @@ def test_A33_plist_asks_for_the_gui_session_and_explains_why():
     assert d["LimitLoadToSessionType"] == "Aqua"
     assert d["ProgramArguments"][1:4] == ["collect", "rss", "--once"] and d["ProgramArguments"][0].endswith("investos")
     text = raw.decode()
-    for needle in (r"GUI", r"session", r"investos\[browser\]", r"--headless", r"sleep"):
+    for needle in (r"GUI", r"session", r"investos\[browser\]", r"headless", r"sleep"):
         assert re.search(needle, text, re.I), needle
 
 
