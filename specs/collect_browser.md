@@ -210,3 +210,6 @@ A37. (R1, R7, R14) Given all existing collector, access, manifest, RSS and check
 
 ## Sagar's answers (28 Nov 2026, pop-up)
 1a headful, window off-screen. 2a keep 2.5 s per request (decision 0002a). 3a one Chrome per cycle. 4a at most one "host down" alert per day. 5a daily_cap 2000. 6a separate source `rss_nse` (real_browser) next to `rss`.
+
+## Orchestrator resolutions after the red tests (28 Nov 2026)
+The Test writer's readings in reports/S1-T7/RED_TESTS.md "Questions for Orchestrator" (all 10) are accepted as the contract for the Builder: names left open by the spec (PsReaper args, page-function result shape, anchor goto args), the watchdog polling the injected monotonic with a short real wait, the A15 string list applying to browser.py only, A33 asserting the word `headless`, A31 using 38 s attempts, and R17's `alerted` set before sending. The NSE test-host change in the old RSS helpers (NSE -> honest test host, NSE_REAL kept) is accepted; no assertion was weakened.
