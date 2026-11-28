@@ -198,6 +198,8 @@ def plant_bytes_changed(c):
     from pathlib import Path
     for p in Path(c.cfg.zones["raw"]).rglob("*"):
         if p.is_file() and p.suffix not in (".jsonl", ".json") and "backfill_announcements" in str(p):
+            import os
+            os.chmod(p, 0o644)   # review D7: raw files are 0444; only root could write without this
             p.write_bytes(p.read_bytes() + b" ")
             return
     raise AssertionError("no stored raw found to tamper with")
