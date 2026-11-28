@@ -267,3 +267,9 @@ Parsing, normalising, deduplicating or typing any backfilled row (a later stage,
 3. Start dates. (a) Whatever the probe finds as earliest (recommended; announcements from 2005, items before about 2012 carry only a date and become end-of-day); (b) fix 2010-01-01 for all endpoints (smaller, and avoids the date-only era entirely).
 4. One-day windows that still hit the cap (bulk deals, 70 rows; R24). (a) Record them as gaps and decide after the first pass how many there are and whether to fill them by per-symbol queries or the manual CSV download (recommended); (b) fill them now by adding per-symbol queries to this task (more code and more requests before we know it matters).
 5. The Mac at night. (a) One-time `sudo pmset repeat wakeorpoweron MTWRFSU 00:25:00` plus the `caffeinate` wrapper in the plist, Mac logged in and on power (recommended; needs your sudo once); (b) no wake schedule: the job runs only on nights the Mac is already awake, so more nights and unpredictable gaps.
+
+## Sagar's answers (28 Nov 2026, pop-up)
+1. Pace: RAMP. Night 1 budget 4,000 requests; if night 1 ends with no block and no challenge, later nights 8,000 (config `ramp = [4000, 8000]`; any block resets nothing, it stops the runner per R-block). Same 2.5 s spacing either way.
+2. Scope: the probe covers all 8 endpoints; the backfill runs the core first (announcements, PIT, corporate actions, bulk deals, block deals), then the remaining confirmed endpoints automatically. An endpoint whose probe fails is skipped; only a block stops everything.
+3. Start dates: the earliest date the probe finds. 4. One-day windows still at the cap: recorded as gaps (`unsplittable`), decided after the first pass.
+5. Mac at night: `pmset` wake at 00:25 (Sagar runs one sudo line once) + keep-awake (caffeinate) during the run.
