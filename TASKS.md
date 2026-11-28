@@ -38,4 +38,7 @@ Then: Independent auditor (strongest model, fresh context) → Sagar approves la
 | S1-SPEC3 | Spec: RSS poller (first real adapter), item extractor, freshness check | Spec writer | specs/collect_rss.md, briefs/S1-T6.md | merged (main 98f753d; answers 1a 2a 3a 4a) | S1-SPEC2 |
 | S1-T6 | RSS poller, base `unchanged_body` hook, item extractor, adapter registry, `investos check rss` | Test writer → Builder | src/investos/acquire/{rss,registry}.py, src/investos/parse/rss_items.py, src/investos/check/rss_check.py, config/rss_feeds.csv | open | S1-SPEC3 |
 
+| S1-SPEC4 | Spec: real-Chrome transport for the NSE feeds (Playwright, installed Chrome), per-host routing, host-down rule, smoke test | Spec writer | specs/collect_browser.md, briefs/S1-T7.md | merged-pending (task/S1-SPEC4; six open questions with recommendations) | S1-T6 |
+| S1-T7 | Real-Chrome transport `RealBrowserTransport`, `RssNseFeedCollector` (source `rss_nse`), host-down rule, alert coalescing; phase B re-enables the 23 NSE rows after the Orchestrator's Mac check | Test writer → Builder | src/investos/acquire/browser.py, src/investos/acquire/rss.py, config/rss_feeds.csv (phase B) | open | S1-SPEC4 |
+
 Order: S1-T2 first (v2 reader before any v2 writer), then S1-T1 (also builds core/notify.py), then S1-T3. C3 done (reports/S0-AUD/mac_run.txt: 688 passed, ALL CLAIMS PASS). Still open: C5 (before raw passes a few GB).
