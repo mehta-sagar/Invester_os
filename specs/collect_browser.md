@@ -207,3 +207,6 @@ A37. (R1, R7, R14) Given all existing collector, access, manifest, RSS and check
 4. Dead-host alerts (R17). (a) One notification per dead host per day, "host down: nsearchives.nseindia.com: 23 feeds" (recommended); (b) keep one notification per feed, up to 23 at once.
 5. Daily request cap for the NSE poller (R14, config value). (a) 2000 (recommended: 1,748 first attempts a day plus about 250 for retries); (b) a tighter 1850, nearer to the polling volume, at the price of cap gaps after a few retries. A cap only makes gaps, never blocks.
 6. Where the NSE feeds live in the manifest (R13). (a) A second source `rss_nse` next to `rss` (recommended: the base forbids a class to change its mode by config (base R17), the recorded `access_mode` per source stays truthful, and the check, state files and gap ledger are shared); (b) one source `rss` with a per-instance mode, which means changing base R17 and its tests and making the manifest lines of one source carry two modes.
+
+## Sagar's answers (28 Nov 2026, pop-up)
+1a headful, window off-screen. 2a keep 2.5 s per request (decision 0002a). 3a one Chrome per cycle. 4a at most one "host down" alert per day. 5a daily_cap 2000. 6a separate source `rss_nse` (real_browser) next to `rss`.
